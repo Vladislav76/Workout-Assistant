@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Workout Assistant</string>
+
+    <string name="action_programs">Programs</string>
+    <string name="action_diary">Diary</string>
+
+    <string name="title_label">Title</string>
+    <string name="date_and_time_label">Date and Time</string>
+    <string name="duration_label">Duration</string>
+    <string name="muscle_groups_label">Muscle groups</string>
+
+    <string name="date_hint">Workout date</string>
+    <string name="start_time_hint">Start time</string>
+    <string name="finish_time_hint">Finish time</string>
+
+    <string-array name="muscle_groups">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Biceps</item>
+        <item>Triceps</item>
+        <item>Shoulders</item>
+        <item>Trapezius</item>
+        <item>Quadriceps</item>
+        <item>Calves</item>
+        <item>Abs</item>
+    </string-array>
+</resources>
