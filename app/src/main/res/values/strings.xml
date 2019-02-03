@@ -6,12 +6,13 @@
 
     <string name="title_label">Title</string>
     <string name="date_and_time_label">Date and Time</string>
-    <string name="duration_label">Duration</string>
+    <string name="time_duration_label">Time duration</string>
     <string name="muscle_groups_label">Muscle groups</string>
 
     <string name="date_hint">Workout date</string>
     <string name="start_time_hint">Start time</string>
     <string name="finish_time_hint">Finish time</string>
+    <string name="time_duration_hint">Invalid time input</string>
 
     <string-array name="muscle_groups">
         <item>Chest</item>
@@ -24,4 +25,7 @@
         <item>Calves</item>
         <item>Abs</item>
     </string-array>
+
+    <string name="null_time_input_error">Time fields must not be empty!</string>
+    <string name="not_correct_time_input_error">Start time must not be greater than finish time!</string>
 </resources>

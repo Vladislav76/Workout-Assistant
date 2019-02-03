@@ -1,5 +1,6 @@
 package com.vladislav.workoutassistant.data;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class DiaryEntry {
@@ -11,6 +12,7 @@ public class DiaryEntry {
         mFinishTime = finishTime;
         mTitle = title;
         mMuscleGroups = muscleGroups;
+        mDuration = new Time(mFinishTime.getTime() - mStartTime.getTime());
     }
 
     public int getId() {
@@ -33,7 +35,7 @@ public class DiaryEntry {
         return mTitle;
     }
 
-    public int getDuration() {
+    public Date getDuration() {
         return mDuration;
     }
 
@@ -57,7 +59,7 @@ public class DiaryEntry {
         mTitle = title;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Date duration) {
         mDuration = duration;
     }
 
@@ -69,7 +71,7 @@ public class DiaryEntry {
     private Date mDate;
     private Date mStartTime;
     private Date mFinishTime;
+    private Date mDuration;
     private String mTitle;
-    private int mDuration;
     private String[] mMuscleGroups;
 }

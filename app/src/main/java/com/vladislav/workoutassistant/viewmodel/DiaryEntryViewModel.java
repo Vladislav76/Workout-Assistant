@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -13,12 +14,15 @@ import androidx.databinding.Bindable;
 public class DiaryEntryViewModel extends BaseObservable {
 
     private DiaryEntry mDiaryEntry;
-    private SimpleDateFormat timeFormatter;
+    private DateFormat timeFormatter;
     private DateFormat dateFormatter;
+    private DateFormat durationFormatter;
 
     public DiaryEntryViewModel() {
-        dateFormatter = DateFormat.getDateInstance(DateFormat.FULL);
-        timeFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        dateFormatter = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
+        timeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
+        durationFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        durationFormatter.setTimeZone(TimeZone.getTimeZone("GTM"));
     }
 
     @Bindable
@@ -39,7 +43,7 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     @Bindable
     public String getDate() {
-        if (mDiaryEntry != null) {
+        if (mDiaryEntry != null && mDiaryEntry.getDate() != null) {
             return dateFormatter.format(mDiaryEntry.getDate());
         }
         return null;
@@ -47,7 +51,7 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     @Bindable
     public String getStartTime() {
-        if (mDiaryEntry != null) {
+        if (mDiaryEntry != null && mDiaryEntry.getStartTime() != null) {
             return timeFormatter.format(mDiaryEntry.getStartTime());
         }
         return null;
@@ -55,7 +59,7 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     @Bindable
     public String getFinishTime() {
-        if (mDiaryEntry != null) {
+        if (mDiaryEntry != null && mDiaryEntry.getFinishTime() != null) {
             return timeFormatter.format(mDiaryEntry.getFinishTime());
         }
         return null;
@@ -63,8 +67,8 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     @Bindable
     public String getDuration() {
-        if (mDiaryEntry != null) {
-            return Integer.toString(mDiaryEntry.getDuration());
+        if (mDiaryEntry != null && mDiaryEntry.getDuration() != null) {
+            return durationFormatter.format(mDiaryEntry.getDuration());
         }
         return null;
     }
@@ -90,6 +94,11 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     public void setFinishTime(Date time) {
         mDiaryEntry.setFinishTime(time);
+        notifyChange();
+    }
+
+    public void setDuration(Date duration) {
+        mDiaryEntry.setDuration(duration);
         notifyChange();
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.Diary;
@@ -13,6 +14,7 @@ import com.vladislav.workoutassistant.data.DiaryEntry;
 import com.vladislav.workoutassistant.databinding.FragmentWorkoutDetailsBinding;
 import com.vladislav.workoutassistant.viewmodel.DiaryEntryViewModel;
 
+import java.sql.Time;
 import java.util.Date;
 
 import androidx.databinding.DataBindingUtil;
@@ -48,12 +50,14 @@ public class WorkoutDetailsFragment extends Fragment {
                     mDiaryEntryViewModel.setDate(date);
                     break;
                 case REQUEST_GET_START_TIME:
-                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setStartTime(date);
+                    Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setStartTime(time);
+                    updateDuration();
                     break;
                 case REQUEST_GET_FINISH_TIME:
-                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setFinishTime(date);
+                    time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setFinishTime(time);
+                    updateDuration();
                     break;
             }
         }
@@ -98,6 +102,21 @@ public class WorkoutDetailsFragment extends Fragment {
                 return entry.getFinishTime();
         }
         return null;
+    }
+
+    private void updateDuration() {
+        if (mDiaryEntryViewModel.getStartTime() != null && mDiaryEntryViewModel.getFinishTime() != null) {
+            Time startTime = (Time) mDiaryEntryViewModel.getDiaryEntry().getStartTime();
+            Time finishTime = (Time) mDiaryEntryViewModel.getDiaryEntry().getFinishTime();
+            if (startTime.toString().compareTo(finishTime.toString()) <= 0) {
+                Time duration = new Time(Math.abs(finishTime.getTime() - startTime.getTime()));
+                mDiaryEntryViewModel.setDuration(duration);
+            }
+            else {
+                mDiaryEntryViewModel.setDuration(null);
+                Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public static WorkoutDetailsFragment newInstance(int diaryEntryId) {

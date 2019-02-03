@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -21,17 +23,15 @@ public class TimePickerFragment extends DialogFragment {
         Date date = (Date) getArguments().getSerializable(ARG_TIME);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         return new TimePickerDialog(getActivity(),
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.HOUR, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                        sendResult(Activity.RESULT_OK, calendar.getTime());
+                        Calendar calendar = new GregorianCalendar(0,0 ,0, hourOfDay, minute);
+                        sendResult(Activity.RESULT_OK, new Time(calendar.getTime().getTime()));
                     }
                 },
                 hour, minute, DateFormat.is24HourFormat(getActivity()));

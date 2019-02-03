@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/duration_label"
+            android:text="@string/time_duration_label"
             android:visibility="@{viewModel.startTime == null || viewModel.finishTime == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_time_button" />
@@ -142,6 +142,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="@{viewModel.duration}"
+            android:hint="@string/time_duration_hint"
             android:visibility="@{viewModel.startTime == null || viewModel.finishTime == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/duration_label" />
