@@ -3,6 +3,7 @@
 
     <string name="action_programs">Programs</string>
     <string name="action_diary">Diary</string>
+    <string name="action_muscle_groups_editing">Edit</string>
 
     <string name="title_label">Title</string>
     <string name="date_and_time_label">Date and Time</string>

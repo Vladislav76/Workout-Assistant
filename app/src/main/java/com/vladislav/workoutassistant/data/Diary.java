@@ -15,7 +15,7 @@ public class Diary {
             Date date = new Date();
             Calendar calendar = new GregorianCalendar(0, 0, 0, 0, 0);
             Time time = new Time(calendar.getTime().getTime());
-            DiaryEntry entry = new DiaryEntry(i, date, time, time, "Workout №" + i, new String[] {"!"});
+            DiaryEntry entry = new DiaryEntry(i, date, time, time, "Workout №" + i);
             mEntries.add(entry);
         }
     }

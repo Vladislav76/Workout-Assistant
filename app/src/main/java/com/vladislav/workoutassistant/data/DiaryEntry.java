@@ -1,18 +1,19 @@
 package com.vladislav.workoutassistant.data;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DiaryEntry {
 
-    public DiaryEntry(int id, Date date, Date startTime, Date finishTime, String title, String[] muscleGroups) {
+    public DiaryEntry(int id, Date date, Date startTime, Date finishTime, String title) {
         mId = id;
         mDate = date;
         mStartTime = startTime;
         mFinishTime = finishTime;
         mTitle = title;
-        mMuscleGroups = muscleGroups;
         mDuration = new Time(mFinishTime.getTime() - mStartTime.getTime());
+        mMuscleGroupsIds = new ArrayList<>();
     }
 
     public int getId() {
@@ -39,8 +40,8 @@ public class DiaryEntry {
         return mDuration;
     }
 
-    public String[] getMuscleGroups() {
-        return mMuscleGroups;
+    public ArrayList<Integer> getMuscleGroupsIds() {
+        return mMuscleGroupsIds;
     }
 
     public void setDate(Date date) {
@@ -63,8 +64,8 @@ public class DiaryEntry {
         mDuration = duration;
     }
 
-    public void setMuscleGroups(String[] muscleGroups) {
-        mMuscleGroups = muscleGroups;
+    public void setMuscleGroupsIds(ArrayList<Integer> muscleGroups) {
+        mMuscleGroupsIds = muscleGroups;
     }
 
     private int mId;
@@ -73,5 +74,5 @@ public class DiaryEntry {
     private Date mFinishTime;
     private Date mDuration;
     private String mTitle;
-    private String[] mMuscleGroups;
+    private ArrayList<Integer> mMuscleGroupsIds;
 }

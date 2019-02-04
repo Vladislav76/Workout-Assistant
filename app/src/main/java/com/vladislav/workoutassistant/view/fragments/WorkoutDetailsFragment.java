@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.Diary;
 import com.vladislav.workoutassistant.data.DiaryEntry;
@@ -15,6 +17,7 @@ import com.vladislav.workoutassistant.databinding.FragmentWorkoutDetailsBinding;
 import com.vladislav.workoutassistant.viewmodel.DiaryEntryViewModel;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.databinding.DataBindingUtil;
@@ -38,6 +41,9 @@ public class WorkoutDetailsFragment extends Fragment {
         mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setFragment(this);
 
+        mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
+        updateMuscleGroups();
+
         return mBinding.getRoot();
     }
 
@@ -50,14 +56,19 @@ public class WorkoutDetailsFragment extends Fragment {
                     mDiaryEntryViewModel.setDate(date);
                     break;
                 case REQUEST_GET_START_TIME:
-                    Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setStartTime(time);
+                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setStartTime(date);
                     updateDuration();
                     break;
                 case REQUEST_GET_FINISH_TIME:
-                    time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setFinishTime(time);
+                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setFinishTime(date);
                     updateDuration();
+                    break;
+                case REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST:
+                    ArrayList<Integer> selectedMuscleGroupsIdList = data.getIntegerArrayListExtra(ItemGroupPickerFragment.EXTRA_SELECTED_ITEM_ID_LIST);
+                    mDiaryEntryViewModel.setMuscleGroupsIds(selectedMuscleGroupsIdList);
+                    updateMuscleGroups();
                     break;
             }
         }
@@ -85,6 +96,14 @@ public class WorkoutDetailsFragment extends Fragment {
                 dialog.show(fm, TAG_TIME_PICKER_DIALOG);
                 break;
         }
+    }
+
+    public void onMuscleGroupsEditingClicked(View view) {
+        FragmentManager fm = getFragmentManager();
+        DialogFragment dialog = ItemGroupPickerFragment
+                .newInstance(mDiaryEntryViewModel.getMuscleGroupsIds(), mMuscleGroupsNameArray);
+        dialog.setTargetFragment(this, REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST);
+        dialog.show(fm, TAG_ITEM_GROUP_PICKER_DIALOG);
     }
 
     private Date getDate(int buttonId) {
@@ -119,6 +138,31 @@ public class WorkoutDetailsFragment extends Fragment {
         }
     }
 
+    private void updateMuscleGroups() {
+        ChipGroup chipGroup = mBinding.muscleGroupsChips;
+        int chipsNumber = chipGroup.getChildCount();
+        ArrayList<Integer> selectedMuscleGroupsIdList = mDiaryEntryViewModel.getMuscleGroupsIds();
+
+        if (selectedMuscleGroupsIdList != null) {
+            for (int i = 0; i < selectedMuscleGroupsIdList.size(); i++) {
+                if (i < chipsNumber - 1) {
+                    Chip chip = (Chip) chipGroup.getChildAt(i);
+                    chip.setText(mMuscleGroupsNameArray[selectedMuscleGroupsIdList.get(i)]);
+                }
+                else {
+                    Chip chip = new Chip(getActivity());
+                    chip.setText(mMuscleGroupsNameArray[selectedMuscleGroupsIdList.get(i)]);
+                    chipGroup.addView(chip, chipsNumber - 1);
+                    chipsNumber++;
+                }
+            }
+
+            for (int i = chipsNumber - 2; i >= selectedMuscleGroupsIdList.size() ; i--) {
+                chipGroup.removeViewAt(i);
+            }
+        }
+    }
+
     public static WorkoutDetailsFragment newInstance(int diaryEntryId) {
         Bundle args = new Bundle();
         args.putInt(ARG_DIARY_ENTRY_ID, diaryEntryId);
@@ -131,11 +175,14 @@ public class WorkoutDetailsFragment extends Fragment {
 
     private DiaryEntryViewModel mDiaryEntryViewModel;
     private FragmentWorkoutDetailsBinding mBinding;
+    private String[] mMuscleGroupsNameArray;
 
     private static final String ARG_DIARY_ENTRY_ID = "arg_diary_entry_id";
     private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
     private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
+    private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";
     private static final int REQUEST_GET_DATE = 1;
     private static final int REQUEST_GET_START_TIME = 2;
     private static final int REQUEST_GET_FINISH_TIME = 3;
+    private static final int REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST = 4;
 }

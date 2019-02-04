@@ -4,6 +4,7 @@ import com.vladislav.workoutassistant.data.DiaryEntry;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -12,11 +13,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 public class DiaryEntryViewModel extends BaseObservable {
-
-    private DiaryEntry mDiaryEntry;
-    private DateFormat timeFormatter;
-    private DateFormat dateFormatter;
-    private DateFormat durationFormatter;
 
     public DiaryEntryViewModel() {
         dateFormatter = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
@@ -73,6 +69,10 @@ public class DiaryEntryViewModel extends BaseObservable {
         return null;
     }
 
+    public ArrayList<Integer> getMuscleGroupsIds() {
+        return mDiaryEntry == null ? null : mDiaryEntry.getMuscleGroupsIds();
+    }
+
     public DiaryEntry getDiaryEntry() {
         return mDiaryEntry;
     }
@@ -101,4 +101,13 @@ public class DiaryEntryViewModel extends BaseObservable {
         mDiaryEntry.setDuration(duration);
         notifyChange();
     }
+
+    public void setMuscleGroupsIds(ArrayList<Integer> list) {
+        mDiaryEntry.setMuscleGroupsIds(list);
+    }
+
+    private DiaryEntry mDiaryEntry;
+    private DateFormat timeFormatter;
+    private DateFormat dateFormatter;
+    private DateFormat durationFormatter;
 }
