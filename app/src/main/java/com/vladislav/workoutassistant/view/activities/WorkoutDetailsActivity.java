@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 
+import com.vladislav.workoutassistant.data.Diary;
 import com.vladislav.workoutassistant.view.fragments.WorkoutDetailsFragment;
 
 public class WorkoutDetailsActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return WorkoutDetailsFragment
-                .newInstance(getIntent().getIntExtra(EXTRA_DIARY_ENTRY_ID, 0));
+        int diaryEntryId = getIntent().getIntExtra(EXTRA_DIARY_ENTRY_ID, Diary.NULL_TEMP_DIARY_ENTRY);
+        Diary.getDiary().setTempDiaryEntry(diaryEntryId);
+
+        return WorkoutDetailsFragment.newInstance();
     }
 
     public static Intent newIntent(Context packageContext, int diaryEntryId) {

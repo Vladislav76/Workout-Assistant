@@ -50,6 +50,11 @@ public class ItemGroupPickerFragment extends DialogFragment {
                 .create();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST, getSelectedItemIdArrayList(mItems));
+    }
+
     private void sendResult(int resultCode, ArrayList<Integer> selectedItemIdList) {
         Fragment targetFragment = getTargetFragment();
         if (targetFragment != null) {

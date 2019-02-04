@@ -33,14 +33,10 @@ public class WorkoutDetailsFragment extends Fragment {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout_details, container, false);
 
-        int diaryEntryId = getArguments().getInt(ARG_DIARY_ENTRY_ID, 0);
-        DiaryEntry diaryEntry = Diary.getDiary().getEntryById(diaryEntryId);
-
         mDiaryEntryViewModel = new DiaryEntryViewModel();
-        mDiaryEntryViewModel.setDiaryEntry(diaryEntry);
+        mDiaryEntryViewModel.setDiaryEntry(Diary.getDiary().getTempDiaryEntry());
         mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setFragment(this);
-
         mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
         updateMuscleGroups();
 
@@ -106,6 +102,32 @@ public class WorkoutDetailsFragment extends Fragment {
         dialog.show(fm, TAG_ITEM_GROUP_PICKER_DIALOG);
     }
 
+    public void onSaveButtonClicked(View view) {
+        if (mDiaryEntryViewModel.getStartTime() == null || mDiaryEntryViewModel.getFinishTime() == null) {
+            Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mDiaryEntryViewModel.getDuration() == null) {
+            Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DiaryEntry modifiedEntry = mDiaryEntryViewModel.getDiaryEntry();
+        DiaryEntry initialEntry = Diary.getDiary().getEntryById(modifiedEntry.getId());
+        if (initialEntry == null) {
+            Diary.getDiary().addEntry(modifiedEntry);
+        }
+        else {
+            Diary.getDiary().updateEntry(modifiedEntry);
+        }
+        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
+        getActivity().finish();
+    }
+
+    public void onCancelButtonClicked(View view) {
+        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
+        getActivity().finish();
+    }
+
     private Date getDate(int buttonId) {
         DiaryEntry entry = mDiaryEntryViewModel.getDiaryEntry();
         if (entry == null) {
@@ -163,13 +185,8 @@ public class WorkoutDetailsFragment extends Fragment {
         }
     }
 
-    public static WorkoutDetailsFragment newInstance(int diaryEntryId) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_DIARY_ENTRY_ID, diaryEntryId);
-
+    public static WorkoutDetailsFragment newInstance() {
         WorkoutDetailsFragment fragment = new WorkoutDetailsFragment();
-        fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -177,7 +194,6 @@ public class WorkoutDetailsFragment extends Fragment {
     private FragmentWorkoutDetailsBinding mBinding;
     private String[] mMuscleGroupsNameArray;
 
-    private static final String ARG_DIARY_ENTRY_ID = "arg_diary_entry_id";
     private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
     private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
     private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";

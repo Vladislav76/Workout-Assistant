@@ -19,41 +19,15 @@
         tools:context=".view.activities.WorkoutDetailsActivity">
 
         <TextView
-            android:id="@+id/title_label"
-            style="?android:listSeparatorTextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/title_label"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/title_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/title_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/title_label"
-            app:layout_constraintTop_toTopOf="@+id/title_label" />
-
-        <TextView
             android:id="@+id/date_and_time_label"
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/date_and_time_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_label" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/date_button"
@@ -177,5 +151,28 @@
             android:onClick="@{fragment::onMuscleGroupsEditingClicked}"
             app:chipIcon="@drawable/ic_edit_black_24dp" />
         </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/action_save"
+            android:onClick="@{fragment::onSaveButtonClicked}"
+            app:icon="@drawable/ic_save_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/action_cancel"
+            android:onClick="@{fragment::onCancelButtonClicked}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/save_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
