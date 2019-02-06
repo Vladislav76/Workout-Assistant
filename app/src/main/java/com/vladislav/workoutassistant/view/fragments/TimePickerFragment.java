@@ -20,10 +20,15 @@ public class TimePickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Date date = (Date) getArguments().getSerializable(ARG_TIME);
+        Date time = (Date) getArguments().getSerializable(ARG_TIME);
+        if (time == null) {
+            time = new Date();
+        }
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        calendar.setTime(time);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         return new TimePickerDialog(getActivity(),

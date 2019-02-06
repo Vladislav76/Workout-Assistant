@@ -19,15 +19,53 @@
         tools:context=".view.activities.WorkoutDetailsActivity">
 
         <TextView
-            android:id="@+id/date_and_time_label"
+            android:id="@+id/title_label"
             style="?android:listSeparatorTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/date_and_time_label"
+            android:text="@string/title_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/title_field"
+            android:layout_width="0dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:text="@{viewModel.defaultTitleCheck ? viewModel.defaultTitle : viewModel.title}"
+            android:inputType="text"
+            android:afterTextChanged="@{(s) -> !viewModel.defaultTitleCheck ? viewModel.setTitle(s.toString()) : null}"
+            android:focusableInTouchMode="@{viewModel.defaultTitleCheck ? false : true}"
+            android:focusable="@{viewModel.defaultTitleCheck ? false : true}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_label" />
+
+        <CheckBox
+            android:id="@+id/default_title_check_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/default_label"
+            android:onClick="@{() -> viewModel.setDefaultTitleCheckbox(!viewModel.defaultTitleCheck)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_field" />
+
+        <TextView
+            android:id="@+id/date_and_time_label"
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/date_and_time_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/default_title_check_field" />
 
         <ImageButton
             android:id="@+id/date_button"

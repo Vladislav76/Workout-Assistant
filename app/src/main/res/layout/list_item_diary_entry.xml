@@ -48,6 +48,7 @@
             android:text="@{viewModel.title}"
             android:textColor="@android:color/black"
             android:textSize="18sp"
+            android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id_field"
             app:layout_constraintTop_toTopOf="parent" />

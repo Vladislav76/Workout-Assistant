@@ -69,6 +69,16 @@ public class DiaryEntryViewModel extends BaseObservable {
         return null;
     }
 
+    @Bindable
+    public String getDefaultTitle() {
+        return mDefaultTitle;
+    }
+
+    @Bindable
+    public boolean isDefaultTitleCheck() {
+        return mDefaultTitleCheckbox;
+    }
+
     public ArrayList<Integer> getMuscleGroupsIds() {
         return mDiaryEntry == null ? null : mDiaryEntry.getMuscleGroupsIds();
     }
@@ -106,8 +116,27 @@ public class DiaryEntryViewModel extends BaseObservable {
         mDiaryEntry.setMuscleGroupsIds(list);
     }
 
+    public void setTitle(String title) {
+        mDiaryEntry.setTitle(title);
+        notifyChange();
+    }
+
+    public void setDefaultTitleCheckbox(boolean isDefault) {
+        mDefaultTitleCheckbox = isDefault;
+        notifyChange();
+    }
+
+    public void setDefaultTitle(String defaultTitle) {
+        mDefaultTitle = defaultTitle;
+        notifyChange();
+    }
+
     private DiaryEntry mDiaryEntry;
     private DateFormat timeFormatter;
     private DateFormat dateFormatter;
     private DateFormat durationFormatter;
+    private String mDefaultTitle;
+    private boolean mDefaultTitleCheckbox;
+
+    public static final String DEFAULT_TITLE = "Workout";
 }

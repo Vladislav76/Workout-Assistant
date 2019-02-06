@@ -3,12 +3,17 @@ package com.vladislav.workoutassistant.view.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,7 +33,11 @@ public class DiaryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
-        mDiaryRecyclerView = view.findViewById(R.id.diary_recycler_view);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
+        mDiaryRecyclerView = view.findViewById(R.id.recycler_view);
         mDiaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
 
@@ -39,6 +48,25 @@ public class DiaryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_diary_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_new_diary_entry:
+                Intent intent = WorkoutDetailsActivity.newIntent(getActivity(),
+                        Diary.NEW_TEMP_DIARY_ENTRY);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateUI() {

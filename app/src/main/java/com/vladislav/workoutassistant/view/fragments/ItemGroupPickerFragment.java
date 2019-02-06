@@ -29,9 +29,9 @@ public class ItemGroupPickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity())
-                .inflate(R.layout.fragment_diary, null);
+                .inflate(R.layout.recycler_view, null);
 
-        RecyclerView itemGroupRecyclerView = view.findViewById(R.id.diary_recycler_view);
+        RecyclerView itemGroupRecyclerView = view.findViewById(R.id.recycler_view);
         itemGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mSelectedItemIdList = getArguments().getIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST);

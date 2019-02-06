@@ -50,6 +50,7 @@ public class Diary {
             entry.setFinishTime(updatedEntry.getFinishTime());
             entry.setDuration(updatedEntry.getDuration());
             entry.setMuscleGroupsIds(updatedEntry.getMuscleGroupsIds());
+            entry.setTitle(updatedEntry.getTitle());
             return true;
         }
         return false;

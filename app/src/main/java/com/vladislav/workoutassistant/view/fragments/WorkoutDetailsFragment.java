@@ -35,12 +35,23 @@ public class WorkoutDetailsFragment extends Fragment {
 
         mDiaryEntryViewModel = new DiaryEntryViewModel();
         mDiaryEntryViewModel.setDiaryEntry(Diary.getDiary().getTempDiaryEntry());
+
+        if (savedInstanceState != null) {
+            boolean isDefaultTitle = savedInstanceState.getBoolean(EXTRA_DEFAULT_TITLE_CHECK);
+            mDiaryEntryViewModel.setDefaultTitleCheckbox(isDefaultTitle);
+        }
+
         mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setFragment(this);
         mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
         updateMuscleGroups();
 
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(EXTRA_DEFAULT_TITLE_CHECK, mDiaryEntryViewModel.isDefaultTitleCheck());
     }
 
     @Override
@@ -111,6 +122,14 @@ public class WorkoutDetailsFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!mDiaryEntryViewModel.isDefaultTitleCheck() && (mDiaryEntryViewModel.getTitle() == null || mDiaryEntryViewModel.getTitle().equals(""))) {
+            Toast.makeText(getActivity(), R.string.empty_title_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mDiaryEntryViewModel.isDefaultTitleCheck()) {
+            mDiaryEntryViewModel.setTitle(mDiaryEntryViewModel.getDefaultTitle());
+        }
+
         DiaryEntry modifiedEntry = mDiaryEntryViewModel.getDiaryEntry();
         DiaryEntry initialEntry = Diary.getDiary().getEntryById(modifiedEntry.getId());
         if (initialEntry == null) {
@@ -143,6 +162,24 @@ public class WorkoutDetailsFragment extends Fragment {
                 return entry.getFinishTime();
         }
         return null;
+    }
+
+    private void updateDefaultTitle() {
+        ArrayList<Integer> muscleGroupsIds = mDiaryEntryViewModel.getMuscleGroupsIds();
+        String defaultTitle;
+        if (muscleGroupsIds != null && muscleGroupsIds.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            String separator = " + ";
+            for (Integer id : muscleGroupsIds) {
+                sb.append(mMuscleGroupsNameArray[id]);
+                sb.append(separator);
+            }
+            defaultTitle =  sb.substring(0, sb.length() - separator.length());
+        }
+        else {
+            defaultTitle = DiaryEntryViewModel.DEFAULT_TITLE;
+        }
+        mDiaryEntryViewModel.setDefaultTitle(defaultTitle);
     }
 
     private void updateDuration() {
@@ -182,6 +219,8 @@ public class WorkoutDetailsFragment extends Fragment {
             for (int i = chipsNumber - 2; i >= selectedMuscleGroupsIdList.size() ; i--) {
                 chipGroup.removeViewAt(i);
             }
+
+            updateDefaultTitle();
         }
     }
 
@@ -194,6 +233,7 @@ public class WorkoutDetailsFragment extends Fragment {
     private FragmentWorkoutDetailsBinding mBinding;
     private String[] mMuscleGroupsNameArray;
 
+    private static final String EXTRA_DEFAULT_TITLE_CHECK = "extra_default_title_check";
     private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
     private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
     private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";
