@@ -3,12 +3,12 @@
     <item
         android:id="@+id/action_programs"
         android:title="@string/action_programs"
-        android:icon="@drawable/baseline_fitness_center_black_48dp"
+        android:icon="@drawable/ic_action_programs"
         android:enabled="false" />
 
     <item
         android:id="@+id/action_diary"
         android:title="@string/action_diary"
-        android:icon="@drawable/baseline_schedule_black_48dp"
+        android:icon="@drawable/ic_action_diary"
         android:enabled="true" />
 </menu>
