@@ -70,6 +70,11 @@ public class DiaryEntryViewModel extends BaseObservable {
     }
 
     @Bindable
+    public boolean isSelected() {
+        return mDiaryEntry != null && mDiaryEntry.isSelected();
+    }
+
+    @Bindable
     public String getDefaultTitle() {
         return mDefaultTitle;
     }
@@ -118,6 +123,11 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     public void setTitle(String title) {
         mDiaryEntry.setTitle(title);
+        notifyChange();
+    }
+
+    public void setSelected(boolean isSelected) {
+        mDiaryEntry.setSelected(isSelected);
         notifyChange();
     }
 

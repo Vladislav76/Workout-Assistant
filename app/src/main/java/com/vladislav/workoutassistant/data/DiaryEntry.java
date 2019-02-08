@@ -46,6 +46,10 @@ public class DiaryEntry implements Cloneable {
         return mDuration;
     }
 
+    public boolean isSelected() {
+        return mSelected;
+    }
+
     public ArrayList<Integer> getMuscleGroupsIds() {
         return mMuscleGroupsIds;
     }
@@ -74,6 +78,10 @@ public class DiaryEntry implements Cloneable {
         mDuration = duration;
     }
 
+    public void setSelected(boolean isSelected) {
+        mSelected = isSelected;
+    }
+
     public void setMuscleGroupsIds(ArrayList<Integer> muscleGroups) {
         mMuscleGroupsIds = muscleGroups;
     }
@@ -95,5 +103,6 @@ public class DiaryEntry implements Cloneable {
     private Date mFinishTime;
     private Date mDuration;
     private String mTitle;
+    private boolean mSelected;
     private ArrayList<Integer> mMuscleGroupsIds;
 }

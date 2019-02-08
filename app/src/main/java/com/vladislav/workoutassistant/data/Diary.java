@@ -42,6 +42,10 @@ public class Diary {
         return mEntries.add(entry);
     }
 
+    public boolean removeEntry(DiaryEntry entry) {
+        return mEntries.remove(entry);
+    }
+
     public boolean updateEntry(DiaryEntry updatedEntry) {
         DiaryEntry entry = getEntryById(updatedEntry.getId());
         if (entry != null) {

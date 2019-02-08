@@ -23,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
         mainPanel.setOnNavigationItemSelectedListener(new MainPanelListener());
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        if (fragment != null) {
+            System.out.println("not null");
+        }
+    }
+
     private class MainPanelListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -34,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTag = PROGRAMS_FRAGMENT_TAG;
                     break;
                 case R.id.action_diary:
-                    fragment = new DiaryFragment();
+                    fragment = DiaryFragment.newInstance(false);
                     fragmentTag = DIARY_FRAGMENT_TAG;
                     break;
             }
