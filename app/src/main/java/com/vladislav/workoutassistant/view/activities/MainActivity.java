@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if (fragment != null) {
-            System.out.println("not null");
-        }
     }
 
     private class MainPanelListener implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTag = PROGRAMS_FRAGMENT_TAG;
                     break;
                 case R.id.action_diary:
-                    fragment = DiaryFragment.newInstance(false);
+                    fragment = new DiaryFragment();
                     fragmentTag = DIARY_FRAGMENT_TAG;
                     break;
             }
