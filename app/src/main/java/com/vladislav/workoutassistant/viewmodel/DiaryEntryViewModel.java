@@ -23,60 +23,46 @@ public class DiaryEntryViewModel extends BaseObservable {
 
     @Bindable
     public String getId() {
-        if (mDiaryEntry != null) {
-            return Integer.toString(mDiaryEntry.getId());
-        }
-        return null;
+        return mDiaryEntry == null ? null : Integer.toString(mDiaryEntry.getId());
     }
 
     @Bindable
     public String getTitle() {
-        if (mDiaryEntry != null) {
-            return mDiaryEntry.getTitle();
-        }
-        return null;
+        return mDiaryEntry == null ? null : mDiaryEntry.getTitle();
     }
 
     @Bindable
     public String getDate() {
-        if (mDiaryEntry != null && mDiaryEntry.getDate() != null) {
-            return dateFormatter.format(mDiaryEntry.getDate());
-        }
-        return null;
+        return mDiaryEntry == null || mDiaryEntry.getDate() == null ?
+                null : dateFormatter.format(mDiaryEntry.getDate());
     }
 
     @Bindable
     public String getStartTime() {
-        if (mDiaryEntry != null && mDiaryEntry.getStartTime() != null) {
-            return timeFormatter.format(mDiaryEntry.getStartTime());
-        }
-        return null;
+        return mDiaryEntry == null || mDiaryEntry.getStartTime() == null ?
+                null : timeFormatter.format(mDiaryEntry.getStartTime());
     }
 
     @Bindable
     public String getFinishTime() {
-        if (mDiaryEntry != null && mDiaryEntry.getFinishTime() != null) {
-            return timeFormatter.format(mDiaryEntry.getFinishTime());
-        }
-        return null;
+        return mDiaryEntry == null || mDiaryEntry.getFinishTime() == null ?
+                null : timeFormatter.format(mDiaryEntry.getFinishTime());
     }
 
     @Bindable
     public String getDuration() {
-        if (mDiaryEntry != null && mDiaryEntry.getDuration() != null) {
-            return durationFormatter.format(mDiaryEntry.getDuration());
-        }
-        return null;
-    }
-
-    @Bindable
-    public boolean isSelected() {
-        return mDiaryEntry != null && mDiaryEntry.isSelected();
+        return mDiaryEntry == null || mDiaryEntry.getDuration() == null ?
+                null : durationFormatter.format(mDiaryEntry.getDuration());
     }
 
     @Bindable
     public String getDefaultTitle() {
         return mDefaultTitle;
+    }
+
+    @Bindable
+    public boolean isSelected() {
+        return mDiaryEntry != null && mDiaryEntry.isSelected();
     }
 
     @Bindable

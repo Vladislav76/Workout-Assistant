@@ -2,14 +2,14 @@
     <string name="app_name">Workout Assistant</string>
 
     <string name="diary_toolbar_title">Workout diary</string>
+    <string name="new_diary_entry_toolbar_title">New entry</string>
 
     <string name="action_programs">Programs</string>
     <string name="action_diary">Diary</string>
     <string name="action_muscle_groups_editing">Edit</string>
-    <string name="action_cancel">Cancel</string>
-    <string name="action_save">Save</string>
     <string name="action_new_diary_entry">New entry</string>
     <string name="action_delete_diary_entries">Delete entries</string>
+    <string name="action_save_entry_changes">Save</string>
 
     <string name="title_label">Title</string>
     <string name="date_and_time_label">Date and Time</string>

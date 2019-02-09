@@ -1,11 +1,16 @@
 package com.vladislav.workoutassistant.view.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
@@ -20,6 +25,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -30,7 +37,6 @@ public class WorkoutDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout_details, container, false);
 
         mDiaryEntryViewModel = new DiaryEntryViewModel();
@@ -41,8 +47,28 @@ public class WorkoutDetailsFragment extends Fragment {
             mDiaryEntryViewModel.setDefaultTitleCheckbox(isDefaultTitle);
         }
 
+        Toolbar toolbar = (Toolbar) mBinding.toolbar;
+        if (mDiaryEntryViewModel.getDiaryEntry().getId() == Diary.NEW_TEMP_DIARY_ENTRY) {
+            toolbar.setTitle(R.string.new_diary_entry_toolbar_title);
+        }
+        else {
+            toolbar.setTitle(mDiaryEntryViewModel.getTitle());
+        }
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setFragment(this);
+        mBinding.titleField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
         mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
         updateMuscleGroups();
 
@@ -52,6 +78,22 @@ public class WorkoutDetailsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putBoolean(EXTRA_DEFAULT_TITLE_CHECK, mDiaryEntryViewModel.isDefaultTitleCheck());
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_workout_details_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save_entry:
+                saveChanges();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -111,40 +153,6 @@ public class WorkoutDetailsFragment extends Fragment {
                 .newInstance(mDiaryEntryViewModel.getMuscleGroupsIds(), mMuscleGroupsNameArray);
         dialog.setTargetFragment(this, REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST);
         dialog.show(fm, TAG_ITEM_GROUP_PICKER_DIALOG);
-    }
-
-    public void onSaveButtonClicked(View view) {
-        if (mDiaryEntryViewModel.getStartTime() == null || mDiaryEntryViewModel.getFinishTime() == null) {
-            Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mDiaryEntryViewModel.getDuration() == null) {
-            Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!mDiaryEntryViewModel.isDefaultTitleCheck() && (mDiaryEntryViewModel.getTitle() == null || mDiaryEntryViewModel.getTitle().equals(""))) {
-            Toast.makeText(getActivity(), R.string.empty_title_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mDiaryEntryViewModel.isDefaultTitleCheck()) {
-            mDiaryEntryViewModel.setTitle(mDiaryEntryViewModel.getDefaultTitle());
-        }
-
-        DiaryEntry modifiedEntry = mDiaryEntryViewModel.getDiaryEntry();
-        DiaryEntry initialEntry = Diary.getDiary().getEntryById(modifiedEntry.getId());
-        if (initialEntry == null) {
-            Diary.getDiary().addEntry(modifiedEntry);
-        }
-        else {
-            Diary.getDiary().updateEntry(modifiedEntry);
-        }
-        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
-        getActivity().finish();
-    }
-
-    public void onCancelButtonClicked(View view) {
-        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
-        getActivity().finish();
     }
 
     private Date getDate(int buttonId) {
@@ -222,6 +230,35 @@ public class WorkoutDetailsFragment extends Fragment {
 
             updateDefaultTitle();
         }
+    }
+
+    public void saveChanges() {
+        if (mDiaryEntryViewModel.getStartTime() == null || mDiaryEntryViewModel.getFinishTime() == null) {
+            Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mDiaryEntryViewModel.getDuration() == null) {
+            Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!mDiaryEntryViewModel.isDefaultTitleCheck() && (mDiaryEntryViewModel.getTitle() == null || mDiaryEntryViewModel.getTitle().equals(""))) {
+            Toast.makeText(getActivity(), R.string.empty_title_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mDiaryEntryViewModel.isDefaultTitleCheck()) {
+            mDiaryEntryViewModel.setTitle(mDiaryEntryViewModel.getDefaultTitle());
+        }
+
+        DiaryEntry modifiedEntry = mDiaryEntryViewModel.getDiaryEntry();
+        DiaryEntry initialEntry = Diary.getDiary().getEntryById(modifiedEntry.getId());
+        if (initialEntry == null) {
+            Diary.getDiary().addEntry(modifiedEntry);
+        }
+        else {
+            Diary.getDiary().updateEntry(modifiedEntry);
+        }
+        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
+        getActivity().finish();
     }
 
     public static WorkoutDetailsFragment newInstance() {

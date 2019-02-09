@@ -23,12 +23,6 @@ public class MainActivity extends AppCompatActivity {
         mainPanel.setOnNavigationItemSelectedListener(new MainPanelListener());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-    }
-
     private class MainPanelListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
