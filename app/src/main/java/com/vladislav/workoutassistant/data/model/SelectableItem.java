@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.data;
+package com.vladislav.workoutassistant.data.model;
 
 public class SelectableItem {
 

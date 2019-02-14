@@ -1,6 +1,6 @@
-package com.vladislav.workoutassistant.viewmodel;
+package com.vladislav.workoutassistant.viewmodels;
 
-import com.vladislav.workoutassistant.data.SelectableItem;
+import com.vladislav.workoutassistant.data.model.SelectableItem;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;

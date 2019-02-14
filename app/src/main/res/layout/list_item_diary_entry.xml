@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View" />
+        <import type="com.vladislav.workoutassistant.data.db.converter.DateConverter" />
+
+        <variable
+            name="callback"
+            type="com.vladislav.workoutassistant.ui.callbacks.DiaryEntryClickCallback" />
 
         <variable
             name="viewModel"
-            type="com.vladislav.workoutassistant.viewmodel.DiaryEntryViewModel" />
+            type="com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{() -> callback.onClick(viewModel)}">
 
         <CheckBox
             android:id="@+id/selection_checkbox"
@@ -22,8 +27,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:checked="@{viewModel.selected}"
-            android:visibility="gone"
+            android:checked="@{viewModel.entry.selected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +39,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{viewModel.id}"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +52,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{viewModel.date}"
+            android:text="@{DateConverter.dateToString(viewModel.entry.date)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id_field"
             app:layout_constraintTop_toBottomOf="@+id/title_field" />
@@ -62,7 +65,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:singleLine="true"
-            android:text="@{viewModel.title}"
+            android:text="@{viewModel.entry.title}"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="@{viewModel.duration}"
+            android:text='@{DateConverter.durationToString(viewModel.entry.duration)}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/date_field" />

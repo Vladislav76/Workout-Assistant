@@ -1,10 +1,10 @@
-package com.vladislav.workoutassistant.view.activities;
+package com.vladislav.workoutassistant.ui.activities;
 
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.view.fragments.ProgramsFragment;
-import com.vladislav.workoutassistant.view.fragments.DiaryFragment;
+import com.vladislav.workoutassistant.ui.fragments.ProgramsFragment;
+import com.vladislav.workoutassistant.ui.fragments.DiaryFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;

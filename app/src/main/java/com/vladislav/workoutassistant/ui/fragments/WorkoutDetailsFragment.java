@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.view.fragments;
+package com.vladislav.workoutassistant.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,10 +16,11 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.Diary;
-import com.vladislav.workoutassistant.data.DiaryEntry;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.model.FullDiaryEntry;
 import com.vladislav.workoutassistant.databinding.FragmentWorkoutDetailsBinding;
-import com.vladislav.workoutassistant.viewmodel.DiaryEntryViewModel;
+import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel;
+import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModelFactory;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -31,35 +32,22 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class WorkoutDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        mDiaryEntryId = getArguments().getInt(ARG_DIARY_ENTRY_ID);
+        DiaryEntryViewModelFactory factory = new DiaryEntryViewModelFactory(getActivity().getApplication(), mDiaryEntryId);
+        mDiaryEntryViewModel = ViewModelProviders.of(this, factory).get(DiaryEntryViewModel.class);
+
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout_details, container, false);
-
-        mDiaryEntryViewModel = new DiaryEntryViewModel();
-        mDiaryEntryViewModel.setDiaryEntry(Diary.getDiary().getTempDiaryEntry());
-
-        if (savedInstanceState != null) {
-            boolean isDefaultTitle = savedInstanceState.getBoolean(EXTRA_DEFAULT_TITLE_CHECK);
-            mDiaryEntryViewModel.setDefaultTitleCheckbox(isDefaultTitle);
-        }
-
-        Toolbar toolbar = (Toolbar) mBinding.toolbar;
-        if (mDiaryEntryViewModel.getDiaryEntry().getId() == Diary.NEW_TEMP_DIARY_ENTRY) {
-            toolbar.setTitle(R.string.new_diary_entry_toolbar_title);
-        }
-        else {
-            toolbar.setTitle(mDiaryEntryViewModel.getTitle());
-        }
-        setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setFragment(this);
+        mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.titleField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -69,15 +57,24 @@ public class WorkoutDetailsFragment extends Fragment {
                 }
             }
         });
+        subscribeToModel(mDiaryEntryViewModel);
+        mBinding.setLifecycleOwner(this);
+
         mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
-        updateMuscleGroups();
 
         return mBinding.getRoot();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putBoolean(EXTRA_DEFAULT_TITLE_CHECK, mDiaryEntryViewModel.isDefaultTitleCheck());
+    private void subscribeToModel(final DiaryEntryViewModel model) {
+        model.getDiaryEntry().observe(this, new Observer<DiaryEntryEntity>() {
+            @Override
+            public void onChanged(DiaryEntryEntity diaryEntryEntity) {
+                System.out.println("Observed");
+                model.setEntry(diaryEntryEntity);
+                updateToolbar();
+                updateMuscleGroups();
+            }
+        });
     }
 
     @Override
@@ -105,18 +102,17 @@ public class WorkoutDetailsFragment extends Fragment {
                     mDiaryEntryViewModel.setDate(date);
                     break;
                 case REQUEST_GET_START_TIME:
-                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setStartTime(date);
+                    Time time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setStartTime(time);
                     updateDuration();
                     break;
                 case REQUEST_GET_FINISH_TIME:
-                    date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-                    mDiaryEntryViewModel.setFinishTime(date);
+                    time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    mDiaryEntryViewModel.setFinishTime(time);
                     updateDuration();
                     break;
                 case REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST:
-                    ArrayList<Integer> selectedMuscleGroupsIdList = data.getIntegerArrayListExtra(ItemGroupPickerFragment.EXTRA_SELECTED_ITEM_ID_LIST);
-                    mDiaryEntryViewModel.setMuscleGroupsIds(selectedMuscleGroupsIdList);
+//                    ArrayList<Integer> selectedMuscleGroupsIdList = data.getIntegerArrayListExtra(ItemGroupPickerFragment.EXTRA_SELECTED_ITEM_ID_LIST);
                     updateMuscleGroups();
                     break;
             }
@@ -150,13 +146,13 @@ public class WorkoutDetailsFragment extends Fragment {
     public void onMuscleGroupsEditingClicked(View view) {
         FragmentManager fm = getFragmentManager();
         DialogFragment dialog = ItemGroupPickerFragment
-                .newInstance(mDiaryEntryViewModel.getMuscleGroupsIds(), mMuscleGroupsNameArray);
+                .newInstance(mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds(), mMuscleGroupsNameArray);
         dialog.setTargetFragment(this, REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST);
         dialog.show(fm, TAG_ITEM_GROUP_PICKER_DIALOG);
     }
 
     private Date getDate(int buttonId) {
-        DiaryEntry entry = mDiaryEntryViewModel.getDiaryEntry();
+        FullDiaryEntry entry = mDiaryEntryViewModel.getEntry().get();
         if (entry == null) {
             return new Date();
         }
@@ -172,8 +168,21 @@ public class WorkoutDetailsFragment extends Fragment {
         return null;
     }
 
+    private void updateToolbar() {
+        Toolbar toolbar = (Toolbar) mBinding.toolbar;
+        if (mDiaryEntryId == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
+            toolbar.setTitle(R.string.new_diary_entry_toolbar_title);
+        }
+        else {
+            toolbar.setTitle(mDiaryEntryViewModel.getDiaryEntry().getValue().getTitle());
+        }
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void updateDefaultTitle() {
-        ArrayList<Integer> muscleGroupsIds = mDiaryEntryViewModel.getMuscleGroupsIds();
+        ArrayList<Integer> muscleGroupsIds = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
         String defaultTitle;
         if (muscleGroupsIds != null && muscleGroupsIds.size() > 0) {
             StringBuilder sb = new StringBuilder();
@@ -185,15 +194,16 @@ public class WorkoutDetailsFragment extends Fragment {
             defaultTitle =  sb.substring(0, sb.length() - separator.length());
         }
         else {
-            defaultTitle = DiaryEntryViewModel.DEFAULT_TITLE;
+            defaultTitle = getResources().getString(R.string.default_workout_title);
         }
         mDiaryEntryViewModel.setDefaultTitle(defaultTitle);
     }
 
     private void updateDuration() {
-        if (mDiaryEntryViewModel.getStartTime() != null && mDiaryEntryViewModel.getFinishTime() != null) {
-            Time startTime = (Time) mDiaryEntryViewModel.getDiaryEntry().getStartTime();
-            Time finishTime = (Time) mDiaryEntryViewModel.getDiaryEntry().getFinishTime();
+        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
+        if (diaryEntry.getStartTime() != null && diaryEntry.getFinishTime() != null) {
+            Time startTime = diaryEntry.getStartTime();
+            Time finishTime = diaryEntry.getFinishTime();
             if (startTime.toString().compareTo(finishTime.toString()) <= 0) {
                 Time duration = new Time(Math.abs(finishTime.getTime() - startTime.getTime()));
                 mDiaryEntryViewModel.setDuration(duration);
@@ -208,7 +218,7 @@ public class WorkoutDetailsFragment extends Fragment {
     private void updateMuscleGroups() {
         ChipGroup chipGroup = mBinding.muscleGroupsChips;
         int chipsNumber = chipGroup.getChildCount();
-        ArrayList<Integer> selectedMuscleGroupsIdList = mDiaryEntryViewModel.getMuscleGroupsIds();
+        ArrayList<Integer> selectedMuscleGroupsIdList = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
 
         if (selectedMuscleGroupsIdList != null) {
             for (int i = 0; i < selectedMuscleGroupsIdList.size(); i++) {
@@ -233,44 +243,47 @@ public class WorkoutDetailsFragment extends Fragment {
     }
 
     public void saveChanges() {
-        if (mDiaryEntryViewModel.getStartTime() == null || mDiaryEntryViewModel.getFinishTime() == null) {
+        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
+        if (diaryEntry.getStartTime() == null || diaryEntry.getFinishTime() == null) {
             Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (mDiaryEntryViewModel.getDuration() == null) {
+        if (diaryEntry.getDuration() == null) {
             Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!mDiaryEntryViewModel.isDefaultTitleCheck() && (mDiaryEntryViewModel.getTitle() == null || mDiaryEntryViewModel.getTitle().equals(""))) {
+        if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getTitle() == null || diaryEntry.getTitle().equals(""))) {
             Toast.makeText(getActivity(), R.string.empty_title_error, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (mDiaryEntryViewModel.isDefaultTitleCheck()) {
-            mDiaryEntryViewModel.setTitle(mDiaryEntryViewModel.getDefaultTitle());
+        if (diaryEntry.isDefaultTitleChecked()) {
+            mDiaryEntryViewModel.setTitle(diaryEntry.getDefaultTitle());
         }
-
-        DiaryEntry modifiedEntry = mDiaryEntryViewModel.getDiaryEntry();
-        DiaryEntry initialEntry = Diary.getDiary().getEntryById(modifiedEntry.getId());
-        if (initialEntry == null) {
-            Diary.getDiary().addEntry(modifiedEntry);
+        if (mDiaryEntryId == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
+            mDiaryEntryViewModel.insertEntry();
         }
         else {
-            Diary.getDiary().updateEntry(modifiedEntry);
+            mDiaryEntryViewModel.updateEntry();
         }
-        Diary.getDiary().setTempDiaryEntry(Diary.NULL_TEMP_DIARY_ENTRY);
         getActivity().finish();
     }
 
-    public static WorkoutDetailsFragment newInstance() {
+    public static WorkoutDetailsFragment newInstance(int diaryEntryId) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_DIARY_ENTRY_ID, diaryEntryId);
+
         WorkoutDetailsFragment fragment = new WorkoutDetailsFragment();
+        fragment.setArguments(args);
+
         return fragment;
     }
 
     private DiaryEntryViewModel mDiaryEntryViewModel;
+    private int mDiaryEntryId;
     private FragmentWorkoutDetailsBinding mBinding;
     private String[] mMuscleGroupsNameArray;
 
-    private static final String EXTRA_DEFAULT_TITLE_CHECK = "extra_default_title_check";
+    private static final String ARG_DIARY_ENTRY_ID = "arg_diary_entry_id";
     private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
     private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
     private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";

@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.view.fragments;
+package com.vladislav.workoutassistant.ui.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

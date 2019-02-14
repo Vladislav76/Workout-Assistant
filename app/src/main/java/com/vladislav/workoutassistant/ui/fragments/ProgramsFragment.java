@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.view.fragments;
+package com.vladislav.workoutassistant.ui.fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;

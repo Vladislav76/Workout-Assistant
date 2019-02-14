@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.view.fragments;
+package com.vladislav.workoutassistant.ui.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.SelectableItem;
+import com.vladislav.workoutassistant.data.model.SelectableItem;
 import com.vladislav.workoutassistant.databinding.ListItemSelectableObjectBinding;
-import com.vladislav.workoutassistant.viewmodel.SelectableItemViewModel;
+import com.vladislav.workoutassistant.viewmodels.SelectableItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +28,13 @@ public class ItemGroupPickerFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity())
-                .inflate(R.layout.recycler_view, null);
-
-        RecyclerView itemGroupRecyclerView = view.findViewById(R.id.recycler_view);
-        itemGroupRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mSelectedItemIdList = getArguments().getIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST);
         String[] itemNameArray = getArguments().getStringArray(ARG_ITEM_NAME_ARRAY);
         mItems = getItemList(mSelectedItemIdList, itemNameArray);
-        itemGroupRecyclerView.setAdapter(new ItemGroupAdapter(mItems));
+
+        RecyclerView view = new RecyclerView(getActivity());
+        view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        view.setAdapter(new ItemGroupAdapter(mItems));
 
         return new AlertDialog.Builder(getActivity())
                 .setView(view)
@@ -64,12 +61,12 @@ public class ItemGroupPickerFragment extends DialogFragment {
         }
     }
 
-    private List<SelectableItem> getItemList(ArrayList<Integer> selectedItemIdList, String[] itemNameArray) {
+    private ArrayList<SelectableItem> getItemList(List<Integer> selectedItemIdList, String[] itemNameArray) {
         if (selectedItemIdList == null || itemNameArray == null) {
             return null;
         }
 
-        List<SelectableItem> items = new ArrayList<>(itemNameArray.length);
+        ArrayList<SelectableItem> items = new ArrayList<>(itemNameArray.length);
         for (int i = 0; i < itemNameArray.length; i++) {
             items.add(new SelectableItem(itemNameArray[i], false));
         }
@@ -85,7 +82,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
         return items;
     }
 
-    private ArrayList<Integer> getSelectedItemIdArrayList(List<SelectableItem> items) {
+    private ArrayList<Integer> getSelectedItemIdArrayList(ArrayList<SelectableItem> items) {
         int id = 0;
         int position = 0;
         int oldSelectedItemNumber = mSelectedItemIdList.size();
@@ -170,7 +167,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
         }
     }
 
-    private List<SelectableItem> mItems;
+    private ArrayList<SelectableItem> mItems;
     private ArrayList<Integer> mSelectedItemIdList;
 
     private static final String ARG_SELECTED_ITEM_ID_LIST = "arg_selected_item_id_list";

@@ -22,6 +22,8 @@
     <string name="finish_time_hint">Finish time</string>
     <string name="time_duration_hint">Invalid time input</string>
 
+    <string name="default_workout_title">Workout</string>
+
     <string-array name="muscle_groups">
         <item>Chest</item>
         <item>Back</item>

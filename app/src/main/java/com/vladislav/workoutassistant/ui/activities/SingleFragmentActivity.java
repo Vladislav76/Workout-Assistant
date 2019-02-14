@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.view.activities;
+package com.vladislav.workoutassistant.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

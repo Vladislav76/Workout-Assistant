@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.DeleteDiaryEntriesActivity"
-            android:parentActivityName=".view.activities.MainActivity" />
+            android:name=".ui.activities.DeleteDiaryEntriesActivity"
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".view.activities.WorkoutDetailsActivity"
-            android:parentActivityName=".view.activities.MainActivity" />
+            android:name=".ui.activities.WorkoutDetailsActivity"
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

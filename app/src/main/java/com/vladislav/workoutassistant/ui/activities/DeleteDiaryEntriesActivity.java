@@ -1,8 +1,8 @@
-package com.vladislav.workoutassistant.view.activities;
+package com.vladislav.workoutassistant.ui.activities;
+
+import com.vladislav.workoutassistant.ui.fragments.SelectableDiaryFragment;
 
 import androidx.fragment.app.Fragment;
-
-import com.vladislav.workoutassistant.view.fragments.SelectableDiaryFragment;
 
 public class DeleteDiaryEntriesActivity extends SingleFragmentActivity {
 
