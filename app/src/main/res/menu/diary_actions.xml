@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_delete_diary_entries"
-        android:title="@string/action_delete_diary_entries"
+        android:id="@+id/delete_diary_entries_action"
+        android:title="@string/delete_diary_entries_action"
         android:icon="@drawable/ic_action_delete"
         app:showAsAction="ifRoom|withText" />
     <item
-        android:id="@+id/action_new_diary_entry"
-        android:title="@string/action_new_diary_entry"
+        android:id="@+id/new_diary_entry_action"
+        android:title="@string/new_diary_entry_action"
         android:icon="@drawable/ic_action_add"
         app:showAsAction="ifRoom|withText" />
 </menu>

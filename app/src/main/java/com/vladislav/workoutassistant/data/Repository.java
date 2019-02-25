@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.vladislav.workoutassistant.data.db.LocalDatabase;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.ProgramCategoryEntity;
+import com.vladislav.workoutassistant.data.db.entity.ProgramEntity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,6 +71,14 @@ public class Repository {
         return mTempDiaryEntry;
     }
 
+    public LiveData<List<ProgramCategoryEntity>> getProgramCategories() {
+        return mDatabase.programCategoryDao().loadCategories();
+    }
+
+    public LiveData<List<ProgramEntity>> getProgramsByCategory(int categoryId) {
+        return mDatabase.programDao().loadProgramsByCategory(categoryId);
+    }
+
     public void insertNewEntry(final DiaryEntryEntity diaryEntry) {
         mExecutor.execute(new Runnable() {
             @Override
@@ -97,7 +107,7 @@ public class Repository {
     }
 
     private Executor mExecutor;
-    private final LocalDatabase mDatabase;
+    private LocalDatabase mDatabase;
     private MutableLiveData<DiaryEntryEntity> mTempDiaryEntry;
     private MediatorLiveData<List<DiaryEntryEntity>> mObservableEntries;
 

@@ -12,14 +12,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 
-public class DiaryEntryListViewModel extends AndroidViewModel {
+public class DiaryEntriesViewModel extends AndroidViewModel {
 
-    public DiaryEntryListViewModel(Application application) {
+    public DiaryEntriesViewModel(Application application) {
         super(application);
 
         mRepository = Repository.getInstance(application);
-
-        mEntryList.setValue(null);
+//        mEntryList.setValue(null);
         mEntryList.addSource(mRepository.getAllEntries(), new Observer<List<DiaryEntryEntity>>() {
             @Override
             public void onChanged(List<DiaryEntryEntity> diaryEntryEntities) {
@@ -36,6 +35,6 @@ public class DiaryEntryListViewModel extends AndroidViewModel {
         mRepository.deleteEntriesById(ids);
     }
 
-    private final Repository mRepository;
-    private final MediatorLiveData<List<DiaryEntryEntity>> mEntryList = new MediatorLiveData<>();
+    private Repository mRepository;
+    private MediatorLiveData<List<DiaryEntryEntity>> mEntryList = new MediatorLiveData<>();
 }

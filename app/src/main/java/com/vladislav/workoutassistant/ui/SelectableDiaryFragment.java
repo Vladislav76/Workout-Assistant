@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.ui.fragments;
+package com.vladislav.workoutassistant.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 public class SelectableDiaryFragment extends DiaryFragment {
 
@@ -32,7 +31,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
             mSelectedEntriesCount = savedInstanceState.getInt(EXTRA_SELECTED_ENTRIES_COUNT);
         }
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setDisplayHomeAsUpEnabled(true);
         updateToolbar();
 
         return view;
@@ -45,15 +44,15 @@ public class SelectableDiaryFragment extends DiaryFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_selectable_diary_list, menu);
+        inflater.inflate(R.menu.selectable_diary_actions, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_delete_selected_diary_entries:
+            case R.id.delete_selected_diary_entries_action:
                 deleteEntries();
-                getActivity().finish();
+                getActivity().onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -86,21 +85,23 @@ public class SelectableDiaryFragment extends DiaryFragment {
         return new DiaryEntryAdapter(getActivity().getApplication(), mDiaryEntryClickCallback, true);
     }
 
+    public static SelectableDiaryFragment newInstance() {
+        return new SelectableDiaryFragment();
+    }
+
     private int mSelectedEntriesCount;
     private final DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
         @Override
         public void onClick(DiaryEntryViewModel model) {
-            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                boolean wasSelected = model.getEntry().get().isSelected();
-                model.setSelected(!wasSelected);
-                if (wasSelected) {
-                    mSelectedEntriesCount--;
-                }
-                else {
-                    mSelectedEntriesCount++;
-                }
-                updateToolbar();
+            boolean wasSelected = model.getEntry().get().isSelected();
+            model.setSelected(!wasSelected);
+            if (wasSelected) {
+                mSelectedEntriesCount--;
             }
+            else {
+                mSelectedEntriesCount++;
+            }
+            updateToolbar();
         }
     };
 

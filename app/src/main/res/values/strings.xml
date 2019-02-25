@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">Workout Assistant</string>
 
+    <string name="program_categories_toolbar_title">Program categories</string>
     <string name="diary_toolbar_title">Workout diary</string>
     <string name="new_diary_entry_toolbar_title">New entry</string>
 
-    <string name="action_programs">Programs</string>
-    <string name="action_diary">Diary</string>
-    <string name="action_muscle_groups_editing">Edit</string>
-    <string name="action_new_diary_entry">New entry</string>
-    <string name="action_delete_diary_entries">Delete entries</string>
-    <string name="action_save_entry_changes">Save</string>
+    <string name="programs_action">Programs</string>
+    <string name="diary_action">Diary</string>
+    <string name="muscle_groups_editing_action">Edit</string>
+    <string name="new_diary_entry_action">New entry</string>
+    <string name="delete_diary_entries_action">Delete entries</string>
+    <string name="save_entry_changes_action">Save</string>
 
     <string name="title_label">Title</string>
     <string name="date_and_time_label">Date and Time</string>
@@ -34,6 +35,13 @@
         <item>Quadriceps</item>
         <item>Calves</item>
         <item>Abs</item>
+    </string-array>
+
+    <string-array name="program_categories">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+        <item>Custom</item>
     </string-array>
 
     <string name="null_time_input_error">Time fields must not be empty!</string>

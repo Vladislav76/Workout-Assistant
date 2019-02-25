@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
 import com.vladislav.workoutassistant.data.model.AbbreviatedDiaryEntry;
-import com.vladislav.workoutassistant.databinding.ListItemDiaryEntryBinding;
+import com.vladislav.workoutassistant.databinding.DiaryEntryItemBinding;
 import com.vladislav.workoutassistant.ui.callbacks.DiaryEntryClickCallback;
 import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel;
 
@@ -69,8 +69,8 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
     @Override
     public DiaryEntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ListItemDiaryEntryBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.list_item_diary_entry, parent, false);
+        DiaryEntryItemBinding binding = DataBindingUtil
+                .inflate(inflater, R.layout.diary_entry_item, parent, false);
         binding.setCallback(mDiaryEntryClickCallback);
         return new DiaryEntryViewHolder(binding);
     }
@@ -78,8 +78,8 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
     @Override
     public void onBindViewHolder(DiaryEntryViewHolder holder, int position) {
         holder.mViewModel.setEntry(mEntryList.get(position));
-        holder.mBinding.executePendingBindings();
         holder.mBinding.idField.setText(Integer.toString(position + 1));
+        holder.mBinding.executePendingBindings();
     }
 
     @Override
@@ -93,10 +93,10 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
     }
 
     class DiaryEntryViewHolder extends RecyclerView.ViewHolder {
-        private ListItemDiaryEntryBinding mBinding;
+        private DiaryEntryItemBinding mBinding;
         private DiaryEntryViewModel mViewModel;
 
-        DiaryEntryViewHolder(ListItemDiaryEntryBinding binding) {
+        DiaryEntryViewHolder(DiaryEntryItemBinding binding) {
             super(binding.getRoot());
             mViewModel = new DiaryEntryViewModel(mApplication);
             mBinding = binding;

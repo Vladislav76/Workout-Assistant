@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.ui.fragments;
+package com.vladislav.workoutassistant.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,8 +26,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -41,7 +41,7 @@ public class WorkoutDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mDiaryEntryId = getArguments().getInt(ARG_DIARY_ENTRY_ID);
+        mDiaryEntryId = getArguments().getInt(DIARY_ENTRY_ID_ARG);
         DiaryEntryViewModelFactory factory = new DiaryEntryViewModelFactory(getActivity().getApplication(), mDiaryEntryId);
         mDiaryEntryViewModel = ViewModelProviders.of(this, factory).get(DiaryEntryViewModel.class);
 
@@ -62,6 +62,9 @@ public class WorkoutDetailsFragment extends Fragment {
 
         mMuscleGroupsNameArray = getResources().getStringArray(R.array.muscle_groups);
 
+        setHasOptionsMenu(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         return mBinding.getRoot();
     }
 
@@ -79,13 +82,13 @@ public class WorkoutDetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_workout_details_list, menu);
+        inflater.inflate(R.menu.workout_details_actions, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_save_entry:
+            case R.id.save_entry_action:
                 saveChanges();
                 return true;
             default:
@@ -169,16 +172,14 @@ public class WorkoutDetailsFragment extends Fragment {
     }
 
     private void updateToolbar() {
-        Toolbar toolbar = (Toolbar) mBinding.toolbar;
+        ActionBar toolbar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+
         if (mDiaryEntryId == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
             toolbar.setTitle(R.string.new_diary_entry_toolbar_title);
         }
         else {
             toolbar.setTitle(mDiaryEntryViewModel.getDiaryEntry().getValue().getTitle());
         }
-        setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void updateDefaultTitle() {
@@ -265,12 +266,12 @@ public class WorkoutDetailsFragment extends Fragment {
         else {
             mDiaryEntryViewModel.updateEntry();
         }
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 
     public static WorkoutDetailsFragment newInstance(int diaryEntryId) {
         Bundle args = new Bundle();
-        args.putInt(ARG_DIARY_ENTRY_ID, diaryEntryId);
+        args.putInt(DIARY_ENTRY_ID_ARG, diaryEntryId);
 
         WorkoutDetailsFragment fragment = new WorkoutDetailsFragment();
         fragment.setArguments(args);
@@ -283,7 +284,7 @@ public class WorkoutDetailsFragment extends Fragment {
     private FragmentWorkoutDetailsBinding mBinding;
     private String[] mMuscleGroupsNameArray;
 
-    private static final String ARG_DIARY_ENTRY_ID = "arg_diary_entry_id";
+    private static final String DIARY_ENTRY_ID_ARG = "diary_entry_id_arg";
     private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
     private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
     private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";

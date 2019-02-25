@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/programs_action"
+        android:title="@string/programs_action"
+        android:icon="@drawable/ic_action_programs" />
+
+    <item
+        android:id="@+id/diary_action"
+        android:title="@string/diary_action"
+        android:icon="@drawable/ic_action_diary" />
+</menu>

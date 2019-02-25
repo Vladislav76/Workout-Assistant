@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_save_entry"
-        android:title="@string/action_save_entry_changes"
+        android:id="@+id/save_entry_action"
+        android:title="@string/save_entry_changes_action"
         android:icon="@drawable/ic_action_save"
         app:showAsAction="ifRoom|withText" />
 </menu>

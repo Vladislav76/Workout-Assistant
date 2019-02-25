@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.ui.fragments;
+package com.vladislav.workoutassistant.ui;
 
 import android.app.Activity;
 import android.app.Dialog;

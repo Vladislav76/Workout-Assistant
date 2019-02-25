@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.ui.fragments;
+package com.vladislav.workoutassistant.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.model.SelectableItem;
-import com.vladislav.workoutassistant.databinding.ListItemSelectableObjectBinding;
+import com.vladislav.workoutassistant.databinding.SelectableObjectItemBinding;
+import com.vladislav.workoutassistant.databinding.SelectableObjectItemBinding;
 import com.vladislav.workoutassistant.viewmodels.SelectableItemViewModel;
 
 import java.util.ArrayList;
@@ -120,9 +121,9 @@ public class ItemGroupPickerFragment extends DialogFragment {
 
     private class ItemGroupHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        private ListItemSelectableObjectBinding mBinding;
+        private SelectableObjectItemBinding mBinding;
 
-        public ItemGroupHolder(ListItemSelectableObjectBinding binding) {
+        public ItemGroupHolder(SelectableObjectItemBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
             mBinding.setViewModel(new SelectableItemViewModel());
@@ -156,8 +157,8 @@ public class ItemGroupPickerFragment extends DialogFragment {
         @Override
         public ItemGroupHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
-            ListItemSelectableObjectBinding binding =
-                    DataBindingUtil.inflate(inflater, R.layout.list_item_selectable_object, parent, false);
+            SelectableObjectItemBinding binding =
+                    DataBindingUtil.inflate(inflater, R.layout.selectable_object_item, parent, false);
             return new ItemGroupHolder(binding);
         }
 

@@ -15,132 +15,139 @@ import androidx.room.PrimaryKey;
 public class DiaryEntryEntity implements FullDiaryEntry {
 
     public DiaryEntryEntity(Date date, Time startTime, Time finishTime, String title) {
-        this.date = date;
-        this.startTime = startTime;
-        this.finishTime = finishTime;
-        this.title = title;
-        this.duration = new Time(finishTime.getTime() - startTime.getTime());
-        this.muscleGroupsIds = new ArrayList<>();
+        mDate = date;
+        mStartTime = startTime;
+        mFinishTime = finishTime;
+        mTitle = title;
+        mDuration = new Time(finishTime.getTime() - startTime.getTime());
+        mMuscleGroupsIds = new ArrayList<>();
     }
 
     @Ignore
     public DiaryEntryEntity() {
-        this.muscleGroupsIds = new ArrayList<>();
+        mMuscleGroupsIds = new ArrayList<>();
     }
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    @ColumnInfo(name = "id")
+    private int mId;
 
-    @ColumnInfo
-    public String title;
+    @ColumnInfo(name = "title")
+    private String mTitle;
 
-    @ColumnInfo
-    public Date date;
+    @ColumnInfo(name = "date")
+    private Date mDate;
 
-    @ColumnInfo
-    public Date duration;
+    @ColumnInfo(name = "duration")
+    private Date mDuration;
 
     @ColumnInfo(name = "start_time")
-    public Time startTime;
+    private Time mStartTime;
 
     @ColumnInfo(name = "finish_time")
-    public Time finishTime;
+    private Time mFinishTime;
 
     @ColumnInfo(name = "muscle_groups_ids")
-    public ArrayList<Integer> muscleGroupsIds;
+    private ArrayList<Integer> mMuscleGroupsIds;
 
     @Ignore
-    private boolean selected;
+    private boolean mIsSelected;
 
     @Ignore
-    private boolean isDefaultTitleChecked;
+    private boolean mIsDefaultTitleChecked;
 
     @Ignore
-    private String defaultTitle;
+    private String mDefaultTitle;
 
+    /* GETTERS */
     @Override
     public int getId() {
-        return id;
+        return mId;
     }
 
     @Override
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     @Override
     public Date getDate() {
-        return date;
+        return mDate;
     }
 
     @Override
     public Date getDuration() {
-        return duration;
+        return mDuration;
     }
 
     @Override
     public boolean isSelected() {
-        return selected;
+        return mIsSelected;
     }
 
     @Override
     public boolean isDefaultTitleChecked() {
-        return isDefaultTitleChecked;
+        return mIsDefaultTitleChecked;
     }
 
     @Override
     public Time getStartTime() {
-        return startTime;
+        return mStartTime;
     }
 
     @Override
     public Time getFinishTime() {
-        return finishTime;
+        return mFinishTime;
     }
 
     @Override
     public String getDefaultTitle() {
-        return defaultTitle;
+        return mDefaultTitle;
     }
 
     @Override
     public ArrayList<Integer> getMuscleGroupsIds() {
-        return muscleGroupsIds;
+        return mMuscleGroupsIds;
+    }
+
+    /* SETTERS */
+    public void setId(int id) {
+        mId = id;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        mTitle = title;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        mDate = date;
     }
 
     public void setSelected(boolean selected) {
-        this.selected = selected;
+        mIsSelected = selected;
     }
 
     public void setStartTime(Time time) {
-        startTime = time;
+        mStartTime = time;
     }
 
     public void setFinishTime(Time time) {
-        finishTime = time;
+        mFinishTime = time;
     }
 
     public void setDuration(Date duration) {
-        this.duration = duration;
+        mDuration = duration;
     }
 
     public void setDefaultTitle(String title) {
-        defaultTitle = title;
+        mDefaultTitle = title;
     }
 
     public void setDefaultTitleChecked(boolean isChecked) {
-        isDefaultTitleChecked = isChecked;
+        mIsDefaultTitleChecked = isChecked;
     }
 
     public void setMuscleGroupsIds(ArrayList<Integer> ids) {
-        muscleGroupsIds = ids;
+        mMuscleGroupsIds = ids;
     }
 }
