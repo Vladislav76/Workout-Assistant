@@ -1,42 +1,23 @@
 package com.vladislav.workoutassistant.data.db.entity;
 
+import com.vladislav.workoutassistant.data.model.NamedObject;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 @Entity(tableName = "programs")
-public class ProgramEntity {
+public class ProgramEntity extends NamedObject {
 
     public ProgramEntity(String name, int categoryId) {
-        this.mName = name;
+        setName(name);
         this.mCategoryId = categoryId;
     }
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int mId;
-
-    @ColumnInfo(name = "name")
-    private String mName;
 
     @ColumnInfo(name = "category_id")
     private int mCategoryId;
 
     /* GETTERS */
-    public int getId() {
-        return mId;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
     public int getCategoryId() {
         return mCategoryId;
-    }
-
-    /* SETTERS */
-    public void setId(int id) {
-        mId = id;
     }
 }

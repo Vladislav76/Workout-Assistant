@@ -44,7 +44,7 @@ public class DataGenerator {
     public static List<SetEntity> generateSets() {
         List<SetEntity> sets = new ArrayList<>();
         for (int i = 1; i <= 3; i++) {
-            SetEntity set = new SetEntity("Set №" + i, i * 10, 0);
+            SetEntity set = new SetEntity(i * 10, 1);
             sets.add(set);
         }
         return sets;

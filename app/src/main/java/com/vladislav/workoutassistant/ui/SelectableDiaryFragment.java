@@ -18,27 +18,26 @@ import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectableDiaryFragment extends DiaryFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (savedInstanceState != null) {
             mSelectedEntriesCount = savedInstanceState.getInt(EXTRA_SELECTED_ENTRIES_COUNT);
         }
 
-        mToolbar.setDisplayHomeAsUpEnabled(true);
-        updateToolbar();
+        updateToolbar(Integer.toString(mSelectedEntriesCount));
 
         return view;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         savedInstanceState.putInt(EXTRA_SELECTED_ENTRIES_COUNT, mSelectedEntriesCount);
     }
 
@@ -57,10 +56,6 @@ public class SelectableDiaryFragment extends DiaryFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void updateToolbar() {
-        mToolbar.setTitle(Integer.toString(mSelectedEntriesCount));
     }
 
     private void deleteEntries() {
@@ -92,7 +87,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
     private int mSelectedEntriesCount;
     private final DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
         @Override
-        public void onClick(DiaryEntryViewModel model) {
+        public void onClick(DiaryEntryViewModel model, String name) {
             boolean wasSelected = model.getEntry().get().isSelected();
             model.setSelected(!wasSelected);
             if (wasSelected) {
@@ -101,7 +96,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
             else {
                 mSelectedEntriesCount++;
             }
-            updateToolbar();
+            updateToolbar(Integer.toString(mSelectedEntriesCount));
         }
     };
 

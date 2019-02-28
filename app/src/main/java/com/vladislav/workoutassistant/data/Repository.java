@@ -6,6 +6,8 @@ import com.vladislav.workoutassistant.data.db.LocalDatabase;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
 import com.vladislav.workoutassistant.data.db.entity.ProgramCategoryEntity;
 import com.vladislav.workoutassistant.data.db.entity.ProgramEntity;
+import com.vladislav.workoutassistant.data.model.Program;
+import com.vladislav.workoutassistant.data.model.Set;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,6 +80,19 @@ public class Repository {
     public LiveData<List<ProgramEntity>> getProgramsByCategory(int categoryId) {
         return mDatabase.programDao().loadProgramsByCategory(categoryId);
     }
+
+    public LiveData<Program> getProgramById(int programId) {
+        return mDatabase.programDao().loadProgramById(programId);
+    }
+//
+//    public LiveData<List<Set>> getSetsById(int programId) {
+//        LiveData<List<Set>> liveData = new MutableLiveData<>();
+//        ((MutableLiveData<List<Set>>) liveData).postValue();
+//        List<Set> sets = mDatabase.setDao().loadSetsByProgramId(programId);
+//        for (Set set : sets) {
+//            set.exercises = mDatabase.setAndExerciseMatchingDao().getExercisesBySetId(set.id);
+//        }
+//    }
 
     public void insertNewEntry(final DiaryEntryEntity diaryEntry) {
         mExecutor.execute(new Runnable() {

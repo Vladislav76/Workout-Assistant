@@ -4,5 +4,5 @@ import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel;
 
 public interface DiaryEntryClickCallback {
 
-    void onClick(DiaryEntryViewModel model);
+    void onClick(DiaryEntryViewModel model, String name);
 }

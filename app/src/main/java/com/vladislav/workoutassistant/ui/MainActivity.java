@@ -1,6 +1,8 @@
 package com.vladislav.workoutassistant.ui;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.ui.callbacks.OnBackButtonListener;
@@ -21,14 +23,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mMainPanel = findViewById(R.id.main_panel);
-        mMainPanel.setOnNavigationItemSelectedListener(this);
+        BottomNavigationView mainPanel = findViewById(R.id.main_panel);
+        mainPanel.setOnNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
-            onNavigationItemSelected(mMainPanel.getMenu().getItem(0));
+            onNavigationItemSelected(mainPanel.getMenu().getItem(0));
         }
     }
 
@@ -37,9 +39,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         FragmentManager fragmentManager = getSupportFragmentManager();
         String tag = Integer.toString(item.getItemId());
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        if (fragment == null) {
+        if (fragment == null ) {
             switch (item.getItemId()) {
                 case R.id.programs_action:
                     fragment = ProgramCategoriesFragment.newInstance();
@@ -50,12 +51,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 default:
                     return false;
             }
+            fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment, tag)
+                    .addToBackStack(BACK_STACK_ROOT_TAG)
+                    .commit();
+        }
+        else {
+            fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, 0);
         }
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment, tag)
-                .addToBackStack(BACK_STACK_ROOT_TAG)
-                .commit();
         return true;
     }
 
@@ -83,9 +88,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             supportFinishAfterTransition();
         }
     }
-
-    private Toolbar mToolbar;
-    private BottomNavigationView mMainPanel;
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 }

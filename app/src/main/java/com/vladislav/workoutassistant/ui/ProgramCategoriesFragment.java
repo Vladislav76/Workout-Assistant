@@ -3,6 +3,7 @@ package com.vladislav.workoutassistant.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -23,29 +24,21 @@ import com.vladislav.workoutassistant.viewmodels.ProgramCategoriesViewModel;
 
 import java.util.List;
 
-public class ProgramCategoriesFragment extends Fragment {
+public class ProgramCategoriesFragment extends GeneralFragment {
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentListener) {
-            mFragmentListener = (OnFragmentListener) context;
-        }
-        else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentListener");
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        updateToolbar(R.string.program_categories_toolbar_title);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        RecyclerView view = new RecyclerView(getActivity());
+        final RecyclerView recyclerView = new RecyclerView(getActivity());
+        if (mAdapter == null) {
+            mAdapter = new ProgramCategoryAdapter(mCallback);
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(mAdapter);
 
-        mAdapter = new ProgramCategoryAdapter(mCallback);
-        view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        view.setAdapter(mAdapter);
-        mProgramCategoriesViewModel = ViewModelProviders.of(this).get(ProgramCategoriesViewModel.class);
-        mProgramCategoriesViewModel.getCategories().observe(this, new Observer<List<ProgramCategoryEntity>>() {
+        ProgramCategoriesViewModel programCategoriesViewModel = ViewModelProviders.of(this).get(ProgramCategoriesViewModel.class);
+        programCategoriesViewModel.getCategories().observe(this, new Observer<List<ProgramCategoryEntity>>() {
             @Override
             public void onChanged(List<ProgramCategoryEntity> categories) {
                 if (categories != null) {
@@ -55,29 +48,18 @@ public class ProgramCategoriesFragment extends Fragment {
             }
         });
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.program_categories_toolbar_title);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        return view;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mFragmentListener = null;
+        return recyclerView;
     }
 
     public static ProgramCategoriesFragment newInstance() {
         return new ProgramCategoriesFragment();
     }
 
-    private OnFragmentListener mFragmentListener;
-    private ProgramCategoriesViewModel mProgramCategoriesViewModel;
     private ProgramCategoryAdapter mAdapter;
     private ItemClickCallback mCallback = new ItemClickCallback() {
         @Override
-        public void onClick(int id) {
-            ProgramsFragment fragment = ProgramsFragment.newInstance(id);
+        public void onClick(int id, String title) {
+            ProgramsFragment fragment = ProgramsFragment.newInstance(id, title);
             mFragmentListener.addFragmentOnTop(fragment);
         }
     };

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="@{() -> callback.onClick(viewModel)}">
+        android:onClick="@{() -> callback.onClick(viewModel, viewModel.entry.title)}">
 
         <CheckBox
             android:id="@+id/selection_checkbox"

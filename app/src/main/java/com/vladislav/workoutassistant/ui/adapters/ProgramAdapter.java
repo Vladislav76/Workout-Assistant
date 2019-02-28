@@ -10,6 +10,7 @@ import com.vladislav.workoutassistant.ui.callbacks.ItemClickCallback;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,19 +56,19 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ProgramV
     }
 
     @Override
-    public ProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ProgramViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ProgramItemBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.program_item, parent, false);
+        ProgramItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.program_item, parent, false);
         binding.setCallback(mCallback);
         return new ProgramViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(ProgramViewHolder holder, int position) {
-        ProgramEntity category = mProgramList.get(position);
-        holder.mBinding.setId(category.getId());
-        holder.mBinding.nameField.setText(category.getName());
+    public void onBindViewHolder(@NonNull ProgramViewHolder holder, int position) {
+        ProgramEntity program = mProgramList.get(position);
+        holder.mBinding.setId(program.getId());
+        holder.mBinding.setName(program.getName());
     }
 
     @Override

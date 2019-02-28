@@ -3,6 +3,7 @@ package com.vladislav.workoutassistant.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,28 +31,21 @@ import com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel;
 
 import java.util.List;
 
-public class DiaryFragment extends Fragment {
+public class DiaryFragment extends GeneralFragment {
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentListener) {
-            mFragmentListener = (OnFragmentListener) context;
-        }
-        else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentListener");
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        updateToolbar(R.string.diary_toolbar_title);
+        setHasOptionsMenu(true);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        RecyclerView view = new RecyclerView(getActivity());
+        RecyclerView recyclerView = new RecyclerView(getActivity());
 
-        mAdapter = getAdapter();
-        view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        view.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = getAdapter();
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(mAdapter);
+
         mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntriesViewModel.class);
         mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntryEntity>>() {
             @Override
@@ -63,12 +57,7 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-        mToolbar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        mToolbar.setTitle(R.string.diary_toolbar_title);
-        mToolbar.setDisplayHomeAsUpEnabled(false);
-        setHasOptionsMenu(true);
-
-        return view;
+        return recyclerView;
     }
 
 
@@ -97,7 +86,7 @@ public class DiaryFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_diary_entry_action:
-                Fragment fragment = WorkoutDetailsFragment.newInstance(DiaryEntryViewModel.NEW_DIARY_ENTRY_ID);
+                Fragment fragment = WorkoutDetailsFragment.newInstance(DiaryEntryViewModel.NEW_DIARY_ENTRY_ID, null);
                 mFragmentListener.addFragmentOnTop(fragment);
                 return true;
             case R.id.delete_diary_entries_action:
@@ -119,12 +108,6 @@ public class DiaryFragment extends Fragment {
 //        }
 //    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mFragmentListener = null;
-    }
-
     private void cleanSelectedEntriesCheckboxes() {
         List<DiaryEntryEntity> entries = mDiaryEntryListViewModel.getEntries().getValue();
         for (DiaryEntryEntity entry : entries) {
@@ -140,14 +123,12 @@ public class DiaryFragment extends Fragment {
         return new DiaryFragment();
     }
 
-    private OnFragmentListener mFragmentListener;
     protected DiaryEntriesViewModel mDiaryEntryListViewModel;
     protected DiaryEntryAdapter mAdapter;
-    protected ActionBar mToolbar;
     private DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
         @Override
-        public void onClick(DiaryEntryViewModel model) {
-            WorkoutDetailsFragment fragment = WorkoutDetailsFragment.newInstance(model.getEntry().get().getId());
+        public void onClick(DiaryEntryViewModel model, String name) {
+            WorkoutDetailsFragment fragment = WorkoutDetailsFragment.newInstance(model.getEntry().get().getId(), name);
             mFragmentListener.addFragmentOnTop(fragment);
         }
     };

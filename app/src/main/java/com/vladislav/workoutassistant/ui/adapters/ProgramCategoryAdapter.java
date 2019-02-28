@@ -10,11 +10,12 @@ import com.vladislav.workoutassistant.ui.callbacks.ItemClickCallback;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProgramCategoryAdapter extends RecyclerView.Adapter<ProgramCategoryAdapter.CategoryAndProgramViewHolder> {
+public class ProgramCategoryAdapter extends RecyclerView.Adapter<ProgramCategoryAdapter.ProgramCategoryViewHolder> {
 
     public ProgramCategoryAdapter(ItemClickCallback callback) {
         mCallback = callback;
@@ -55,19 +56,19 @@ public class ProgramCategoryAdapter extends RecyclerView.Adapter<ProgramCategory
     }
 
     @Override
-    public CategoryAndProgramViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ProgramCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ProgramCategoryItemBinding binding = DataBindingUtil
-                .inflate(inflater, R.layout.program_category_item, parent, false);
+        ProgramCategoryItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.program_category_item, parent, false);
         binding.setCallback(mCallback);
-        return new CategoryAndProgramViewHolder(binding);
+        return new ProgramCategoryViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(CategoryAndProgramViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProgramCategoryViewHolder holder, int position) {
         ProgramCategoryEntity category = mProgramCategoryList.get(position);
         holder.mBinding.setId(category.getId());
-        holder.mBinding.nameField.setText(category.getName());
+        holder.mBinding.setName(category.getName());
     }
 
     @Override
@@ -75,10 +76,10 @@ public class ProgramCategoryAdapter extends RecyclerView.Adapter<ProgramCategory
         return mProgramCategoryList == null ? 0 : mProgramCategoryList.size();
     }
 
-    class CategoryAndProgramViewHolder extends RecyclerView.ViewHolder {
+    class ProgramCategoryViewHolder extends RecyclerView.ViewHolder {
         private ProgramCategoryItemBinding mBinding;
 
-        CategoryAndProgramViewHolder(ProgramCategoryItemBinding binding) {
+        ProgramCategoryViewHolder(ProgramCategoryItemBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
