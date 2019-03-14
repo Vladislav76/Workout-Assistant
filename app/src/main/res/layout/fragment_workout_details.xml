@@ -9,11 +9,11 @@
 
         <variable
             name="viewModel"
-            type="com.vladislav.workoutassistant.viewmodels.DiaryEntryViewModel" />
+            type="com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryViewModel" />
 
         <variable
             name="fragment"
-            type="com.vladislav.workoutassistant.ui.WorkoutDetailsFragment" />
+            type="com.vladislav.workoutassistant.diary.WorkoutDetailsFragment" />
     </data>
 
     <LinearLayout
@@ -89,7 +89,7 @@
                     android:onClick="@{fragment::onDateOrTimeButtonClicked}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/date_and_time_label"
-                    app:srcCompat="@drawable/ic_date_range_black_32dp" />
+                    app:srcCompat="@drawable/ic_date_range_32dp" />
 
                 <TextView
                     android:id="@+id/date_field"
@@ -113,7 +113,7 @@
                     android:onClick="@{fragment::onDateOrTimeButtonClicked}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/date_button"
-                    app:srcCompat="@drawable/ic_access_time_black_32dp" />
+                    app:srcCompat="@drawable/ic_access_time_32dp" />
 
                 <TextView
                     android:id="@+id/start_time_field"
@@ -135,7 +135,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/start_time_button"
                     app:layout_constraintStart_toEndOf="@+id/start_time_field"
                     app:layout_constraintTop_toTopOf="@+id/start_time_button"
-                    app:srcCompat="@drawable/ic_access_time_black_32dp" />
+                    app:srcCompat="@drawable/ic_access_time_32dp" />
 
                 <TextView
                     android:id="@+id/finish_time_field"
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/muscle_groups_editing_action"
                         android:onClick="@{fragment::onMuscleGroupsEditingClicked}"
-                        app:chipIcon="@drawable/ic_edit_black_32dp" />
+                        app:chipIcon="@drawable/ic_edit_32dp" />
                 </com.google.android.material.chip.ChipGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

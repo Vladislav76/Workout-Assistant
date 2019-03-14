@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/programs_action"
-        android:title="@string/programs_action"
-        android:icon="@drawable/ic_action_programs" />
+        android:id="@+id/home_tab"
+        android:title="@string/home_tab"
+        android:icon="@drawable/ic_home_24dp"
+        android:enabled="false"/>
 
     <item
-        android:id="@+id/diary_action"
-        android:title="@string/diary_action"
-        android:icon="@drawable/ic_action_diary" />
+        android:id="@+id/workouts_tab"
+        android:title="@string/workouts_tab"
+        android:icon="@drawable/ic_book_24dp"/>
+
+    <item
+        android:id="@+id/exercises_tab"
+        android:title="@string/exercises_tab"
+        android:icon="@drawable/ic_fitness_center_24dp"
+        android:enabled="false"/>
+
+    <item
+        android:id="@+id/diary_tab"
+        android:title="@string/diary_tab"
+        android:icon="@drawable/ic_assignment_24dp"/>
+
+    <item
+        android:id="@+id/settings_tab"
+        android:title="@string/settings_tab"
+        android:icon="@drawable/ic_settings_24dp"
+        android:enabled="false"/>
 </menu>
