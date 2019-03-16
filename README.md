@@ -1,24 +1,34 @@
 # Workout Assistant
-Android application that will help you in sports workout.
+Android application that will help you in sports workouts.
 
-## Features
-- Workout diary
+## What is expected?
+* "Workouts" screen: workous of different categories and levels of intensity
+* "Exercises" screen: the base of exercises on different muscle groups
+* "Diary" screen: diary of own workout activities
+* "Home" screen: your favorite and most used workouts, various data about your body (e.g. body mass index, weight, working weight)
+* "Settings" screen: application settings (e.g. multi-language support)
 
 ## Tasks
-* Database tables
-	- [ ] Exercises
-	- [ ] Programs
-* "Workout programs" screen
-	- [ ] Add 3 categories: Beginner, Intermediate, Advanced
-	- [ ] Several programs for each category
-	- [ ] Add a list of exercises (in sets) for each program
-	- [ ] Add the ability to change the number of repetitions and sets
-	- [ ] Add the ability to create your own workout program
-* "Exercises" screen
+* "Workouts" screen:
+	- [ ] Display full workouts information
+	- [ ] The ability to change workouts (the number of repetitions and sets, order of exercises)
+	- [ ] The ability to create your own workout
+	- [ ] The ability to add workouts to favorites
+* "Exercises" screen:
 	- [ ] Add a list of exercises for each muscle group
 	- [ ] Add a description and the correct technique for each exercise 
-* "Settings" screen
+	- [ ] The ability to create your own exercise
+* "Diary" screen:
+	- [ ] Recording the execution of the program with the workout results
+* "Settings" screen:
 	- [ ] Calculators: working weight, body mass index, etc
+	- [ ] Language selection
 
-## Note
-New tasks and features will appear as the application is written.
+## Maybe in the future
+* Workout activity chart
+* Workout planning and reminders
+* The ability to add photos with your physical progress
+
+## In the distant future...
+* Add a server side so users can share their results with friends
+* Ranking of the most popular workouts
