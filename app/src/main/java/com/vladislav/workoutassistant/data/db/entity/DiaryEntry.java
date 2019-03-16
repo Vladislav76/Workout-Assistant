@@ -12,19 +12,10 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "diary")
-public class DiaryEntryEntity implements FullDiaryEntry {
-
-    public DiaryEntryEntity(Date date, Time startTime, Time finishTime, String title) {
-        mDate = date;
-        mStartTime = startTime;
-        mFinishTime = finishTime;
-        mTitle = title;
-        mDuration = new Time(finishTime.getTime() - startTime.getTime());
-        mMuscleGroupsIds = new ArrayList<>();
-    }
+public class DiaryEntry implements FullDiaryEntry {
 
     @Ignore
-    public DiaryEntryEntity() {
+    public DiaryEntry() {
         mMuscleGroupsIds = new ArrayList<>();
     }
 
@@ -58,6 +49,15 @@ public class DiaryEntryEntity implements FullDiaryEntry {
 
     @Ignore
     private String mDefaultTitle;
+
+    public DiaryEntry(Date date, Time startTime, Time finishTime, String title) {
+        mDate = date;
+        mStartTime = startTime;
+        mFinishTime = finishTime;
+        mTitle = title;
+        mDuration = new Time(finishTime.getTime() - startTime.getTime());
+        mMuscleGroupsIds = new ArrayList<>();
+    }
 
     /* GETTERS */
     @Override

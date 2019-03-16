@@ -5,6 +5,13 @@ import androidx.room.PrimaryKey;
 
 public class NamedObject {
 
+    public NamedObject() {}
+
+    public NamedObject(int id, String name) {
+        mId = id;
+        mName = name;
+    }
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int mId;

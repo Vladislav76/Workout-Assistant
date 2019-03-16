@@ -1,6 +1,6 @@
 package com.vladislav.workoutassistant.data.db.dao;
 
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 
 import java.util.List;
 
@@ -15,20 +15,20 @@ import androidx.room.Update;
 public interface DiaryDao {
 
     @Query("SELECT * FROM diary")
-    LiveData<List<DiaryEntryEntity>> loadAllEntries();
+    LiveData<List<DiaryEntry>> loadAllEntries();
 
     @Query("SELECT * FROM diary WHERE id = :diaryEntryId")
-    LiveData<DiaryEntryEntity> loadEntry(int diaryEntryId);
+    LiveData<DiaryEntry> loadEntry(int diaryEntryId);
 
     @Query("DELETE FROM diary WHERE id IN (:ids)")
     void deleteEntriesById(List<Integer> ids);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertEntry(DiaryEntryEntity entry);
+    void insertEntry(DiaryEntry entry);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertEntries(List<DiaryEntryEntity> entries);
+    void insertEntries(List<DiaryEntry> entries);
 
     @Update
-    void updateEntry(DiaryEntryEntity entry);
+    void updateEntry(DiaryEntry entry);
 }

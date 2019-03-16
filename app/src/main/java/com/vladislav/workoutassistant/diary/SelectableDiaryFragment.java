@@ -22,6 +22,24 @@ import androidx.annotation.NonNull;
 
 public class SelectableDiaryFragment extends DiaryFragment {
 
+    private int mSelectedEntriesCount;
+    private final DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
+        @Override
+        public void onClick(DiaryEntryViewModel model, String name) {
+            boolean wasSelected = model.getEntry().get().isSelected();
+            model.setSelected(!wasSelected);
+            if (wasSelected) {
+                mSelectedEntriesCount--;
+            }
+            else {
+                mSelectedEntriesCount++;
+            }
+            updateToolbar(Integer.toString(mSelectedEntriesCount));
+        }
+    };
+
+    private static final String EXTRA_SELECTED_ENTRIES_COUNT = "extra_selected_entries_count";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
@@ -82,22 +100,4 @@ public class SelectableDiaryFragment extends DiaryFragment {
     public static SelectableDiaryFragment newInstance() {
         return new SelectableDiaryFragment();
     }
-
-    private int mSelectedEntriesCount;
-    private final DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
-        @Override
-        public void onClick(DiaryEntryViewModel model, String name) {
-            boolean wasSelected = model.getEntry().get().isSelected();
-            model.setSelected(!wasSelected);
-            if (wasSelected) {
-                mSelectedEntriesCount--;
-            }
-            else {
-                mSelectedEntriesCount++;
-            }
-            updateToolbar(Integer.toString(mSelectedEntriesCount));
-        }
-    };
-
-    private static final String EXTRA_SELECTED_ENTRIES_COUNT = "extra_selected_entries_count";
 }

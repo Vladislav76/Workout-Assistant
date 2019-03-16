@@ -16,8 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
-        OnFragmentListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, OnFragmentListener {
+
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             supportFinishAfterTransition();
         }
     }
-
-    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 }

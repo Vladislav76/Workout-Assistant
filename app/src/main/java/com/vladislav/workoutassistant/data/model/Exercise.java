@@ -1,7 +1,5 @@
 package com.vladislav.workoutassistant.data.model;
 
-import com.vladislav.workoutassistant.data.db.entity.ExerciseEntity;
-
 import java.util.List;
 
 import androidx.room.ColumnInfo;
@@ -12,15 +10,15 @@ public class Exercise extends RepeatableObject {
     @ColumnInfo(name = "exercise_id")
     private int mExerciseId;
 
-    @Relation(parentColumn = "exercise_id", entityColumn = "id", entity = ExerciseEntity.class)
-    private List<ExerciseEntity> mInfo;
+    @Relation(parentColumn = "exercise_id", entityColumn = "id", entity = com.vladislav.workoutassistant.data.db.entity.Exercise.class)
+    private List<com.vladislav.workoutassistant.data.db.entity.Exercise> mInfo;
 
     /* GETTERS */
     public int getExerciseId() {
         return mExerciseId;
     }
 
-    public List<ExerciseEntity> getInfo() {
+    public List<com.vladislav.workoutassistant.data.db.entity.Exercise> getInfo() {
         return mInfo;
     }
 
@@ -43,7 +41,7 @@ public class Exercise extends RepeatableObject {
         mExerciseId = exerciseId;
     }
 
-    public void setInfo(List<ExerciseEntity> info) {
+    public void setInfo(List<com.vladislav.workoutassistant.data.db.entity.Exercise> info) {
         mInfo = info;
     }
 }

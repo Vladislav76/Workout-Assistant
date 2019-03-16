@@ -2,12 +2,11 @@ package com.vladislav.workoutassistant.data;
 
 import android.app.Application;
 
+import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.LocalDatabase;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
-import com.vladislav.workoutassistant.data.db.entity.ProgramCategoryEntity;
-import com.vladislav.workoutassistant.data.db.entity.ProgramEntity;
-import com.vladislav.workoutassistant.data.model.Program;
-import com.vladislav.workoutassistant.data.model.Set;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
+import com.vladislav.workoutassistant.data.db.entity.Workout;
+import com.vladislav.workoutassistant.data.model.NamedObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,21 +21,42 @@ import androidx.lifecycle.Observer;
 
 public class Repository {
 
+    private static Repository sInstance;
+
+    private Executor mExecutor;
+    private LocalDatabase mDatabase;
+    private MutableLiveData<DiaryEntry> mTempDiaryEntry;
+    private MediatorLiveData<List<DiaryEntry>> mObservableEntries;
+    private List<NamedObject> mCategories;
+    private List<NamedObject> mIntensityLevels;
+
     private Repository(Application application) {
         mDatabase = LocalDatabase.getInstance(application);
         mObservableEntries = new MediatorLiveData<>();
 
-        mObservableEntries.addSource(mDatabase.diaryDao().loadAllEntries(), new Observer<List<DiaryEntryEntity>>() {
+        mObservableEntries.addSource(mDatabase.diaryDao().loadAllEntries(), new Observer<List<DiaryEntry>>() {
             @Override
-            public void onChanged(List<DiaryEntryEntity> diaryEntryEntities) {
+            public void onChanged(List<DiaryEntry> diaryEntryEntities) {
                 if (mDatabase.getDatabaseCreated().getValue() != null) {
                     mObservableEntries.postValue(diaryEntryEntities);
                 }
             }
         });
 
+        mCategories = new ArrayList<>();
+        String[] names = application.getResources().getStringArray(R.array.categories);
+        for (int i = 0; i < names.length; i++) {
+            mCategories.add(new NamedObject(i, names[i]));
+        }
+
+        mIntensityLevels = new ArrayList<>();
+        names = application.getResources().getStringArray(R.array.intensity_levels);
+        for (int i = 0; i < names.length; i++) {
+            mIntensityLevels.add(new NamedObject(i, names[i]));
+        }
+
         mTempDiaryEntry = new MutableLiveData<>();
-        mTempDiaryEntry.setValue(new DiaryEntryEntity());
+        mTempDiaryEntry.setValue(new DiaryEntry());
         mExecutor = Executors.newSingleThreadExecutor();
     }
 
@@ -51,16 +71,28 @@ public class Repository {
         return sInstance;
     }
 
-    public LiveData<List<DiaryEntryEntity>> getAllEntries() {
+    public List<NamedObject> loadCategories() {
+        return mCategories;
+    }
+
+    public List<NamedObject> loadIntensityLevels() {
+        return mIntensityLevels;
+    }
+
+    public LiveData<List<Workout>> loadWorkouts(int categoryId) {
+        return mDatabase.workoutDao().loadWorkouts(categoryId);
+    }
+
+    public LiveData<List<DiaryEntry>> loadDiaryEntries() {
         return mObservableEntries;
     }
 
-    public LiveData<DiaryEntryEntity> getEntry(int diaryEntryId) {
+    public LiveData<DiaryEntry> loadDiaryEntry(int diaryEntryId) {
         return mDatabase.diaryDao().loadEntry(diaryEntryId);
     }
 
-    public LiveData<DiaryEntryEntity> getNewEntry() {
-        DiaryEntryEntity entry = mTempDiaryEntry.getValue();
+    public LiveData<DiaryEntry> getNewEntry() {
+        DiaryEntry entry = mTempDiaryEntry.getValue();
         entry.setDate(new Date());
         entry.setStartTime(null);
         entry.setFinishTime(null);
@@ -73,28 +105,7 @@ public class Repository {
         return mTempDiaryEntry;
     }
 
-    public LiveData<List<ProgramCategoryEntity>> getProgramCategories() {
-        return mDatabase.programCategoryDao().loadCategories();
-    }
-
-    public LiveData<List<ProgramEntity>> getProgramsByCategory(int categoryId) {
-        return mDatabase.programDao().loadProgramsByCategory(categoryId);
-    }
-
-    public LiveData<Program> getProgramById(int programId) {
-        return mDatabase.programDao().loadProgramById(programId);
-    }
-//
-//    public LiveData<List<Set>> getSetsById(int programId) {
-//        LiveData<List<Set>> liveData = new MutableLiveData<>();
-//        ((MutableLiveData<List<Set>>) liveData).postValue();
-//        List<Set> sets = mDatabase.setDao().loadSetsByProgramId(programId);
-//        for (Set set : sets) {
-//            set.exercises = mDatabase.setAndExerciseMatchingDao().getExercisesBySetId(set.id);
-//        }
-//    }
-
-    public void insertNewEntry(final DiaryEntryEntity diaryEntry) {
+    public void insertNewEntry(final DiaryEntry diaryEntry) {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -103,7 +114,7 @@ public class Repository {
         });
     }
 
-    public void updateEntry(final DiaryEntryEntity diaryEntry) {
+    public void updateEntry(final DiaryEntry diaryEntry) {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -120,11 +131,17 @@ public class Repository {
             }
         });
     }
-
-    private Executor mExecutor;
-    private LocalDatabase mDatabase;
-    private MutableLiveData<DiaryEntryEntity> mTempDiaryEntry;
-    private MediatorLiveData<List<DiaryEntryEntity>> mObservableEntries;
-
-    private static Repository sInstance;
 }
+
+//    public LiveData<Program> getProgramById(int programId) {
+//        return mDatabase.programDao().loadProgramById(programId);
+//    }
+//
+//    public LiveData<List<Set>> getSetsById(int programId) {
+//        LiveData<List<Set>> liveData = new MutableLiveData<>();
+//        ((MutableLiveData<List<Set>>) liveData).postValue();
+//        List<Set> sets = mDatabase.setDao().loadSetsByProgramId(programId);
+//        for (Set set : sets) {
+//            set.exercises = mDatabase.setAndExerciseMatchingDao().getExercisesBySetId(set.id);
+//        }
+//    }

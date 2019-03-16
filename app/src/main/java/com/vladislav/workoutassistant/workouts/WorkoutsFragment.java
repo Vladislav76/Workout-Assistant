@@ -4,21 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.db.entity.Category;
 import com.vladislav.workoutassistant.core.GeneralFragment;
-import com.vladislav.workoutassistant.workouts.adapters.CategoryAdapter;
-import com.vladislav.workoutassistant.workouts.adapters.WorkoutsCardAdapter;
 import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
-import com.vladislav.workoutassistant.workouts.viewmodels.VerticalModel;
+import com.vladislav.workoutassistant.core.components.CustomItemDecoration;
+import com.vladislav.workoutassistant.data.model.WorkoutGroup;
+import com.vladislav.workoutassistant.workouts.adapters.CategoryAdapter;
+import com.vladislav.workoutassistant.workouts.adapters.WorkoutGroupAdapter;
+import com.vladislav.workoutassistant.workouts.viewmodels.GeneralInfoViewModel;
+import com.vladislav.workoutassistant.workouts.viewmodels.WorkoutGroupListViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class WorkoutsFragment extends GeneralFragment {
@@ -26,16 +28,20 @@ public class WorkoutsFragment extends GeneralFragment {
     private RecyclerView mCategoriesRecyclerView;
     private RecyclerView mWorkoutsCardsRecyclerView;
     private CategoryAdapter mCategoryAdapter;
-    private WorkoutsCardAdapter mWorkoutsCardAdapter;
+    private WorkoutGroupAdapter mWorkoutGroupAdapter;
+    private GeneralInfoViewModel mGeneralInfoViewModel;
+    private WorkoutGroupListViewModel mWorkoutGroupListViewModel;
+    private int mCurrentCategoryId;
+
+    private static final String CURRENT_CATEGORY_ID = "current_category_id";
 
     private ItemClickCallback mCategoryClickCallback = new ItemClickCallback() {
         @Override
         public void onClick(int id, String name) {
-            Random random = new Random();
-            Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
-            mWorkoutsCardAdapter.setList(generateWorkoutsCards(random.nextInt(7), name));
-//            mWorkoutsCardsRecyclerView.setAdapter(mWorkoutsCardAdapter);
-
+            if (id != mCurrentCategoryId) {
+                mCurrentCategoryId = id;
+                mWorkoutGroupListViewModel.init(id);
+            }
         }
     };
 
@@ -48,56 +54,41 @@ public class WorkoutsFragment extends GeneralFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateToolbar(R.string.workouts_tab);
 
+        if (savedInstanceState != null) {
+            mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID);
+        }
+
         mCategoriesRecyclerView = view.findViewById(R.id.horizontal_recycler_view);
         mWorkoutsCardsRecyclerView = view.findViewById(R.id.vertical_recycler_view);
 
-        mCategoryAdapter = new CategoryAdapter(generateCategories(10), mCategoryClickCallback);
+        mGeneralInfoViewModel = ViewModelProviders.of(this).get(GeneralInfoViewModel.class);
+        mCategoryAdapter = new CategoryAdapter(mGeneralInfoViewModel.getCategories(), mCategoryClickCallback);
         mCategoriesRecyclerView.setAdapter(mCategoryAdapter);
+        mCategoriesRecyclerView.addItemDecoration(new CustomItemDecoration(10));
 
-        mWorkoutsCardAdapter = new WorkoutsCardAdapter(generateWorkoutsCards(10, "Start"));
-        mWorkoutsCardsRecyclerView.setAdapter(mWorkoutsCardAdapter);
+        mWorkoutGroupAdapter = new WorkoutGroupAdapter(mGeneralInfoViewModel.getIntensityLevels());
+        mWorkoutGroupListViewModel = ViewModelProviders.of(this).get(WorkoutGroupListViewModel.class);
+        mWorkoutGroupListViewModel.getWorkoutGroups().observe(this, new Observer<List<WorkoutGroup>>() {
+            @Override
+            public void onChanged(List<WorkoutGroup> workoutGroups) {
+                if (workoutGroups != null) {
+                    mWorkoutGroupAdapter.setList(workoutGroups);
+                    mWorkoutGroupAdapter.notifyDataSetChanged();
+                    mWorkoutsCardsRecyclerView.scrollToPosition(0);
+                    ((LinearLayoutManager)mCategoriesRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mCurrentCategoryId, 0);
+                }
+            }
+        });
+        mWorkoutGroupListViewModel.init(mCurrentCategoryId);
+        mWorkoutsCardsRecyclerView.setAdapter(mWorkoutGroupAdapter);
+    }
 
-        //TODO: add custom Item Decorator
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        savedInstanceState.putInt(CURRENT_CATEGORY_ID, mCurrentCategoryId);
     }
 
     public static WorkoutsFragment newInstance() {
         return new WorkoutsFragment();
     }
-
-    /* PROTOTYPE DATA */
-    private List<Category> generateCategories(int size) {
-        List<Category> categories = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
-            categories.add(new Category("Category " + i));
-        }
-        return categories;
-    }
-
-    private List<VerticalModel> generateWorkoutsCards(int size, String categoryName) {
-        List<VerticalModel> cards = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
-            cards.add(new VerticalModel(categoryName + ". Level " + i));
-        }
-        return cards;
-    }
 }
-
-//    private ItemClickCallback mCallback = new ItemClickCallback() {
-//        @Override
-//        public void onClick(int id, String title) {
-//            ProgramsFragment fragment = ProgramsFragment.newInstance(id, title);
-//            mFragmentListener.addFragmentOnTop(fragment);
-//        }
-//    };
-
-//
-//        ProgramCategoriesViewModel programCategoriesViewModel = ViewModelProviders.of(this).get(ProgramCategoriesViewModel.class);
-//        programCategoriesViewModel.getCategories().observe(this, new Observer<List<ProgramCategoryEntity>>() {
-//            @Override
-//            public void onChanged(List<ProgramCategoryEntity> categories) {
-//                if (categories != null) {
-//                    mAdapter.setList(categories);
-//                    mAdapter.notifyItemChanged(0, categories.size());
-//                }
-//            }
-//        });

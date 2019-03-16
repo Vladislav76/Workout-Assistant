@@ -11,11 +11,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 public class DatePickerFragment extends DialogFragment {
 
+    public static final String EXTRA_DATE = "extra_date";
+    private static final String ARG_DATE = "arg_date";
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Date date = (Date) getArguments().getSerializable(ARG_DATE);
@@ -55,7 +60,4 @@ public class DatePickerFragment extends DialogFragment {
 
         return fragment;
     }
-
-    private static final String ARG_DATE = "arg_date";
-    public static final String EXTRA_DATE = "extra_date";
 }

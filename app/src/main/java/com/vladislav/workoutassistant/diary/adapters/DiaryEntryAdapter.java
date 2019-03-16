@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.data.model.AbbreviatedDiaryEntry;
 import com.vladislav.workoutassistant.databinding.ItemDiaryEntryBinding;
 import com.vladislav.workoutassistant.core.callbacks.DiaryEntryClickCallback;
@@ -14,6 +14,7 @@ import com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryViewModel;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
@@ -21,14 +22,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.DiaryEntryViewHolder> {
 
-    public DiaryEntryAdapter(Application application, @Nullable DiaryEntryClickCallback clickCallback, boolean isSelectedMode) {
-        mDiaryEntryClickCallback = clickCallback;
+    private List<DiaryEntry> mEntryList;
+    private boolean mIsSelectedMode;
+    private Application mApplication;
+    private DiaryEntryClickCallback mCallback;
+
+    public DiaryEntryAdapter(Application application, @Nullable DiaryEntryClickCallback callback, boolean isSelectedMode) {
+        mCallback = callback;
         mIsSelectedMode = isSelectedMode;
         mApplication = application;
         setHasStableIds(true);
     }
 
-    public void setEntryList(final List<DiaryEntryEntity> entryList) {
+    public void setEntryList(final List<DiaryEntry> entryList) {
         if (mEntryList == null) {
             mEntryList = entryList;
             notifyItemRangeChanged(0, entryList.size());
@@ -66,17 +72,18 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
         }
     }
 
+    @NonNull
     @Override
-    public DiaryEntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DiaryEntryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemDiaryEntryBinding binding = DataBindingUtil
                 .inflate(inflater, R.layout.item_diary_entry, parent, false);
-        binding.setCallback(mDiaryEntryClickCallback);
+        binding.setCallback(mCallback);
         return new DiaryEntryViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(DiaryEntryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DiaryEntryViewHolder holder, int position) {
         holder.mViewModel.setEntry(mEntryList.get(position));
         holder.mBinding.idField.setText(Integer.toString(position + 1));
         holder.mBinding.executePendingBindings();
@@ -109,11 +116,4 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
             }
         }
     }
-
-    private List<DiaryEntryEntity> mEntryList;
-    private boolean mIsSelectedMode;
-    private Application mApplication;
-
-    @Nullable
-    private final DiaryEntryClickCallback mDiaryEntryClickCallback;
 }

@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.db.entity.Category;
 import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
+import com.vladislav.workoutassistant.data.model.NamedObject;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private List<Category> mCategories;
+    private List<NamedObject> mCategories;
     private ItemClickCallback mCallback;
 
-    public CategoryAdapter(List<Category> categories, ItemClickCallback callback) {
+    public CategoryAdapter(List<NamedObject> categories, ItemClickCallback callback) {
         mCategories = categories;
         mCallback = callback;
     }
@@ -44,7 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     class CategoryViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitleView;
-        private Category mCategory;
+        private NamedObject mCategory;
 
         CategoryViewHolder(View view) {
             super(view);
@@ -57,7 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             });
         }
 
-        void bind(Category category) {
+        void bind(NamedObject category) {
             mCategory = category;
             mTitleView.setText(category.getName());
         }

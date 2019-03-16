@@ -18,16 +18,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.core.GeneralFragment;
 import com.vladislav.workoutassistant.diary.adapters.DiaryEntryAdapter;
 import com.vladislav.workoutassistant.core.callbacks.DiaryEntryClickCallback;
-import com.vladislav.workoutassistant.diary.viewmodels.DiaryEntriesViewModel;
+import com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryListViewModel;
 import com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryViewModel;
 
 import java.util.List;
 
 public class DiaryFragment extends GeneralFragment {
+
+    private int DELETE_ENTRIES_REQUEST_CODE = 76;
+
+    protected DiaryEntryListViewModel mDiaryEntryListViewModel;
+    protected DiaryEntryAdapter mAdapter;
+    private DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
+        @Override
+        public void onClick(DiaryEntryViewModel model, String name) {
+            DiaryEntryDetailsFragment fragment = DiaryEntryDetailsFragment.newInstance(model.getEntry().get().getId(), name);
+            mFragmentListener.addFragmentOnTop(fragment);
+        }
+    };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,10 +54,10 @@ public class DiaryFragment extends GeneralFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mAdapter);
 
-        mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntriesViewModel.class);
-        mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntryEntity>>() {
+        mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntryListViewModel.class);
+        mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntry>>() {
             @Override
-            public void onChanged(@Nullable List<DiaryEntryEntity> entries) {
+            public void onChanged(@Nullable List<DiaryEntry> entries) {
                 if (entries != null) {
                     mAdapter.setEntryList(entries);
                     mAdapter.notifyItemRangeChanged(0, entries.size());
@@ -61,10 +73,10 @@ public class DiaryFragment extends GeneralFragment {
 //    @Override
 //    public void onActivityCreated(Bundle savedInstanceState) {
 //        super.onActivityCreated(savedInstanceState);
-//        mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntriesViewModel.class);
-//        mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntryEntity>>() {
+//        mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntryListViewModel.class);
+//        mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntry>>() {
 //            @Override
-//            public void onChanged(@Nullable List<DiaryEntryEntity> entries) {
+//            public void onChanged(@Nullable List<DiaryEntry> entries) {
 //                if (entries != null) {
 //                    mAdapter.setEntryList(entries);
 //                    mAdapter.notifyItemRangeChanged(0, entries.size());
@@ -82,7 +94,7 @@ public class DiaryFragment extends GeneralFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_diary_entry_action:
-                Fragment fragment = WorkoutDetailsFragment.newInstance(DiaryEntryViewModel.NEW_DIARY_ENTRY_ID, null);
+                Fragment fragment = DiaryEntryDetailsFragment.newInstance(DiaryEntryViewModel.NEW_DIARY_ENTRY_ID, null);
                 mFragmentListener.addFragmentOnTop(fragment);
                 return true;
             case R.id.delete_diary_entries_action:
@@ -105,8 +117,8 @@ public class DiaryFragment extends GeneralFragment {
 //    }
 
     private void cleanSelectedEntriesCheckboxes() {
-        List<DiaryEntryEntity> entries = mDiaryEntryListViewModel.getEntries().getValue();
-        for (DiaryEntryEntity entry : entries) {
+        List<DiaryEntry> entries = mDiaryEntryListViewModel.getEntries().getValue();
+        for (DiaryEntry entry : entries) {
             entry.setSelected(false);
         }
     }
@@ -118,16 +130,4 @@ public class DiaryFragment extends GeneralFragment {
     public static DiaryFragment newInstance() {
         return new DiaryFragment();
     }
-
-    protected DiaryEntriesViewModel mDiaryEntryListViewModel;
-    protected DiaryEntryAdapter mAdapter;
-    private DiaryEntryClickCallback mDiaryEntryClickCallback = new DiaryEntryClickCallback() {
-        @Override
-        public void onClick(DiaryEntryViewModel model, String name) {
-            WorkoutDetailsFragment fragment = WorkoutDetailsFragment.newInstance(model.getEntry().get().getId(), name);
-            mFragmentListener.addFragmentOnTop(fragment);
-        }
-    };
-
-    private int DELETE_ENTRIES_REQUEST_CODE = 76;
 }

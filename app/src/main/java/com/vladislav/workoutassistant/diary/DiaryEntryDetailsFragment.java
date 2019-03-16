@@ -16,8 +16,9 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.data.model.FullDiaryEntry;
+import com.vladislav.workoutassistant.databinding.FragmentDiaryEntryDetailsBinding;
 import com.vladislav.workoutassistant.databinding.FragmentWorkoutDetailsBinding;
 import com.vladislav.workoutassistant.core.dialogs.DatePickerFragment;
 import com.vladislav.workoutassistant.core.GeneralFragment;
@@ -37,7 +38,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class WorkoutDetailsFragment extends GeneralFragment {
+public class DiaryEntryDetailsFragment extends GeneralFragment {
+
+    private static final String DIARY_ENTRY_ID_ARG = "diary_entry_id_arg";
+    private static final String DIARY_ENTRY_NAME_ARG = "diary_entry_name_arg";
+    private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
+    private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
+    private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";
+    private static final int REQUEST_GET_DATE = 1;
+    private static final int REQUEST_GET_START_TIME = 2;
+    private static final int REQUEST_GET_FINISH_TIME = 3;
+    private static final int REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST = 4;
+
+    private DiaryEntryViewModel mDiaryEntryViewModel;
+    private FragmentDiaryEntryDetailsBinding mBinding;
+    private String[] mMuscleGroupsNameArray;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,15 +67,15 @@ public class WorkoutDetailsFragment extends GeneralFragment {
 
         DiaryEntryViewModelFactory factory = new DiaryEntryViewModelFactory(getActivity().getApplication(), getArguments().getInt(DIARY_ENTRY_ID_ARG));
         mDiaryEntryViewModel = ViewModelProviders.of(this, factory).get(DiaryEntryViewModel.class);
-        mDiaryEntryViewModel.getDiaryEntry().observe(this, new Observer<DiaryEntryEntity>() {
+        mDiaryEntryViewModel.getDiaryEntry().observe(this, new Observer<DiaryEntry>() {
             @Override
-            public void onChanged(DiaryEntryEntity diaryEntryEntity) {
-                mDiaryEntryViewModel.setEntry(diaryEntryEntity);
+            public void onChanged(DiaryEntry diaryEntry) {
+                mDiaryEntryViewModel.setEntry(diaryEntry);
                 updateMuscleGroups();
             }
         });
 
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workout_details, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_diary_entry_details, container, false);
         mBinding.setFragment(this);
         mBinding.setViewModel(mDiaryEntryViewModel);
         mBinding.setLifecycleOwner(this);
@@ -257,28 +272,14 @@ public class WorkoutDetailsFragment extends GeneralFragment {
         getActivity().onBackPressed();
     }
 
-    public static WorkoutDetailsFragment newInstance(int diaryEntryId, String diaryEntryName) {
+    public static DiaryEntryDetailsFragment newInstance(int diaryEntryId, String diaryEntryName) {
         Bundle args = new Bundle();
         args.putInt(DIARY_ENTRY_ID_ARG, diaryEntryId);
         args.putString(DIARY_ENTRY_NAME_ARG, diaryEntryName);
 
-        WorkoutDetailsFragment fragment = new WorkoutDetailsFragment();
+        DiaryEntryDetailsFragment fragment = new DiaryEntryDetailsFragment();
         fragment.setArguments(args);
 
         return fragment;
     }
-
-    private DiaryEntryViewModel mDiaryEntryViewModel;
-    private FragmentWorkoutDetailsBinding mBinding;
-    private String[] mMuscleGroupsNameArray;
-
-    private static final String DIARY_ENTRY_ID_ARG = "diary_entry_id_arg";
-    private static final String DIARY_ENTRY_NAME_ARG = "diary_entry_name_arg";
-    private static final String TAG_DATE_PICKER_DIALOG = "date_picker_dialog";
-    private static final String TAG_TIME_PICKER_DIALOG = "time_picker_dialog";
-    private static final String TAG_ITEM_GROUP_PICKER_DIALOG = "item_group_picker_dialog";
-    private static final int REQUEST_GET_DATE = 1;
-    private static final int REQUEST_GET_START_TIME = 2;
-    private static final int REQUEST_GET_FINISH_TIME = 3;
-    private static final int REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST = 4;
 }

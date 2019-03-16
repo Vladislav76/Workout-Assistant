@@ -1,6 +1,6 @@
 package com.vladislav.workoutassistant.data.db.dao;
 
-import com.vladislav.workoutassistant.data.db.entity.Exercise;
+import com.vladislav.workoutassistant.data.db.entity.SetVsExerciseMatching;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 
 @Dao
-public interface ExerciseDao {
+public interface SetVsExerciseMatchingDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExercises(List<Exercise> exercises);
+    void insertMatching(List<SetVsExerciseMatching> matching);
 }

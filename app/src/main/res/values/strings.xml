@@ -41,17 +41,22 @@
         <item>Abs</item>
     </string-array>
 
-    <string-array name="program_categories">
+    <string-array name="intensity_levels">
         <item>Beginner</item>
         <item>Intermediate</item>
         <item>Advanced</item>
+    </string-array>
+
+    <string-array name="categories">
         <item>Custom</item>
+        <item>Bodybuilding</item>
+        <item>Street workout</item>
+        <item>Cardio</item>
+        <item>Yoga</item>
+        <item>Something</item>
     </string-array>
 
     <string name="null_time_input_error">Time fields must not be empty!</string>
     <string name="not_correct_time_input_error">Start time must not be greater than finish time!</string>
     <string name="empty_title_error">Title field must not be empty!</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

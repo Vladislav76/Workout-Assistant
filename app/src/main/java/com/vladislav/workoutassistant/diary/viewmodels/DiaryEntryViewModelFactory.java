@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class DiaryEntryViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
+    @NonNull
+    private final Application mApplication;
+    private final int mDiaryEntryId;
+
     public DiaryEntryViewModelFactory(@NonNull Application application, int diaryEntryId) {
         mApplication = application;
         mDiaryEntryId = diaryEntryId;
@@ -18,8 +22,4 @@ public class DiaryEntryViewModelFactory extends ViewModelProvider.NewInstanceFac
     public <T extends ViewModel> T create(Class<T> modelClass) {
         return (T) new DiaryEntryViewModel(mApplication, mDiaryEntryId);
     }
-
-    @NonNull
-    private final Application mApplication;
-    private final int mDiaryEntryId;
 }

@@ -18,6 +18,9 @@ import androidx.fragment.app.Fragment;
 
 public class TimePickerFragment extends DialogFragment {
 
+    public static final String EXTRA_TIME = "extra_time";
+    private static final String ARG_TIME = "arg_time";
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Date time = (Date) getArguments().getSerializable(ARG_TIME);
@@ -60,7 +63,4 @@ public class TimePickerFragment extends DialogFragment {
 
         return fragment;
     }
-
-    private static final String ARG_TIME = "arg_time";
-    public static final String EXTRA_TIME = "extra_time";
 }

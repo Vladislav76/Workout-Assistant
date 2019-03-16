@@ -3,7 +3,7 @@ package com.vladislav.workoutassistant.diary.viewmodels;
 import android.app.Application;
 
 import com.vladislav.workoutassistant.data.Repository;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 
 import java.util.List;
 
@@ -12,29 +12,28 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 
-public class DiaryEntriesViewModel extends AndroidViewModel {
+public class DiaryEntryListViewModel extends AndroidViewModel {
 
-    public DiaryEntriesViewModel(Application application) {
+    private Repository mRepository;
+    private MediatorLiveData<List<DiaryEntry>> mEntryList = new MediatorLiveData<>();
+
+    public DiaryEntryListViewModel(Application application) {
         super(application);
 
         mRepository = Repository.getInstance(application);
-//        mEntryList.setValue(null);
-        mEntryList.addSource(mRepository.getAllEntries(), new Observer<List<DiaryEntryEntity>>() {
+        mEntryList.addSource(mRepository.loadDiaryEntries(), new Observer<List<DiaryEntry>>() {
             @Override
-            public void onChanged(List<DiaryEntryEntity> diaryEntryEntities) {
+            public void onChanged(List<DiaryEntry> diaryEntryEntities) {
                 mEntryList.setValue(diaryEntryEntities);
             }
         });
     }
 
-    public LiveData<List<DiaryEntryEntity>> getEntries() {
+    public LiveData<List<DiaryEntry>> getEntries() {
         return mEntryList;
     }
 
     public void deleteEntriesById(List<Integer> ids) {
         mRepository.deleteEntriesById(ids);
     }
-
-    private Repository mRepository;
-    private MediatorLiveData<List<DiaryEntryEntity>> mEntryList = new MediatorLiveData<>();
 }

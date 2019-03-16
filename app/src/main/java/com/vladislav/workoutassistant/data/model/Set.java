@@ -1,6 +1,6 @@
 package com.vladislav.workoutassistant.data.model;
 
-import com.vladislav.workoutassistant.data.db.entity.SetAndExerciseMatchingEntity;
+import com.vladislav.workoutassistant.data.db.entity.SetVsExerciseMatching;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import androidx.room.Relation;
 
 public class Set extends RepeatableObject {
 
-    @Relation(parentColumn = "id", entityColumn = "set_id", entity = SetAndExerciseMatchingEntity.class)
+    @Relation(parentColumn = "id", entityColumn = "set_id", entity = SetVsExerciseMatching.class)
     private List<Exercise> mExercises;
 
     /* GETTERS */

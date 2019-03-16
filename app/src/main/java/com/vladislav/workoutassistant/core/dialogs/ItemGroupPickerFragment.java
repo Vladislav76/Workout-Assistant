@@ -18,6 +18,7 @@ import com.vladislav.workoutassistant.diary.viewmodels.SelectableItemViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemGroupPickerFragment extends DialogFragment {
 
+    public static final String EXTRA_SELECTED_ITEM_ID_LIST = "extra_selected_item_id_list";
+    private static final String ARG_SELECTED_ITEM_ID_LIST = "arg_selected_item_id_list";
+    private static final String ARG_ITEM_NAME_ARRAY = "arg_item_name_array";
+
+    private ArrayList<SelectableItem> mItems;
+    private ArrayList<Integer> mSelectedItemIdList;
+
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mSelectedItemIdList = getArguments().getIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST);
@@ -48,7 +57,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         savedInstanceState.putIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST, getSelectedItemIdArrayList(mItems));
     }
 
@@ -122,7 +131,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
             implements View.OnClickListener {
         private ItemSelectableObjectBinding mBinding;
 
-        public ItemGroupHolder(ItemSelectableObjectBinding binding) {
+        ItemGroupHolder(ItemSelectableObjectBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
             mBinding.setViewModel(new SelectableItemViewModel());
@@ -144,7 +153,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
     private class ItemGroupAdapter extends RecyclerView.Adapter<ItemGroupHolder> {
         private List<SelectableItem> mItems;
 
-        public ItemGroupAdapter(List<SelectableItem> items) {
+        ItemGroupAdapter(List<SelectableItem> items) {
             mItems = items;
         }
 
@@ -153,8 +162,9 @@ public class ItemGroupPickerFragment extends DialogFragment {
             return mItems.size();
         }
 
+        @NonNull
         @Override
-        public ItemGroupHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ItemGroupHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             ItemSelectableObjectBinding binding =
                     DataBindingUtil.inflate(inflater, R.layout.item_selectable_object, parent, false);
@@ -162,15 +172,8 @@ public class ItemGroupPickerFragment extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(ItemGroupHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ItemGroupHolder holder, int position) {
             holder.bind(mItems.get(position));
         }
     }
-
-    private ArrayList<SelectableItem> mItems;
-    private ArrayList<Integer> mSelectedItemIdList;
-
-    private static final String ARG_SELECTED_ITEM_ID_LIST = "arg_selected_item_id_list";
-    private static final String ARG_ITEM_NAME_ARRAY = "arg_item_name_array";
-    public static final String EXTRA_SELECTED_ITEM_ID_LIST = "extra_selected_item_id_list";
 }

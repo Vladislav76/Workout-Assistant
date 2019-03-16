@@ -3,7 +3,7 @@ package com.vladislav.workoutassistant.diary.viewmodels;
 import android.app.Application;
 
 import com.vladislav.workoutassistant.data.Repository;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 
 import java.sql.Time;
 import java.util.Date;
@@ -14,6 +14,12 @@ import androidx.lifecycle.LiveData;
 
 public class DiaryEntryViewModel extends AndroidViewModel {
 
+    private final Repository mRepository;
+    private final LiveData<DiaryEntry> mDiaryEntry;
+    private ObservableField<DiaryEntry> entry = new ObservableField<>();
+
+    public static final int NEW_DIARY_ENTRY_ID = -1;
+
     public DiaryEntryViewModel(Application application, int diaryEntryId) {
         super(application);
         mRepository = Repository.getInstance(application);
@@ -21,7 +27,7 @@ public class DiaryEntryViewModel extends AndroidViewModel {
             mDiaryEntry = mRepository.getNewEntry();
         }
         else {
-            mDiaryEntry = mRepository.getEntry(diaryEntryId);
+            mDiaryEntry = mRepository.loadDiaryEntry(diaryEntryId);
         }
     }
 
@@ -31,15 +37,15 @@ public class DiaryEntryViewModel extends AndroidViewModel {
         mDiaryEntry = null;
     }
 
-    public LiveData<DiaryEntryEntity> getDiaryEntry() {
+    public LiveData<DiaryEntry> getDiaryEntry() {
         return mDiaryEntry;
     }
 
-    public ObservableField<DiaryEntryEntity> getEntry() {
+    public ObservableField<DiaryEntry> getEntry() {
         return entry;
     }
 
-    public void setEntry(DiaryEntryEntity entry) {
+    public void setEntry(DiaryEntry entry) {
         this.entry.set(entry);
     }
 
@@ -90,10 +96,4 @@ public class DiaryEntryViewModel extends AndroidViewModel {
     public void insertEntry() {
         mRepository.insertNewEntry(entry.get());
     }
-
-    private final Repository mRepository;
-    private final LiveData<DiaryEntryEntity> mDiaryEntry;
-    private ObservableField<DiaryEntryEntity> entry = new ObservableField<>();
-
-    public static final int NEW_DIARY_ENTRY_ID = -1;
 }

@@ -7,6 +7,8 @@ import androidx.databinding.Bindable;
 
 public class SelectableItemViewModel extends BaseObservable {
 
+    private SelectableItem mSelectableItem;
+
     @Bindable
     public String getName() {
         return mSelectableItem == null ? null : mSelectableItem.getName();
@@ -26,6 +28,4 @@ public class SelectableItemViewModel extends BaseObservable {
         mSelectableItem.setSelected(isSelected);
         notifyChange();
     }
-
-    private SelectableItem mSelectableItem;
 }

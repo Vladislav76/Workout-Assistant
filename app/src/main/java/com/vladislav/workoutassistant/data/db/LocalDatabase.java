@@ -5,16 +5,16 @@ import android.content.Context;
 import com.vladislav.workoutassistant.data.db.converter.DateConverter;
 import com.vladislav.workoutassistant.data.db.dao.DiaryDao;
 import com.vladislav.workoutassistant.data.db.dao.ExerciseDao;
-import com.vladislav.workoutassistant.data.db.dao.ProgramCategoryDao;
-import com.vladislav.workoutassistant.data.db.dao.ProgramDao;
-import com.vladislav.workoutassistant.data.db.dao.SetAndExerciseMatchingDao;
+import com.vladislav.workoutassistant.data.db.dao.SetVsExerciseMatchingDao;
 import com.vladislav.workoutassistant.data.db.dao.SetDao;
-import com.vladislav.workoutassistant.data.db.entity.DiaryEntryEntity;
-import com.vladislav.workoutassistant.data.db.entity.ExerciseEntity;
-import com.vladislav.workoutassistant.data.db.entity.ProgramCategoryEntity;
-import com.vladislav.workoutassistant.data.db.entity.ProgramEntity;
-import com.vladislav.workoutassistant.data.db.entity.SetAndExerciseMatchingEntity;
-import com.vladislav.workoutassistant.data.db.entity.SetEntity;
+import com.vladislav.workoutassistant.data.db.dao.WorkoutDao;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
+import com.vladislav.workoutassistant.data.db.entity.Exercise;
+import com.vladislav.workoutassistant.data.db.entity.SetVsExerciseMatching;
+import com.vladislav.workoutassistant.data.db.entity.Set;
+import com.vladislav.workoutassistant.data.db.entity.Workout;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -25,18 +25,22 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {DiaryEntryEntity.class, ExerciseEntity.class, ProgramEntity.class,
-        SetEntity.class, SetAndExerciseMatchingEntity.class, ProgramCategoryEntity.class},
+@Database(entities = {DiaryEntry.class, Exercise.class, Workout.class,
+        Set.class, SetVsExerciseMatching.class},
         version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class LocalDatabase extends RoomDatabase {
 
+    private static LocalDatabase sInstance;
+    private static final String DATABASE_NAME = "local_database";
+
+    private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
+
     public abstract DiaryDao diaryDao();
     public abstract ExerciseDao exerciseDao();
     public abstract SetDao setDao();
-    public abstract ProgramCategoryDao programCategoryDao();
-    public abstract ProgramDao programDao();
-    public abstract SetAndExerciseMatchingDao setAndExerciseMatchingDao();
+    public abstract WorkoutDao workoutDao();
+    public abstract SetVsExerciseMatchingDao setAndExerciseMatchingDao();
 
     public static LocalDatabase getInstance(final Context context) {
         if (sInstance == null) {
@@ -73,8 +77,10 @@ public abstract class LocalDatabase extends RoomDatabase {
     private static void insertData(final LocalDatabase database) {
         database.diaryDao().insertEntries(DataGenerator.generateEntries());
         database.exerciseDao().insertExercises(DataGenerator.generateExercises());
-        database.programCategoryDao().insertCategories(DataGenerator.generateCategories());
-        database.programDao().insertProgram(DataGenerator.generateProgram());
+
+        List<Workout> workouts = DataGenerator.generateWorkouts();
+        database.workoutDao().insertWorkouts(workouts);
+
         database.setDao().insertSets(DataGenerator.generateSets());
         database.setAndExerciseMatchingDao().insertMatching(DataGenerator.generateSetAndExerciseMatching());
     }
@@ -92,9 +98,4 @@ public abstract class LocalDatabase extends RoomDatabase {
     public LiveData<Boolean> getDatabaseCreated() {
         return mIsDatabaseCreated;
     }
-
-    private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
-
-    private static volatile LocalDatabase sInstance;
-    private static final String DATABASE_NAME = "local_database";
 }

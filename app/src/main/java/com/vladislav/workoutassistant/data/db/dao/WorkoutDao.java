@@ -1,7 +1,6 @@
 package com.vladislav.workoutassistant.data.db.dao;
 
-import com.vladislav.workoutassistant.data.db.entity.SetAndExerciseMatchingEntity;
-import com.vladislav.workoutassistant.data.model.Exercise;
+import com.vladislav.workoutassistant.data.db.entity.Workout;
 
 import java.util.List;
 
@@ -12,8 +11,11 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 @Dao
-public interface SetAndExerciseMatchingDao {
+public interface WorkoutDao {
+
+    @Query("SELECT * FROM workouts WHERE category_id = :categoryId ORDER BY intensity_level_id")
+    LiveData<List<Workout>> loadWorkouts(int categoryId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMatching(List<SetAndExerciseMatchingEntity> matching);
+    void insertWorkouts(List<Workout> workouts);
 }

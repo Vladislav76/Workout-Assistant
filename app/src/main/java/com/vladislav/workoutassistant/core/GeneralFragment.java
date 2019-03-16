@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 
 public class GeneralFragment extends Fragment {
 
+    protected OnFragmentListener mFragmentListener;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -33,6 +35,4 @@ public class GeneralFragment extends Fragment {
     public void updateToolbar(int resId) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(resId);
     }
-
-    protected OnFragmentListener mFragmentListener;
 }
