@@ -25,9 +25,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {DiaryEntry.class, Exercise.class, Workout.class,
-        Set.class, SetVsExerciseMatching.class},
-        version = 1, exportSchema = false)
+@Database(entities = {DiaryEntry.class, Exercise.class, Workout.class, Set.class, SetVsExerciseMatching.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class LocalDatabase extends RoomDatabase {
 
@@ -75,14 +73,15 @@ public abstract class LocalDatabase extends RoomDatabase {
     }
 
     private static void insertData(final LocalDatabase database) {
-        database.diaryDao().insertEntries(DataGenerator.generateEntries());
         database.exerciseDao().insertExercises(DataGenerator.generateExercises());
 
         List<Workout> workouts = DataGenerator.generateWorkouts();
         database.workoutDao().insertWorkouts(workouts);
+        database.diaryDao().insertEntries(DataGenerator.generateEntries(workouts.size()));
 
-        database.setDao().insertSets(DataGenerator.generateSets());
-        database.setAndExerciseMatchingDao().insertMatching(DataGenerator.generateSetAndExerciseMatching());
+        List<Set> sets = DataGenerator.generateSets(workouts.size());
+        database.setDao().insertSets(sets);
+        database.setAndExerciseMatchingDao().insertMatching(DataGenerator.generateSetAndExerciseMatching(sets.size()));
     }
 
     private void updateDatabaseCreated(final Context context) {

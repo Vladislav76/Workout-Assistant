@@ -7,17 +7,21 @@ import java.util.List;
 
 public class WorkoutGroup {
 
-    private int mGroupId;
+    private NamedObject mData;
     private List<Workout> mWorkouts;
 
-    public WorkoutGroup(int groupId) {
-        mGroupId = groupId;
+    public WorkoutGroup(NamedObject data) {
+        mData = data;
         mWorkouts = new ArrayList<>();
     }
 
     /* GETTERS */
     public int getGroupId() {
-        return mGroupId;
+        return mData.getId();
+    }
+
+    public String getName() {
+        return mData.getName();
     }
 
     public List<Workout> getWorkouts() {

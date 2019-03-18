@@ -8,12 +8,12 @@ import androidx.room.Entity;
 @Entity(tableName = "sets")
 public class Set extends RepeatableObject {
 
-    @ColumnInfo(name = "program_id")
+    @ColumnInfo(name = "workout_id")
     private int mProgramId;
 
     public Set(int reps, int programId) {
-        setReps(reps);
-        this.mProgramId = programId;
+        mReps = reps;
+        mProgramId = programId;
     }
 
     /* GETTERS */

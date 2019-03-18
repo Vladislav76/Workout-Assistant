@@ -15,9 +15,9 @@ public class Exercise extends NamedObject {
     private int mMuscleGroup;
 
     public Exercise(String name, String description, int muscleGroup) {
-        setName(name);
-        this.mDescription = description;
-        this.mMuscleGroup = muscleGroup;
+        mName = name;
+        mDescription = description;
+        mMuscleGroup = muscleGroup;
     }
 
     /* GETTERS */

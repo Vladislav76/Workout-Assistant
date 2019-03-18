@@ -3,7 +3,7 @@ Android application that will help you in sports workouts.
 
 ## What is expected?
 * "Workouts" screen: workous of different categories and levels of intensity
-* "Exercises" screen: the base of exercises on different muscle groups
+* "Exercises" screen: the base of workoutExercises on different muscle groups
 * "Diary" screen: diary of own workout activities
 * "Home" screen: your favorite and most used workouts, various data about your body (e.g. body mass index, weight, working weight)
 * "Settings" screen: application settings (e.g. multi-language support)
@@ -11,11 +11,11 @@ Android application that will help you in sports workouts.
 ## Tasks
 * "Workouts" screen:
 	- [ ] Display full workouts information
-	- [ ] The ability to change workouts (the number of repetitions and sets, order of exercises)
+	- [ ] The ability to change workouts (the number of repetitions and workoutSets, order of workoutExercises)
 	- [ ] The ability to create your own workout
 	- [ ] The ability to add workouts to favorites
 * "Exercises" screen:
-	- [ ] Add a list of exercises for each muscle group
+	- [ ] Add a list of workoutExercises for each muscle group
 	- [ ] Add a description and the correct technique for each exercise 
 	- [ ] The ability to create your own exercise
 * "Diary" screen:

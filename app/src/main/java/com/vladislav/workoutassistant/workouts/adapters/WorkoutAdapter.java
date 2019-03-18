@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vladislav.workoutassistant.R;
+import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
 import com.vladislav.workoutassistant.data.db.entity.Workout;
 
 import java.util.List;
@@ -16,6 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.HorizontalCardViewHolder> {
 
     private List<Workout> mWorkouts;
+    private ItemClickCallback mCallback;
+
+    public WorkoutAdapter(ItemClickCallback callback) {
+        mCallback = callback;
+    }
 
     public void setList(List<Workout> workouts) {
         mWorkouts = workouts;   //TODO: add DiffUtil
@@ -42,14 +48,22 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.Horizont
     class HorizontalCardViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitleView;
         private TextView mSubtitleView;
+        private Workout mWorkout;
 
         HorizontalCardViewHolder(View view) {
             super(view);
             mTitleView = view.findViewById(R.id.card_title);
             mSubtitleView = view.findViewById(R.id.card_subtitle);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallback.onClick(mWorkout.getId(), mWorkout.getName());
+                }
+            });
         }
 
         void bind(Workout workout) {
+            mWorkout = workout;
             mTitleView.setText(workout.getName());
             mSubtitleView.setText(Integer.toString(workout.getId()));
         }

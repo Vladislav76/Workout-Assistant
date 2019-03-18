@@ -8,7 +8,7 @@ import androidx.room.ForeignKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "exercise_matching", foreignKeys = {@ForeignKey(entity = Set.class,
+@Entity(tableName = "sets_vs_exercises", foreignKeys = {@ForeignKey(entity = Set.class,
                                                                    parentColumns = "id",
                                                                    childColumns = "set_id",
                                                                    onDelete = CASCADE),
@@ -25,9 +25,9 @@ public class SetVsExerciseMatching extends RepeatableObject {
     private int mExerciseId;
 
     public SetVsExerciseMatching(int setId, int exerciseId, int reps) {
-        this.mSetId = setId;
-        this.mExerciseId = exerciseId;
-        setReps(reps);
+        mSetId = setId;
+        mExerciseId = exerciseId;
+        mReps = reps;
     }
 
     /* GETTERS */

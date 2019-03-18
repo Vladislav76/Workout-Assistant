@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.core.GeneralFragment;
@@ -12,7 +13,7 @@ import com.vladislav.workoutassistant.core.components.CustomItemDecoration;
 import com.vladislav.workoutassistant.data.model.WorkoutGroup;
 import com.vladislav.workoutassistant.workouts.adapters.CategoryAdapter;
 import com.vladislav.workoutassistant.workouts.adapters.WorkoutGroupAdapter;
-import com.vladislav.workoutassistant.workouts.viewmodels.GeneralInfoViewModel;
+import com.vladislav.workoutassistant.workouts.viewmodels.CategoryListViewModel;
 import com.vladislav.workoutassistant.workouts.viewmodels.WorkoutGroupListViewModel;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class WorkoutsFragment extends GeneralFragment {
     private RecyclerView mWorkoutsCardsRecyclerView;
     private CategoryAdapter mCategoryAdapter;
     private WorkoutGroupAdapter mWorkoutGroupAdapter;
-    private GeneralInfoViewModel mGeneralInfoViewModel;
+    private CategoryListViewModel mCategoryListViewModel;
     private WorkoutGroupListViewModel mWorkoutGroupListViewModel;
     private int mCurrentCategoryId;
 
@@ -42,6 +43,19 @@ public class WorkoutsFragment extends GeneralFragment {
                 mCurrentCategoryId = id;
                 mWorkoutGroupListViewModel.init(id);
             }
+        }
+    };
+    private ItemClickCallback mWorkoutGroupClickCallback = new ItemClickCallback() {
+        @Override
+        public void onClick(int id, String name) {
+            Toast.makeText(getActivity(), name + ", id:" + id, Toast.LENGTH_SHORT).show();
+        }
+    };
+    private ItemClickCallback mWorkoutClickCallback = new ItemClickCallback() {
+        @Override
+        public void onClick(int id, String name) {
+            mFragmentListener.addFragmentOnTop(WorkoutDetailsFragment.newInstance(id, name));
+            Toast.makeText(getActivity(), name + ", id:" + id, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -61,12 +75,12 @@ public class WorkoutsFragment extends GeneralFragment {
         mCategoriesRecyclerView = view.findViewById(R.id.horizontal_recycler_view);
         mWorkoutsCardsRecyclerView = view.findViewById(R.id.vertical_recycler_view);
 
-        mGeneralInfoViewModel = ViewModelProviders.of(this).get(GeneralInfoViewModel.class);
-        mCategoryAdapter = new CategoryAdapter(mGeneralInfoViewModel.getCategories(), mCategoryClickCallback);
+        mCategoryListViewModel = ViewModelProviders.of(this).get(CategoryListViewModel.class);
+        mCategoryAdapter = new CategoryAdapter(mCategoryListViewModel.getCategories(), mCategoryClickCallback);
         mCategoriesRecyclerView.setAdapter(mCategoryAdapter);
         mCategoriesRecyclerView.addItemDecoration(new CustomItemDecoration(10));
 
-        mWorkoutGroupAdapter = new WorkoutGroupAdapter(mGeneralInfoViewModel.getIntensityLevels());
+        mWorkoutGroupAdapter = new WorkoutGroupAdapter(mWorkoutGroupClickCallback, mWorkoutClickCallback);
         mWorkoutGroupListViewModel = ViewModelProviders.of(this).get(WorkoutGroupListViewModel.class);
         mWorkoutGroupListViewModel.getWorkoutGroups().observe(this, new Observer<List<WorkoutGroup>>() {
             @Override

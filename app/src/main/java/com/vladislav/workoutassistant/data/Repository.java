@@ -5,8 +5,10 @@ import android.app.Application;
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.LocalDatabase;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
+import com.vladislav.workoutassistant.data.db.entity.Exercise;
 import com.vladislav.workoutassistant.data.db.entity.Workout;
 import com.vladislav.workoutassistant.data.model.NamedObject;
+import com.vladislav.workoutassistant.data.model.WorkoutProgram;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,6 +85,14 @@ public class Repository {
         return mDatabase.workoutDao().loadWorkouts(categoryId);
     }
 
+    public LiveData<List<Exercise>> loadExercises(List<Integer> exerciseIds) {
+        return mDatabase.exerciseDao().loadExercises(exerciseIds);
+    }
+
+    public LiveData<WorkoutProgram> loadWorkoutProgram(int workoutId) {
+        return mDatabase.workoutDao().loadWorkoutProgram(workoutId);
+    }
+
     public LiveData<List<DiaryEntry>> loadDiaryEntries() {
         return mObservableEntries;
     }
@@ -132,16 +142,3 @@ public class Repository {
         });
     }
 }
-
-//    public LiveData<Program> getProgramById(int programId) {
-//        return mDatabase.programDao().loadProgramById(programId);
-//    }
-//
-//    public LiveData<List<Set>> getSetsById(int programId) {
-//        LiveData<List<Set>> liveData = new MutableLiveData<>();
-//        ((MutableLiveData<List<Set>>) liveData).postValue();
-//        List<Set> sets = mDatabase.setDao().loadSetsByProgramId(programId);
-//        for (Set set : sets) {
-//            set.exercises = mDatabase.setAndExerciseMatchingDao().getExercisesBySetId(set.id);
-//        }
-//    }

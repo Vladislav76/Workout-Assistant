@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.model.NamedObject;
+import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
 import com.vladislav.workoutassistant.data.model.WorkoutGroup;
 
 import java.util.List;
@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class WorkoutGroupAdapter extends RecyclerView.Adapter<WorkoutGroupAdapter.WorkoutsCardViewHolder> {
 
     private List<WorkoutGroup> mWorkoutGroups;
-    private List<NamedObject> mIntensityLevels;
+    private ItemClickCallback mWorkoutGroupCallback;
+    private ItemClickCallback mWorkoutCallback;
     private RecyclerView.RecycledViewPool mViewPool; //for the same view types
 
-    public WorkoutGroupAdapter(List<NamedObject> intensityLevels) {
+    public WorkoutGroupAdapter(ItemClickCallback workoutGroupCallback, ItemClickCallback workoutCallback) {
         mViewPool = new RecyclerView.RecycledViewPool();
-        mIntensityLevels = intensityLevels;
+        mWorkoutGroupCallback = workoutGroupCallback;
+        mWorkoutCallback = workoutCallback;
     }
 
     public void setList(List<WorkoutGroup> groups) {
@@ -71,18 +73,26 @@ public class WorkoutGroupAdapter extends RecyclerView.Adapter<WorkoutGroupAdapte
         private TextView mTitleView;
         private RecyclerView mRecyclerView;
         private WorkoutAdapter mAdapter;
+        private WorkoutGroup mWorkoutGroup;
 
         WorkoutsCardViewHolder(View view) {
             super(view);
             mTitleView = view.findViewById(R.id.card_title);
             mRecyclerView = view.findViewById(R.id.recycler_view);
             mRecyclerView.setRecycledViewPool(mViewPool);
-            mAdapter = new WorkoutAdapter();
+            mAdapter = new WorkoutAdapter(mWorkoutCallback);
             mRecyclerView.setAdapter(mAdapter);
+            view.findViewById(R.id.card_header).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mWorkoutGroupCallback.onClick(mWorkoutGroup.getGroupId(), mWorkoutGroup.getName());
+                }
+            });
         }
 
         void bind(WorkoutGroup group) {
-            mTitleView.setText(mIntensityLevels.get(group.getGroupId()).getName());
+            mWorkoutGroup = group;
+            mTitleView.setText(group.getName());
             mAdapter.setList(group.getWorkouts());
             mAdapter.notifyDataSetChanged();
             mRecyclerView.scrollToPosition(0);

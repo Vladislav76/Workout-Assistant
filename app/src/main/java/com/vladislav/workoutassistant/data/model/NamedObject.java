@@ -14,10 +14,10 @@ public class NamedObject {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int mId;
+    protected int mId;
 
     @ColumnInfo(name = "name")
-    private String mName;
+    protected String mName;
 
     /* GETTERS */
     public int getId() {

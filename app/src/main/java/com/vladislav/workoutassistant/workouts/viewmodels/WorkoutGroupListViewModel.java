@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.vladislav.workoutassistant.data.Repository;
 import com.vladislav.workoutassistant.data.db.entity.Workout;
+import com.vladislav.workoutassistant.data.model.NamedObject;
 import com.vladislav.workoutassistant.data.model.WorkoutGroup;
 
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import androidx.lifecycle.Observer;
 public class WorkoutGroupListViewModel extends AndroidViewModel {
 
     private Repository mRepository;
+    private List<NamedObject> mIntensityLevels;
     private MediatorLiveData<List<WorkoutGroup>> mWorkoutGroups = new MediatorLiveData<>();
 
     public WorkoutGroupListViewModel(Application application) {
         super(application);
         mRepository = Repository.getInstance(application);
+        mIntensityLevels = mRepository.loadIntensityLevels();
     }
 
     public void init(int categoryId) {
@@ -41,8 +44,8 @@ public class WorkoutGroupListViewModel extends AndroidViewModel {
         List<WorkoutGroup> groups = new ArrayList<>();
         if (workouts != null && workouts.size() > 0) {
             int startPosition = 0;
-            int currentGroupId = workouts.get(0).getIntensityLevelId();
-            WorkoutGroup group = new WorkoutGroup(currentGroupId);
+            int currentGroupId = workouts.get(0).getIntensityLevelId();  //TODO: don't chain to this method, use groupId
+            WorkoutGroup group = new WorkoutGroup(mIntensityLevels.get(currentGroupId));
 
             for (int i = 1; i < workouts.size(); i++) {
                 Workout workout = workouts.get(i);
@@ -51,7 +54,7 @@ public class WorkoutGroupListViewModel extends AndroidViewModel {
                     groups.add(group);
                     startPosition = i;
                     currentGroupId = workouts.get(i).getIntensityLevelId();
-                    group = new WorkoutGroup(currentGroupId);
+                    group = new WorkoutGroup(mIntensityLevels.get(currentGroupId));
                 }
             }
 

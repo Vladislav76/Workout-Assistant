@@ -15,7 +15,7 @@ public class Workout extends NamedObject {
     private int mIntensityLevelId;
 
     public Workout(String name, int categoryId, int intensityLevelId) {
-        setName(name);
+        mName = name;
         mCategoryId = categoryId;
         mIntensityLevelId = intensityLevelId;
     }

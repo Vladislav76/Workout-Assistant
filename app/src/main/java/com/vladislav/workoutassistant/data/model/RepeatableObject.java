@@ -7,10 +7,10 @@ public class RepeatableObject {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int mId;
+    protected int mId;
 
     @ColumnInfo(name = "reps")
-    private int mReps;
+    protected int mReps;
 
     /* GETTERS */
     public int getId() {
