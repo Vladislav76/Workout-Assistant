@@ -8,10 +8,15 @@ import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.core.GeneralFragment;
+import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
 import com.vladislav.workoutassistant.data.model.WorkoutExercise;
 import com.vladislav.workoutassistant.data.model.WorkoutProgram;
 import com.vladislav.workoutassistant.data.model.WorkoutSet;
+import com.vladislav.workoutassistant.workouts.adapters.SetAndExerciseAdapter;
+import com.vladislav.workoutassistant.workouts.components.DividerItemDecoration;
 import com.vladislav.workoutassistant.workouts.viewmodels.WorkoutViewModel;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -25,6 +30,14 @@ public class WorkoutDetailsFragment extends GeneralFragment {
 
     private RecyclerView mProgramRecyclerView;
     private WorkoutViewModel mWorkoutViewModel;
+    private SetAndExerciseAdapter mAdapter;
+
+    private ItemClickCallback mCallback = new ItemClickCallback() {
+        @Override
+        public void onClick(int id, String name) {
+            //TODO: some actions
+        }
+    };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,16 +50,22 @@ public class WorkoutDetailsFragment extends GeneralFragment {
         updateToolbar(args.getString(TITLE_ARG));
 
         mProgramRecyclerView = view.findViewById(R.id.recycler_view);
+
         mWorkoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
-        mWorkoutViewModel.getWorkoutProgram().observe(this, new Observer<WorkoutProgram>() {
+        mAdapter = new SetAndExerciseAdapter(mCallback, mWorkoutViewModel.getMuscleGroups());
+        mWorkoutViewModel.getSetsAndExercisesList().observe(this, new Observer<List<Object>>() {
             @Override
-            public void onChanged(WorkoutProgram workoutProgram) {
-                if (workoutProgram != null) {
-                    printWorkoutProgram(workoutProgram);
+            public void onChanged(List<Object> list) {
+                if (list != null) {
+//                    printWorkoutProgram(mWorkoutViewModel.getWorkoutProgram());
+                    mAdapter.setList(list);
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         });
         mWorkoutViewModel.init(args.getInt(WORKOUT_ID_ARG));
+        mProgramRecyclerView.setAdapter(mAdapter);
+        mProgramRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider, 20));
     }
 
     public static WorkoutDetailsFragment newInstance(int id, String title) {

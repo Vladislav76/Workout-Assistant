@@ -14,7 +14,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.HorizontalCardViewHolder> {
+public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
 
     private List<Workout> mWorkouts;
     private ItemClickCallback mCallback;
@@ -29,14 +29,14 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.Horizont
 
     @Override
     @NonNull
-    public HorizontalCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_workout, parent, false);
-        return new WorkoutAdapter.HorizontalCardViewHolder(view);
+        return new WorkoutAdapter.WorkoutViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HorizontalCardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         holder.bind(mWorkouts.get(position));
     }
 
@@ -45,12 +45,12 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.Horizont
         return mWorkouts == null ? 0 : mWorkouts.size();
     }
 
-    class HorizontalCardViewHolder extends RecyclerView.ViewHolder {
+    class WorkoutViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitleView;
         private TextView mSubtitleView;
         private Workout mWorkout;
 
-        HorizontalCardViewHolder(View view) {
+        WorkoutViewHolder(View view) {
             super(view);
             mTitleView = view.findViewById(R.id.card_title);
             mSubtitleView = view.findViewById(R.id.card_subtitle);

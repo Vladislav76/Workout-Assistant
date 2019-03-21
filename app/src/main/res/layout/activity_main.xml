@@ -27,5 +27,5 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_panel"
-        app:labelVisibilityMode="labeled"/>  <!-- TODO: remove this line -->
+        app:labelVisibilityMode="labeled"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

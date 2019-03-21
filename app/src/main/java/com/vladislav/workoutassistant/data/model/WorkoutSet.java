@@ -6,7 +6,6 @@ import com.vladislav.workoutassistant.data.db.entity.SetVsExerciseMatching;
 import java.util.List;
 
 import androidx.room.Embedded;
-import androidx.room.Ignore;
 import androidx.room.Relation;
 
 public class WorkoutSet {

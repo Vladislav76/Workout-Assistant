@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="id"
+            type="int"/>
+        <variable
+            name="name"
+            type="String"/>
+        <variable
+            name="reps"
+            type="int"/>
+        <variable
+            name="muscleGroup"
+            type="String"/>
+        <variable
+            name="callback"
+            type="com.vladislav.workoutassistant.core.callbacks.ItemClickCallback"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="?android:selectableItemBackground"
+        android:onClick="@{() -> callback.onClick(id, name)}">
+
+        <ImageView
+            android:id="@+id/exercise_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/rounded_rectangle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/name_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:singleLine="true"
+            android:text="@{name}"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            tools:text="Exercise 1"
+            app:layout_constraintStart_toEndOf="@id/exercise_icon"
+            app:layout_constraintEnd_toStartOf="@id/reps_field"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/muscle_group_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:singleLine="true"
+            android:text="@{muscleGroup}"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            tools:text="Chest"
+            app:layout_constraintStart_toEndOf="@id/exercise_icon"
+            app:layout_constraintEnd_toStartOf="@id/reps_field"
+            app:layout_constraintTop_toBottomOf="@id/name_field" />
+
+        <TextView
+            android:id="@+id/reps_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text='@{"x" + Integer.toString(reps)}'
+            android:textSize="18sp"
+            tools:text="x150"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

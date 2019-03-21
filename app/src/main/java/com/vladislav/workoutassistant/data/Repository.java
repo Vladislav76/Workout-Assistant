@@ -31,6 +31,7 @@ public class Repository {
     private MediatorLiveData<List<DiaryEntry>> mObservableEntries;
     private List<NamedObject> mCategories;
     private List<NamedObject> mIntensityLevels;
+    private List<NamedObject> mMuscleGroups;
 
     private Repository(Application application) {
         mDatabase = LocalDatabase.getInstance(application);
@@ -57,6 +58,12 @@ public class Repository {
             mIntensityLevels.add(new NamedObject(i, names[i]));
         }
 
+        mMuscleGroups = new ArrayList<>();
+        names = application.getResources().getStringArray(R.array.muscle_groups);
+        for (int i = 0; i < names.length; i++) {
+            mMuscleGroups.add(new NamedObject(i, names[i]));
+        }
+
         mTempDiaryEntry = new MutableLiveData<>();
         mTempDiaryEntry.setValue(new DiaryEntry());
         mExecutor = Executors.newSingleThreadExecutor();
@@ -79,6 +86,10 @@ public class Repository {
 
     public List<NamedObject> loadIntensityLevels() {
         return mIntensityLevels;
+    }
+
+    public List<NamedObject> loadMuscleGroups() {
+        return mMuscleGroups;
     }
 
     public LiveData<List<Workout>> loadWorkouts(int categoryId) {

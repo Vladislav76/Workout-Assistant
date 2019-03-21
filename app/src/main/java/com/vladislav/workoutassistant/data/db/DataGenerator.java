@@ -19,6 +19,7 @@ public class DataGenerator {
     private static final int EXERCISE_NUMBER = 100;
     private static final int CATEGORY_NUMBER = 6;
     private static final int INTENSITY_LEVEL_NUMBER = 3;
+    private static final int MUSCLE_GROUP_NUMBER = 9;
     private static final int MINIMUM_WORKOUT_NUMBER_PER_GROUP = 10;
     private static final int MAXIMUM_WORKOUT_NUMBER_PER_GROUP = 20;
     private static final int MINIMUM_SET_NUMBER_PER_WORKOUT = 5;
@@ -66,9 +67,10 @@ public class DataGenerator {
     }
 
     public static List<Exercise> generateExercises() {
+        Random random = new Random();
         List<Exercise> exercises = new ArrayList<>();
         for (int i = 1; i <= EXERCISE_NUMBER; i++) {
-            Exercise exercise = new Exercise("Exercise " + i, "Description " + i, 0);
+            Exercise exercise = new Exercise("Exercise " + i, "Description " + i, random.nextInt(MUSCLE_GROUP_NUMBER));
             exercises.add(exercise);
         }
         return exercises;
