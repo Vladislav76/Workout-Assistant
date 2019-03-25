@@ -22,14 +22,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?listPreferredItemHeight"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:focusable="true"
         android:clickable="true"
-        android:background="?android:selectableItemBackground"
+        android:background="?selectableItemBackground"
         android:onClick="@{() -> callback.onClick(id, name)}">
 
         <ImageView
@@ -38,7 +36,8 @@
             android:layout_height="50dp"
             android:src="@drawable/rounded_rectangle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:id="@+id/name_field"
@@ -52,7 +51,8 @@
             tools:text="Exercise 1"
             app:layout_constraintStart_toEndOf="@id/exercise_icon"
             app:layout_constraintEnd_toStartOf="@id/reps_field"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/muscle_group_field"/>
 
         <TextView
             android:id="@+id/muscle_group_field"
@@ -66,18 +66,30 @@
             tools:text="Chest"
             app:layout_constraintStart_toEndOf="@id/exercise_icon"
             app:layout_constraintEnd_toStartOf="@id/reps_field"
-            app:layout_constraintTop_toBottomOf="@id/name_field" />
+            app:layout_constraintTop_toBottomOf="@id/name_field"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:id="@+id/reps_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:layout_marginEnd="8dp"
             android:text='@{"x" + Integer.toString(reps)}'
             android:textSize="18sp"
             tools:text="x150"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/handle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:id="@+id/handle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_reorder_grey_24dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

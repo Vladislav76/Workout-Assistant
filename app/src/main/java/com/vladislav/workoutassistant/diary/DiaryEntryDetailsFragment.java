@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
@@ -19,7 +22,6 @@ import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.data.model.FullDiaryEntry;
 import com.vladislav.workoutassistant.databinding.FragmentDiaryEntryDetailsBinding;
-import com.vladislav.workoutassistant.databinding.FragmentWorkoutDetailsBinding;
 import com.vladislav.workoutassistant.core.dialogs.DatePickerFragment;
 import com.vladislav.workoutassistant.core.GeneralFragment;
 import com.vladislav.workoutassistant.core.dialogs.ItemGroupPickerFragment;
@@ -84,8 +86,17 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
+            }
+        });
+        mBinding.titleField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mBinding.titleField.clearFocus();
+                }
+                return false;
             }
         });
 
@@ -168,6 +179,50 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
         dialog.show(fm, TAG_ITEM_GROUP_PICKER_DIALOG);
     }
 
+    public void saveChanges() {
+        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
+        boolean isIncorrectData = false;
+        if (diaryEntry.getStartTime() == null || diaryEntry.getFinishTime() == null) {
+            isIncorrectData = true;
+            Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
+        }
+        else if (diaryEntry.getDuration() == null) {
+            isIncorrectData = true;
+            Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
+        }
+        if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getTitle() == null || diaryEntry.getTitle().equals(""))) {
+            isIncorrectData = true;
+            mBinding.titleFieldWrapper.setError(getString(R.string.empty_title_error));
+        }
+        else {
+            mBinding.titleFieldWrapper.setErrorEnabled(false);
+        }
+
+        if (!isIncorrectData) {
+            if (diaryEntry.isDefaultTitleChecked()) {
+                mDiaryEntryViewModel.setTitle(diaryEntry.getDefaultTitle());
+            }
+            if (getArguments().getInt(DIARY_ENTRY_ID_ARG) == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
+                mDiaryEntryViewModel.insertEntry();
+            }
+            else {
+                mDiaryEntryViewModel.updateEntry();
+            }
+            getActivity().onBackPressed();
+        }
+    }
+
+    public static DiaryEntryDetailsFragment newInstance(int diaryEntryId, String diaryEntryName) {
+        Bundle args = new Bundle();
+        args.putInt(DIARY_ENTRY_ID_ARG, diaryEntryId);
+        args.putString(DIARY_ENTRY_NAME_ARG, diaryEntryName);
+
+        DiaryEntryDetailsFragment fragment = new DiaryEntryDetailsFragment();
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     private Date getDate(int buttonId) {
         FullDiaryEntry entry = mDiaryEntryViewModel.getEntry().get();
         if (entry == null) {
@@ -244,42 +299,5 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
 
             updateDefaultTitle();
         }
-    }
-
-    public void saveChanges() {
-        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
-        if (diaryEntry.getStartTime() == null || diaryEntry.getFinishTime() == null) {
-            Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (diaryEntry.getDuration() == null) {
-            Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getTitle() == null || diaryEntry.getTitle().equals(""))) {
-            Toast.makeText(getActivity(), R.string.empty_title_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (diaryEntry.isDefaultTitleChecked()) {
-            mDiaryEntryViewModel.setTitle(diaryEntry.getDefaultTitle());
-        }
-        if (getArguments().getInt(DIARY_ENTRY_ID_ARG) == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
-            mDiaryEntryViewModel.insertEntry();
-        }
-        else {
-            mDiaryEntryViewModel.updateEntry();
-        }
-        getActivity().onBackPressed();
-    }
-
-    public static DiaryEntryDetailsFragment newInstance(int diaryEntryId, String diaryEntryName) {
-        Bundle args = new Bundle();
-        args.putInt(DIARY_ENTRY_ID_ARG, diaryEntryId);
-        args.putString(DIARY_ENTRY_NAME_ARG, diaryEntryName);
-
-        DiaryEntryDetailsFragment fragment = new DiaryEntryDetailsFragment();
-        fragment.setArguments(args);
-
-        return fragment;
     }
 }

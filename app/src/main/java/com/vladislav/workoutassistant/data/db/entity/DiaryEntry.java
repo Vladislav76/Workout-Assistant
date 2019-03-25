@@ -1,6 +1,7 @@
 package com.vladislav.workoutassistant.data.db.entity;
 
 import com.vladislav.workoutassistant.data.model.FullDiaryEntry;
+import com.vladislav.workoutassistant.data.model.Identifiable;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "diary")
-public class DiaryEntry implements FullDiaryEntry {
+public class DiaryEntry implements FullDiaryEntry, Identifiable {
 
     @Ignore
     public DiaryEntry() {
@@ -149,5 +150,23 @@ public class DiaryEntry implements FullDiaryEntry {
 
     public void setMuscleGroupsIds(ArrayList<Integer> ids) {
         mMuscleGroupsIds = ids;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        DiaryEntry entry = (DiaryEntry) other;
+        return mId == entry.getId() &&
+                mIsSelected == entry.isSelected() &&
+                mDate.equals(entry.getDate()) &&
+                mTitle.equals(entry.getTitle()) &&
+                mDuration.equals(entry.getDuration());
     }
 }

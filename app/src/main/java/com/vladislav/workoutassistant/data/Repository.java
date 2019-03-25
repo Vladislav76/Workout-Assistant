@@ -100,6 +100,10 @@ public class Repository {
         return mDatabase.exerciseDao().loadExercises(exerciseIds);
     }
 
+    public LiveData<List<Exercise>> loadExercises(int muscleGroupId) {
+        return mDatabase.exerciseDao().loadExercises(muscleGroupId);
+    }
+
     public LiveData<WorkoutProgram> loadWorkoutProgram(int workoutId) {
         return mDatabase.workoutDao().loadWorkoutProgram(workoutId);
     }

@@ -1,4 +1,4 @@
-package com.vladislav.workoutassistant.workouts.components;
+package com.vladislav.workoutassistant.core.components;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -3,6 +3,9 @@ package com.vladislav.workoutassistant.workouts;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,8 +15,10 @@ import com.vladislav.workoutassistant.core.callbacks.ItemClickCallback;
 import com.vladislav.workoutassistant.data.model.WorkoutExercise;
 import com.vladislav.workoutassistant.data.model.WorkoutProgram;
 import com.vladislav.workoutassistant.data.model.WorkoutSet;
+import com.vladislav.workoutassistant.exercises.ExercisesFragment;
 import com.vladislav.workoutassistant.workouts.adapters.SetAndExerciseAdapter;
-import com.vladislav.workoutassistant.workouts.components.DividerItemDecoration;
+import com.vladislav.workoutassistant.core.components.DividerItemDecoration;
+import com.vladislav.workoutassistant.workouts.components.SimpleItemTouchHelperCallback;
 import com.vladislav.workoutassistant.workouts.viewmodels.WorkoutViewModel;
 
 import java.util.List;
@@ -21,9 +26,10 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WorkoutDetailsFragment extends GeneralFragment {
+public class WorkoutDetailsFragment extends GeneralFragment implements SimpleItemTouchHelperCallback.OnStartDragListener {
 
     private static final String WORKOUT_ID_ARG = "workout_id_arg";
     private static final String TITLE_ARG = "title_arg";
@@ -31,6 +37,7 @@ public class WorkoutDetailsFragment extends GeneralFragment {
     private RecyclerView mProgramRecyclerView;
     private WorkoutViewModel mWorkoutViewModel;
     private SetAndExerciseAdapter mAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
     private ItemClickCallback mCallback = new ItemClickCallback() {
         @Override
@@ -48,16 +55,16 @@ public class WorkoutDetailsFragment extends GeneralFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         Bundle args = getArguments();
         updateToolbar(args.getString(TITLE_ARG));
+        setHasOptionsMenu(true);
 
         mProgramRecyclerView = view.findViewById(R.id.recycler_view);
 
         mWorkoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
-        mAdapter = new SetAndExerciseAdapter(mCallback, mWorkoutViewModel.getMuscleGroups());
+        mAdapter = new SetAndExerciseAdapter(mCallback, this, mWorkoutViewModel.getMuscleGroups());
         mWorkoutViewModel.getSetsAndExercisesList().observe(this, new Observer<List<Object>>() {
             @Override
             public void onChanged(List<Object> list) {
                 if (list != null) {
-//                    printWorkoutProgram(mWorkoutViewModel.getWorkoutProgram());
                     mAdapter.setList(list);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -66,6 +73,30 @@ public class WorkoutDetailsFragment extends GeneralFragment {
         mWorkoutViewModel.init(args.getInt(WORKOUT_ID_ARG));
         mProgramRecyclerView.setAdapter(mAdapter);
         mProgramRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider, 20));
+
+        mItemTouchHelper = new ItemTouchHelper(new SimpleItemTouchHelperCallback(mAdapter));
+        mItemTouchHelper.attachToRecyclerView(mProgramRecyclerView);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.workouts_actions, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_exercises_action:
+                mFragmentListener.addFragmentOnTop(ExercisesFragment.newMultipleSelectionModeInstance());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 
     public static WorkoutDetailsFragment newInstance(int id, String title) {
@@ -79,7 +110,7 @@ public class WorkoutDetailsFragment extends GeneralFragment {
         return fragment;
     }
 
-    private void printWorkoutProgram(WorkoutProgram workoutProgram) {
+    private static void printWorkoutProgram(WorkoutProgram workoutProgram) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n* * * * * W O R K O U T * * * * *\n");
         sb.append("category ID #");

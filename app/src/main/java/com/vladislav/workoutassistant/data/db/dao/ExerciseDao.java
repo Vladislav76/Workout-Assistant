@@ -16,6 +16,9 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercises WHERE id IN (:exerciseIds)")
     LiveData<List<Exercise>> loadExercises(List<Integer> exerciseIds);
 
+    @Query("SELECT * FROM exercises WHERE muscle_group == :muscleGroupId")
+    LiveData<List<Exercise>> loadExercises(int muscleGroupId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExercises(List<Exercise> exercises);
 }

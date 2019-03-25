@@ -19,21 +19,27 @@ public class WorkoutGroupListViewModel extends AndroidViewModel {
 
     private Repository mRepository;
     private List<NamedObject> mIntensityLevels;
+    private List<NamedObject> mCategories;
     private MediatorLiveData<List<WorkoutGroup>> mWorkoutGroups = new MediatorLiveData<>();
 
     public WorkoutGroupListViewModel(Application application) {
         super(application);
         mRepository = Repository.getInstance(application);
         mIntensityLevels = mRepository.loadIntensityLevels();
+        mCategories = mRepository.loadCategories();
     }
 
     public void init(int categoryId) {
         mWorkoutGroups.addSource(mRepository.loadWorkouts(categoryId), new Observer<List<Workout>>() {
             @Override
             public void onChanged(List<Workout> workouts) {
-                mWorkoutGroups.setValue(mergeIntoGroups(workouts));
+                mWorkoutGroups.postValue(mergeIntoGroups(workouts));
             }
         });
+    }
+
+    public List<NamedObject> getCategories() {
+        return mCategories;
     }
 
     public LiveData<List<WorkoutGroup>> getWorkoutGroups() {

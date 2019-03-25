@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
+import com.vladislav.workoutassistant.core.DiffUtilCallback;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.data.model.AbbreviatedDiaryEntry;
 import com.vladislav.workoutassistant.databinding.ItemDiaryEntryBinding;
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.DiaryEntryViewHolder> {
 
-    private List<DiaryEntry> mEntryList;
+    private List<DiaryEntry> mEntries;
     private boolean mIsSelectedMode;
     private Application mApplication;
     private DiaryEntryClickCallback mCallback;
@@ -31,44 +32,17 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
         mCallback = callback;
         mIsSelectedMode = isSelectedMode;
         mApplication = application;
-        setHasStableIds(true);
+//        setHasStableIds(true);
     }
 
-    public void setEntryList(final List<DiaryEntry> entryList) {
-        if (mEntryList == null) {
-            mEntryList = entryList;
-            notifyItemRangeChanged(0, entryList.size());
-        }
-        else {
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-                @Override
-                public int getOldListSize() {
-                    return mEntryList.size();
-                }
-
-                @Override
-                public int getNewListSize() {
-                    return entryList.size();
-                }
-
-                @Override
-                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return mEntryList.get(oldItemPosition).getId() ==
-                            entryList.get(newItemPosition).getId();
-                }
-
-                @Override
-                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    AbbreviatedDiaryEntry oldEntry = mEntryList.get(oldItemPosition);
-                    AbbreviatedDiaryEntry newEntry = entryList.get(newItemPosition);
-                    return oldEntry.getDate().equals(newEntry.getDate())
-                            && oldEntry.getTitle().equals(newEntry.getTitle())
-                            && oldEntry.getDuration().equals(newEntry.getDuration())
-                            && oldEntry.isSelected() == newEntry.isSelected();
-                }
-            });
-            mEntryList = entryList;
-            result.dispatchUpdatesTo(this);
+    public void updateList(List<DiaryEntry> entries) {
+        if (mEntries == null) {
+            mEntries = entries;
+            notifyItemRangeInserted(0, entries.size());
+        } else {
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtilCallback(mEntries, entries));
+            mEntries = entries;
+            diffResult.dispatchUpdatesTo(this);
         }
     }
 
@@ -84,19 +58,19 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
 
     @Override
     public void onBindViewHolder(@NonNull DiaryEntryViewHolder holder, int position) {
-        holder.mViewModel.setEntry(mEntryList.get(position));
+        holder.mViewModel.setEntry(mEntries.get(position));
         holder.mBinding.idField.setText(Integer.toString(position + 1));
         holder.mBinding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return mEntryList == null ? 0 : mEntryList.size();
+        return mEntries == null ? 0 : mEntries.size();
     }
 
     @Override
     public long getItemId(int position) {
-        return mEntryList.get(position).getId();
+        return mEntries.get(position).getId();
     }
 
     class DiaryEntryViewHolder extends RecyclerView.ViewHolder {
@@ -105,13 +79,13 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Di
 
         DiaryEntryViewHolder(ItemDiaryEntryBinding binding) {
             super(binding.getRoot());
-            mViewModel = new DiaryEntryViewModel(mApplication);
+
             mBinding = binding;
+            mViewModel = new DiaryEntryViewModel(mApplication);
             mBinding.setViewModel(mViewModel);
             if (mIsSelectedMode) {
                 mBinding.selectionCheckbox.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 mBinding.selectionCheckbox.setVisibility(View.GONE);
             }
         }

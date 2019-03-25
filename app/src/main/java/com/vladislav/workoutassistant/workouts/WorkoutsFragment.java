@@ -13,7 +13,6 @@ import com.vladislav.workoutassistant.core.components.CustomItemDecoration;
 import com.vladislav.workoutassistant.data.model.WorkoutGroup;
 import com.vladislav.workoutassistant.workouts.adapters.CategoryAdapter;
 import com.vladislav.workoutassistant.workouts.adapters.WorkoutGroupAdapter;
-import com.vladislav.workoutassistant.workouts.viewmodels.CategoryListViewModel;
 import com.vladislav.workoutassistant.workouts.viewmodels.WorkoutGroupListViewModel;
 
 import java.util.List;
@@ -26,15 +25,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WorkoutsFragment extends GeneralFragment {
 
-    private RecyclerView mCategoriesRecyclerView;
+    private static final String CURRENT_CATEGORY_ID = "current_category_id";
+
     private RecyclerView mWorkoutsCardsRecyclerView;
-    private CategoryAdapter mCategoryAdapter;
     private WorkoutGroupAdapter mWorkoutGroupAdapter;
-    private CategoryListViewModel mCategoryListViewModel;
     private WorkoutGroupListViewModel mWorkoutGroupListViewModel;
     private int mCurrentCategoryId;
-
-    private static final String CURRENT_CATEGORY_ID = "current_category_id";
 
     private ItemClickCallback mCategoryClickCallback = new ItemClickCallback() {
         @Override
@@ -55,13 +51,12 @@ public class WorkoutsFragment extends GeneralFragment {
         @Override
         public void onClick(int id, String name) {
             mFragmentListener.addFragmentOnTop(WorkoutDetailsFragment.newInstance(id, name));
-            Toast.makeText(getActivity(), name + ", id:" + id, Toast.LENGTH_SHORT).show();
         }
     };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_workouts, container, false);
+        return inflater.inflate(R.layout.fragment_horizontal_and_vertical_recyclerview, container, false);
     }
 
     @Override
@@ -72,16 +67,16 @@ public class WorkoutsFragment extends GeneralFragment {
             mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID);
         }
 
-        mCategoriesRecyclerView = view.findViewById(R.id.horizontal_recycler_view);
-        mWorkoutsCardsRecyclerView = view.findViewById(R.id.vertical_recycler_view);
-
-        mCategoryListViewModel = ViewModelProviders.of(this).get(CategoryListViewModel.class);
-        mCategoryAdapter = new CategoryAdapter(mCategoryListViewModel.getCategories(), mCategoryClickCallback);
-        mCategoriesRecyclerView.setAdapter(mCategoryAdapter);
-        mCategoriesRecyclerView.addItemDecoration(new CustomItemDecoration(10));
-
-        mWorkoutGroupAdapter = new WorkoutGroupAdapter(mWorkoutGroupClickCallback, mWorkoutClickCallback);
         mWorkoutGroupListViewModel = ViewModelProviders.of(this).get(WorkoutGroupListViewModel.class);
+
+        final RecyclerView categoriesRecyclerView = view.findViewById(R.id.horizontal_recycler_view);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(mWorkoutGroupListViewModel.getCategories(), mCategoryClickCallback);
+        categoriesRecyclerView.setAdapter(categoryAdapter);
+        categoriesRecyclerView.addItemDecoration(new CustomItemDecoration(10));
+
+        mWorkoutsCardsRecyclerView = view.findViewById(R.id.vertical_recycler_view);
+        mWorkoutGroupAdapter = new WorkoutGroupAdapter(mWorkoutGroupClickCallback, mWorkoutClickCallback);
+        mWorkoutsCardsRecyclerView.setAdapter(mWorkoutGroupAdapter);
         mWorkoutGroupListViewModel.getWorkoutGroups().observe(this, new Observer<List<WorkoutGroup>>() {
             @Override
             public void onChanged(List<WorkoutGroup> workoutGroups) {
@@ -89,12 +84,11 @@ public class WorkoutsFragment extends GeneralFragment {
                     mWorkoutGroupAdapter.setList(workoutGroups);
                     mWorkoutGroupAdapter.notifyDataSetChanged();
                     mWorkoutsCardsRecyclerView.scrollToPosition(0);
-                    ((LinearLayoutManager)mCategoriesRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mCurrentCategoryId, 0);
+                    ((LinearLayoutManager)categoriesRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mCurrentCategoryId, 0);
                 }
             }
         });
         mWorkoutGroupListViewModel.init(mCurrentCategoryId);
-        mWorkoutsCardsRecyclerView.setAdapter(mWorkoutGroupAdapter);
     }
 
     @Override

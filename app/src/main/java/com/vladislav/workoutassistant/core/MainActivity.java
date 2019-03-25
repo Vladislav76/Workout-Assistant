@@ -7,6 +7,7 @@ import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.diary.DiaryFragment;
 import com.vladislav.workoutassistant.core.callbacks.OnBackButtonListener;
 import com.vladislav.workoutassistant.core.callbacks.OnFragmentListener;
+import com.vladislav.workoutassistant.exercises.ExercisesFragment;
 import com.vladislav.workoutassistant.workouts.WorkoutsFragment;
 
 import androidx.appcompat.widget.Toolbar;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             switch (item.getItemId()) {
                 case R.id.workouts_tab:
                     fragment = WorkoutsFragment.newInstance();
+                    break;
+                case R.id.exercises_tab:
+                    fragment = ExercisesFragment.newSingleSelectionModeInstance();
                     break;
                 case R.id.diary_tab:
                     fragment = DiaryFragment.newInstance();

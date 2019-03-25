@@ -1,5 +1,6 @@
 package com.vladislav.workoutassistant.workouts.adapters;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<NamedObject> mCategories;
     private ItemClickCallback mCallback;
+    private int mSelectedItemPosition;
 
     public CategoryAdapter(List<NamedObject> categories, ItemClickCallback callback) {
         mCategories = categories;
@@ -52,12 +54,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (getAdapterPosition() != mSelectedItemPosition) {
+                        notifyItemChanged(mSelectedItemPosition);
+                        mSelectedItemPosition = getAdapterPosition();
+                        notifyItemChanged(mSelectedItemPosition);
+                    }
                     mCallback.onClick(mCategory.getId(), mCategory.getName());
                 }
             });
         }
 
         void bind(NamedObject category) {
+            if (getAdapterPosition() == mSelectedItemPosition) {
+                mTitleView.setPaintFlags(mTitleView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            } else {
+                mTitleView.setPaintFlags(mTitleView.getPaintFlags() & Paint.LINEAR_TEXT_FLAG);
+            }
             mCategory = category;
             mTitleView.setText(category.getName());
         }

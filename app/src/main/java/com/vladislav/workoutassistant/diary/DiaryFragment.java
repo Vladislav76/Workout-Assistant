@@ -47,25 +47,30 @@ public class DiaryFragment extends GeneralFragment {
         setHasOptionsMenu(true);
 
         RecyclerView recyclerView = new RecyclerView(getActivity());
-
-        if (mAdapter == null) {
-            mAdapter = getAdapter();
-        }
+        recyclerView.setId(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(mAdapter);
+
+        return recyclerView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        RecyclerView entriesRecyclerView = view.findViewById(R.id.recycler_view);
+
+        if (savedInstanceState == null) {
+            mAdapter = getAdapter();
+            entriesRecyclerView.setAdapter(mAdapter);
+        }
 
         mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntryListViewModel.class);
         mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntry>>() {
             @Override
             public void onChanged(@Nullable List<DiaryEntry> entries) {
                 if (entries != null) {
-                    mAdapter.setEntryList(entries);
-                    mAdapter.notifyItemRangeChanged(0, entries.size());
+                    mAdapter.updateList(entries);
                 }
             }
         });
-
-        return recyclerView;
     }
 
 
