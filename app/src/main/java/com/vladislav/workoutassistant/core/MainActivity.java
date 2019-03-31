@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     fragment = WorkoutsFragment.newInstance();
                     break;
                 case R.id.exercises_tab:
-                    fragment = ExercisesFragment.newSingleSelectionModeInstance();
+                    fragment = ExercisesFragment.newInstance(false);
                     break;
                 case R.id.diary_tab:
                     fragment = DiaryFragment.newInstance();

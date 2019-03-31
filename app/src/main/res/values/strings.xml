@@ -16,6 +16,9 @@
     <string name="delete_diary_entries_action">Delete entries</string>
     <string name="save_entry_changes_action">Save</string>
     <string name="add_exercises_action">Add exercises</string>
+    <string name="ok_action">OK</string>
+    <string name="cancel_action">Cancel</string>
+    <string name="remove_action">Remove</string>
 
     <string name="title_label">Title</string>
     <string name="date_and_time_label">Date and Time</string>

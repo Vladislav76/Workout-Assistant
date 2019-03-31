@@ -63,10 +63,6 @@ public class WorkoutsFragment extends GeneralFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         updateToolbar(R.string.workouts_tab);
 
-        if (savedInstanceState != null) {
-            mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID);
-        }
-
         mWorkoutGroupListViewModel = ViewModelProviders.of(this).get(WorkoutGroupListViewModel.class);
 
         final RecyclerView categoriesRecyclerView = view.findViewById(R.id.horizontal_recycler_view);
@@ -88,6 +84,11 @@ public class WorkoutsFragment extends GeneralFragment {
                 }
             }
         });
+
+        if (savedInstanceState != null) {
+            mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID);
+            categoryAdapter.setItemPosition(mCurrentCategoryId);
+        }
         mWorkoutGroupListViewModel.init(mCurrentCategoryId);
     }
 

@@ -13,6 +13,9 @@ import androidx.room.Query;
 @Dao
 public interface ExerciseDao {
 
+    @Query("SELECT * FROM exercises WHERE id = :exerciseId")
+    LiveData<Exercise> loadExercise(int exerciseId);
+
     @Query("SELECT * FROM exercises WHERE id IN (:exerciseIds)")
     LiveData<List<Exercise>> loadExercises(List<Integer> exerciseIds);
 

@@ -4,18 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="id"
-            type="int"/>
+        <import type="android.view.View"/>
         <variable
             name="name"
             type="String"/>
         <variable
-            name="isSelected"
+            name="selected"
             type="boolean"/>
         <variable
-            name="callback"
-            type="com.vladislav.workoutassistant.core.callbacks.ItemClickCallback"/>
+            name="count"
+            type="int"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,20 +24,27 @@
         android:focusable="true"
         android:clickable="true"
         android:background="?selectableItemBackground">
-        <!--android:onClick="@{() -> callback.onClick(id, name)}">-->
 
         <ImageView
             android:id="@+id/exercise_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/rounded_rectangle"
-            android:background="@{isSelected ? @color/red : @color/white}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
+            app:srcCompat="@drawable/ic_check_circle_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/name_field"
+            android:id="@+id/exercise_name_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -49,6 +54,22 @@
             android:textColor="@android:color/black"
             tools:text="Exercise 1"
             app:layout_constraintStart_toEndOf="@id/exercise_icon"
+            app:layout_constraintEnd_toStartOf="@id/exercise_count_field"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/exercise_count_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
+            android:text='@{"x" + Integer.toString(count)}'
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:singleLine="true"
+            tools:text="x100"
+            app:layout_constraintStart_toEndOf="@id/exercise_name_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

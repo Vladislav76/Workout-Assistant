@@ -1,5 +1,6 @@
 package com.vladislav.workoutassistant.exercises.adapters;
 
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>{
 
     private List<Exercise> mExercises;
+    private SparseIntArray mSelectedExercises;
     private ItemClickCallback mCallback;
-    private boolean mIsMultipleSelectionMode;
+    private int mLastClickedItemPosition;
 
-    public ExerciseAdapter(ItemClickCallback callback, boolean isMultipleSelectionMode) {
+    public ExerciseAdapter(ItemClickCallback callback, SparseIntArray selectedExercises) {
         mCallback = callback;
-        mIsMultipleSelectionMode = isMultipleSelectionMode;
+        mSelectedExercises = selectedExercises;
     }
 
     public void updateList(List<Exercise> exercises) {
@@ -37,6 +39,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             mExercises = exercises;
             diffResult.dispatchUpdatesTo(this);
         }
+    }
+
+    public void setLastClickedItemPosition(int position) {
+        mLastClickedItemPosition = position;
+    }
+
+    public int getLastClickedItemPosition() {
+        return mLastClickedItemPosition;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         return mExercises == null ? 0 : mExercises.size();
     }
 
-    class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemExerciseBinding mBinding;
         private Exercise mExercise;
 
@@ -65,22 +75,25 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             super(binding.getRoot());
 
             mBinding = binding;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mIsMultipleSelectionMode) {
-                        mBinding.setIsSelected(true);
-                    }
-                    mCallback.onClick(mExercise.getId(), mExercise.getName());
-                }
-            });
-//            mBinding.setCallback(mCallback);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mLastClickedItemPosition = getAdapterPosition();
+            mCallback.onClick(mExercise.getId(), mExercise.getName());
         }
 
         void bind(Exercise exercise) {
             mExercise = exercise;
-            mBinding.setId(exercise.getId());
             mBinding.setName(exercise.getName());
+            int exerciseCount;
+            if ((exerciseCount = mSelectedExercises.get(exercise.getId(), -1)) == -1) {
+                mBinding.setSelected(false);
+            } else {
+                mBinding.setSelected(true);
+                mBinding.setCount(exerciseCount);
+            }
         }
     }
 }

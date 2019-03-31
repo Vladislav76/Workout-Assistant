@@ -96,6 +96,10 @@ public class Repository {
         return mDatabase.workoutDao().loadWorkouts(categoryId);
     }
 
+    public LiveData<Exercise> loadExercise(int exerciseId) {
+        return mDatabase.exerciseDao().loadExercise(exerciseId);
+    }
+
     public LiveData<List<Exercise>> loadExercises(List<Integer> exerciseIds) {
         return mDatabase.exerciseDao().loadExercises(exerciseIds);
     }

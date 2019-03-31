@@ -26,6 +26,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         mCallback = callback;
     }
 
+    public void setItemPosition(int position) {
+        mSelectedItemPosition = position;
+    }
+
     @Override
     @NonNull
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,24 +48,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return mCategories == null ? 0 : mCategories.size();
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder {
+    class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleView;
         private NamedObject mCategory;
 
         CategoryViewHolder(View view) {
             super(view);
             mTitleView = view.findViewById(R.id.category_item_title);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getAdapterPosition() != mSelectedItemPosition) {
-                        notifyItemChanged(mSelectedItemPosition);
-                        mSelectedItemPosition = getAdapterPosition();
-                        notifyItemChanged(mSelectedItemPosition);
-                    }
-                    mCallback.onClick(mCategory.getId(), mCategory.getName());
-                }
-            });
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (getAdapterPosition() != mSelectedItemPosition) {
+                notifyItemChanged(mSelectedItemPosition);
+                mSelectedItemPosition = getAdapterPosition();
+                notifyItemChanged(mSelectedItemPosition);
+            }
+            mCallback.onClick(mCategory.getId(), mCategory.getName());
         }
 
         void bind(NamedObject category) {

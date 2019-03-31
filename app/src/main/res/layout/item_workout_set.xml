@@ -43,18 +43,8 @@
             android:text='@{"x" + Integer.toString(reps)}'
             android:textSize="18sp"
             tools:text="x150"
-            app:layout_constraintEnd_toStartOf="@id/handle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageView
-            android:id="@+id/handle"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/ic_reorder_grey_24dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

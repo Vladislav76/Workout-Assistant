@@ -87,7 +87,7 @@ public class WorkoutDetailsFragment extends GeneralFragment implements SimpleIte
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_exercises_action:
-                mFragmentListener.addFragmentOnTop(ExercisesFragment.newMultipleSelectionModeInstance());
+                mFragmentListener.addFragmentOnTop(ExercisesFragment.newInstance(true));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
