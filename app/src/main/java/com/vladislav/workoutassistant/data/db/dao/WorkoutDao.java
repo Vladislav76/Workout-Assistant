@@ -1,7 +1,7 @@
 package com.vladislav.workoutassistant.data.db.dao;
 
 import com.vladislav.workoutassistant.data.db.entity.Workout;
-import com.vladislav.workoutassistant.data.model.WorkoutProgram;
+import com.vladislav.workoutassistant.data.models.WorkoutProgram;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
 @Dao
 public interface WorkoutDao {

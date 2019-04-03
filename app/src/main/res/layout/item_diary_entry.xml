@@ -8,11 +8,11 @@
 
         <variable
             name="callback"
-            type="com.vladislav.workoutassistant.core.callbacks.DiaryEntryClickCallback" />
+            type="com.vladislav.workoutassistant.ui.main.interfaces.OnDiaryEntryClickCallback" />
 
         <variable
             name="viewModel"
-            type="com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryViewModel" />
+            type="com.vladislav.workoutassistant.ui.diary.viewmodels.DiaryEntryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

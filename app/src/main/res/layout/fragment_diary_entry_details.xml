@@ -9,11 +9,11 @@
 
         <variable
             name="viewModel"
-            type="com.vladislav.workoutassistant.diary.viewmodels.DiaryEntryViewModel" />
+            type="com.vladislav.workoutassistant.ui.diary.viewmodels.DiaryEntryViewModel" />
 
         <variable
             name="fragment"
-            type="com.vladislav.workoutassistant.diary.DiaryEntryDetailsFragment" />
+            type="com.vladislav.workoutassistant.ui.diary.DiaryEntryDetailsFragment" />
     </data>
 
     <ScrollView

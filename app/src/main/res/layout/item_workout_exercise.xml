@@ -17,7 +17,7 @@
             type="String"/>
         <variable
             name="callback"
-            type="com.vladislav.workoutassistant.core.callbacks.ItemClickCallback"/>
+            type="com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

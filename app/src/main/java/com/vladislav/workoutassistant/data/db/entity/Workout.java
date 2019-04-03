@@ -1,6 +1,6 @@
 package com.vladislav.workoutassistant.data.db.entity;
 
-import com.vladislav.workoutassistant.data.model.NamedObject;
+import com.vladislav.workoutassistant.data.models.NamedObject;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

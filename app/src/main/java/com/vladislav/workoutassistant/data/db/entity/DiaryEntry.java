@@ -1,7 +1,7 @@
 package com.vladislav.workoutassistant.data.db.entity;
 
-import com.vladislav.workoutassistant.data.model.FullDiaryEntry;
-import com.vladislav.workoutassistant.data.model.Identifiable;
+import com.vladislav.workoutassistant.data.models.FullDiaryEntry;
+import com.vladislav.workoutassistant.data.models.Identifiable;
 
 import java.sql.Time;
 import java.util.ArrayList;

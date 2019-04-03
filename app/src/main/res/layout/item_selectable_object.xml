@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.vladislav.workoutassistant.diary.viewmodels.SelectableItemViewModel" />
+            type="com.vladislav.workoutassistant.ui.diary.viewmodels.SelectableItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

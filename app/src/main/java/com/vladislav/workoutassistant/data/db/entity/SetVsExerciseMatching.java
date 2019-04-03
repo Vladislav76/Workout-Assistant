@@ -1,6 +1,6 @@
 package com.vladislav.workoutassistant.data.db.entity;
 
-import com.vladislav.workoutassistant.data.model.RepeatableObject;
+import com.vladislav.workoutassistant.data.models.RepeatableObject;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
