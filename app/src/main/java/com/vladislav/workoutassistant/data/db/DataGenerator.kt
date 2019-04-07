@@ -23,7 +23,7 @@ object DataGenerator {
         for (i in 1..workoutNumber) {
             val calendar = GregorianCalendar(0, 0, 0, 0, 0)
             val time = Time(calendar.time.time)
-            val entry = DiaryEntry(startTime = time, finishTime = time, title = "Workout №$i")
+            val entry = DiaryEntry(startTime = time, finishTime = time, name = "Workout №$i")
             entries.add(entry)
         }
         return entries

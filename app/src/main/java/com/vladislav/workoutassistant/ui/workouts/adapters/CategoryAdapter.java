@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vladislav.workoutassistant.R;
+import com.vladislav.workoutassistant.data.models.Item;
 import com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback;
-import com.vladislav.workoutassistant.data.models.NamedObject;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private List<NamedObject> mCategories;
+    private List<Item> mCategories;
     private OnItemClickCallback mCallback;
     private int mSelectedItemPosition;
 
-    public CategoryAdapter(List<NamedObject> categories, OnItemClickCallback callback) {
+    public CategoryAdapter(List<Item> categories, OnItemClickCallback callback) {
         mCategories = categories;
         mCallback = callback;
     }
@@ -52,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleView;
-        private NamedObject mCategory;
+        private Item mCategory;
 
         CategoryViewHolder(View view) {
             super(view);
@@ -70,7 +70,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             mCallback.onClick(mCategory.getId(), mCategory.getName());
         }
 
-        void bind(NamedObject category) {
+        void bind(Item category) {
             if (getAdapterPosition() == mSelectedItemPosition) {
                 mTitleView.setPaintFlags(mTitleView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             } else {

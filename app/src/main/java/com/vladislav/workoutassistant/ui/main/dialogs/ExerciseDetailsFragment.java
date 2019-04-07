@@ -43,7 +43,7 @@ public class ExerciseDetailsFragment extends DialogFragment implements View.OnCl
         okButton.setOnClickListener(this);
 
         if (fm.findFragmentByTag(EXERCISE_INFO_FRAGMENT_TAG) == null) {
-            ExerciseInfoFragment exerciseInfoFragment = ExerciseInfoFragment.newInstance(getArguments().getInt(EXERCISE_ID_ARG));
+            ExerciseInfoFragment exerciseInfoFragment = ExerciseInfoFragment.Companion.newInstance(getArguments().getInt(EXERCISE_ID_ARG));
             fm.beginTransaction()
                     .replace(R.id.exercise_content, exerciseInfoFragment)
                     .commit();

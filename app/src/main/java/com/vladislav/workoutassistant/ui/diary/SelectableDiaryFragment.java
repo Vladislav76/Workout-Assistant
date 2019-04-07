@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
-import com.vladislav.workoutassistant.data.models.AbbreviatedDiaryEntry;
 import com.vladislav.workoutassistant.ui.diary.adapters.DiaryEntryAdapter;
 import com.vladislav.workoutassistant.ui.main.interfaces.OnDiaryEntryClickCallback;
 import com.vladislav.workoutassistant.ui.diary.viewmodels.DiaryEntryViewModel;
@@ -35,7 +34,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
             else {
                 mSelectedEntriesCount++;
             }
-            mFragmentListener.updateToolbarTitle(Integer.toString(mSelectedEntriesCount));
+            getMFragmentListener().updateToolbarTitle(Integer.toString(mSelectedEntriesCount));
         }
     };
 
@@ -49,7 +48,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
             mSelectedEntriesCount = savedInstanceState.getInt(EXTRA_SELECTED_ENTRIES_COUNT);
         }
 
-        mFragmentListener.updateToolbarTitle(Integer.toString(mSelectedEntriesCount));
+        getMFragmentListener().updateToolbarTitle(Integer.toString(mSelectedEntriesCount));
 
         return view;
     }

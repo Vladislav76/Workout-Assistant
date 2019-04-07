@@ -1,8 +1,6 @@
 package com.vladislav.workoutassistant.data.db
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -18,8 +16,6 @@ import com.vladislav.workoutassistant.data.db.entity.Set
 @TypeConverters(DateTimeConverter::class, ListConverter::class)
 abstract class LocalDatabase : RoomDatabase() {
 
-    var isDatabaseCreated = MutableLiveData<Boolean>()
-
     abstract fun diaryDao(): DiaryDao
     abstract fun exerciseDao(): ExerciseDao
     abstract fun setDao(): SetDao
@@ -29,11 +25,11 @@ abstract class LocalDatabase : RoomDatabase() {
     companion object {
 
         private const val sDatabaseName = "My local database"
-        @Volatile private var INSTANCE: LocalDatabase? = null
+        private var sInstance: LocalDatabase? = null
 
         fun getInstance(context: Context): LocalDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            return sInstance ?: synchronized(this) {
+                sInstance ?: buildDatabase(context).also { sInstance = it }
             }
         }
 
@@ -59,8 +55,6 @@ abstract class LocalDatabase : RoomDatabase() {
             val sets = DataGenerator.generateSets(workouts.size)
             database.setDao().insertSets(sets)
             database.setAndExerciseMatchingDao().insertMatching(DataGenerator.generateSetAndExerciseMatching(sets.size))
-
-            database.isDatabaseCreated.postValue(true)
         }
     }
 }

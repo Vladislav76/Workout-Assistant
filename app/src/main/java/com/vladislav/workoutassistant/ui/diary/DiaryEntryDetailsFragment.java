@@ -20,7 +20,6 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.vladislav.workoutassistant.R;
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
-import com.vladislav.workoutassistant.data.models.FullDiaryEntry;
 import com.vladislav.workoutassistant.databinding.FragmentDiaryEntryDetailsBinding;
 import com.vladislav.workoutassistant.ui.main.dialogs.DatePickerFragment;
 import com.vladislav.workoutassistant.ui.main.GeneralFragment;
@@ -61,9 +60,9 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String title = getArguments().getString(DIARY_ENTRY_NAME_ARG);
         if (title == null) {
-            mFragmentListener.updateToolbarTitle(R.string.new_diary_entry_toolbar_title);
+            getMFragmentListener().updateToolbarTitle(R.string.new_diary_entry_toolbar_title);
         } else {
-            mFragmentListener.updateToolbarTitle(title);
+            getMFragmentListener().updateToolbarTitle(title);
         }
         setHasOptionsMenu(true);
 
@@ -190,7 +189,7 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
             isIncorrectData = true;
             Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
         }
-        if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getTitle() == null || diaryEntry.getTitle().equals(""))) {
+        if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getName() == null || diaryEntry.getName().equals(""))) {
             isIncorrectData = true;
             mBinding.titleFieldWrapper.setError(getString(R.string.empty_title_error));
         } else {

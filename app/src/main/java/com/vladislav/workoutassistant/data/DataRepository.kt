@@ -7,7 +7,6 @@ import com.vladislav.workoutassistant.data.db.LocalDatabase
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry
 import com.vladislav.workoutassistant.data.db.entity.Exercise
 import com.vladislav.workoutassistant.data.db.entity.Workout
-import com.vladislav.workoutassistant.data.models.NamedObject
 import com.vladislav.workoutassistant.data.models.WorkoutProgram
 
 import java.util.ArrayList
@@ -19,15 +18,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.vladislav.workoutassistant.data.models.Item
+import com.vladislav.workoutassistant.data.models.Nameable
 
 class DataRepository private constructor(application: Application) {
 
     private val mExecutor: Executor
     private val mDatabase: LocalDatabase = LocalDatabase.getInstance(application)
     private val mObservableEntries: MediatorLiveData<List<DiaryEntry>> = MediatorLiveData()
-    private val mCategories: MutableList<NamedObject>
-    private val mIntensityLevels: MutableList<NamedObject>
-    private val mMuscleGroups: MutableList<NamedObject>
+    private val mCategories: MutableList<Item>
+    private val mIntensityLevels: MutableList<Item>
+    private val mMuscleGroups: MutableList<Item>
 
     val newEntry: DiaryEntry
         get() = DiaryEntry()
@@ -42,33 +43,33 @@ class DataRepository private constructor(application: Application) {
         mCategories = ArrayList()
         var names = application.resources.getStringArray(R.array.categories)
         for (i in names.indices) {
-            mCategories.add(NamedObject(i, names[i]))
+            mCategories.add(Item(i, names[i]))
         }
 
         mIntensityLevels = ArrayList()
         names = application.resources.getStringArray(R.array.intensity_levels)
         for (i in names.indices) {
-            mIntensityLevels.add(NamedObject(i, names[i]))
+            mIntensityLevels.add(Item(i, names[i]))
         }
 
         mMuscleGroups = ArrayList()
         names = application.resources.getStringArray(R.array.muscle_groups)
         for (i in names.indices) {
-            mMuscleGroups.add(NamedObject(i, names[i]))
+            mMuscleGroups.add(Item(i, names[i]))
         }
 
         mExecutor = Executors.newSingleThreadExecutor()
     }
 
-    fun loadCategories(): List<NamedObject> {
+    fun loadCategories(): List<Item> {
         return mCategories
     }
 
-    fun loadIntensityLevels(): List<NamedObject> {
+    fun loadIntensityLevels(): List<Item> {
         return mIntensityLevels
     }
 
-    fun loadMuscleGroups(): List<NamedObject> {
+    fun loadMuscleGroups(): List<Item> {
         return mMuscleGroups
     }
 
@@ -117,14 +118,9 @@ class DataRepository private constructor(application: Application) {
         private var sInstance: DataRepository? = null
 
         fun getInstance(application: Application): DataRepository {
-            if (sInstance == null) {
-                synchronized(DataRepository::class.java) {
-                    if (sInstance == null) {
-                        sInstance = DataRepository(application)
-                    }
-                }
+            return sInstance ?: synchronized(this) {
+                sInstance ?: DataRepository(application).also { sInstance = it }
             }
-            return sInstance!!
         }
     }
 }

@@ -41,7 +41,7 @@
                     android:ems="10"
                     android:inputType="text"
                     android:hint="@string/title_hint"
-                    android:text="@{viewModel.entry.isDefaultTitleChecked() ? viewModel.entry.defaultTitle : viewModel.entry.title}"
+                    android:text="@{viewModel.entry.isDefaultTitleChecked() ? viewModel.entry.defaultTitle : viewModel.entry.name}"
                     android:focusable="@{viewModel.entry.isDefaultTitleChecked() ? false : true}"
                     android:focusableInTouchMode="@{viewModel.entry.isDefaultTitleChecked() ? false : true}"
                     android:afterTextChanged="@{(s) -> !viewModel.entry.isDefaultTitleChecked() ? viewModel.setTitle(s.toString()) : null}" />

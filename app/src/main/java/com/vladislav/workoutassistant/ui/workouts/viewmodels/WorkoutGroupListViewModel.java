@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.vladislav.workoutassistant.data.DataRepository;
 import com.vladislav.workoutassistant.data.db.entity.Workout;
-import com.vladislav.workoutassistant.data.models.NamedObject;
+import com.vladislav.workoutassistant.data.models.Item;
 import com.vladislav.workoutassistant.data.models.WorkoutGroup;
 
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ import androidx.lifecycle.Observer;
 public class WorkoutGroupListViewModel extends AndroidViewModel {
 
     private DataRepository mDataRepository;
-    private List<NamedObject> mIntensityLevels;
-    private List<NamedObject> mCategories;
+    private List<Item> mIntensityLevels;
+    private List<Item> mCategories;
     private MediatorLiveData<List<WorkoutGroup>> mWorkoutGroups = new MediatorLiveData<>();
 
     public WorkoutGroupListViewModel(Application application) {
@@ -38,7 +38,7 @@ public class WorkoutGroupListViewModel extends AndroidViewModel {
         });
     }
 
-    public List<NamedObject> getCategories() {
+    public List<Item> getCategories() {
         return mCategories;
     }
 

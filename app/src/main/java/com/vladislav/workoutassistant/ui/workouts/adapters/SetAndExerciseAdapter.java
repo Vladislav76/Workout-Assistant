@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
-import com.vladislav.workoutassistant.data.models.NamedObject;
+import com.vladislav.workoutassistant.data.models.Item;
 import com.vladislav.workoutassistant.data.models.WorkoutExercise;
 import com.vladislav.workoutassistant.data.models.WorkoutSet;
-import com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback;
 import com.vladislav.workoutassistant.databinding.ItemWorkoutExerciseBinding;
 import com.vladislav.workoutassistant.databinding.ItemWorkoutSetBinding;
 import com.vladislav.workoutassistant.ui.main.components.SimpleItemTouchHelperCallback;
 import com.vladislav.workoutassistant.ui.main.components.SimpleItemTouchHelperCallback.OnStartDragListener;
+import com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,11 +29,11 @@ public class SetAndExerciseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int EXERCISE_ITEM_VIEW_TYPE = 2;
 
     private List<Object> mItems;
-    private List<NamedObject> mMuscleGroups;
+    private List<Item> mMuscleGroups;
     private OnItemClickCallback mCallback;
     private OnStartDragListener mStartDragListener;
 
-    public SetAndExerciseAdapter(OnItemClickCallback callback, OnStartDragListener startDragListener, List<NamedObject> muscleGroups) {
+    public SetAndExerciseAdapter(OnItemClickCallback callback, OnStartDragListener startDragListener, List<Item> muscleGroups) {
         mCallback = callback;
         mStartDragListener = startDragListener;
         mMuscleGroups = muscleGroups;

@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.vladislav.workoutassistant.data.DataRepository;
 import com.vladislav.workoutassistant.data.db.entity.Exercise;
-import com.vladislav.workoutassistant.data.models.NamedObject;
+import com.vladislav.workoutassistant.data.models.Item;
 import com.vladislav.workoutassistant.data.models.WorkoutExercise;
 import com.vladislav.workoutassistant.data.models.WorkoutProgram;
 import com.vladislav.workoutassistant.data.models.WorkoutSet;
@@ -21,7 +21,7 @@ public class WorkoutViewModel extends AndroidViewModel {
 
     private DataRepository mDataRepository;
     private WorkoutProgram mWorkoutProgram;
-    private List<NamedObject> mMuscleGroups;
+    private List<Item> mMuscleGroups;
     private MediatorLiveData<List<Object>> mSetsAndExercises = new MediatorLiveData<>();
 
     public WorkoutViewModel(Application application) {
@@ -59,7 +59,7 @@ public class WorkoutViewModel extends AndroidViewModel {
         });
     }
 
-    public List<NamedObject> getMuscleGroups() {
+    public List<Item> getMuscleGroups() {
         return mMuscleGroups;
     }
 

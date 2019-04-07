@@ -51,7 +51,7 @@ public class WorkoutsFragment extends GeneralFragment {
     private OnItemClickCallback mWorkoutClickCallback = new OnItemClickCallback() {
         @Override
         public void onClick(int id, String name) {
-            mFragmentListener.addFragmentOnTop(WorkoutDetailsFragment.newInstance(id, name));
+            getMFragmentListener().addFragmentOnTop(WorkoutDetailsFragment.newInstance(id, name));
         }
     };
 
@@ -62,7 +62,7 @@ public class WorkoutsFragment extends GeneralFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        mFragmentListener.updateToolbarTitle(R.string.workouts_tab);
+        getMFragmentListener().updateToolbarTitle(R.string.workouts_tab);
 
         mWorkoutGroupListViewModel = ViewModelProviders.of(this).get(WorkoutGroupListViewModel.class);
 

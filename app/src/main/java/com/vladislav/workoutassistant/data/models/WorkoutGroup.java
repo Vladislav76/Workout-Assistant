@@ -7,10 +7,10 @@ import java.util.List;
 
 public class WorkoutGroup {
 
-    private NamedObject mData;
+    private Item mData;
     private List<Workout> mWorkouts;
 
-    public WorkoutGroup(NamedObject data) {
+    public WorkoutGroup(Item data) {
         mData = data;
         mWorkouts = new ArrayList<>();
     }

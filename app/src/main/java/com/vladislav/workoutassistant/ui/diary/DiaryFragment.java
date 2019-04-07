@@ -37,13 +37,13 @@ public class DiaryFragment extends GeneralFragment {
         @Override
         public void onClick(DiaryEntryViewModel model, String name) {
             DiaryEntryDetailsFragment fragment = DiaryEntryDetailsFragment.newInstance(model.getEntry().get().getId(), name);
-            mFragmentListener.addFragmentOnTop(fragment);
+            getMFragmentListener().addFragmentOnTop(fragment);
         }
     };
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mFragmentListener.updateToolbarTitle(R.string.diary_toolbar_title);
+        getMFragmentListener().updateToolbarTitle(R.string.diary_toolbar_title);
         setHasOptionsMenu(true);
 
         RecyclerView recyclerView = new RecyclerView(getActivity());
@@ -98,12 +98,12 @@ public class DiaryFragment extends GeneralFragment {
         switch (item.getItemId()) {
             case R.id.new_diary_entry_action:
                 Fragment fragment = DiaryEntryDetailsFragment.newInstance(DiaryEntryViewModel.NEW_DIARY_ENTRY_ID, null);
-                mFragmentListener.addFragmentOnTop(fragment);
+                getMFragmentListener().addFragmentOnTop(fragment);
                 return true;
             case R.id.delete_diary_entries_action:
                 cleanSelectedEntriesCheckboxes();
                 fragment = SelectableDiaryFragment.newInstance();
-                mFragmentListener.addFragmentOnTop(fragment);
+                getMFragmentListener().addFragmentOnTop(fragment);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

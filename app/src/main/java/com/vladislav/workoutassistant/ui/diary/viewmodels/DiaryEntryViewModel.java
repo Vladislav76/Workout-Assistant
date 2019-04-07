@@ -57,7 +57,7 @@ public class DiaryEntryViewModel extends AndroidViewModel {
     }
 
     public void setTitle(String title) {
-        entry.get().setTitle(title);
+        entry.get().setName(title);
         entry.notifyChange();
     }
 

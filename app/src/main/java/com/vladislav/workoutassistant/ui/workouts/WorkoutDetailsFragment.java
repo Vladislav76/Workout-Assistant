@@ -53,7 +53,7 @@ public class WorkoutDetailsFragment extends GeneralFragment implements SimpleIte
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        mFragmentListener.updateToolbarTitle(getArguments().getString(TITLE_ARG));
+        getMFragmentListener().updateToolbarTitle(getArguments().getString(TITLE_ARG));
         setHasOptionsMenu(true);
 
         mProgramRecyclerView = view.findViewById(R.id.recycler_view);
@@ -86,7 +86,7 @@ public class WorkoutDetailsFragment extends GeneralFragment implements SimpleIte
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_exercises_action:
-                mFragmentListener.addFragmentOnTop(ExercisesFragment.newInstance(true));
+                getMFragmentListener().addFragmentOnTop(ExercisesFragment.Companion.newInstance(true));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
