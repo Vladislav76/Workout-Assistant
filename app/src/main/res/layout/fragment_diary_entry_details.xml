@@ -5,7 +5,7 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.vladislav.workoutassistant.data.db.converter.DateConverter" />
+        <import type="com.vladislav.workoutassistant.data.db.converter.StringConverter" />
 
         <variable
             name="viewModel"
@@ -84,7 +84,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/date_hint"
-                android:text="@{DateConverter.dateToString(viewModel.entry.date)}"
+                android:text="@{StringConverter.INSTANCE.dateToString(viewModel.entry.date)}"
                 app:layout_constraintBottom_toBottomOf="@+id/date_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/date_button"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:hint="@string/start_time_hint"
-                android:text="@{DateConverter.timeToString(viewModel.entry.startTime)}"
+                android:text="@{StringConverter.INSTANCE.timeToString(viewModel.entry.startTime)}"
                 app:layout_constraintBottom_toBottomOf="@+id/start_time_button"
                 app:layout_constraintStart_toEndOf="@+id/start_time_button"
                 app:layout_constraintTop_toTopOf="@+id/start_time_button" />
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:hint="@string/finish_time_hint"
-                android:text="@{DateConverter.timeToString(viewModel.entry.finishTime)}"
+                android:text="@{StringConverter.INSTANCE.timeToString(viewModel.entry.finishTime)}"
                 app:layout_constraintBottom_toBottomOf="@+id/finish_time_button"
                 app:layout_constraintStart_toEndOf="@+id/finish_time_button"
                 app:layout_constraintTop_toTopOf="@+id/finish_time_button" />
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/time_duration_hint"
-                android:text="@{DateConverter.durationToString(viewModel.entry.duration)}"
+                android:text="@{StringConverter.INSTANCE.durationToString(viewModel.entry.duration)}"
                 android:visibility="@{viewModel.entry.startTime == null || viewModel.entry.finishTime == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/duration_label" />

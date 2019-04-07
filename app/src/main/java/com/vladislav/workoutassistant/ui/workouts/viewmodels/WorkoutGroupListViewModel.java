@@ -24,7 +24,7 @@ public class WorkoutGroupListViewModel extends AndroidViewModel {
 
     public WorkoutGroupListViewModel(Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
         mIntensityLevels = mDataRepository.loadIntensityLevels();
         mCategories = mDataRepository.loadCategories();
     }

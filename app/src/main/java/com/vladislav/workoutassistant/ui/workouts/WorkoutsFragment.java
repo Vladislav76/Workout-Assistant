@@ -1,6 +1,7 @@
 package com.vladislav.workoutassistant.ui.workouts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class WorkoutsFragment extends GeneralFragment {
         });
 
         if (savedInstanceState != null) {
+            Log.d("WORKOUTS", "Current category id: " + mCurrentCategoryId);
             mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID);
             categoryAdapter.setItemPosition(mCurrentCategoryId);
         }

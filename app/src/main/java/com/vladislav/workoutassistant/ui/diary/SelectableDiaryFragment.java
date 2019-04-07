@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vladislav.workoutassistant.R;
+import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 import com.vladislav.workoutassistant.data.models.AbbreviatedDiaryEntry;
 import com.vladislav.workoutassistant.ui.diary.adapters.DiaryEntryAdapter;
 import com.vladislav.workoutassistant.ui.main.interfaces.OnDiaryEntryClickCallback;
@@ -79,7 +80,7 @@ public class SelectableDiaryFragment extends DiaryFragment {
         if (mSelectedEntriesCount > 0) {
             List<Integer> ids = new ArrayList<>(mSelectedEntriesCount);
             int k = 0;
-            for (AbbreviatedDiaryEntry entry : mDiaryEntryListViewModel.getEntries().getValue()) {
+            for (DiaryEntry entry : mDiaryEntryListViewModel.getEntries().getValue()) {
                 if (entry.isSelected()) {
                     ids.add(entry.getId());
                     k++;

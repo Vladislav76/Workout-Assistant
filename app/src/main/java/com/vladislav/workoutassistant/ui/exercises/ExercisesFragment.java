@@ -129,7 +129,7 @@ public class ExercisesFragment extends GeneralFragment {
         }
     }
 
-    /* F A C T O R Y */
+    /* F A StringConverter T O R Y */
     public static ExercisesFragment newInstance(boolean multipleSelectionModeEnabled) {
         Bundle args = new Bundle();
         args.putBoolean(MULTIPLE_SELECTION_MODE_ENABLED_ARG, multipleSelectionModeEnabled);

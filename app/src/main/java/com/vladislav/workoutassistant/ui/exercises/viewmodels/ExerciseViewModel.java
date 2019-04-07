@@ -17,7 +17,7 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     public ExerciseViewModel(Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
     }
 
     public void init(final int exerciseId) {

@@ -26,7 +26,7 @@ public class WorkoutViewModel extends AndroidViewModel {
 
     public WorkoutViewModel(Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
         mMuscleGroups = mDataRepository.loadMuscleGroups();
     }
 

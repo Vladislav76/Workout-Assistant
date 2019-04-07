@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
-        <import type="com.vladislav.workoutassistant.data.db.converter.DateConverter" />
+        <import type="com.vladislav.workoutassistant.data.db.converter.StringConverter" />
 
         <variable
             name="callback"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{DateConverter.dateToString(viewModel.entry.date)}"
+            android:text="@{StringConverter.INSTANCE.dateToString(viewModel.entry.date)}"
             tools:text="22.2017"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/id_field"
@@ -71,7 +71,7 @@
             android:id="@+id/duration_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{DateConverter.durationToString(viewModel.entry.duration)}'
+            android:text='@{StringConverter.INSTANCE.durationToString(viewModel.entry.duration)}'
             tools:text="00:00"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

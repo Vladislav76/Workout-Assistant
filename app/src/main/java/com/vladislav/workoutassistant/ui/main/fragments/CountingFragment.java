@@ -78,7 +78,7 @@ public class CountingFragment extends Fragment implements View.OnClickListener {
         return string.equals("") ? getArguments().getInt(COUNT_ARG) : Integer.parseInt(string);
     }
 
-    /* F A C T O R Y */
+    /* F A StringConverter T O R Y */
     public static CountingFragment newInstance(int count, MeasureUnit unit) {
         Bundle args = new Bundle();
         args.putInt(COUNT_ARG, count);

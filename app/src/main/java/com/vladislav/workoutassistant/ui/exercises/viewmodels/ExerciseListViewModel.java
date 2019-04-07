@@ -23,7 +23,7 @@ public class ExerciseListViewModel extends AndroidViewModel {
 
     public ExerciseListViewModel(Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
         mMuscleGroups = mDataRepository.loadMuscleGroups();
         mSelectedExercises = new SparseIntArray();
     }

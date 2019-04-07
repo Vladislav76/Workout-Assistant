@@ -15,6 +15,7 @@ import com.vladislav.workoutassistant.data.models.SelectableItem;
 import com.vladislav.workoutassistant.databinding.ItemSelectableObjectBinding;
 import com.vladislav.workoutassistant.ui.diary.viewmodels.SelectableItemViewModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
         return items;
     }
 
-    private ArrayList<Integer> getSelectedItemIdArrayList(ArrayList<SelectableItem> items) {
+    private ArrayList<Integer> getSelectedItemIdArrayList(List<SelectableItem> items) {
         int id = 0;
         int position = 0;
         int oldSelectedItemNumber = mSelectedItemIdList.size();
@@ -116,9 +117,11 @@ public class ItemGroupPickerFragment extends DialogFragment {
         return mSelectedItemIdList;
     }
 
-    public static ItemGroupPickerFragment newInstance(ArrayList<Integer> selectedItemIdList, String[] itemNameArray) {
+    public static ItemGroupPickerFragment newInstance(List<Integer> selectedItemIdList, String[] itemNameArray) {
         Bundle args = new Bundle();
-        args.putIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST, selectedItemIdList);
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.addAll(selectedItemIdList);
+        args.putIntegerArrayList(ARG_SELECTED_ITEM_ID_LIST, arrayList);
         args.putStringArray(ARG_ITEM_NAME_ARRAY, itemNameArray);
 
         ItemGroupPickerFragment fragment = new ItemGroupPickerFragment();
@@ -127,8 +130,7 @@ public class ItemGroupPickerFragment extends DialogFragment {
         return fragment;
     }
 
-    private class ItemGroupHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    private class ItemGroupHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemSelectableObjectBinding mBinding;
 
         ItemGroupHolder(ItemSelectableObjectBinding binding) {

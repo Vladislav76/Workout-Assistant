@@ -7,34 +7,41 @@ import com.vladislav.workoutassistant.data.db.entity.DiaryEntry;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 public class DiaryEntryViewModel extends AndroidViewModel {
 
     private final DataRepository mDataRepository;
-    private final LiveData<DiaryEntry> mDiaryEntry;
+    private final MediatorLiveData<DiaryEntry> mDiaryEntry = new MediatorLiveData<>();
     private ObservableField<DiaryEntry> entry = new ObservableField<>();
 
     public static final int NEW_DIARY_ENTRY_ID = -1;
 
     public DiaryEntryViewModel(Application application, int diaryEntryId) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
         if (diaryEntryId == NEW_DIARY_ENTRY_ID) {
-            mDiaryEntry = mDataRepository.getNewEntry();
-        }
-        else {
-            mDiaryEntry = mDataRepository.loadDiaryEntry(diaryEntryId);
+            mDiaryEntry.postValue(mDataRepository.getNewEntry());
+        } else {
+            mDiaryEntry.addSource(mDataRepository.loadDiaryEntry(diaryEntryId), new Observer<DiaryEntry>() {
+                @Override
+                public void onChanged(DiaryEntry diaryEntry) {
+                    mDiaryEntry.postValue(diaryEntry);
+                }
+            });
         }
     }
 
     public DiaryEntryViewModel(Application application) {
         super(application);
-        mDataRepository = DataRepository.getInstance(application);
-        mDiaryEntry = null;
+        mDataRepository = DataRepository.Companion.getInstance(application);
     }
 
     public LiveData<DiaryEntry> getDiaryEntry() {
@@ -89,11 +96,16 @@ public class DiaryEntryViewModel extends AndroidViewModel {
         entry.notifyChange();
     }
 
+    public void setMuscleGroupsIds(List<Integer> ids) {
+        entry.get().setMuscleGroupsIds(ids);
+        entry.notifyChange();
+    }
+
     public void updateEntry() {
-        mDataRepository.updateEntry(entry.get());
+        mDataRepository.updateEntry(mDiaryEntry.getValue());
     }
 
     public void insertEntry() {
-        mDataRepository.insertNewEntry(entry.get());
+        mDataRepository.insertNewEntry(mDiaryEntry.getValue());
     }
 }

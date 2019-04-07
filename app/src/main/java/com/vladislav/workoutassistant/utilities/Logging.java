@@ -19,7 +19,7 @@ public class Logging {
             sb.append("\t* set ID #");
             sb.append(workoutSet.setInfo.getId());
             sb.append("\n\t* reps #");
-            sb.append(workoutSet.setInfo.getReps());
+            sb.append(workoutSet.setInfo.getAmount());
             sb.append("\n");
             for (WorkoutExercise workoutExercise : workoutSet.getWorkoutExercises()) {
                 sb.append("\n\t\t* exercise ID #");
@@ -29,7 +29,7 @@ public class Logging {
                 sb.append("; ");
                 sb.append(workoutExercise.exerciseInfo.getDescription());
                 sb.append("\n\t\t* reps #");
-                sb.append(workoutExercise.matchingInfo.getReps());
+                sb.append(workoutExercise.matchingInfo.getAmount());
                 sb.append("\n");
             }
         }

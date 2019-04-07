@@ -40,7 +40,7 @@ public class ExerciseInfoFragment extends Fragment {
         exerciseViewModel.init(getArguments().getInt(EXERCISE_ID_ARG));
     }
 
-    /* F A C T O R Y */
+    /* F A StringConverter T O R Y */
     public static ExerciseInfoFragment newInstance(int exerciseId) {
         Bundle args = new Bundle();
         args.putInt(EXERCISE_ID_ARG, exerciseId);

@@ -27,7 +27,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public void setItemPosition(int position) {
+        //notifyItemChanged(mSelectedItemPosition);
         mSelectedItemPosition = position;
+        notifyItemChanged(mSelectedItemPosition);
     }
 
     @Override

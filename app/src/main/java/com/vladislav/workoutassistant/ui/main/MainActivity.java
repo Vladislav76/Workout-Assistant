@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, OnFragmentListener {
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     .replace(R.id.content_frame, fragment, tag)
                     .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit();
-        }
-        else {
+            Log.d("MAIN_ACTIVITY", "fragment == null");
+        } else {
+            Log.d("MAIN_ACTIVITY", "fragment != null");
             fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, 0);
         }
 
@@ -101,8 +103,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     !((OnBackButtonListener) fragment).onBackPressed()) {
                 fragmentManager.popBackStackImmediate();
             }
-        }
-        else {
+        } else {
             supportFinishAfterTransition();
         }
     }

@@ -57,10 +57,8 @@ public class DiaryFragment extends GeneralFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         RecyclerView entriesRecyclerView = view.findViewById(R.id.recycler_view);
 
-        if (savedInstanceState == null) {
-            mAdapter = getAdapter();
-            entriesRecyclerView.setAdapter(mAdapter);
-        }
+        mAdapter = getAdapter();
+        entriesRecyclerView.setAdapter(mAdapter);
 
         mDiaryEntryListViewModel = ViewModelProviders.of(this).get(DiaryEntryListViewModel.class);
         mDiaryEntryListViewModel.getEntries().observe(this, new Observer<List<DiaryEntry>>() {

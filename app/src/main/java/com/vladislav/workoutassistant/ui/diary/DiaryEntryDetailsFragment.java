@@ -32,6 +32,7 @@ import com.vladislav.workoutassistant.ui.diary.viewmodels.DiaryEntryViewModelFac
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -61,8 +62,7 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
         String title = getArguments().getString(DIARY_ENTRY_NAME_ARG);
         if (title == null) {
             mFragmentListener.updateToolbarTitle(R.string.new_diary_entry_toolbar_title);
-        }
-        else {
+        } else {
             mFragmentListener.updateToolbarTitle(title);
         }
         setHasOptionsMenu(true);
@@ -140,7 +140,8 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
                     updateDuration();
                     break;
                 case REQUEST_GET_SELECTED_MUSCLE_GROUPS_ID_LIST:
-//                    ArrayList<Integer> selectedMuscleGroupsIdList = data.getIntegerArrayListExtra(ItemGroupPickerFragment.EXTRA_SELECTED_ITEM_ID_LIST);
+                    ArrayList<Integer> selectedMuscleGroupsIdList = data.getIntegerArrayListExtra(ItemGroupPickerFragment.EXTRA_SELECTED_ITEM_ID_LIST);
+                    mDiaryEntryViewModel.setMuscleGroupsIds(selectedMuscleGroupsIdList);
                     updateMuscleGroups();
                     break;
             }
@@ -180,21 +181,19 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
     }
 
     public void saveChanges() {
-        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
+        DiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
         boolean isIncorrectData = false;
         if (diaryEntry.getStartTime() == null || diaryEntry.getFinishTime() == null) {
             isIncorrectData = true;
             Toast.makeText(getActivity(), R.string.null_time_input_error, Toast.LENGTH_SHORT).show();
-        }
-        else if (diaryEntry.getDuration() == null) {
+        } else if (diaryEntry.getDuration() == null) {
             isIncorrectData = true;
             Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
         }
         if (!diaryEntry.isDefaultTitleChecked() && (diaryEntry.getTitle() == null || diaryEntry.getTitle().equals(""))) {
             isIncorrectData = true;
             mBinding.titleFieldWrapper.setError(getString(R.string.empty_title_error));
-        }
-        else {
+        } else {
             mBinding.titleFieldWrapper.setErrorEnabled(false);
         }
 
@@ -204,8 +203,7 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
             }
             if (getArguments().getInt(DIARY_ENTRY_ID_ARG) == DiaryEntryViewModel.NEW_DIARY_ENTRY_ID) {
                 mDiaryEntryViewModel.insertEntry();
-            }
-            else {
+            } else {
                 mDiaryEntryViewModel.updateEntry();
             }
             getActivity().onBackPressed();
@@ -224,7 +222,7 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
     }
 
     private Date getDate(int buttonId) {
-        FullDiaryEntry entry = mDiaryEntryViewModel.getEntry().get();
+        DiaryEntry entry = mDiaryEntryViewModel.getEntry().get();
         if (entry == null) {
             return new Date();
         }
@@ -241,7 +239,7 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
     }
 
     private void updateDefaultTitle() {
-        ArrayList<Integer> muscleGroupsIds = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
+        List<Integer> muscleGroupsIds = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
         String defaultTitle;
         if (muscleGroupsIds != null && muscleGroupsIds.size() > 0) {
             StringBuilder sb = new StringBuilder();
@@ -251,23 +249,21 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
                 sb.append(separator);
             }
             defaultTitle =  sb.substring(0, sb.length() - separator.length());
-        }
-        else {
+        } else {
             defaultTitle = getResources().getString(R.string.default_workout_title);
         }
         mDiaryEntryViewModel.setDefaultTitle(defaultTitle);
     }
 
     private void updateDuration() {
-        FullDiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
+        DiaryEntry diaryEntry = mDiaryEntryViewModel.getEntry().get();
         if (diaryEntry.getStartTime() != null && diaryEntry.getFinishTime() != null) {
             Time startTime = diaryEntry.getStartTime();
             Time finishTime = diaryEntry.getFinishTime();
             if (startTime.toString().compareTo(finishTime.toString()) <= 0) {
                 Time duration = new Time(Math.abs(finishTime.getTime() - startTime.getTime()));
                 mDiaryEntryViewModel.setDuration(duration);
-            }
-            else {
+            } else {
                 mDiaryEntryViewModel.setDuration(null);
                 Toast.makeText(getActivity(), R.string.not_correct_time_input_error, Toast.LENGTH_SHORT).show();
             }
@@ -277,15 +273,14 @@ public class DiaryEntryDetailsFragment extends GeneralFragment {
     private void updateMuscleGroups() {
         ChipGroup chipGroup = mBinding.muscleGroupsChips;
         int chipsNumber = chipGroup.getChildCount();
-        ArrayList<Integer> selectedMuscleGroupsIdList = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
+        List<Integer> selectedMuscleGroupsIdList = mDiaryEntryViewModel.getEntry().get().getMuscleGroupsIds();
 
         if (selectedMuscleGroupsIdList != null) {
             for (int i = 0; i < selectedMuscleGroupsIdList.size(); i++) {
                 if (i < chipsNumber - 1) {
                     Chip chip = (Chip) chipGroup.getChildAt(i);
                     chip.setText(mMuscleGroupsNameArray[selectedMuscleGroupsIdList.get(i)]);
-                }
-                else {
+                } else {
                     Chip chip = new Chip(getActivity());
                     chip.setText(mMuscleGroupsNameArray[selectedMuscleGroupsIdList.get(i)]);
                     chipGroup.addView(chip, chipsNumber - 1);

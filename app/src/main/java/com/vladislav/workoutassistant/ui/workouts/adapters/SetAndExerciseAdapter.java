@@ -132,7 +132,7 @@ public class SetAndExerciseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         void bind(WorkoutExercise exercise) {
             mBinding.setName(exercise.exerciseInfo.getName());
-            mBinding.setReps(exercise.matchingInfo.getReps());
+            mBinding.setReps(exercise.matchingInfo.getAmount());
             mBinding.setMuscleGroup(mMuscleGroups.get(exercise.exerciseInfo.getMuscleGroupId()).getName());
             mBinding.handle.setOnTouchListener(new View.OnTouchListener() {
                 @Override

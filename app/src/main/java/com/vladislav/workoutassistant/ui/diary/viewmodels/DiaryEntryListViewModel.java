@@ -20,7 +20,7 @@ public class DiaryEntryListViewModel extends AndroidViewModel {
     public DiaryEntryListViewModel(Application application) {
         super(application);
 
-        mDataRepository = DataRepository.getInstance(application);
+        mDataRepository = DataRepository.Companion.getInstance(application);
         mEntryList.addSource(mDataRepository.loadDiaryEntries(), new Observer<List<DiaryEntry>>() {
             @Override
             public void onChanged(List<DiaryEntry> diaryEntryEntities) {
