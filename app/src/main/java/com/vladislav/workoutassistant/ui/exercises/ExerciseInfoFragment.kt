@@ -14,17 +14,21 @@ import com.vladislav.workoutassistant.ui.exercises.viewmodels.ExerciseViewModel
 
 class ExerciseInfoFragment : Fragment() {
 
+    private val mExerciseViewModel: ExerciseViewModel by lazy {
+        ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
+    }
     private var mBinding: FragmentExerciseInfoBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_info, container, false)
         return mBinding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
-        exerciseViewModel.exercise.observe(this, Observer { exercise -> mBinding!!.exercise = exercise })
-        exerciseViewModel.init(arguments!!.getInt(EXERCISE_ID_ARG))
+        mExerciseViewModel.exercise.observe(this, Observer { exercise -> mBinding!!.exercise = exercise })
+        if (savedInstanceState == null) {
+            mExerciseViewModel.loadExerciseById(arguments!!.getInt(EXERCISE_ID_ARG))
+        }
     }
 
 

@@ -2,9 +2,7 @@ package com.vladislav.workoutassistant.ui.exercises.viewmodels
 
 import android.app.Application
 import android.util.SparseIntArray
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.*
 import com.vladislav.workoutassistant.data.DataRepository
 import com.vladislav.workoutassistant.data.db.entity.Exercise
 import com.vladislav.workoutassistant.data.models.Item
@@ -13,13 +11,15 @@ class ExerciseListViewModel(application: Application) : AndroidViewModel(applica
 
     private val mDataRepository: DataRepository = DataRepository.getInstance(application)
     private val mSelectedExercises: SparseIntArray = SparseIntArray()
-    private var exercises: LiveData<List<Exercise>>? = null
+    private val mMuscleGroupId = MutableLiveData<Int>()
 
-    fun init(muscleGroupId: Int) {
-        exercises = mDataRepository.loadExercises(muscleGroupId)
+    val exercises: LiveData<List<Exercise>> = Transformations.switchMap(mMuscleGroupId) {
+        id -> mDataRepository.loadExercises(id)
     }
 
-    fun getExercises(): LiveData<List<Exercise>>
+    fun loadExercisesByMuscleGroupId(id: Int) {
+        mMuscleGroupId.value = id
+    }
 
     fun getMuscleGroups(): List<Item> = mDataRepository.loadMuscleGroups()
 

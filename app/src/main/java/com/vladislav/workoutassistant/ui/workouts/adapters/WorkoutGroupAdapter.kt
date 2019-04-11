@@ -12,14 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class WorkoutGroupAdapter(private val mWorkoutGroupCallback: OnItemClickCallback, private val mWorkoutCallback: OnItemClickCallback) : RecyclerView.Adapter<WorkoutGroupAdapter.WorkoutsCardViewHolder>() {
 
-    private var mWorkoutGroups: List<WorkoutGroup>? = null
-    private val mViewPool: RecyclerView.RecycledViewPool //for the same view types
+    private var mWorkoutGroups: List<WorkoutGroup> = listOf()
+    private val mViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool() //for the same view types
 
-    init {
-        mViewPool = RecyclerView.RecycledViewPool()
-    }
-
-    fun setList(groups: List<WorkoutGroup>) {
+    fun updateList(groups: List<WorkoutGroup>) {
         mWorkoutGroups = groups   //TODO: add DiffUtil
     }
 
@@ -30,12 +26,10 @@ class WorkoutGroupAdapter(private val mWorkoutGroupCallback: OnItemClickCallback
     }
 
     override fun onBindViewHolder(holder: WorkoutsCardViewHolder, position: Int) {
-        holder.bind(mWorkoutGroups!![position])
+        holder.bind(mWorkoutGroups[position])
     }
 
-    override fun getItemCount(): Int {
-        return if (mWorkoutGroups == null) 0 else mWorkoutGroups!!.size
-    }
+    override fun getItemCount(): Int = mWorkoutGroups.size
 
     //    @Override
     //    public void onViewAttachedToWindow(@NonNull WorkoutsCardViewHolder holder) {
@@ -57,15 +51,13 @@ class WorkoutGroupAdapter(private val mWorkoutGroupCallback: OnItemClickCallback
     //        System.out.println(holder.getAdapterPosition());
     //    }
 
-    internal inner class WorkoutsCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val mTitleView: TextView
-        private val mRecyclerView: RecyclerView
+    inner class WorkoutsCardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val mTitleView = view.findViewById<TextView>(R.id.card_title)
+        private val mRecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         private val mAdapter: WorkoutAdapter
         private var mWorkoutGroup: WorkoutGroup? = null
 
         init {
-            mTitleView = view.findViewById(R.id.card_title)
-            mRecyclerView = view.findViewById(R.id.recycler_view)
             mRecyclerView.setRecycledViewPool(mViewPool)
             mAdapter = WorkoutAdapter(mWorkoutCallback)
             mRecyclerView.adapter = mAdapter
@@ -75,7 +67,7 @@ class WorkoutGroupAdapter(private val mWorkoutGroupCallback: OnItemClickCallback
         fun bind(group: WorkoutGroup) {
             mWorkoutGroup = group
             mTitleView.text = group.name
-            mAdapter.setList(group.workouts)
+            mAdapter.updateList(group.workouts)
             mAdapter.notifyDataSetChanged()
             mRecyclerView.scrollToPosition(0)
         }

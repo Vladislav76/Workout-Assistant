@@ -65,7 +65,7 @@ class WorkoutsFragment : GeneralFragment() {
         mWorkoutsCardsRecyclerView!!.adapter = mWorkoutGroupAdapter
         mWorkoutGroupListViewModel!!.workoutGroups.observe(this, Observer { workoutGroups ->
             if (workoutGroups != null) {
-                mWorkoutGroupAdapter!!.setList(workoutGroups)
+                mWorkoutGroupAdapter!!.updateList(workoutGroups)
                 mWorkoutGroupAdapter!!.notifyDataSetChanged()
                 mWorkoutsCardsRecyclerView!!.scrollToPosition(0)
                 (categoriesRecyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(mCurrentCategoryId, 0)
@@ -75,8 +75,9 @@ class WorkoutsFragment : GeneralFragment() {
         if (savedInstanceState != null) {
             Log.d("WORKOUTS", "Current category id: $mCurrentCategoryId")
             mCurrentCategoryId = savedInstanceState.getInt(CURRENT_CATEGORY_ID)
-            categoryAdapter.setItemPosition(mCurrentCategoryId)
         }
+        categoryAdapter.lastSelectedItemPosition = mCurrentCategoryId
+
         mWorkoutGroupListViewModel!!.init(mCurrentCategoryId)
     }
 
@@ -86,7 +87,7 @@ class WorkoutsFragment : GeneralFragment() {
 
     companion object {
 
-        private val CURRENT_CATEGORY_ID = "current_category_id"
+        private const val CURRENT_CATEGORY_ID = "current_category_id"
 
         fun newInstance(): WorkoutsFragment {
             return WorkoutsFragment()

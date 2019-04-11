@@ -7,7 +7,6 @@ import com.vladislav.workoutassistant.data.db.LocalDatabase
 import com.vladislav.workoutassistant.data.db.entity.DiaryEntry
 import com.vladislav.workoutassistant.data.db.entity.Exercise
 import com.vladislav.workoutassistant.data.db.entity.Workout
-import com.vladislav.workoutassistant.data.models.WorkoutProgram
 
 import java.util.ArrayList
 import java.util.Date
@@ -18,8 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.vladislav.workoutassistant.data.models.Item
-import com.vladislav.workoutassistant.data.models.Nameable
+import com.vladislav.workoutassistant.data.models.*
 
 class DataRepository private constructor(application: Application) {
 
@@ -89,8 +87,16 @@ class DataRepository private constructor(application: Application) {
         return mDatabase.exerciseDao().loadExercises(muscleGroupId)
     }
 
+    fun loadExercisesById(ids: List<Int>): LiveData<List<ExerciseContent>> {
+        return mDatabase.exerciseDao().loadExercisesById(ids)
+    }
+
     fun loadWorkoutProgram(workoutId: Int): LiveData<WorkoutProgram> {
         return mDatabase.workoutDao().loadWorkoutProgram(workoutId)
+    }
+
+    fun loadWorkoutInfo(workoutId: Int): LiveData<WorkoutInfo> {
+        return mDatabase.workoutDao().loadWorkoutInfo(workoutId)
     }
 
     fun loadDiaryEntries(): LiveData<List<DiaryEntry>> {

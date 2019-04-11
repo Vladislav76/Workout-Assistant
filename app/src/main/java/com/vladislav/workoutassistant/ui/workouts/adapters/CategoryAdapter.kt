@@ -11,55 +11,47 @@ import com.vladislav.workoutassistant.data.models.Item
 import com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback
 import androidx.recyclerview.widget.RecyclerView
 
-class CategoryAdapter(private val mCategories: List<Item>?, private val mCallback: OnItemClickCallback) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
-    private var mSelectedItemPosition: Int = 0
+class CategoryAdapter(private val mItems: List<Item>, private val mCallback: OnItemClickCallback) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    fun setItemPosition(position: Int) {
-        //notifyItemChanged(mSelectedItemPosition);
-        mSelectedItemPosition = position
-        notifyItemChanged(mSelectedItemPosition)
-    }
+    var lastSelectedItemPosition: Int = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_category, parent, false)
-        return CategoryViewHolder(view)
-    }
+        val holder = ViewHolder(view)
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(mCategories!![position])
-    }
+        holder.itemView.setOnClickListener {
+            val position: Int = holder.adapterPosition
+            val item = mItems[position]
+            mCallback.onClick(item.id, item.name)
 
-    override fun getItemCount(): Int {
-        return mCategories?.size ?: 0
-    }
-
-    internal inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        private val mTitleView: TextView
-        private var mCategory: Item? = null
-
-        init {
-            mTitleView = view.findViewById(R.id.category_item_title)
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            if (adapterPosition != mSelectedItemPosition) {
-                notifyItemChanged(mSelectedItemPosition)
-                mSelectedItemPosition = adapterPosition
-                notifyItemChanged(mSelectedItemPosition)
+            if (position != lastSelectedItemPosition) {
+                notifyItemChanged(position)
+                notifyItemChanged(lastSelectedItemPosition)
+                lastSelectedItemPosition = position
             }
-            mCallback.onClick(mCategory!!.id, mCategory!!.name)
         }
+        return holder
+    }
 
-        fun bind(category: Item) {
-            if (adapterPosition == mSelectedItemPosition) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(mItems[position], position == lastSelectedItemPosition)
+    }
+
+    override fun getItemCount(): Int = mItems.size
+
+
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val mTitleView = view.findViewById<TextView>(R.id.category_item_title)
+
+        fun bind(item: Item, isSelected: Boolean) {
+            mTitleView.text = item.name
+            if (isSelected) {
                 mTitleView.paintFlags = mTitleView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             } else {
                 mTitleView.paintFlags = mTitleView.paintFlags and Paint.LINEAR_TEXT_FLAG
             }
-            mCategory = category
-            mTitleView.text = category.name
         }
     }
 }

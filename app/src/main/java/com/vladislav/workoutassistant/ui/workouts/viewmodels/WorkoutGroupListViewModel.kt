@@ -1,6 +1,7 @@
 package com.vladislav.workoutassistant.ui.workouts.viewmodels
 
 import android.app.Application
+import androidx.lifecycle.*
 
 import com.vladislav.workoutassistant.data.DataRepository
 import com.vladislav.workoutassistant.data.db.entity.Workout
@@ -9,26 +10,21 @@ import com.vladislav.workoutassistant.data.models.WorkoutGroup
 
 import java.util.ArrayList
 
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
-
 class WorkoutGroupListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mDataRepository: DataRepository
-    private val mIntensityLevels: List<Item>
-    val categories: List<Item>
+    private val mDataRepository: DataRepository = DataRepository.getInstance(application)
+    private val mIntensityLevels: List<Item> = mDataRepository.loadIntensityLevels()
+//    private val mCategoryId = MutableLiveData<Int>()
+
+    val categories: List<Item> = mDataRepository.loadCategories()
+//    val groups: LiveData<List<WorkoutGroup>> = Transformations.switchMap(mCategoryId) {
+//        id -> Transformations.map(mDataRepository.loadWorkouts(id)
+//    }
+
     private val mWorkoutGroups = MediatorLiveData<List<WorkoutGroup>>()
 
     val workoutGroups: LiveData<List<WorkoutGroup>>
         get() = mWorkoutGroups
-
-    init {
-        mDataRepository = DataRepository.getInstance(application)
-        mIntensityLevels = mDataRepository.loadIntensityLevels()
-        categories = mDataRepository.loadCategories()
-    }
 
     fun init(categoryId: Int) {
         mWorkoutGroups.addSource(mDataRepository.loadWorkouts(categoryId)) { workouts -> mWorkoutGroups.postValue(mergeIntoGroups(workouts)) }

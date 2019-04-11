@@ -27,8 +27,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 class WorkoutDetailsFragment : GeneralFragment(), SimpleItemTouchHelperCallback.OnStartDragListener {
 
+    private val mWorkoutViewModel: WorkoutViewModel by lazy {
+        ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
+    }
     private var mProgramRecyclerView: RecyclerView? = null
-    private var mWorkoutViewModel: WorkoutViewModel? = null
     private var mAdapter: SetAndExerciseAdapter? = null
     private var mItemTouchHelper: ItemTouchHelper? = null
 
@@ -48,17 +50,30 @@ class WorkoutDetailsFragment : GeneralFragment(), SimpleItemTouchHelperCallback.
 
         mProgramRecyclerView = view.findViewById(R.id.recycler_view)
 
-        mWorkoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel::class.java)
-        mAdapter = SetAndExerciseAdapter(mCallback, this, mWorkoutViewModel!!.muscleGroups)
-        mWorkoutViewModel!!.setsAndExercisesList.observe(this, Observer { list ->
+        mAdapter = SetAndExerciseAdapter(mCallback, this, mWorkoutViewModel.muscleGroups)
+        mWorkoutViewModel.setsAndExercisesList.observe(this, Observer { list ->
             if (list != null) {
-                mAdapter!!.setList(list)
+                mAdapter!!.updateList(list)
                 mAdapter!!.notifyDataSetChanged()
             }
         })
-        mWorkoutViewModel!!.init(arguments!!.getInt(WORKOUT_ID_ARG))
+        mWorkoutViewModel.init(arguments!!.getInt(WORKOUT_ID_ARG))
         mProgramRecyclerView!!.adapter = mAdapter
         mProgramRecyclerView!!.addItemDecoration(DividerItemDecoration(activity, R.drawable.divider, 20))
+
+//        experimental
+        mWorkoutViewModel.workoutInfo.observe(this, Observer { info ->
+            println(info.workout.toString())
+            println(info.sets.toString())
+            for (set in info.sets) {
+                for (ex in set.exercises) {
+                    println("Exercise name: ${ex.name} muscleGroupId: ${ex.muscleGroupId}")
+                }
+            }
+        })
+        mWorkoutViewModel.loadWorkoutInfoById(arguments!!.getInt(WORKOUT_ID_ARG))
+        //end of experimental
+
 
         mItemTouchHelper = ItemTouchHelper(SimpleItemTouchHelperCallback(mAdapter))
         mItemTouchHelper!!.attachToRecyclerView(mProgramRecyclerView)

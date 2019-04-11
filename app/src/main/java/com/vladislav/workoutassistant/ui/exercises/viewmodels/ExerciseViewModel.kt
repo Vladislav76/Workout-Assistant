@@ -1,21 +1,20 @@
 package com.vladislav.workoutassistant.ui.exercises.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.*
 import com.vladislav.workoutassistant.data.DataRepository
 import com.vladislav.workoutassistant.data.db.entity.Exercise
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mDataRepository: DataRepository = DataRepository.getInstance(application)
-    private val mExercise = MediatorLiveData<Exercise>()
+    private val mExerciseId = MutableLiveData<Int>()
 
-    val exercise: LiveData<Exercise>
-        get() = mExercise
+    val exercise: LiveData<Exercise> = Transformations.switchMap(mExerciseId) {
+        id -> mDataRepository.loadExercise(id)
+    }
 
-    fun init(exerciseId: Int) {
-        mExercise.addSource(mDataRepository.loadExercise(exerciseId)) { exercise -> mExercise.postValue(exercise) }
+    fun loadExerciseById(id: Int) {
+        mExerciseId.value = id
     }
 }

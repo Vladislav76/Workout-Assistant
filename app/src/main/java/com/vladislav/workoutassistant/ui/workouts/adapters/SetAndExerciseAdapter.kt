@@ -22,14 +22,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SetAndExerciseAdapter(private val mCallback: OnItemClickCallback, private val mStartDragListener: OnStartDragListener, private val mMuscleGroups: List<Item>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), SimpleItemTouchHelperCallback.ItemTouchHelperAdapter {
 
-    private var mItems: MutableList<Any>? = null
+    private var mItems: List<Any> = listOf()
 
-    fun setList(items: MutableList<Any>) {
+    fun updateList(items: List<Any>) {
         mItems = items  //TODO: add DiffUtil
     }
 
     override fun getItemViewType(position: Int): Int {
-        val `object` = mItems!![position]
+        val `object` = mItems[position]
         if (`object` is WorkoutSet) {
             return SET_ITEM_VIEW_TYPE
         }
@@ -46,26 +46,23 @@ class SetAndExerciseAdapter(private val mCallback: OnItemClickCallback, private 
                 setBinding.root.setTag(R.id.black_horizontal_divider, "")
                 return SetViewHolder(setBinding)
             }
-            EXERCISE_ITEM_VIEW_TYPE -> {
+            else -> {
                 val exerciseBinding = DataBindingUtil.inflate<ItemWorkoutExerciseBinding>(inflater, R.layout.item_workout_exercise, parent, false)
                 exerciseBinding.callback = mCallback
                 return ExerciseViewHolder(exerciseBinding)
             }
-            else -> return null
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is SetViewHolder) {
-            holder.bind(mItems!![position] as WorkoutSet)
+            holder.bind(mItems[position] as WorkoutSet)
         } else if (holder is ExerciseViewHolder) {
-            holder.bind(mItems!![position] as WorkoutExercise)
+            holder.bind(mItems[position] as WorkoutExercise)
         }
     }
 
-    override fun getItemCount(): Int {
-        return if (mItems == null) 0 else mItems!!.size
-    }
+    override fun getItemCount(): Int = mItems.size
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         if (fromPosition < toPosition) {
@@ -82,24 +79,28 @@ class SetAndExerciseAdapter(private val mCallback: OnItemClickCallback, private 
     }
 
     override fun onItemDismiss(position: Int) {
-        mItems!!.removeAt(position)
-        notifyItemRemoved(position)
+//        mItems.removeAt(position)
+//        notifyItemRemoved(position)
     }
 
-    internal inner class SetViewHolder(private val mBinding: ItemWorkoutSetBinding) : RecyclerView.ViewHolder(mBinding.root) {
+
+
+    inner class SetViewHolder(private val mBinding: ItemWorkoutSetBinding) : RecyclerView.ViewHolder(mBinding.root) {
 
         fun bind(set: WorkoutSet) {
             mBinding.name = "Set"
-            mBinding.reps = set.setInfo.id
+            mBinding.reps = set.setInfo!!.id
         }
     }
 
-    internal inner class ExerciseViewHolder(private val mBinding: ItemWorkoutExerciseBinding) : RecyclerView.ViewHolder(mBinding.root), SimpleItemTouchHelperCallback.ItemTouchHelperViewHolder {
+
+
+    inner class ExerciseViewHolder(private val mBinding: ItemWorkoutExerciseBinding) : RecyclerView.ViewHolder(mBinding.root), SimpleItemTouchHelperCallback.ItemTouchHelperViewHolder {
 
         fun bind(exercise: WorkoutExercise) {
-            mBinding.name = exercise.exerciseInfo.name
-            mBinding.reps = exercise.matchingInfo.amount
-            mBinding.muscleGroup = mMuscleGroups[exercise.exerciseInfo.muscleGroupId].name
+            mBinding.name = exercise.exerciseInfo!!.name
+            mBinding.reps = exercise.matchingInfo!!.amount
+            mBinding.muscleGroup = mMuscleGroups[exercise.exerciseInfo!!.muscleGroupId].name
             mBinding.handle.setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
                     mStartDragListener.onStartDrag(this@ExerciseViewHolder)
