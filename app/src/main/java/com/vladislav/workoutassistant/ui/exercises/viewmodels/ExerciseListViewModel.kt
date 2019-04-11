@@ -12,15 +12,14 @@ import com.vladislav.workoutassistant.data.models.Item
 class ExerciseListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mDataRepository: DataRepository = DataRepository.getInstance(application)
-    private val mExercises = MediatorLiveData<List<Exercise>>()
     private val mSelectedExercises: SparseIntArray = SparseIntArray()
-
-    val exercises: LiveData<List<Exercise>>
-        get() = mExercises
+    private var exercises: LiveData<List<Exercise>>? = null
 
     fun init(muscleGroupId: Int) {
-        mExercises.addSource(mDataRepository.loadExercises(muscleGroupId)) { exercises -> mExercises.postValue(exercises) }
+        exercises = mDataRepository.loadExercises(muscleGroupId)
     }
+
+    fun getExercises(): LiveData<List<Exercise>>
 
     fun getMuscleGroups(): List<Item> = mDataRepository.loadMuscleGroups()
 

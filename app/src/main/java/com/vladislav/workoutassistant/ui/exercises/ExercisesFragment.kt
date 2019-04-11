@@ -62,7 +62,7 @@ class ExercisesFragment : GeneralFragment() {
         val exercisesRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
         mExerciseAdapter = ExerciseAdapter(mExerciseClickCallback, mExerciseListViewModel!!.getSelectedExercises())
         exercisesRecyclerView.adapter = mExerciseAdapter
-        mExerciseListViewModel!!.exercises.observe(this, Observer { exercises ->
+        mExerciseListViewModel!!..observe(this, Observer { exercises ->
             if (exercises != null) {
                 mExerciseAdapter!!.updateList(exercises)
             }

@@ -60,7 +60,7 @@ public class ExerciseDetailsFragment extends DialogFragment implements View.OnCl
             removeButton.setOnClickListener(this);
 
             if ((mChildCountingFragment = (CountingFragment) fm.findFragmentByTag(COUNTING_FRAGMENT_TAG)) == null) {
-                mChildCountingFragment = CountingFragment.newInstance(exerciseReps, CountingFragment.MeasureUnit.KG);
+                mChildCountingFragment = CountingFragment.Companion.newInstance(exerciseReps, CountingFragment.MeasureUnit.KG);
                 fm.beginTransaction()
                         .replace(R.id.another_content, mChildCountingFragment, COUNTING_FRAGMENT_TAG)
                         .commit();
