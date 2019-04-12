@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="id"
-            type="int"/>
-        <variable
             name="name"
             type="String"/>
         <variable
@@ -15,9 +12,6 @@
         <variable
             name="muscleGroup"
             type="String"/>
-        <variable
-            name="callback"
-            type="com.vladislav.workoutassistant.ui.main.interfaces.OnItemClickCallback"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,8 +21,7 @@
         android:paddingEnd="16dp"
         android:focusable="true"
         android:clickable="true"
-        android:background="?selectableItemBackground"
-        android:onClick="@{() -> callback.onClick(id, name)}">
+        android:background="?selectableItemBackground">
 
         <ImageView
             android:id="@+id/handle"

@@ -85,7 +85,6 @@ public class ExerciseDetailsFragment extends DialogFragment implements View.OnCl
         }
     }
 
-    /* F A StringConverter T O R Y */
     public static ExerciseDetailsFragment newInstance(int exerciseId) {
         Bundle args = new Bundle();
         args.putInt(EXERCISE_ID_ARG, exerciseId);

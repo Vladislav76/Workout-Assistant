@@ -48,7 +48,6 @@ class SetAndExerciseAdapter(private val mCallback: OnItemClickCallback, private 
             }
             else -> {
                 val exerciseBinding = DataBindingUtil.inflate<ItemWorkoutExerciseBinding>(inflater, R.layout.item_workout_exercise, parent, false)
-                exerciseBinding.callback = mCallback
                 return ExerciseViewHolder(exerciseBinding)
             }
         }

@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="id"
-            type="int"/>
-        <variable
             name="name"
             type="String"/>
         <variable
@@ -19,7 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="?listPreferredItemHeight"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="?selectableItemBackground">
 
         <TextView
             android:id="@+id/name_field"
