@@ -1,6 +1,8 @@
 .idea/
 .gradle/
-app/build/
-*.iml
+build
+Workout-Assistant-Dump
 local.properties
+proguard-rules.pro
+*.iml
 *.keystore
