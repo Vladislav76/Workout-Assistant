@@ -13,7 +13,7 @@
 
     <string name="muscle_groups_editing_action">Edit</string>
     <string name="new_diary_entry_action">New entry</string>
-    <string name="delete_diary_entries_action">Delete entries</string>
+    <string name="delete_diary_entries_action">Delete entryFulls</string>
     <string name="save_entry_changes_action">Save</string>
     <string name="add_exercises_action">Add exercises</string>
     <string name="ok_action">OK</string>

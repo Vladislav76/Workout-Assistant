@@ -12,7 +12,7 @@ object RoomDatabaseFactory {
     private val instances: HashMap<Class<out RoomDatabase>, RoomDatabase?> = HashMap()
 
     fun getInstance(context: Context, databaseClass: Class<out RoomDatabase>, name: String, dataLoader: DataSaver): RoomDatabase =
-            instances[databaseClass] ?: synchronized(instances) {
+            instances[databaseClass] ?: synchronized(this) {
                 instances[databaseClass] ?: buildDatabase(context, databaseClass, name, dataLoader).also { instances[databaseClass] = it }
             }
 

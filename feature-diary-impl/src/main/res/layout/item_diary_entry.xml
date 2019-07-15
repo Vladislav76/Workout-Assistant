@@ -5,58 +5,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:padding="8dp"
-    android:background="@color/white">
-
-    <CheckBox
-        android:id="@+id/selection_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:padding="16dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="?selectableItemBackground">
 
     <TextView
         android:id="@+id/id_field"
         style="@style/BoldTextStyle"
-        android:layout_marginStart="16dp"
         tools:text="1"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selection_checkbox"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/date_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
         tools:text="22.2017"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/id_field"
-        app:layout_constraintTop_toBottomOf="@id/title_field" />
-
-    <TextView
-        android:id="@+id/title_field"
-        style="@style/BoldTextStyle"
-        android:layout_width="0dp"
-        android:layout_marginStart="16dp"
-        android:singleLine="true"
-        tools:text="Workout 1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/id_field"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id_field"/>
 
     <TextView
         android:id="@+id/duration_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         tools:text="00:00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/date_field" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/date_field"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

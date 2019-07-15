@@ -14,7 +14,7 @@ import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
-import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.DiaryEntryAdapter
+import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.ShortDiaryEntryAdapter
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModel
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +27,7 @@ class DiaryEntryListFragment : Fragment() {
     lateinit var viewModelFactory: DiaryEntryListViewModelFactory
 
     @Inject
-    lateinit var adapter: DiaryEntryAdapter
+    lateinit var adapter: ShortDiaryEntryAdapter
 
     @Inject
     lateinit var screenTitleController: ScreenTitleController
@@ -81,7 +81,7 @@ class DiaryEntryListFragment : Fragment() {
 
         if (savedInstanceState == null) {
             Logger.debug(TAG, "Entries fetching: REQUEST")
-            diaryVM.fetchEntries()
+            diaryVM.fetchShortEntries()
         }
     }
 

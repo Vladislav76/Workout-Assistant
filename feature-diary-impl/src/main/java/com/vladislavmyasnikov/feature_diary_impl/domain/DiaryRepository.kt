@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_diary_impl.domain
 
-import io.reactivex.Maybe
+import io.reactivex.Observable
 
 interface DiaryRepository {
 
-    fun fetchEntries(): Maybe<List<DiaryEntry>>
+    fun fetchShortEntries(): Observable<List<ShortDiaryEntry>>
 }
