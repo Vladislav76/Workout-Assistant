@@ -21,18 +21,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main {
-            java {
-                exclude '**/TextEntriesAdapter.java'
-            }
-        }
-        androidTest {
-            java {
-                exclude '**/TextEntriesAdapter.java'
-            }
-        }
-    }
+//    sourceSets {
+//        main {
+//            java {
+//                exclude '**/TextEntriesAdapter.java'
+//            }
+//        }
+//        androidTest {
+//            java {
+//                exclude '**/TextEntriesAdapter.java'
+//            }
+//        }
+//    }
     dataBinding {
         enabled = true
     }
@@ -45,16 +45,16 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     //AppCompat
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
 
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
     //Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
 
-    //Lifecycle components
+    //Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 }
