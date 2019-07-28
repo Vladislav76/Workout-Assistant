@@ -1,13 +1,15 @@
 package com.vladislavmyasnikov.core_utils.utils.utils
 
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
 object DayMonthYearFormat : SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
-object HourMinuteFormat : SimpleDateFormat("HH:mm", Locale.getDefault()) {
+object HourMinuteFormat {
+    private val timeFormat = "[0-9]*:[0-9]*".toRegex()
 
-    init {
-        timeZone = TimeZone.getTimeZone("GTM")
+    fun format(time: Time): String {
+        return timeFormat.find(time.toString(), 0)?.value ?: "Not formatted"
     }
 }

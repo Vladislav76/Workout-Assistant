@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.core_components.interfaces.FragmentController
-import com.vladislavmyasnikov.core_utils.utils.utils.Logger
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.core_utils.utils.utils.Logger
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.ShortDiaryEntryAdapter
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModel
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModelFactory
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class DiaryEntryListFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: DiaryEntryListViewModelFactory
+    lateinit var viewModelFactory: DiaryViewModelFactory
 
     @Inject
     lateinit var adapter: ShortDiaryEntryAdapter
@@ -39,7 +39,10 @@ class DiaryEntryListFragment : Fragment() {
     private val disposables = CompositeDisposable()
 
     private val itemClickCallback = object : OnItemClickCallback {
-        override fun onClick(id: Long, name: String) { }
+        override fun onClick(id: Long, title: String) {
+            val fragment = DiaryEntryFragment.newInstance(id, title)
+            fragmentController.addFragmentOnTop(fragment)
+        }
     }
 
     override fun onAttach(context: Context?) {

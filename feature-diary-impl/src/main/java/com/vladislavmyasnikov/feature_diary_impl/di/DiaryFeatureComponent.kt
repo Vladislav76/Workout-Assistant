@@ -5,6 +5,7 @@ import com.vladislavmyasnikov.core_components.interfaces.FragmentController
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.diary_feature_api.DiaryFeatureApi
+import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryFragment
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryListFragment
 import dagger.Component
 
@@ -14,6 +15,7 @@ import dagger.Component
 abstract class DiaryFeatureComponent : DiaryFeatureApi {
 
     abstract fun inject(fragment: DiaryEntryListFragment)
+    abstract fun inject(fragment: DiaryEntryFragment)
 
     companion object {
 

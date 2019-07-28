@@ -7,7 +7,7 @@ class FullDiaryEntry(
         _id: Long,
         _date: Date,
         _duration: Time,
-        val startTime: Time,
-        val endTime: Time,
+        var startTime: Time,
+        var endTime: Time,
         val description: String
 ) : ShortDiaryEntry(_id, _date, _duration)

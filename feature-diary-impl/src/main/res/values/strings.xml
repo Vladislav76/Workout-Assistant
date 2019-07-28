@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">feature-diary-impl</string>
+
+    <string name="date_and_time_label">Date&amp;Time</string>
+
+    <string name="date_hint">Date</string>
+    <string name="time_hint">Time period</string>
+    <string name="time_duration_hint">Invalid time input</string>
 </resources>

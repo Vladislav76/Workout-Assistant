@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_diary_impl.di
 
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryRepository
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModelFactory
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -11,5 +11,5 @@ class ViewModelFactoryModule {
 
     @Provides
     @PerFeature
-    fun provideDiaryEntryListViewModelFactory(repository: DiaryRepository) = DiaryEntryListViewModelFactory(repository)
+    fun provideDiaryViewModelFactory(repository: DiaryRepository) = DiaryViewModelFactory(repository)
 }

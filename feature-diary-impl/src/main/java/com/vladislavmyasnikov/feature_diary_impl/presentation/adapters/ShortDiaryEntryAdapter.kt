@@ -31,7 +31,7 @@ class ShortDiaryEntryAdapter : RecyclerView.Adapter<ShortDiaryEntryAdapter.ViewH
 
         holder.itemView.setOnClickListener {
             val item = items[holder.adapterPosition]
-            callback?.onClick(item.id, "Diary Entry")
+            callback?.onClick(item.id, "Workout#id${item.id}")
         }
         return holder
     }

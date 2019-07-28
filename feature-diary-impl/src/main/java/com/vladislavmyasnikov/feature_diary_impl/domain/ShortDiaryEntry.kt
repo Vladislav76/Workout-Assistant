@@ -6,7 +6,7 @@ import java.util.*
 
 open class ShortDiaryEntry(
         val id: Long,
-        val date: Date,
+        var date: Date,
         val duration: Time
 ) : Identifiable<ShortDiaryEntry> {
 

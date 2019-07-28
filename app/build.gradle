@@ -21,18 +21,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-//    sourceSets {
-//        main {
-//            java {
-//                exclude '**/TextEntriesAdapter.java'
-//            }
-//        }
-//        androidTest {
-//            java {
-//                exclude '**/TextEntriesAdapter.java'
-//            }
-//        }
-//    }
     dataBinding {
         enabled = true
     }
