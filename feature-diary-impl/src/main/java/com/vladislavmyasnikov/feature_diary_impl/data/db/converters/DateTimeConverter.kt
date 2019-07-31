@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.db.converters
 
 import androidx.room.TypeConverter
-import java.sql.Time
+import com.vladislavmyasnikov.core_components.models.TimePoint
 import java.util.*
 
 class DateTimeConverter {
@@ -13,8 +13,8 @@ class DateTimeConverter {
     fun dateToTimestamp(date: Date?): Long? = date?.time
 
     @TypeConverter
-    fun timestampToTime(value: Long?): Time? = value?.let { Time(it) }
+    fun timestampToTime(value: Long?): TimePoint? = value?.let { TimePoint(value) }
 
     @TypeConverter
-    fun timeToTimestamp(time: Time?): Long? = time?.time
+    fun timeToTimestamp(time: TimePoint?): Long? = time?.toMilliseconds()
 }

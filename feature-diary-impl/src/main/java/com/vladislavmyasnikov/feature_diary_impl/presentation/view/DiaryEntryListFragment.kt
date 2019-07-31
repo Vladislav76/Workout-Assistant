@@ -57,7 +57,7 @@ class DiaryEntryListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        screenTitleController.setTitle("Diary")
+        screenTitleController.setTitle(R.string.diary_entry_list_title)
         screenTitleController.setDisplayHomeAsUpEnabled(false)
 
         adapter.callback = itemClickCallback

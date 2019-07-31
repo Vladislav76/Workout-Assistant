@@ -3,6 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.data.db.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.vladislavmyasnikov.core_components.models.TimePoint
 import java.sql.Time
 import java.util.*
 
@@ -10,8 +11,8 @@ import java.util.*
 class FullDiaryEntry(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "date") val date: Date,
-        @ColumnInfo(name = "duration") val duration: Time,
-        @ColumnInfo(name = "start_time") val startTime: Time,
-        @ColumnInfo(name = "end_time") val endTime: Time,
+        @ColumnInfo(name = "start_time") val startTime: TimePoint,
+        @ColumnInfo(name = "end_time") val endTime: TimePoint,
+        @ColumnInfo(name = "duration") val duration: TimePoint,
         @ColumnInfo(name = "description") val description: String
 )

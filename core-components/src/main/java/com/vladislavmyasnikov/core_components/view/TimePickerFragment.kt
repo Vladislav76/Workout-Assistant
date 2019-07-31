@@ -8,31 +8,30 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.vladislavmyasnikov.core_components.models.TimePoint
 import java.sql.Time
 import java.util.*
 
 class TimePickerFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val initialTime = arguments!!.getSerializable(TIME_ARG) as Date
-        val calendar = Calendar.getInstance().apply { time = initialTime }
+        val initialTime = arguments!!.getParcelable<TimePoint>(TIME_ARG)
 
         return TimePickerDialog(
                 activity,
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                    val newDate = GregorianCalendar(0, 0, 0, hourOfDay, minute)
-                    sendResult(Activity.RESULT_OK, Time(newDate.time.time))
+                    sendResult(Activity.RESULT_OK, TimePoint(hourOfDay.toLong(), minute.toLong()))
                 },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
+                initialTime.hours.toInt(),
+                initialTime.minutes.toInt(),
                 DateFormat.is24HourFormat(activity)
         )
     }
 
-    private fun sendResult(resultCode: Int, date: Date) {
+    private fun sendResult(resultCode: Int, time: TimePoint) {
         targetFragment?.let {
             val intent = Intent().apply {
-                putExtra(TIME_EXTRA, date)
+                putExtra(TIME_EXTRA, time)
             }
             it.onActivityResult(targetRequestCode, resultCode, intent)
         }
@@ -42,16 +41,16 @@ class TimePickerFragment : DialogFragment() {
         private const val TIME_EXTRA = "time_extra"
         private const val TIME_ARG = "time_arg"
 
-        fun newInstance(time: Date): TimePickerFragment {
+        fun newInstance(time: TimePoint): TimePickerFragment {
             return TimePickerFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(TIME_ARG, time)
+                    putParcelable(TIME_ARG, time)
                 }
             }
         }
 
-        fun extractTime(data: Intent): Time {
-            return data.getSerializableExtra(TIME_EXTRA) as Time
+        fun extractTime(data: Intent): TimePoint {
+            return data.getParcelableExtra(TIME_EXTRA)
         }
     }
 }

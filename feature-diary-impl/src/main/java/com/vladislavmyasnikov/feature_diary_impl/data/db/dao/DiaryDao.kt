@@ -9,7 +9,7 @@ import io.reactivex.Observable
 @Dao
 interface DiaryDao {
 
-    @Query("SELECT id, date, duration FROM diary")
+    @Query("SELECT id, date, start_time, end_time, duration FROM diary")
     fun loadShortEntries(): Observable<List<ShortDiaryEntry>> //TODO: change to Maybe in release version, or no???
 
     @Query("SELECT * FROM diary WHERE id = :id")

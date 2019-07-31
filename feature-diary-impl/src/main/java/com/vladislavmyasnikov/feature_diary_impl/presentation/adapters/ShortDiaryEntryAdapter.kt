@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.vladislavmyasnikov.core_components.components.DateFormatter
+import com.vladislavmyasnikov.core_components.components.TimePointFormatter
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.core_utils.utils.utils.DayMonthYearFormat
 import com.vladislavmyasnikov.core_utils.utils.utils.DiffUtilCallback
-import com.vladislavmyasnikov.core_utils.utils.utils.HourMinuteFormat
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import kotlinx.android.synthetic.main.item_diary_entry.view.*
@@ -47,9 +47,9 @@ class ShortDiaryEntryAdapter : RecyclerView.Adapter<ShortDiaryEntryAdapter.ViewH
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: ShortDiaryEntry) {
-            itemView.id_field.text = (adapterPosition + 1).toString()
-            itemView.date_field.text = DayMonthYearFormat.format(item.date)
-            itemView.duration_field.text = HourMinuteFormat.format(item.duration)
+            itemView.date_field.text = DateFormatter.format(item.date, DateFormatter.DAY_MONTH_YEAR_FORMAT)
+            itemView.time_field.text = TimePointFormatter.formatInterval(item.startTime, item.endTime, TimePointFormatter.HOUR_MINUTE_FORMAT)
+            itemView.duration_field.text = TimePointFormatter.format(item.duration, TimePointFormatter.HOUR_MINUTE_FORMAT)
         }
     }
 }

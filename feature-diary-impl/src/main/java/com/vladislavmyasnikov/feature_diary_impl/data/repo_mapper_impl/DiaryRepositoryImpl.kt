@@ -4,6 +4,7 @@ import com.vladislavmyasnikov.feature_diary_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -16,5 +17,11 @@ class DiaryRepositoryImpl @Inject constructor(private val localDataSource: Local
 
     override fun fetchFullEntry(id: Long): Maybe<FullDiaryEntry> {
         return localDataSource.diaryDao().loadEntryById(id).map(EntityToModelFullDiaryEntryMapper::map)
+    }
+
+    override fun saveFullEntry(entry: FullDiaryEntry): Completable {
+        return Completable.fromRunnable {
+            localDataSource.diaryDao().insertEntries(ModelToEntityFullDiaryEntryMapper.map(listOf(entry)))
+        }
     }
 }
