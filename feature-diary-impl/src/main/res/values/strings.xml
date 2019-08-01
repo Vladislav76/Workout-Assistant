@@ -9,5 +9,7 @@
     <string name="time_hint">Time period</string>
     <string name="time_duration_hint">Invalid time input</string>
 
+    <string name="add_diary_entry_action">Add entry</string>
+
     <string name="not_correct_time_input_message">Start time must not be greater than end time!</string>
 </resources>

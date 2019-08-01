@@ -16,14 +16,14 @@ object RoomDatabaseFactory {
                 instances[databaseClass] ?: buildDatabase(context, databaseClass, name, dataLoader).also { instances[databaseClass] = it }
             }
 
-    private fun buildDatabase(context: Context, databaseClass: Class<out RoomDatabase>, name: String, dataLoader: DataSaver) =
+    private fun buildDatabase(context: Context, databaseClass: Class<out RoomDatabase>, name: String, dataSaver: DataSaver) =
             Room.databaseBuilder(context, databaseClass, name)
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             Thread {
                                 Logger.debug(tag, "Database creation: DATA SAVING IS STARTED; Class: $databaseClass")
-                                dataLoader.saveData(instances[databaseClass]!!)
+                                dataSaver.saveData(instances[databaseClass]!!)
                                 Logger.debug(tag, "Database creation: DATA SAVING IS FINISHED; Class: $databaseClass")
                             }.start()
                         }

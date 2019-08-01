@@ -2,9 +2,7 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +57,7 @@ class DiaryEntryListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         screenTitleController.setTitle(R.string.diary_entry_list_title)
         screenTitleController.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
 
         adapter.callback = itemClickCallback
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
@@ -85,6 +84,20 @@ class DiaryEntryListFragment : Fragment() {
         if (savedInstanceState == null) {
             Logger.debug(TAG, "Entries fetching: REQUEST")
             diaryVM.fetchShortEntries()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_diary_entry_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.add_diary_entry_action -> {
+                itemClickCallback.onClick(0, "New entry")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
