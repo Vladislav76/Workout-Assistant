@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_diary_entry_action"
-        android:title="@string/add_diary_entry_action"
-        android:icon="@drawable/ic_add"
+        android:id="@+id/delete_diary_entries_forever_action"
+        android:title="@string/delete_diary_entries_action"
+        android:icon="@drawable/ic_delete_forever"
         app:showAsAction="ifRoom|withText"/>
 </menu>

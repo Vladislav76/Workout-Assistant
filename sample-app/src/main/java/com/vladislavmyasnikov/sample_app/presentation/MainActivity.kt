@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.sample_app.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.sample_app.R
@@ -33,14 +33,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager
+        val fragment = fragmentManager.findFragmentById(R.id.content_frame)
 
-        if (fragmentManager.backStackEntryCount > 1) {
-            val fragment = fragmentManager.findFragmentById(R.id.content_frame)
-            if (fragment !is OnBackPressedListener || !(fragment as OnBackPressedListener).onBackPressed()) {
+        if (fragment !is OnBackPressedListener || !fragment.onBackPressed()) {
+            if (fragmentManager.backStackEntryCount > 1) {
                 fragmentManager.popBackStackImmediate()
+            } else {
+                supportFinishAfterTransition()
             }
-        } else {
-            supportFinishAfterTransition()
         }
+    }
+
+    companion object {
+        private const val TAG = "MAIN_ACTIVITY"
     }
 }

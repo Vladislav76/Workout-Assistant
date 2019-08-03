@@ -6,7 +6,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.interfaces.FragmentController
+import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.core_utils.utils.utils.Logger
@@ -19,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class DiaryEntryListFragment : Fragment() {
+class DiaryEntryListFragment : Fragment(), OnBackPressedListener {
 
     @Inject
     lateinit var viewModelFactory: DiaryViewModelFactory
@@ -43,6 +45,12 @@ class DiaryEntryListFragment : Fragment() {
         }
     }
 
+    private val itemClickCallbackInSelectMode = object : OnItemClickCallback {
+        override fun onClick(id: Long, title: String) {
+            updateTitle()
+        }
+    }
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         DiaryFeatureComponent.get().inject(this)
@@ -55,11 +63,10 @@ class DiaryEntryListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        screenTitleController.setTitle(R.string.diary_entry_list_title)
-        screenTitleController.setDisplayHomeAsUpEnabled(false)
+        updateTitle()
+        screenTitleController.setDisplayHomeAsUpEnabled(diaryVM.mode == DiaryEntryListViewModel.DELETE_MODE)
         setHasOptionsMenu(true)
 
-        adapter.callback = itemClickCallback
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
 
         disposables.add(diaryVM.loadingState
@@ -77,18 +84,35 @@ class DiaryEntryListFragment : Fragment() {
         disposables.add(diaryVM.items
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    Logger.debug(TAG, "Entries fetching: SUCCESS; Amount: ${it.size}")
-                    adapter.updateList(it)
+                    when (it) {
+                        GeneralViewModel.LOADED_REQUEST_RESULT -> {
+                            adapter.updateList(diaryVM.entries)
+                            Logger.debug(TAG, "Entries fetching: SUCCESS; Amount: ${diaryVM.entries.size}")
+                        }
+                        GeneralViewModel.DELETED_REQUEST_RESULT -> {
+                            diaryVM.mode = DiaryEntryListViewModel.NORMAL_MODE
+                            screenTitleController.setDisplayHomeAsUpEnabled(false)
+                            setSelectModeAndUpdate(false)
+                            diaryVM.fetchShortEntries() //TODO: may be notify adapter that items was removed
+                        }
+                    }
                 })
 
         if (savedInstanceState == null) {
-            Logger.debug(TAG, "Entries fetching: REQUEST")
+            adapter.callback = itemClickCallback
+            adapter.callbackInSelectMode = itemClickCallbackInSelectMode
+
             diaryVM.fetchShortEntries()
+            Logger.debug(TAG, "Entries fetching: REQUEST")
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.fragment_diary_entry_list, menu)
+        val menuRes = when (diaryVM.mode) {
+            DiaryEntryListViewModel.DELETE_MODE -> R.menu.menu_delete_entries_action
+            else -> R.menu.menu_diary_entry_list
+        }
+        inflater.inflate(menuRes, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -97,13 +121,54 @@ class DiaryEntryListFragment : Fragment() {
                 itemClickCallback.onClick(0, "New entry")
                 true
             }
+            R.id.delete_diary_entries_action -> {
+                diaryVM.mode = DiaryEntryListViewModel.DELETE_MODE
+                screenTitleController.setDisplayHomeAsUpEnabled(true)
+                setSelectModeAndUpdate(true)
+                true
+            }
+            R.id.delete_diary_entries_forever_action -> {
+                for (id in adapter.getSelectedItemIDs()) {
+                    println("id = $id")
+                }
+                diaryVM.deleteEntriesByIDs(adapter.getSelectedItemIDs())
+                true
+            }
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        return if (diaryVM.mode == DiaryEntryListViewModel.DELETE_MODE) {
+            diaryVM.mode = DiaryEntryListViewModel.NORMAL_MODE
+            screenTitleController.setDisplayHomeAsUpEnabled(false)
+            setSelectModeAndUpdate(false)
+            true
+        } else false
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
+    }
+
+    private fun updateTitle() {
+        if (diaryVM.mode == DiaryEntryListViewModel.DELETE_MODE) {
+            screenTitleController.setTitle("${adapter.selectedItemCount}")
+        }
+        else {
+            screenTitleController.setTitle(R.string.diary_entry_list_title)
+        }
+    }
+
+    private fun setSelectModeAndUpdate(isSelectModeTurnedOn: Boolean) {
+        updateTitle()
+        activity?.invalidateOptionsMenu()
+        adapter.setSelectMode(isSelectModeTurnedOn)
     }
 
     companion object {

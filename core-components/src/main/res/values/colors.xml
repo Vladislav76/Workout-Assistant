@@ -7,6 +7,7 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#AF1515</color>
     <color name="green">#1A771A</color>
+    <color name="gray">#ACA7A7</color>
     <color name="black">#000000</color>
 
     <color name="dividerEdgeColor">#6CB4DD</color>

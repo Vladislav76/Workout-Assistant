@@ -9,9 +9,9 @@ import io.reactivex.subjects.PublishSubject
 open class GeneralViewModel<T> : ViewModel() {
 
     protected val disposables = CompositeDisposable()
-    protected val progressEmitter = BehaviorSubject.create<Boolean>()
-    protected val itemEmitter = BehaviorSubject.create<T>()
-    protected val errorEmitter = PublishSubject.create<Throwable>()
+    protected val progressEmitter: BehaviorSubject<Boolean> = BehaviorSubject.create()
+    protected val itemEmitter: BehaviorSubject<T> = BehaviorSubject.create()
+    protected val errorEmitter: PublishSubject<Throwable> = PublishSubject.create()
     protected var isLoading = false
 
     val loadingState: Observable<Boolean> = progressEmitter
@@ -21,5 +21,11 @@ open class GeneralViewModel<T> : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
+    }
+
+    companion object {
+        const val LOADED_REQUEST_RESULT = 1
+        const val SAVED_REQUEST_RESULT = 2
+        const val DELETED_REQUEST_RESULT = 3
     }
 }

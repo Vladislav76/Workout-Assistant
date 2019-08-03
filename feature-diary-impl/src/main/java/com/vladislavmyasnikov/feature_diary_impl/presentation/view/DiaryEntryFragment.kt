@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.core_components.components.DateFormatter
+import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.components.TimePointFormatter
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.core_components.models.TimePoint
@@ -21,7 +22,6 @@ import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryViewModel
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryViewModelFactory
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.RequestResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_diary_entry.*
@@ -91,8 +91,8 @@ class DiaryEntryFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     when (it) {
-                        RequestResult.LOADED -> { updateContent() }
-                        RequestResult.SAVED -> { activity?.onBackPressed() }
+                        GeneralViewModel.LOADED_REQUEST_RESULT -> { updateContent() }
+                        GeneralViewModel.SAVED_REQUEST_RESULT -> { activity?.onBackPressed() }
                     }
                 })
 

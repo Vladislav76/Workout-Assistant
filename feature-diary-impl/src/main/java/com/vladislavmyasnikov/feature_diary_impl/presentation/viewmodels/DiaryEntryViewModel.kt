@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralViewModel<RequestResult>() {
+class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralViewModel<Int>() {
 
     lateinit var entry: FullDiaryEntry
     private set
@@ -27,7 +27,7 @@ class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralView
                     .subscribeOn(Schedulers.io())
                     .subscribe({ item ->
                         entry = item
-                        itemEmitter.onNext(RequestResult.LOADED)
+                        itemEmitter.onNext(LOADED_REQUEST_RESULT)
                         Logger.debug(TAG, "Entry fetching: SUCCESS")
                     }, { error ->
                         errorEmitter.onNext(error)//(ExceptionMapper.map(error))
@@ -37,7 +37,7 @@ class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralView
                         val calendar = Calendar.getInstance().apply { time = currentDate }
                         val currentTime = TimePoint(calendar.get(Calendar.HOUR_OF_DAY).toLong(), calendar.get(Calendar.MINUTE).toLong())
                         entry = FullDiaryEntry(0, currentDate, currentTime, currentTime, TimePoint(0), "")
-                        itemEmitter.onNext(RequestResult.LOADED)
+                        itemEmitter.onNext(LOADED_REQUEST_RESULT)
                         Logger.debug(TAG, "Entry fetching: NO FOUND - NEW ENTRY")
                     })
             )
@@ -55,7 +55,7 @@ class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralView
                     }
                     .subscribeOn(Schedulers.io())
                     .subscribe({
-                        itemEmitter.onNext(RequestResult.SAVED)
+                        itemEmitter.onNext(SAVED_REQUEST_RESULT)
                         Logger.debug(TAG, "Entry saving: SUCCESS")
                     }, { error ->
                         errorEmitter.onNext(error)//(ExceptionMapper.map(error))
@@ -68,8 +68,4 @@ class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralView
     companion object {
         private const val TAG = "DIARY_ENTRY_VM"
     }
-}
-
-enum class RequestResult {
-    LOADED, SAVED
 }
