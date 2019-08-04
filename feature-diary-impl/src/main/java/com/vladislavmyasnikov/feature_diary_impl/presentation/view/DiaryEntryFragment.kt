@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class DiaryEntryFragment : Fragment() {
 
     private lateinit var diaryVM: DiaryEntryViewModel
     private val disposables = CompositeDisposable()
+    private var lastButtonClickTime = -1000L
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -54,24 +56,31 @@ class DiaryEntryFragment : Fragment() {
         screenTitleController.setDisplayHomeAsUpEnabled(true)
 
         date_button.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastButtonClickTime < 1000) return@setOnClickListener
+            lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = DatePickerFragment.newInstance(diaryVM.entry.date)
             dialog.setTargetFragment(this, GET_DATE_REQUEST_CODE)
             dialog.show(fragmentManager, DATE_PICKER_DIALOG_TAG)
         }
 
         start_time_button.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastButtonClickTime < 1000) return@setOnClickListener
+            lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = TimePickerFragment.newInstance(diaryVM.entry.startTime)
             dialog.setTargetFragment(this, GET_START_TIME_REQUEST_CODE)
             dialog.show(fragmentManager, TIME_PICKER_DIALOG_TAG)
         }
 
         end_time_button.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastButtonClickTime < 1000) return@setOnClickListener
+            lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = TimePickerFragment.newInstance(diaryVM.entry.endTime)
             dialog.setTargetFragment(this, GET_END_TIME_REQUEST_CODE)
             dialog.show(fragmentManager, TIME_PICKER_DIALOG_TAG)
         }
 
         save_button.setOnClickListener {
+            save_button.isEnabled = false
             diaryVM.saveFullEntry()
         }
 
@@ -107,22 +116,24 @@ class DiaryEntryFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            data?.let {
-                when (requestCode) {
-                    GET_DATE_REQUEST_CODE -> {
-                        val date = DatePickerFragment.extractDate(data)
-                        diaryVM.entry.date = date
-                        updateDateField()
-                    }
-                    GET_START_TIME_REQUEST_CODE -> {
-                        val time = TimePickerFragment.extractTime(data)
-                        checkAndUpdateTime(time, START_TIME_TYPE)
-                    }
-                    GET_END_TIME_REQUEST_CODE -> {
-                        val time = TimePickerFragment.extractTime(data)
-                        checkAndUpdateTime(time, END_TIME_TYPE)
-                    }
+        when (requestCode) {
+            GET_DATE_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val date = DatePickerFragment.extractDate(data!!)
+                    diaryVM.entry.date = date
+                    updateDateField()
+                }
+            }
+            GET_START_TIME_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val time = TimePickerFragment.extractTime(data!!)
+                    checkAndUpdateTime(time, START_TIME_TYPE)
+                }
+            }
+            GET_END_TIME_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val time = TimePickerFragment.extractTime(data!!)
+                    checkAndUpdateTime(time, END_TIME_TYPE)
                 }
             }
         }
