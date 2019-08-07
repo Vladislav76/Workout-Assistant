@@ -2,11 +2,10 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryRepository
+import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import javax.inject.Inject
 
-class DiaryViewModelFactory @Inject constructor(private val repository: DiaryRepository) : ViewModelProvider.Factory {
+class ViewModelFactory @Inject constructor(private val repository: DiaryEntryRepository) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

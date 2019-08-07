@@ -14,7 +14,7 @@ open class GeneralViewModel<T> : ViewModel() {
     protected val errorEmitter: PublishSubject<Throwable> = PublishSubject.create()
     protected var isLoading = false
 
-    val loadingState: Observable<Boolean> = progressEmitter
+    val processingState: Observable<Boolean> = progressEmitter
     val items: Observable<T> = itemEmitter
     val errors: Observable<Throwable> = errorEmitter
 

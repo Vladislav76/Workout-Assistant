@@ -5,7 +5,7 @@ import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 
-interface DiaryRepository {
+interface DiaryEntryRepository {
 
     fun fetchShortEntries(): Single<List<ShortDiaryEntry>>
     fun fetchFullEntry(id: Long): Maybe<FullDiaryEntry>

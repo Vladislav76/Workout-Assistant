@@ -3,26 +3,28 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.models.TimePoint
 import com.vladislavmyasnikov.core_utils.utils.utils.Logger
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryRepository
+import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralViewModel<Int>() {
+class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : GeneralViewModel<Int>() {
 
     lateinit var entry: FullDiaryEntry
     private set
 
     fun fetchFullEntry(id: Long) {
+        Logger.debug(TAG, "Entry fetching: REQUEST")
         if (!isLoading) {
-            Logger.debug(TAG, "Entry fetching: REQUEST")
-
-            isLoading = true
             progressEmitter.onNext(true)
+            isLoading = true
+            Logger.debug(TAG, "Entry fetching: PROCESSING IS STARTED")
+
             disposables.add(repository.fetchFullEntry(id)
                     .doFinally {
                         progressEmitter.onNext(false)
                         isLoading = false
+                        Logger.debug(TAG, "Entry fetching: PROCESSING IS COMPLETED")
                     }
                     .subscribeOn(Schedulers.io())
                     .subscribe({ item ->
@@ -38,20 +40,24 @@ class DiaryEntryViewModel(private val repository: DiaryRepository) : GeneralView
                         val currentTime = TimePoint(calendar.get(Calendar.HOUR_OF_DAY).toLong(), calendar.get(Calendar.MINUTE).toLong())
                         entry = FullDiaryEntry(0, currentDate, currentTime, currentTime, TimePoint(0), "")
                         itemEmitter.onNext(LOADED_REQUEST_RESULT)
-                        Logger.debug(TAG, "Entry fetching: NO FOUND - NEW ENTRY")
+                        Logger.debug(TAG, "Entry fetching: NO FOUND, New entry is created")
                     })
             )
         }
     }
 
     fun saveFullEntry() {
+        Logger.debug(TAG, "Entry saving: REQUEST")
         if (!isLoading) {
-            isLoading = true
             progressEmitter.onNext(true)
+            isLoading = true
+            Logger.debug(TAG, "Entry saving: PROCESSING IS STARTED")
+
             disposables.add(repository.saveFullEntry(entry)
                     .doFinally {
                         progressEmitter.onNext(false)
                         isLoading = false
+                        Logger.debug(TAG, "Entry saving: PROCESSING IS COMPLETED")
                     }
                     .subscribeOn(Schedulers.io())
                     .subscribe({

@@ -1,16 +1,17 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.repo_mapper_impl
 
+import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.feature_diary_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryRepository
+import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import io.reactivex.Completable
 import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class DiaryRepositoryImpl @Inject constructor(private val localDataSource: LocalDatabase) : DiaryRepository {
+@PerFeature
+class DiaryEntryRepositoryImpl @Inject constructor(private val localDataSource: LocalDatabase) : DiaryEntryRepository {
 
     override fun fetchShortEntries(): Single<List<ShortDiaryEntry>> {
         return localDataSource.diaryDao().loadShortEntries().map(EntityToModelShortDiaryEntryMapper::map)
@@ -31,8 +32,6 @@ class DiaryRepositoryImpl @Inject constructor(private val localDataSource: Local
     }
 
     override fun deleteEntriesByIDs(ids: List<Long>): Completable {
-        return Completable.fromRunnable {
-            localDataSource.diaryDao().deleteEntriesByIDs(ids)
-        }
+        return localDataSource.diaryDao().deleteEntriesByIDs(ids)
     }
 }

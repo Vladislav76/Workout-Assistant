@@ -3,6 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.data.db.dao
 import androidx.room.*
 import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.ShortDiaryEntry
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -26,5 +27,5 @@ interface DiaryDao {
     fun updateEntry(entry: FullDiaryEntry)
 
     @Query("DELETE FROM diary WHERE id IN (:ids)")
-    fun deleteEntriesByIDs(ids: List<Long>) //TODO: may be completable? see course-project
+    fun deleteEntriesByIDs(ids: List<Long>): Completable
 }

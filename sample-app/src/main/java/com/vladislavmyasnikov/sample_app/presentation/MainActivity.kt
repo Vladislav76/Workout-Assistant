@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         if (savedInstanceState == null) {
+//            FeatureProxyInjector.getDiaryFeature().diaryLauncher().launch()
             FeatureProxyInjector.getExerciseBookFeature().exerciseBookLauncher().launch()
         }
     }

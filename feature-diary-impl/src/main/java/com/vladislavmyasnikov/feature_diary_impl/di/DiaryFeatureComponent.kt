@@ -1,16 +1,15 @@
 package com.vladislavmyasnikov.feature_diary_impl.di
 
+import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
 import com.vladislavmyasnikov.core_components.interfaces.FragmentController
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
-import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.diary_feature_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryFragment
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryListFragment
 import dagger.Component
 
-@Component(modules = [DiaryFeatureModule::class, AdapterModule::class, ViewModelFactoryModule::class, RepositoryModule::class],
-        dependencies = [DiaryFeatureDependencies::class])
+@Component(modules = [DiaryFeatureModule::class], dependencies = [DiaryFeatureDependencies::class])
 @PerFeature
 abstract class DiaryFeatureComponent : DiaryFeatureApi {
 

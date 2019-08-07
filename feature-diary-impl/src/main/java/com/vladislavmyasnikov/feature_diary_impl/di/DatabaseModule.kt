@@ -17,7 +17,7 @@ class DatabaseModule {
     @Provides
     @Named("database_name")
     @PerFeature
-    fun provideDatabaseName() = "local_database"
+    fun provideDatabaseName() = "database_for_diary_feature"
 
     @Provides
     @PerFeature
