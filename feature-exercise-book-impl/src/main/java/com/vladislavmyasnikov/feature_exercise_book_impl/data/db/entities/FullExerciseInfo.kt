@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 class FullExerciseInfo(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "title") val title: String,
+        @ColumnInfo(name = "muscle_groups_ids") val muscleGroupsIDs: List<Int>,
         @ColumnInfo(name = "description") val description: String
 )

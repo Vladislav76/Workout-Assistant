@@ -37,6 +37,9 @@ dependencies {
     //Support (RecyclerView)
     implementation "com.android.support:design:$versions.support"
 
+    //Material
+    implementation "com.google.android.material:material:$versions.material"
+
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 

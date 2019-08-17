@@ -11,6 +11,7 @@ import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_book_impl.R
+import com.vladislavmyasnikov.feature_exercise_book_impl.di.AdapterModule
 import com.vladislavmyasnikov.feature_exercise_book_impl.di.ExerciseBookFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_book_impl.presentation.adapters.ExerciseAdapter
 import com.vladislavmyasnikov.feature_exercise_book_impl.presentation.viewmodels.ExerciseListViewModel
@@ -32,7 +33,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        ExerciseBookFeatureComponent.get().inject(this)
+        ExerciseBookFeatureComponent.get().exerciseBookScreenComponent(AdapterModule(activity!!)).inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseListViewModel::class.java)
     }
 

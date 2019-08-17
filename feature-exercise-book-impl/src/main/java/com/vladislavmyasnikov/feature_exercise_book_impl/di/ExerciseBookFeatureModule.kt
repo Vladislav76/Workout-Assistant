@@ -13,16 +13,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [ExerciseBookFeatureModule.Bindings::class, ContextModule::class])
+@Module(includes = [ExerciseBookFeatureModule.Bindings::class])
 class ExerciseBookFeatureModule {
 
     @PerFeature
     @Provides
     fun provideViewModelFactory(repository: ExerciseRepository): ViewModelFactory = ViewModelFactory(repository)
-
-    @Provides
-    @PerFeature
-    fun provideExerciseAdapter(context: Context): ExerciseAdapter = ExerciseAdapter(context)
 
     @Module(includes = [DatabaseModule::class])
     abstract class Bindings {

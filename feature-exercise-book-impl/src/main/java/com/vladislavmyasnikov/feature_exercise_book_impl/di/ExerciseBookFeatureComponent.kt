@@ -5,14 +5,13 @@ import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
 import com.vladislavmyasnikov.core_components.interfaces.FragmentController
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.feature_exercise_book_api.ExerciseBookFeatureApi
-import com.vladislavmyasnikov.feature_exercise_book_impl.presentation.view.ExerciseListFragment
 import dagger.Component
 
 @Component(modules = [ExerciseBookFeatureModule::class], dependencies = [ExerciseBookFeatureDependencies::class])
 @PerFeature
 abstract class ExerciseBookFeatureComponent : ExerciseBookFeatureApi {
 
-    abstract fun inject(fragment: ExerciseListFragment)
+    abstract fun exerciseBookScreenComponent(module: AdapterModule): ExerciseBookScreenComponent
 
     companion object {
 

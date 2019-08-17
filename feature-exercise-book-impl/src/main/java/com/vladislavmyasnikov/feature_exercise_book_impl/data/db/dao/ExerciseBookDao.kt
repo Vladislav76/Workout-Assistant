@@ -12,7 +12,7 @@ import io.reactivex.Single
 @Dao
 interface ExerciseBookDao {
 
-    @Query("SELECT id, title FROM exercise_book")
+    @Query("SELECT id, title, muscle_groups_ids FROM exercise_book")
     fun loadShortExercisesInfo(): Single<List<ShortExerciseInfo>>
 
     @Query("SELECT * FROM exercise_book WHERE id = :id")

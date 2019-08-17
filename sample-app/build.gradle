@@ -29,6 +29,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.android.support:design:$versions.support"
 
+    //Material
+    implementation "com.google.android.material:material:$versions.material"
+
     //ConstraintLayout
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
 

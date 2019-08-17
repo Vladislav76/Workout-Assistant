@@ -6,6 +6,7 @@ import com.vladislavmyasnikov.core_components.di.ContextModule
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.core_utils.utils.interfaces.DataSaver
 import com.vladislavmyasnikov.core_utils.utils.utils.RoomDatabaseFactory
+import com.vladislavmyasnikov.feature_exercise_book_impl.R
 import com.vladislavmyasnikov.feature_exercise_book_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_exercise_book_impl.data.db.generateExercisesInfo
 import dagger.Module
@@ -26,7 +27,8 @@ class DatabaseModule {
             RoomDatabaseFactory.getInstance(context, LocalDatabase::class.java, name, object : DataSaver {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase
-                    locDb.exerciseBookDao().insertExercisesInfo(generateExercisesInfo(30))
+                    val muscleGroupsAmount = context.resources.getStringArray(R.array.muscle_groups).size
+                    locDb.exerciseBookDao().insertExercisesInfo(generateExercisesInfo(30, muscleGroupsAmount))
                 }
             }) as LocalDatabase
 }
