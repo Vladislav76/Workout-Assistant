@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
 //            FeatureProxyInjector.getDiaryFeature().diaryLauncher().launch()
-            FeatureProxyInjector.getExerciseBookFeature().exerciseBookLauncher().launch()
+            FeatureProxyInjector.getExerciseLibraryFeature().exerciseLibraryLauncher().launch()
         }
     }
 

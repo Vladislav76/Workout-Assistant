@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">feature-exercise-library-impl</string>
+
+    <string name="exercise_list_screen_title">Exercises</string>
+
+    <string-array name="muscle_groups">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Biceps</item>
+        <item>Triceps</item>
+        <item>Shoulders</item>
+        <item>Trapezius</item>
+        <item>Quadriceps</item>
+        <item>Calves</item>
+        <item>Abs</item>
+    </string-array>
+</resources>
