@@ -28,6 +28,8 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
 
     private val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
+            val fragment = ExerciseFragment.newInstance(id, title)
+            fragmentController.addFragmentOnTop(fragment)
         }
     }
 

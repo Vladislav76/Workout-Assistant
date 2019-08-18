@@ -18,6 +18,6 @@ object EntityToModelShortExerciseInfoMapper : Mapper<ShortExerciseInfoEntity, Sh
 object EntityToModelFullExerciseInfoMapper : Mapper<FullExerciseInfoEntity, FullExerciseInfo>() {
 
     override fun map(value: FullExerciseInfoEntity): FullExerciseInfo {
-        return FullExerciseInfo(value.id, value.title, value.muscleGroupsIDs, value.description)
+        return FullExerciseInfo(value.id, value.title, value.muscleGroupsIDs, value.imagesIDs, value.description)
     }
 }

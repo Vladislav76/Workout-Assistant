@@ -5,4 +5,5 @@ import io.reactivex.Single
 interface ExerciseRepository {
 
     fun fetchShortExercisesInfo(): Single<List<ShortExerciseInfo>>
+    fun fetchFullExerciseInfo(id: Long): Single<FullExerciseInfo>
 }

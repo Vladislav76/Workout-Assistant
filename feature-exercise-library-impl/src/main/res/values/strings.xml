@@ -3,6 +3,10 @@
 
     <string name="exercise_list_screen_title">Exercises</string>
 
+    <string name="description_label">Description</string>
+
+    <string name="description_hint">No description</string>
+
     <string-array name="muscle_groups">
         <item>Chest</item>
         <item>Back</item>

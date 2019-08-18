@@ -16,7 +16,7 @@ interface ExerciseLibraryDao {
     fun loadShortExercisesInfo(): Single<List<ShortExerciseInfo>>
 
     @Query("SELECT * FROM exercise_library WHERE id = :id")
-    fun loadExerciseInfoById(id: Long): Maybe<FullExerciseInfo>
+    fun loadExerciseInfoById(id: Long): Single<FullExerciseInfo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertExercisesInfo(info: List<FullExerciseInfo>)
