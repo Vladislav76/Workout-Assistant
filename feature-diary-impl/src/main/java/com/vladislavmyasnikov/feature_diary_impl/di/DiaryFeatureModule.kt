@@ -23,7 +23,7 @@ class DiaryFeatureModule {
 
     @Provides
     @PerFeature
-    fun provideDiaryEntryAdapter(context: Context): ShortDiaryEntryAdapter = ShortDiaryEntryAdapter(context)
+    fun provideDiaryEntryAdapter(context: Context) = ShortDiaryEntryAdapter(context)
 
     @Module(includes = [DatabaseModule::class])
     abstract class Bindings {

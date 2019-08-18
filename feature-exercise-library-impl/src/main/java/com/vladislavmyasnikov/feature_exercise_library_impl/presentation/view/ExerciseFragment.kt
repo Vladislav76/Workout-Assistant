@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
+import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.AdapterModule
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseViewModel
@@ -17,7 +17,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmod
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import javax.inject.Inject
 
-class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
+class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,7 +27,7 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        ExerciseLibraryFeatureComponent.get().exerciseLibraryScreenComponent(AdapterModule(activity!!)).inject(this)
+        ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseViewModel::class.java)
     }
 
@@ -52,6 +52,11 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
         when (item) {
             GeneralViewModel.LOADED_REQUEST_RESULT -> { updateContent() }
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.resetValue()
+        return false
     }
 
     private fun updateContent() {

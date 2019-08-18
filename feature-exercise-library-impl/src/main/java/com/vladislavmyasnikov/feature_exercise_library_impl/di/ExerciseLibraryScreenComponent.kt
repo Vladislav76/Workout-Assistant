@@ -9,6 +9,6 @@ import dagger.Subcomponent
 @PerScreen
 abstract class ExerciseLibraryScreenComponent {
 
-    abstract fun inject(fragment: ExerciseListFragment)
     abstract fun inject(fragment: ExerciseFragment)
+    abstract fun inject(fragment: ExerciseListFragment)
 }

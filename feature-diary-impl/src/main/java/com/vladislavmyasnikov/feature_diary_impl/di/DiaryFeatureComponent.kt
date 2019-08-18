@@ -22,24 +22,15 @@ abstract class DiaryFeatureComponent : DiaryFeatureApi {
         private var diaryFeatureComponent: DiaryFeatureComponent? = null
 
         fun initAndGet(dependencies: DiaryFeatureDependencies): DiaryFeatureApi {
-            if (diaryFeatureComponent == null) {
-                synchronized(DiaryFeatureComponent::class.java) {
-                    if (diaryFeatureComponent == null) {
-                        diaryFeatureComponent = DaggerDiaryFeatureComponent.builder()
-                                .diaryFeatureDependencies(dependencies)
-                                .build()
-                    }
-                }
+            return diaryFeatureComponent ?: synchronized(DiaryFeatureComponent::class.java) {
+                diaryFeatureComponent ?: DaggerDiaryFeatureComponent.builder()
+                        .diaryFeatureDependencies(dependencies)
+                        .build()
+                        .also { diaryFeatureComponent = it }
             }
-            return diaryFeatureComponent!!
         }
 
-        fun get(): DiaryFeatureComponent {
-            if (diaryFeatureComponent == null) {
-                throw RuntimeException("You must call 'initAndGet' method")
-            }
-            return diaryFeatureComponent!!
-        }
+        fun get(): DiaryFeatureComponent = diaryFeatureComponent ?: throw RuntimeException("You must call 'initAndGet' method")
     }
 }
 

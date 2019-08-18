@@ -15,7 +15,7 @@ class ExerciseLibraryFeatureModule {
 
     @PerFeature
     @Provides
-    fun provideViewModelFactory(repository: ExerciseRepository): ViewModelFactory = ViewModelFactory(repository)
+    fun provideViewModelFactory(repository: ExerciseRepository) = ViewModelFactory(repository)
 
     @Module(includes = [DatabaseModule::class])
     abstract class Bindings {

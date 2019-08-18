@@ -8,13 +8,13 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AdapterModule(private val context: Context) {
+class AdapterModule {
 
     @Provides
     @PerScreen
-    fun provideExerciseAdapter(): ExerciseAdapter = ExerciseAdapter(context)
+    fun provideExerciseAdapter(context: Context) = ExerciseAdapter(context)
 
     @Provides
     @PerScreen
-    fun provideExerciseImagePagerAdapter(): ExerciseImagePagerAdapter = ExerciseImagePagerAdapter(context)
+    fun provideExerciseImagePagerAdapter(context: Context) = ExerciseImagePagerAdapter(context)
 }

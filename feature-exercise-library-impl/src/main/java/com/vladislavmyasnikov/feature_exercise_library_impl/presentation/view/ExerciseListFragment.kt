@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
+import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.AdapterModule
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListViewModel
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
-class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
+class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPressedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,7 +35,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        ExerciseLibraryFeatureComponent.get().exerciseLibraryScreenComponent(AdapterModule(activity!!)).inject(this)
+        ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseListViewModel::class.java)
     }
 
@@ -60,6 +60,11 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
         when (item) {
             GeneralViewModel.LOADED_REQUEST_RESULT -> { adapter.updateList(viewModel.exercisesInfo) }
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.resetValue()
+        return false
     }
 
     private fun updateTitle() {

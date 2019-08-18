@@ -1,5 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
+import com.vladislavmyasnikov.core_components.components.SyncObject
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
 import com.vladislavmyasnikov.core_components.interfaces.FragmentController
@@ -11,7 +12,10 @@ import dagger.Component
 @PerFeature
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
-    abstract fun exerciseLibraryScreenComponent(module: AdapterModule): ExerciseLibraryScreenComponent
+    abstract fun exerciseLibraryScreenComponent(): ExerciseLibraryScreenComponent
+
+    val exerciseScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
+    val exerciseListScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
 
     companion object {
 

@@ -20,11 +20,7 @@ class FeatureProxyInjector {
                     DaggerDiaryFeatureDependenciesComponent.builder()
                             .screenTitleController(Controller)
                             .fragmentController(Controller)
-                            .contextHolder(
-                                    object : ContextHolder {
-                                        override fun getContext(): Context = SampleApp.appContext!!
-                                    }
-                            )
+                            .contextHolder(Controller)
                             .build()
             )
         }
@@ -34,11 +30,7 @@ class FeatureProxyInjector {
                     DaggerExerciseLibraryFeatureDependenciesComponent.builder()
                             .screenTitleController(Controller)
                             .fragmentController(Controller)
-                            .contextHolder(
-                                    object : ContextHolder {
-                                        override fun getContext(): Context = SampleApp.appContext!!
-                                    }
-                            )
+                            .contextHolder(Controller)
                             .build()
             )
         }
