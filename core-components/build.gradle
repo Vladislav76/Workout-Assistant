@@ -22,13 +22,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //AppCompat
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
-
     //ConstraintLayout
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
 
-    //Support (RecyclerView)
+    //AppCompat
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.android.support:design:$versions.support"
 
     //Kotlin
@@ -50,4 +48,7 @@ dependencies {
     //RxJava2
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+
+    //Cicerone
+    implementation "ru.terrakok.cicerone:cicerone:$versions.cicerone"
 }

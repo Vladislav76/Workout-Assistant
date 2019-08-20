@@ -3,19 +3,21 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.di
 import com.vladislavmyasnikov.core_components.components.SyncObject
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
-import com.vladislavmyasnikov.core_components.interfaces.FragmentController
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryFeatureApi
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.FlowFragment
 import dagger.Component
 
 @Component(modules = [ExerciseLibraryFeatureModule::class], dependencies = [ExerciseLibraryFeatureDependencies::class])
 @PerFeature
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
-    abstract fun exerciseLibraryScreenComponent(): ExerciseLibraryScreenComponent
-
     val exerciseScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
     val exerciseListScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
+
+    abstract fun exerciseLibraryScreenComponent(): ExerciseLibraryScreenComponent
+
+    abstract fun inject(fragment: FlowFragment)
 
     companion object {
 
@@ -35,6 +37,6 @@ abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ScreenTitleController::class, FragmentController::class])
+@Component(dependencies = [ContextHolder::class, ScreenTitleController::class])
 @PerFeature
 interface ExerciseLibraryFeatureDependenciesComponent : ExerciseLibraryFeatureDependencies

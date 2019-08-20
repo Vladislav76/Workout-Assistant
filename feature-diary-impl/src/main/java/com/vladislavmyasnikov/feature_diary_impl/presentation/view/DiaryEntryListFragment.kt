@@ -11,6 +11,7 @@ import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
+import com.vladislavmyasnikov.feature_diary_impl.presentation.Screens
 import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.ShortDiaryEntryAdapter
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListViewModel
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.ViewModelFactory
@@ -26,8 +27,7 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
 
     private val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            val fragment = DiaryEntryFragment.newInstance(id, title)
-            fragmentController.addFragmentOnTop(fragment)
+            router.navigateTo(Screens.DiaryEntryDetailsScreen(id, title))
         }
     }
 
@@ -117,7 +117,10 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
             screenTitleController.setDisplayHomeAsUpEnabled(false)
             setSelectModeAndUpdate(false)
             true
-        } else false
+        } else {
+            router.exit()
+            true
+        }
     }
 
     private fun updateTitle() {

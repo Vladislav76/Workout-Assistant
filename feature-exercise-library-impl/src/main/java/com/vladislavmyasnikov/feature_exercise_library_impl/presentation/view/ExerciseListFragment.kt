@@ -13,6 +13,7 @@ import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListViewModel
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ViewModelFactory
@@ -28,8 +29,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
 
     private val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            val fragment = ExerciseFragment.newInstance(id, title)
-            fragmentController.addFragmentOnTop(fragment)
+            router.navigateTo(Screens.ExerciseDetailsScreen(id, title))
         }
     }
 
@@ -64,7 +64,8 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
 
     override fun onBackPressed(): Boolean {
         ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.resetValue()
-        return false
+        router.exit()
+        return true
     }
 
     private fun updateTitle() {

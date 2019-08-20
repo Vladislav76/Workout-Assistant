@@ -1,31 +1,40 @@
 package com.vladislavmyasnikov.core_components.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.interfaces.FragmentController
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import java.util.logging.Logger
+import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-open class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
+abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
 
     @Inject
     lateinit var screenTitleController: ScreenTitleController
 
     @Inject
-    lateinit var fragmentController: FragmentController
+    lateinit var router: Router
 
-    lateinit var viewModel: T
+    protected lateinit var viewModel: T
 
     private val disposables = CompositeDisposable()
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        Log.d("GENERAL_FRAG", "onAttach $this")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("GENERAL_FRAG", "onViewCreated $this")
+
         disposables.add(viewModel.processingState
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -45,8 +54,29 @@ open class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
                 })
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("GENERAL_FRAG", "onStart $this")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("GENERAL_FRAG", "onResume $this")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("GENERAL_FRAG", "onPause $this")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("GENERAL_FRAG", "onStop $this")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("GENERAL_FRAG", "onDestroyView $this")
         disposables.clear()
     }
 

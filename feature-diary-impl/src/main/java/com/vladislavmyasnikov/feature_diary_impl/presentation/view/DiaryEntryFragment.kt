@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.core_components.components.DateFormatter
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.components.TimePointFormatter
+import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.models.TimePoint
 import com.vladislavmyasnikov.core_components.view.DatePickerFragment
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
@@ -24,7 +25,7 @@ import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.ViewMod
 import kotlinx.android.synthetic.main.fragment_diary_entry.*
 import javax.inject.Inject
 
-class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
+class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -109,6 +110,11 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
             GeneralViewModel.LOADED_REQUEST_RESULT -> { updateContent() }
             GeneralViewModel.SAVED_REQUEST_RESULT -> { activity?.onBackPressed() }
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 
     private fun updateContent() {
