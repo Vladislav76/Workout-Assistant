@@ -20,9 +20,8 @@ dependencies {
     //app modules
     implementation project(':core-utils')
     implementation project(':core-components')
-    implementation project(':feature-diary-api')
+    implementation project(':features-api')
     implementation project(':feature-diary-impl')
-    implementation project(':feature-exercise-library-api')
     implementation project(':feature-exercise-library-impl')
 
     //AppCompat

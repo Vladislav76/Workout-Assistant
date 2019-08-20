@@ -27,7 +27,7 @@ dependencies {
     //APIs
     implementation project(':core-utils')
     implementation project(':core-components')
-    implementation project(':feature-diary-api')
+    implementation project(':features-api')
 
     //AppCompat
     implementation "androidx.appcompat:appcompat:$versions.appcompat"

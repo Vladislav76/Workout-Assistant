@@ -1,11 +1,11 @@
 package com.vladislavmyasnikov.sample_app.di
 
-import com.vladislavmyasnikov.diary_feature_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_diary_impl.di.DaggerDiaryFeatureDependenciesComponent
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
-import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryFeatureApi
+import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.DaggerExerciseLibraryFeatureDependenciesComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
+import com.vladislavmyasnikov.features_api.diary.DiaryFeatureApi
 import com.vladislavmyasnikov.sample_app.presentation.Controller
 
 class FeatureProxyInjector {

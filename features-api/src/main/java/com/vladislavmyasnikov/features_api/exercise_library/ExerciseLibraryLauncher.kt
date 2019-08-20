@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_api
+package com.vladislavmyasnikov.features_api.exercise_library
 
 import androidx.fragment.app.Fragment
 

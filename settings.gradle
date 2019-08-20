@@ -1,1 +1,1 @@
-include ':app', ':feature-diary-api', ':feature-diary-impl', ':core-utils', ':sample-app', ':core-components', ':feature-exercise-library-api', ':feature-exercise-library-impl'
+include ':app', ':feature-diary-impl', ':core-utils', ':sample-app', ':core-components', ':features-api', ':feature-exercise-library-impl'

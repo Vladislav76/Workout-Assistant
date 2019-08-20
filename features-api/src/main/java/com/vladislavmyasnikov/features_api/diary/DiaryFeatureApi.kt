@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.diary_feature_api
+package com.vladislavmyasnikov.features_api.diary
 
 interface DiaryFeatureApi {
 

@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.di
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.core_components.di.LocalNavigationModule
 import com.vladislavmyasnikov.core_components.di.PerFeature
-import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryLauncher
+import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryLauncher
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl.ExerciseRepositoryImpl
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.FlowFragment

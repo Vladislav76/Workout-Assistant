@@ -3,10 +3,10 @@ package com.vladislavmyasnikov.feature_diary_impl.di
 import com.vladislavmyasnikov.core_components.di.PerFeature
 import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
-import com.vladislavmyasnikov.diary_feature_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryFragment
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryListFragment
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.FlowFragment
+import com.vladislavmyasnikov.features_api.diary.DiaryFeatureApi
 import dagger.Component
 
 @Component(modules = [DiaryFeatureModule::class], dependencies = [DiaryFeatureDependencies::class])
