@@ -6,13 +6,12 @@ import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.ShortDiaryEntr
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
-import io.reactivex.Single
 
 @Dao
 interface DiaryDao {
 
     @Query("SELECT id, date, start_time, end_time, duration FROM diary")
-    fun loadShortEntries(): Single<List<ShortDiaryEntry>> //TODO: change to Maybe in release version, or no???
+    fun loadShortEntries(): Observable<List<ShortDiaryEntry>>
 
     @Query("SELECT * FROM diary WHERE id = :id")
     fun loadEntryById(id: Long): Maybe<FullDiaryEntry>

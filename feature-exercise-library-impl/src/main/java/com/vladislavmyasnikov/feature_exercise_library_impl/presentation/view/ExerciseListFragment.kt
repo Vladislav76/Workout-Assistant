@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
@@ -19,7 +18,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmod
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
-class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPressedListener {
+class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -47,11 +46,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
-
-        if (savedInstanceState == null) {
-            adapter.callback = itemClickCallback
-            viewModel.fetchShortExercisesInfo()
-        }
+        adapter.callback = itemClickCallback
     }
 
     override fun <Int> onReceiveItem(item: Int) {
@@ -62,8 +57,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
 
     override fun onBackPressed(): Boolean {
         ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.resetValue()
-        router.exit()
-        return true
+        return super.onBackPressed()
     }
 
     override fun updateToolbar() {

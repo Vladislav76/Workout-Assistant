@@ -9,33 +9,27 @@ import io.reactivex.schedulers.Schedulers
 class DiaryEntryListViewModel(private val repository: DiaryEntryRepository) : GeneralViewModel<Int>() {
 
     var mode: Int = NORMAL_MODE
+
     lateinit var entries: List<ShortDiaryEntry>
         private set
 
-    fun fetchShortEntries() {
-        Logger.debug(TAG, "Entries fetching: REQUEST")
-        if (!isLoading) {
-            progressEmitter.onNext(true)
-            isLoading = true
-            Logger.debug(TAG, "Entries fetching: PROCESSING IS STARTED")
+    init {
+        fetchShortEntries()
+    }
 
-            disposables.add(repository.fetchShortEntries()
-                    .doFinally {
-                        progressEmitter.onNext(false)
-                        isLoading = false
-                        Logger.debug(TAG, "Entries fetching: PROCESSING IS COMPLETED")
-                    }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ item ->
-                        entries = item
-                        itemEmitter.onNext(LOADED_REQUEST_RESULT)
-                        Logger.debug(TAG, "Entries fetching: SUCCESS, Amount: ${item.size}")
-                    }, { error ->
-                        errorEmitter.onNext(error)//(ExceptionMapper.map(error))
-                        Logger.debug(TAG, "Entries fetching: ERROR, Cause: $error")
-                    })
-            )
-        }
+    private fun fetchShortEntries() {
+        Logger.debug(TAG, "Entries fetching: REQUEST")
+        disposables.add(repository.fetchShortEntries()
+                .subscribeOn(Schedulers.io())
+                .subscribe({ item ->
+                    entries = item
+                    itemEmitter.onNext(LOADED_REQUEST_RESULT)
+                    Logger.debug(TAG, "Entries fetching: SUCCESS, Amount: ${item.size}")
+                }, { error ->
+                    errorEmitter.onNext(error)//(ExceptionMapper.map(error))
+                    Logger.debug(TAG, "Entries fetching: ERROR, Cause: $error")
+                })
+        )
     }
 
     fun deleteEntriesByIDs(ids: List<Long>) {

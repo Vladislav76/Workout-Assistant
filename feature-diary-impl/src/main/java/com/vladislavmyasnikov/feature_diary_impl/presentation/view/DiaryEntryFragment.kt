@@ -13,12 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.core_components.components.DateFormatter
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.components.TimePointFormatter
-import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.models.TimePoint
 import com.vladislavmyasnikov.core_components.view.DatePickerFragment
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.core_components.view.TimePickerFragment
-import com.vladislavmyasnikov.core_utils.utils.utils.Logger
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryViewModel
@@ -26,7 +24,7 @@ import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.ViewMod
 import kotlinx.android.synthetic.main.fragment_diary_entry.*
 import javax.inject.Inject
 
-class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressedListener {
+class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -111,15 +109,11 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressed
         }
     }
 
-    override fun onBackPressed(): Boolean {
-        router.exit()
-        return true
-    }
-
     override fun updateToolbar() {
         super.updateToolbar()
         screenTitleController.setTitle(arguments!!.getString(TITLE_ARG)!!)
         screenTitleController.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
     }
 
     private fun updateContent() {

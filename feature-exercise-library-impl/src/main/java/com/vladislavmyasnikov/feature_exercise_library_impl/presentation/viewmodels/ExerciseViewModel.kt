@@ -8,12 +8,16 @@ import io.reactivex.schedulers.Schedulers
 
 class ExerciseViewModel(private val repository: ExerciseRepository) : GeneralViewModel<Int>() {
 
+    var wasFirstFetchRequest = false
+        private set
+
     lateinit var exerciseInfo: FullExerciseInfo
         private set
 
     fun fetchFullExerciseInfo(id: Long) {
         Logger.debug(TAG, "Exercise fetching: REQUEST")
         if (!isLoading) {
+            wasFirstFetchRequest = true
             progressEmitter.onNext(true)
             isLoading = true
             Logger.debug(TAG, "Exercise fetching: PROCESSING IS STARTED")

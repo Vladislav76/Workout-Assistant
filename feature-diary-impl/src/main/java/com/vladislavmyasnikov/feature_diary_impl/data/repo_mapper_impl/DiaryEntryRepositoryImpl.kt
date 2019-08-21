@@ -7,13 +7,13 @@ import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import io.reactivex.Completable
 import io.reactivex.Maybe
-import io.reactivex.Single
+import io.reactivex.Observable
 import javax.inject.Inject
 
 @PerFeature
 class DiaryEntryRepositoryImpl @Inject constructor(private val localDataSource: LocalDatabase) : DiaryEntryRepository {
 
-    override fun fetchShortEntries(): Single<List<ShortDiaryEntry>> {
+    override fun fetchShortEntries(): Observable<List<ShortDiaryEntry>> {
         return localDataSource.diaryDao().loadShortEntries().map(EntityToModelShortDiaryEntryMapper::map)
     }
 

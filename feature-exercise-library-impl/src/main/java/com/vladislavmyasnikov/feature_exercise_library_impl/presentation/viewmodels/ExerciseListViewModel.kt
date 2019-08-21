@@ -12,30 +12,23 @@ class ExerciseListViewModel @Inject constructor(private val repository: Exercise
     lateinit var exercisesInfo: List<ShortExerciseInfo>
         private set
 
+    init {
+        fetchShortExercisesInfo()
+    }
+
     fun fetchShortExercisesInfo() {
         Logger.debug(TAG, "Exercises fetching: REQUEST")
-        if (!isLoading) {
-            progressEmitter.onNext(true)
-            isLoading = true
-            Logger.debug(TAG, "Exercises fetching: LOADING IS STARTED")
-
-            disposables.add(repository.fetchShortExercisesInfo()
-                    .doFinally {
-                        progressEmitter.onNext(false)
-                        isLoading = false
-                        Logger.debug(TAG, "Exercises fetching: LOADING IS COMPLETED")
-                    }
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ item ->
-                        exercisesInfo = item
-                        itemEmitter.onNext(LOADED_REQUEST_RESULT)
-                        Logger.debug(TAG, "Exercises fetching: SUCCESS, Amount: ${item.size}")
-                    }, { error ->
-                        errorEmitter.onNext(error)//(ExceptionMapper.map(error))
-                        Logger.debug(TAG, "Exercises fetching: ERROR, Cause: $error")
-                    })
-            )
-        }
+        disposables.add(repository.fetchShortExercisesInfo()
+                .subscribeOn(Schedulers.io())
+                .subscribe({ item ->
+                    exercisesInfo = item
+                    itemEmitter.onNext(LOADED_REQUEST_RESULT)
+                    Logger.debug(TAG, "Exercises fetching: SUCCESS, Amount: ${item.size}")
+                }, { error ->
+                    errorEmitter.onNext(error)//(ExceptionMapper.map(error))
+                    Logger.debug(TAG, "Exercises fetching: ERROR, Cause: $error")
+                })
+        )
     }
 
     companion object {

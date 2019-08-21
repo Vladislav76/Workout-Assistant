@@ -6,14 +6,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.ShortExerciseInfo
-import io.reactivex.Maybe
+import io.reactivex.Observable
 import io.reactivex.Single
 
 @Dao
 interface ExerciseLibraryDao {
 
     @Query("SELECT id, title, muscle_groups_ids FROM exercise_library")
-    fun loadShortExercisesInfo(): Single<List<ShortExerciseInfo>>
+    fun loadShortExercisesInfo(): Observable<List<ShortExerciseInfo>>
 
     @Query("SELECT * FROM exercise_library WHERE id = :id")
     fun loadExerciseInfoById(id: Long): Single<FullExerciseInfo>

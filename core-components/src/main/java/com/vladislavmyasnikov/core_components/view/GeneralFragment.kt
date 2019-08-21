@@ -3,18 +3,19 @@ package com.vladislavmyasnikov.core_components.view
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
+import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
+abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment(), OnBackPressedListener {
 
     @Inject
     lateinit var screenTitleController: ScreenTitleController
@@ -60,6 +61,16 @@ abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
                 })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         Log.d("GENERAL_FRAG", "onStart $this")
@@ -84,6 +95,11 @@ abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
         super.onDestroyView()
         Log.d("GENERAL_FRAG", "onDestroyView $this")
         disposables.clear()
+    }
+
+    override fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 
     protected open fun updateToolbar() {

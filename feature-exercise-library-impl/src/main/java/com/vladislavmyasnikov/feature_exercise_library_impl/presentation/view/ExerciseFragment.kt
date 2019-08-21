@@ -3,11 +3,11 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
@@ -17,7 +17,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmod
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import javax.inject.Inject
 
-class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedListener {
+class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -40,7 +40,7 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedList
 
         view_pager.adapter = adapter
 
-        if (savedInstanceState == null) {
+        if (!viewModel.wasFirstFetchRequest) {
             viewModel.fetchFullExerciseInfo(arguments!!.getLong(EXERCISE_ID_ARG))
         }
     }
@@ -53,14 +53,14 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedList
 
     override fun onBackPressed(): Boolean {
         ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.resetValue()
-        router.exit()
-        return true
+        return super.onBackPressed()
     }
 
     override fun updateToolbar() {
         super.updateToolbar()
         screenTitleController.setTitle("")
         screenTitleController.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
     }
 
     private fun updateContent() {

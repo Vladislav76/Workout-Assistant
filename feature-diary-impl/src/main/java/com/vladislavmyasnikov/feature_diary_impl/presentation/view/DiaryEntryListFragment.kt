@@ -17,7 +17,7 @@ import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEn
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
-class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBackPressedListener {
+class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,7 +27,8 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
 
     private val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            router.navigateTo(Screens.DiaryEntryDetailsScreen(id, title))
+            val screen = Screens.DiaryEntryDetailsScreen(id, title)
+            router.navigateTo(screen)
         }
     }
 
@@ -52,11 +53,8 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
 
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
 
-        if (savedInstanceState == null) {
-            adapter.callback = itemClickCallback
-            adapter.callbackInSelectMode = itemClickCallbackInSelectMode
-            viewModel.fetchShortEntries()
-        }
+        adapter.callback = itemClickCallback
+        adapter.callbackInSelectMode = itemClickCallbackInSelectMode
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -79,14 +77,7 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
                 true
             }
             R.id.delete_diary_entries_forever_action -> {
-                for (id in adapter.getSelectedItemIDs()) {
-                    println("id = $id")
-                }
                 viewModel.deleteEntriesByIDs(adapter.getSelectedItemIDs())
-                true
-            }
-            android.R.id.home -> {
-                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -101,19 +92,18 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
             GeneralViewModel.DELETED_REQUEST_RESULT -> {
                 viewModel.mode = DiaryEntryListViewModel.NORMAL_MODE
                 setSelectModeAndUpdate(false)
-                viewModel.fetchShortEntries() //TODO: may be notify adapter that items was removed
             }
         }
     }
 
     override fun onBackPressed(): Boolean {
-        if (viewModel.mode == DiaryEntryListViewModel.DELETE_MODE) {
+        return if (viewModel.mode == DiaryEntryListViewModel.DELETE_MODE) {
             viewModel.mode = DiaryEntryListViewModel.NORMAL_MODE
             setSelectModeAndUpdate(false)
+            true
         } else {
-            router.exit()
+            super.onBackPressed()
         }
-        return true
     }
 
     override fun updateToolbar() {
