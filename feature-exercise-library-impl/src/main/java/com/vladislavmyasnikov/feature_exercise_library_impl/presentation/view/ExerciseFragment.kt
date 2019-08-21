@@ -37,8 +37,7 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        screenTitleController.setTitle("")
-        screenTitleController.setDisplayHomeAsUpEnabled(true)
+
         view_pager.adapter = adapter
 
         if (savedInstanceState == null) {
@@ -56,6 +55,12 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>(), OnBackPressedList
         ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.resetValue()
         router.exit()
         return true
+    }
+
+    override fun updateToolbar() {
+        super.updateToolbar()
+        screenTitleController.setTitle("")
+        screenTitleController.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun updateContent() {

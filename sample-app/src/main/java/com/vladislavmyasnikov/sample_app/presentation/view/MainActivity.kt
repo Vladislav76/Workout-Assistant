@@ -109,8 +109,8 @@ class MainActivity : AppCompatActivity(), RouterHolder {
             }
             transaction.add(R.id.content_frame, screen.fragment, tag)
         }
-        currentFragment?.let { transaction.hide(currentFragment) }
-        newFragment?.let { transaction.show(newFragment) }
+        newFragment?.let { transaction.attach(newFragment) }
+        currentFragment?.let { transaction.detach(currentFragment) }
         transaction.commitNow()
     }
 

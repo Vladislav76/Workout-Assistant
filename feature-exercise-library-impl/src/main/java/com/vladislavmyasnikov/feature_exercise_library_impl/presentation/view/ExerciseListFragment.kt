@@ -45,8 +45,6 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateTitle()
-        screenTitleController.setDisplayHomeAsUpEnabled(false)
 
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
 
@@ -68,8 +66,10 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>(), OnBackPre
         return true
     }
 
-    private fun updateTitle() {
+    override fun updateToolbar() {
+        super.updateToolbar()
         screenTitleController.setTitle(R.string.exercise_list_screen_title)
+        screenTitleController.setDisplayHomeAsUpEnabled(false)
     }
 
     companion object {

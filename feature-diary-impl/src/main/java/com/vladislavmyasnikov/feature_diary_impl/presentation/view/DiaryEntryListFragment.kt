@@ -49,9 +49,6 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateTitle()
-        screenTitleController.setDisplayHomeAsUpEnabled(viewModel.mode == DiaryEntryListViewModel.DELETE_MODE)
-        setHasOptionsMenu(true)
 
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
 
@@ -78,7 +75,6 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
             }
             R.id.delete_diary_entries_action -> {
                 viewModel.mode = DiaryEntryListViewModel.DELETE_MODE
-                screenTitleController.setDisplayHomeAsUpEnabled(true)
                 setSelectModeAndUpdate(true)
                 true
             }
@@ -104,7 +100,6 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
             }
             GeneralViewModel.DELETED_REQUEST_RESULT -> {
                 viewModel.mode = DiaryEntryListViewModel.NORMAL_MODE
-                screenTitleController.setDisplayHomeAsUpEnabled(false)
                 setSelectModeAndUpdate(false)
                 viewModel.fetchShortEntries() //TODO: may be notify adapter that items was removed
             }
@@ -112,15 +107,20 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
     }
 
     override fun onBackPressed(): Boolean {
-        return if (viewModel.mode == DiaryEntryListViewModel.DELETE_MODE) {
+        if (viewModel.mode == DiaryEntryListViewModel.DELETE_MODE) {
             viewModel.mode = DiaryEntryListViewModel.NORMAL_MODE
-            screenTitleController.setDisplayHomeAsUpEnabled(false)
             setSelectModeAndUpdate(false)
-            true
         } else {
             router.exit()
-            true
         }
+        return true
+    }
+
+    override fun updateToolbar() {
+        super.updateToolbar()
+        updateTitle()
+        screenTitleController.setDisplayHomeAsUpEnabled(viewModel.mode == DiaryEntryListViewModel.DELETE_MODE)
+        setHasOptionsMenu(true)
     }
 
     private fun updateTitle() {
@@ -132,9 +132,8 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>(), OnBac
     }
 
     private fun setSelectModeAndUpdate(isSelectModeTurnedOn: Boolean) {
-        updateTitle()
-        activity?.invalidateOptionsMenu()
         adapter.setSelectMode(isSelectModeTurnedOn)
+        updateToolbar()
     }
 
     companion object {

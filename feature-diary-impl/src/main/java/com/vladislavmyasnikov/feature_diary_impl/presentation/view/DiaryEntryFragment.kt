@@ -18,6 +18,7 @@ import com.vladislavmyasnikov.core_components.models.TimePoint
 import com.vladislavmyasnikov.core_components.view.DatePickerFragment
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.core_components.view.TimePickerFragment
+import com.vladislavmyasnikov.core_utils.utils.utils.Logger
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryViewModel
@@ -44,8 +45,6 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressed
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        screenTitleController.setTitle(arguments!!.getString(TITLE_ARG)!!)
-        screenTitleController.setDisplayHomeAsUpEnabled(true)
 
         date_button.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastButtonClickTime < 1000) return@setOnClickListener
@@ -76,7 +75,7 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressed
             viewModel.saveFullEntry()
         }
 
-        if (savedInstanceState == null) {
+        if (!viewModel.wasFirstFetchRequest) {
             viewModel.fetchFullEntry(arguments!!.getLong(DIARY_ENTRY_ID_ARG))
         }
     }
@@ -108,13 +107,19 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>(), OnBackPressed
     override fun <Int> onReceiveItem(item: Int) {
         when (item) {
             GeneralViewModel.LOADED_REQUEST_RESULT -> { updateContent() }
-            GeneralViewModel.SAVED_REQUEST_RESULT -> { activity?.onBackPressed() }
+            GeneralViewModel.SAVED_REQUEST_RESULT -> { onBackPressed() }
         }
     }
 
     override fun onBackPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun updateToolbar() {
+        super.updateToolbar()
+        screenTitleController.setTitle(arguments!!.getString(TITLE_ARG)!!)
+        screenTitleController.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun updateContent() {

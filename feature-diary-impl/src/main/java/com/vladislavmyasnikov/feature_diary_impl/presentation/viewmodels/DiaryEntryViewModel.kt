@@ -10,12 +10,16 @@ import java.util.*
 
 class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : GeneralViewModel<Int>() {
 
+    var wasFirstFetchRequest = false
+        private set
+
     lateinit var entry: FullDiaryEntry
-    private set
+        private set
 
     fun fetchFullEntry(id: Long) {
         Logger.debug(TAG, "Entry fetching: REQUEST")
         if (!isLoading) {
+            wasFirstFetchRequest = true
             progressEmitter.onNext(true)
             isLoading = true
             Logger.debug(TAG, "Entry fetching: PROCESSING IS STARTED")
@@ -53,7 +57,7 @@ class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : Genera
             isLoading = true
             Logger.debug(TAG, "Entry saving: PROCESSING IS STARTED")
 
-            disposables.add(repository.saveFullEntry(entry)
+            disposables.add(repository.saveFullEntry(entry!!)
                     .doFinally {
                         progressEmitter.onNext(false)
                         isLoading = false

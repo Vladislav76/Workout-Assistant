@@ -31,8 +31,14 @@ abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
         Log.d("GENERAL_FRAG", "onAttach $this")
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("GENERAL_FRAG", "onCreate $this")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateToolbar()
         Log.d("GENERAL_FRAG", "onViewCreated $this")
 
         disposables.add(viewModel.processingState
@@ -78,6 +84,10 @@ abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment() {
         super.onDestroyView()
         Log.d("GENERAL_FRAG", "onDestroyView $this")
         disposables.clear()
+    }
+
+    protected open fun updateToolbar() {
+        activity?.invalidateOptionsMenu()
     }
 
     protected open fun onReceiveLoadingState(value: Boolean) { }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.core_components.R
 import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.core_components.interfaces.RouterHolder
+import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -25,8 +26,6 @@ abstract class ContainerFragment : Fragment(), OnBackPressedListener {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    protected lateinit var toolbar: Toolbar
-
     private lateinit var navigator: Navigator
 
     override fun onAttach(context: Context?) {
@@ -35,18 +34,23 @@ abstract class ContainerFragment : Fragment(), OnBackPressedListener {
         injecting()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("GENERAL_CONT", "onCreate $this, bundle $savedInstanceState")
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_container, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar = view.findViewById(R.id.toolbar)
         Log.d("GENERAL_CONT", "onViewCreated $this")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.d("GENERAL_CONT", "onActivityCreated $this, bundle $savedInstanceState")
 
         if (childFragmentManager.findFragmentById(R.id.container) == null) {
             initialLaunch()
@@ -71,6 +75,11 @@ abstract class ContainerFragment : Fragment(), OnBackPressedListener {
     override fun onStop() {
         super.onStop()
         Log.d("GENERAL_CONT", "onStop $this")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("GENERAL_CONT", "onSaveInstanceState $this, bundle $outState")
     }
 
     override fun onDestroyView() {
