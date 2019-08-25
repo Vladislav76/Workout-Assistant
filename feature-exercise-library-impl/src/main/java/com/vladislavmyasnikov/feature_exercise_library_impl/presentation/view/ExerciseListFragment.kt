@@ -1,10 +1,10 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
@@ -49,9 +49,35 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
         adapter.callback = itemClickCallback
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_exercise_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.filter_exercise_list_action -> {
+                showFilterDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            FILTER_EXERCISE_LIST_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    adapter.filterListByMuscleGroups(ExerciseFilterFragment.extractData(data!!))
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    adapter.resetFiltering()
+                }
+            }
+        }
+    }
+
     override fun <Int> onReceiveItem(item: Int) {
         when (item) {
-            GeneralViewModel.LOADED_REQUEST_RESULT -> { adapter.updateList(viewModel.exercisesInfo) }
+            GeneralViewModel.LOADED_REQUEST_RESULT -> adapter.setList(viewModel.exercisesInfo)
         }
     }
 
@@ -64,9 +90,19 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
         super.updateToolbar()
         screenTitleController.setTitle(R.string.exercise_list_screen_title)
         screenTitleController.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
+    }
+
+    private fun showFilterDialog() {
+        val dialog = ExerciseFilterFragment.newInstance(adapter.selectedMuscleGroupsIDs)
+        dialog.setTargetFragment(this, FILTER_EXERCISE_LIST_REQUEST_CODE)
+        dialog.show(fragmentManager, EXERCISE_FILTER_DIALOG_TAG)
     }
 
     companion object {
+        private const val FILTER_EXERCISE_LIST_REQUEST_CODE = 1
+        private const val EXERCISE_FILTER_DIALOG_TAG = "exercise_filter_dialog"
+
         fun newInstance() = ExerciseListFragment()
     }
 }

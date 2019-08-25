@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">core-components</string>
+
+    <string name="discard_action">Discard</string>
 </resources>

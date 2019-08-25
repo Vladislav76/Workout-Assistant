@@ -7,6 +7,8 @@
 
     <string name="description_hint">No description</string>
 
+    <string name="filter_exercise_list_action">Filter</string>
+
     <string-array name="muscle_groups">
         <item>Chest</item>
         <item>Back</item>

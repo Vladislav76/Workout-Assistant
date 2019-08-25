@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter_exercise_list_action"
+        android:title="@string/filter_exercise_list_action"
+        android:icon="@drawable/ic_tune"
+        app:showAsAction="ifRoom|withText"/>
+</menu>
