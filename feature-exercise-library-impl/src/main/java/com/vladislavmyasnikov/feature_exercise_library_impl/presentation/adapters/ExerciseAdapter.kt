@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
 import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.core_utils.utils.utils.DiffUtilCallback
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
@@ -41,6 +41,8 @@ class ExerciseAdapter @Inject constructor(private val context: Context) : Recycl
         holder.bind(currentItems[position])
     }
 
+    override fun getItemId(position: Int): Long = currentItems[position].id
+
     override fun getItemCount(): Int = currentItems.size
 
     fun setList(items: List<ShortExerciseInfo>) {
@@ -73,29 +75,14 @@ class ExerciseAdapter @Inject constructor(private val context: Context) : Recycl
         diffResult.dispatchUpdatesTo(this)
     }
 
-    class ViewHolder(view: View, private val muscleGroupNames: Array<String>, context: Context) : RecyclerView.ViewHolder(view) {
-
-        init {
-            for (i in 0 until muscleGroupNames.size) {
-                val tag = Chip(context).apply {
-                    visibility = View.GONE
-                    isClickable = false
-                }
-                itemView.muscle_groups_tags.addView(tag)
-            }
-        }
+    class ViewHolder(view: View, private val muscleGroupNames: Array<String>, private val context: Context) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: ShortExerciseInfo) {
             itemView.title_field.text = item.title
-            for ((position, id) in item.muscleGroupsIDs.withIndex()) {
-                val tag = itemView.muscle_groups_tags.getChildAt(position) as Chip
-                tag.text = muscleGroupNames[id]
-                tag.visibility = View.VISIBLE
-            }
-            for (i in item.muscleGroupsIDs.size until muscleGroupNames.size) {
-                val tag = itemView.muscle_groups_tags.getChildAt(i) as Chip
-                tag.visibility = View.GONE
-            }
+            itemView.muscle_groups_field.text = item.muscleGroupsIDs.joinToString(transform = { id -> muscleGroupNames[id] })
+
+            val resID = context.resources.getIdentifier(item.avatarID, "drawable", context.packageName)
+            itemView.exercise_icon.setImageDrawable(ContextCompat.getDrawable(context, resID))
         }
     }
 }

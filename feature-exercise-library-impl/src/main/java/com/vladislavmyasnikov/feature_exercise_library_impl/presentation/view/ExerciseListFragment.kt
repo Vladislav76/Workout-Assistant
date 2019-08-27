@@ -45,8 +45,11 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (!adapter.hasObservers()) {
+            adapter.setHasStableIds(true)
+            adapter.callback = itemClickCallback
+        }
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
-        adapter.callback = itemClickCallback
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

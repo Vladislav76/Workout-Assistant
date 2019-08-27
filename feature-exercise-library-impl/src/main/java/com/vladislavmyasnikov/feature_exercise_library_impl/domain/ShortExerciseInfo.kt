@@ -5,7 +5,8 @@ import com.vladislavmyasnikov.core_utils.utils.interfaces.Identifiable
 open class ShortExerciseInfo(
         val id: Long,
         val title: String,
-        val muscleGroupsIDs: List<Int>
+        val muscleGroupsIDs: List<Int>,
+        val avatarID: String
 ) : Identifiable<ShortExerciseInfo> {
 
     override fun isIdentical(another: ShortExerciseInfo): Boolean = id == another.id

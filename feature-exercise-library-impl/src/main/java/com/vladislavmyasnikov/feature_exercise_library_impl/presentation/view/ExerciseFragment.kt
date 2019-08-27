@@ -3,10 +3,10 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.chip.Chip
 import com.vladislavmyasnikov.core_components.components.GeneralViewModel
 import com.vladislavmyasnikov.core_components.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
@@ -25,10 +25,13 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
     @Inject
     lateinit var adapter: ExerciseImagePagerAdapter
 
+    private lateinit var muscleGroupNames: Array<String>
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseViewModel::class.java)
+        muscleGroupNames = context!!.resources.getStringArray(R.array.muscle_groups)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -68,6 +71,14 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
         title_field.text = exerciseInfo.title
         description_field.text = exerciseInfo.description
         adapter.imagesIDs = exerciseInfo.imagesIDs
+
+        for ((index, muscleGroupID) in exerciseInfo.muscleGroupsIDs.withIndex()) {
+            val tag = Chip(context).apply {
+                id = index
+                text = muscleGroupNames[muscleGroupID]
+            }
+            muscle_groups_tags.addView(tag)
+        }
     }
 
     companion object {

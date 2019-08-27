@@ -4,6 +4,7 @@
     <string name="exercise_list_screen_title">Exercises</string>
 
     <string name="description_label">Description</string>
+    <string name="muscle_groups_label">Muscle groups</string>
 
     <string name="description_hint">No description</string>
 

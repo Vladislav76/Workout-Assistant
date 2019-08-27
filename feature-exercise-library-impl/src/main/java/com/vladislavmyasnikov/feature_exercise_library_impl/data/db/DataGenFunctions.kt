@@ -20,7 +20,9 @@ fun generateExercisesInfo(amount: Int, muscleGroupsAmount: Int): List<FullExerci
             imagesIDs.add(imagesNames[imagesIDsRange.random()])
         }
 
-        exercisesInfo.add(FullExerciseInfo(title = "Title $i", muscleGroupsIDs = muscleGroupsIDs, imagesIDs = imagesIDs, description = "Description $i"))
+        val avatarID = imagesNames[imagesIDsRange.random()]
+
+        exercisesInfo.add(FullExerciseInfo(title = "Title $i", muscleGroupsIDs = muscleGroupsIDs, avatarID = avatarID, imagesIDs = imagesIDs, description = "Description $i"))
     }
     return exercisesInfo
 }

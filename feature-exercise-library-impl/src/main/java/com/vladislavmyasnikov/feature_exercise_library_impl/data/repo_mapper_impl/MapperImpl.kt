@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.Ful
 object EntityToModelShortExerciseInfoMapper : Mapper<ShortExerciseInfoEntity, ShortExerciseInfo>() {
 
     override fun map(value: ShortExerciseInfoEntity): ShortExerciseInfo {
-        return ShortExerciseInfo(value.id, value.title, value.muscleGroupsIDs)
+        return ShortExerciseInfo(value.id, value.title, value.muscleGroupsIDs, value.avatarID)
     }
 }
 
@@ -18,6 +18,6 @@ object EntityToModelShortExerciseInfoMapper : Mapper<ShortExerciseInfoEntity, Sh
 object EntityToModelFullExerciseInfoMapper : Mapper<FullExerciseInfoEntity, FullExerciseInfo>() {
 
     override fun map(value: FullExerciseInfoEntity): FullExerciseInfo {
-        return FullExerciseInfo(value.id, value.title, value.muscleGroupsIDs, value.imagesIDs, value.description)
+        return FullExerciseInfo(value.id, value.title, value.muscleGroupsIDs, value.avatarID, value.imagesIDs, value.description)
     }
 }
