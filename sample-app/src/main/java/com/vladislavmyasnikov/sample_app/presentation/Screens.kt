@@ -19,4 +19,11 @@ class Screens {
             return FeatureProxyInjector.getDiaryFeature().diaryLauncher().launch()
         }
     }
+
+    class WorkoutsScreen : SupportAppScreen() {
+
+        override fun getFragment(): Fragment {
+            return FeatureProxyInjector.getWorkoutLibraryFeature().workoutLibraryLauncher().launch()
+        }
+    }
 }

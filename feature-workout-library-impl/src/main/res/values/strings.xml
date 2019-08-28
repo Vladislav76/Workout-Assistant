@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">feature-workout-library-impl</string>
+
+    <string name="workout_list_screen_title">Workouts</string>
+</resources>

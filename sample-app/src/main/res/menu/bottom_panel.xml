@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/workouts_tab"
+        android:title="@string/workouts_tab"
+        android:icon="@drawable/ic_book"/>
+
+    <item
         android:id="@+id/exercises_tab"
         android:title="@string/exercises_tab"
         android:icon="@drawable/ic_fitness_center"/>

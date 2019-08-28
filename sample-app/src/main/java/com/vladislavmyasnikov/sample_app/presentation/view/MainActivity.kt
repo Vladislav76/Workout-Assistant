@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     private val bottomPanelListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem: MenuItem ->
         when (menuItem.itemId) {
             R.id.exercises_tab -> selectTab("exercises")
+            R.id.workouts_tab -> selectTab("workouts")
             R.id.diary_tab -> selectTab("diary")
         }
         true
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity(), RouterHolder {
         if (newFragment == null) {
             val screen = when (tag) {
                 "exercises" -> Screens.ExercisesScreen()
+                "workouts" -> Screens.WorkoutsScreen()
                 "diary" -> Screens.DiaryScreen()
                 else -> return
             }

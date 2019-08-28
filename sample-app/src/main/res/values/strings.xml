@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">sample-app</string>
 
+    <string name="workouts_tab">Workouts</string>
     <string name="exercises_tab">Exercises</string>
     <string name="diary_tab">Diary</string>
 </resources>
