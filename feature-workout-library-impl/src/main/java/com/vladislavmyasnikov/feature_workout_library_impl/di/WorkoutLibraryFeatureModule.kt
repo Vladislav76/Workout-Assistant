@@ -2,8 +2,8 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.core_components.di.LocalNavigationModule
-import com.vladislavmyasnikov.core_components.di.PerFeature
+import com.vladislavmyasnikov.common.di.LocalNavigationModule
+import com.vladislavmyasnikov.common.di.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl.WorkoutRepositoryImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutRepository
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutAdapter

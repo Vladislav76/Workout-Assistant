@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.vladislavmyasnikov.core_components.interfaces.OnBackPressedListener
-import com.vladislavmyasnikov.core_components.interfaces.RouterHolder
+import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
+import com.vladislavmyasnikov.common.interfaces.RouterHolder
 import com.vladislavmyasnikov.sample_app.R
 import com.vladislavmyasnikov.sample_app.presentation.Controller
 import com.vladislavmyasnikov.sample_app.presentation.SampleApp

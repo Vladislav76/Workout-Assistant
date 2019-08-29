@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.core_components.view.GeneralFragment
+import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens

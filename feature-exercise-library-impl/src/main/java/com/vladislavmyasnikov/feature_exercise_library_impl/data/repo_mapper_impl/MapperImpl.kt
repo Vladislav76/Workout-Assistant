@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl
 
-import com.vladislavmyasnikov.core_utils.utils.utils.Mapper
+import com.vladislavmyasnikov.common.utils.Mapper
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.ShortExerciseInfo as ShortExerciseInfoEntity

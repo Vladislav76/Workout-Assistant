@@ -3,8 +3,8 @@ package com.vladislavmyasnikov.sample_app.presentation
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import com.vladislavmyasnikov.core_components.interfaces.ContextHolder
-import com.vladislavmyasnikov.core_components.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.interfaces.ContextHolder
+import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
 
 object Controller : ScreenTitleController, ContextHolder {
 

@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.view.GeneralFragment
+import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.view.GeneralFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter

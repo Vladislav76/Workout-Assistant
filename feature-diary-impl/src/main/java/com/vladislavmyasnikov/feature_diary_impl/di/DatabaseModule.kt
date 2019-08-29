@@ -2,10 +2,10 @@ package com.vladislavmyasnikov.feature_diary_impl.di
 
 import android.content.Context
 import androidx.room.RoomDatabase
-import com.vladislavmyasnikov.core_components.di.ContextModule
-import com.vladislavmyasnikov.core_components.di.PerFeature
-import com.vladislavmyasnikov.core_utils.utils.interfaces.DataSaver
-import com.vladislavmyasnikov.core_utils.utils.utils.RoomDatabaseFactory
+import com.vladislavmyasnikov.common.di.ContextModule
+import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.interfaces.DataSaver
+import com.vladislavmyasnikov.common.components.RoomDatabaseFactory
 import com.vladislavmyasnikov.feature_diary_impl.data.db.*
 import dagger.Module
 import dagger.Provides

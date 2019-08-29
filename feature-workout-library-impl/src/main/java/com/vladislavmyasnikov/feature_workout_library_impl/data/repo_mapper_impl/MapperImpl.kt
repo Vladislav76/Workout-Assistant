@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl
 
-import com.vladislavmyasnikov.core_utils.utils.utils.Mapper
+import com.vladislavmyasnikov.common.utils.Mapper
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.ExerciseInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkoutInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.SetInfo

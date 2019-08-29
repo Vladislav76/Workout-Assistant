@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.core_components.components.DateFormatter
-import com.vladislavmyasnikov.core_components.components.TimePointFormatter
-import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.core_utils.utils.utils.DiffUtilCallback
+import com.vladislavmyasnikov.common.utils.DateFormatter
+import com.vladislavmyasnikov.common.utils.TimePointFormatter
+import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.utils.DiffUtilCallback
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import kotlinx.android.synthetic.main.item_diary_entry.view.*

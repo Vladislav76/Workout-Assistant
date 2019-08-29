@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels
 
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_utils.utils.utils.Logger
+import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import io.reactivex.schedulers.Schedulers

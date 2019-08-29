@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.domain
 
-import com.vladislavmyasnikov.core_utils.utils.interfaces.Identifiable
+import com.vladislavmyasnikov.common.interfaces.Identifiable
 
 open class ShortExerciseInfo(
         val id: Long,

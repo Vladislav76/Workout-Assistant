@@ -3,8 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.data.db.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.vladislavmyasnikov.core_components.models.TimePoint
-import java.sql.Time
+import com.vladislavmyasnikov.common.models.TimePoint
 import java.util.*
 
 @Entity(tableName = "diary")

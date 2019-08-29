@@ -1,8 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.db
 
-import com.vladislavmyasnikov.core_components.models.TimePoint
+import com.vladislavmyasnikov.common.models.TimePoint
 import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.FullDiaryEntry
-import java.sql.Time
 import java.util.*
 
 fun generateEntries(amount: Int): List<FullDiaryEntry> {

@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels
 
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.models.TimePoint
-import com.vladislavmyasnikov.core_utils.utils.utils.Logger
+import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.models.TimePoint
+import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import io.reactivex.schedulers.Schedulers

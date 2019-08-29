@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.repo_mapper_impl
 
-import com.vladislavmyasnikov.core_utils.utils.utils.Mapper
+import com.vladislavmyasnikov.common.utils.Mapper
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.ShortDiaryEntry as ShortDiaryEntryEntity

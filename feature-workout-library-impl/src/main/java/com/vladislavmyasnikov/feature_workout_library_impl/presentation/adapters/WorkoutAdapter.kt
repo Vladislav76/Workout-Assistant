@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.core_utils.utils.utils.DiffUtilCallback
+import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.utils.DiffUtilCallback
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
 import kotlinx.android.synthetic.main.item_workout.view.*

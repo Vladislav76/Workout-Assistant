@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.repo_mapper_impl
 
-import com.vladislavmyasnikov.core_components.di.PerFeature
+import com.vladislavmyasnikov.common.di.PerFeature
 import com.vladislavmyasnikov.feature_diary_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry

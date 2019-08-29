@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.core_components.components.GeneralViewModel
-import com.vladislavmyasnikov.core_components.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.core_components.view.GeneralFragment
+import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.view.GeneralFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutAdapter

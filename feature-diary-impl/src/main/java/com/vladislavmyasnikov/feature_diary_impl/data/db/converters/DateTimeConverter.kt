@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.db.converters
 
 import androidx.room.TypeConverter
-import com.vladislavmyasnikov.core_components.models.TimePoint
+import com.vladislavmyasnikov.common.models.TimePoint
 import java.util.*
 
 class DateTimeConverter {

@@ -6,15 +6,11 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
-import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
-import com.vladislavmyasnikov.core_utils.utils.utils.Logger
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 
 class ExerciseFilterFragment : DialogFragment() {

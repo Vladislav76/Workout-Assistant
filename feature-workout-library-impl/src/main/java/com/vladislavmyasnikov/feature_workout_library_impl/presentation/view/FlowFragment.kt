@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view
 
-import com.vladislavmyasnikov.core_components.view.ContainerFragment
+import com.vladislavmyasnikov.common.view.ContainerFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
 

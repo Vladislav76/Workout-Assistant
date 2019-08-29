@@ -1,7 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.domain
 
-import com.vladislavmyasnikov.core_components.models.TimePoint
-import java.sql.Time
+import com.vladislavmyasnikov.common.models.TimePoint
 import java.util.*
 
 class FullDiaryEntry(
