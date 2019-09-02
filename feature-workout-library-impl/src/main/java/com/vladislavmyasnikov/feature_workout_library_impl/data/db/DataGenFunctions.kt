@@ -3,6 +3,8 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.db
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.SetInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutInfo
 
+private val imagesNames = listOf("work_dummy_1", "work_dummy_2", "work_dummy_3")
+
 fun generateSetsInfo(setsPerWorkout: IntRange, exercisesPerSet: IntRange, repsPerSet: IntRange, repsPerExercise: IntRange, maxExerciseID: Long): List<SetInfo> {
     val result = mutableListOf<SetInfo>()
     val exercisesIDsRange = 1L..maxExerciseID
@@ -30,7 +32,7 @@ fun generateSetsInfo(setsPerWorkout: IntRange, exercisesPerSet: IntRange, repsPe
 fun generateWorkoutsInfo(setsIDs: List<List<Long>>): List<WorkoutInfo> {
     val result = mutableListOf<WorkoutInfo>()
     for ((index, ids) in setsIDs.withIndex()) {
-        val workout = WorkoutInfo(title = "Title ${index + 1}", description = "Description ${index + 1}", setsIDs = ids)
+        val workout = WorkoutInfo(title = "Title ${index + 1}", avatarID = imagesNames.random(), description = "Description ${index + 1}", setsIDs = ids)
         result.add(workout)
     }
     return result

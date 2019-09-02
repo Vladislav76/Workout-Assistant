@@ -8,21 +8,12 @@ import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutIn
 import com.vladislavmyasnikov.features_api.exercise_library.WorkoutExerciseInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.ShortWorkoutInfo as ShortWorkoutInfoEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.SetInfo as SetInfoEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.FullWorkoutInfo as FullWorkoutInfoEntity
 
 // Short Entity -> Model
 object EntityToModelShortWorkoutInfoMapper : Mapper<ShortWorkoutInfoEntity, ShortWorkoutInfo>() {
 
     override fun map(value: ShortWorkoutInfoEntity): ShortWorkoutInfo {
-        return ShortWorkoutInfo(value.id, value.title)
-    }
-}
-
-// Full Entity -> Model
-object EntityToModelFullWorkoutInfoMapper : Mapper<FullWorkoutInfoEntity, FullWorkoutInfo>() {
-
-    override fun map(value: FullWorkoutInfoEntity): FullWorkoutInfo {
-        return FullWorkoutInfo(value.workout.id, value.workout.title, value.workout.description, EntityToModelSetInfoMapper.map(value.sets))
+        return ShortWorkoutInfo(value.id, value.title, value.avatarID)
     }
 }
 

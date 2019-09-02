@@ -18,7 +18,7 @@ interface WorkoutLibraryDao {
     @Query("SELECT * FROM sets WHERE id IN (:ids)")
     fun loadSetsByIDs(ids: List<Long>): Single<List<SetInfo>>
 
-    @Query("SELECT id, title FROM workouts")
+    @Query("SELECT id, title, avatar_id FROM workouts")
     fun loadShortWorkoutsInfo(): Observable<List<ShortWorkoutInfo>>
 
     @Insert

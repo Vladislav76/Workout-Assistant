@@ -1,5 +1,7 @@
 package com.vladislavmyasnikov.common.utils
 
+import android.content.Context
+import android.util.TypedValue
 import com.vladislavmyasnikov.common.models.TimePoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,4 +34,8 @@ object DateFormatter {
             else -> ""
         }
     }
+}
+
+fun convertDpToPixels(dp: Float, context: Context): Int {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
 }

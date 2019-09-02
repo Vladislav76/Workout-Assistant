@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.components.ItemDividerDecoration
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.utils.convertDpToPixels
 import com.vladislavmyasnikov.common.view.GeneralFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
@@ -48,7 +51,13 @@ class WorkoutListFragment : GeneralFragment<WorkoutListViewModel>() {
             adapter.setHasStableIds(true)
             adapter.callback = itemClickCallback
         }
-        view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
+        view.findViewById<RecyclerView>(R.id.recycler_view).let {
+            it.adapter = adapter
+            it.addItemDecoration(ItemDividerDecoration(
+                    horizontalDividerThickness = convertDpToPixels(8F, context!!),
+                    verticalDividerThickness = convertDpToPixels(16F, context!!))
+            )
+        }
     }
 
     override fun <Int> onReceiveItem(item: Int) {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
@@ -54,6 +55,8 @@ class WorkoutAdapter @Inject constructor(private val context: Context) : Recycle
     class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: ShortWorkoutInfo) {
+            val resID = context.resources.getIdentifier(item.avatarID, "drawable", context.packageName)
+            itemView.workout_icon.setImageDrawable(ContextCompat.getDrawable(context, resID))
             itemView.title_field.text = item.title
         }
     }

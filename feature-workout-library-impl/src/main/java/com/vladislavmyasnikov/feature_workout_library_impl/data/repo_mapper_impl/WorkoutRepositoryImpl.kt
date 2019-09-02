@@ -24,7 +24,7 @@ class WorkoutRepositoryImpl @Inject constructor(private val localDataSource: Loc
                 val exercisesIDs = sets.map { set -> set.exercisesIDs }.flatten().distinct()
                 exerciseLibraryInteractor.fetchWorkoutExercisesInfo(exercisesIDs).map { info ->
                     EntityToModelSetInfoMapper.exercises = info
-                    FullWorkoutInfo(workout.id, workout.title, workout.description, EntityToModelSetInfoMapper.map(sets))
+                    FullWorkoutInfo(workout.id, workout.title, workout.avatarID, workout.description, EntityToModelSetInfoMapper.map(sets))
                 }
             }
         }
