@@ -3,7 +3,9 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di
 import com.vladislavmyasnikov.common.di.PerFeature
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.FlowFragment
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutListFragment
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.features_api.workout_library.WorkoutLibraryFeatureApi
@@ -13,8 +15,12 @@ import dagger.Component
 @PerFeature
 abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
 
+    val workoutScreenComponent = SyncObject { workoutLibraryScreenComponent() }
+
     abstract fun inject(fragment: FlowFragment)
     abstract fun inject(fragment: WorkoutListFragment)
+
+    abstract fun workoutLibraryScreenComponent(): WorkoutLibraryScreenComponent
 
     companion object {
 

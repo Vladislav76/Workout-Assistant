@@ -11,6 +11,7 @@ class ViewModelFactory @Inject constructor(private val repository: WorkoutReposi
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(WorkoutListViewModel::class.java) -> WorkoutListViewModel(repository) as T
+            modelClass.isAssignableFrom(WorkoutViewModel::class.java) -> WorkoutViewModel(repository) as T
             else -> throw IllegalArgumentException("ViewModel not found")
         }
     }

@@ -19,7 +19,7 @@ interface ExerciseLibraryDao {
     @Query("SELECT * FROM exercise_library WHERE id = :id")
     fun loadExerciseInfoById(id: Long): Single<FullExerciseInfo>
 
-    @Query("SELECT id, title FROM exercise_library WHERE id IN (:ids)")
+    @Query("SELECT id, title, avatar_id FROM exercise_library WHERE id IN (:ids)")
     fun loadExercisesInfo(ids: List<Long>): Single<List<WorkoutExerciseInfo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -39,7 +39,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.recycler_view, container, false)
+        return inflater.inflate(R.layout.linear_recycler_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

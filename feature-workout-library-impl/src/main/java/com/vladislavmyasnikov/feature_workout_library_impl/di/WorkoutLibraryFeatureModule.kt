@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.LocalNavigationModule
 import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.di.PerScreen
 import com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl.WorkoutRepositoryImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutRepository
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutAdapter
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutSetAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.FlowFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.ViewModelFactory
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi

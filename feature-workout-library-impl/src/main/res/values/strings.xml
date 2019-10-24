@@ -2,4 +2,9 @@
     <string name="app_name">feature-workout-library-impl</string>
 
     <string name="workout_list_screen_title">Workouts</string>
+
+    <string name="description_label">Description</string>
+    <string name="num_label">Num</string>
+
+    <string name="description_hint">No description</string>
 </resources>

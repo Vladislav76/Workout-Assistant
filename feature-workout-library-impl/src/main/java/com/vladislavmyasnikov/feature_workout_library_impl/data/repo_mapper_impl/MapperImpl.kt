@@ -23,7 +23,10 @@ object EntityToModelSetInfoMapper : Mapper<SetInfoEntity, SetInfo>() {
     var exercises: List<WorkoutExerciseInfo> = emptyList()
 
     override fun map(value: SetInfoEntity): SetInfo {
-        val exercisesInfo = value.exercisesReps.mapIndexed { index, list -> ExerciseInfo(value.exercisesIDs[index], exercises.find { it.id == value.exercisesIDs[index] }?.title ?: "", list) }
+        val exercisesInfo = value.exercisesReps.mapIndexed { index, list ->
+            val exercise = exercises.find { it.id == value.exercisesIDs[index] }
+            ExerciseInfo(value.exercisesIDs[index], exercise?.title ?: "", list, exercise?.avatar_id ?: "")
+        }
         return SetInfo(value.id, exercisesInfo)
     }
 }

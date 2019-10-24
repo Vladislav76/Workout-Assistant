@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.components.GeneralViewModel
 import com.vladislavmyasnikov.common.components.ItemDividerDecoration
@@ -15,6 +14,7 @@ import com.vladislavmyasnikov.common.utils.convertDpToPixels
 import com.vladislavmyasnikov.common.view.GeneralFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.ViewModelFactory
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutListViewModel
@@ -30,7 +30,7 @@ class WorkoutListFragment : GeneralFragment<WorkoutListViewModel>() {
 
     private val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            //navigating to details...
+            router.navigateTo(Screens.WorkoutDetailsScreen(id, title))
         }
     }
 
@@ -41,7 +41,7 @@ class WorkoutListFragment : GeneralFragment<WorkoutListViewModel>() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.recycler_view, container, false)
+        return inflater.inflate(R.layout.linear_recycler_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
