@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-      run:
+    - run:
         echo ::set-env name=JAVA_HOME::"$PWD/bin"
     - name: Run unit tests
       run:
