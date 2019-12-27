@@ -31,7 +31,7 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
 
     private var lastButtonClickTime = -1000L
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         DiaryFeatureComponent.get().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(DiaryEntryViewModel::class.java)
@@ -49,7 +49,7 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
             lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = DatePickerFragment.newInstance(viewModel.entry.date)
             dialog.setTargetFragment(this, GET_DATE_REQUEST_CODE)
-            dialog.show(fragmentManager, DATE_PICKER_DIALOG_TAG)
+            dialog.show(fragmentManager!!, DATE_PICKER_DIALOG_TAG)
         }
 
         start_time_button.setOnClickListener {
@@ -57,7 +57,7 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
             lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = TimePickerFragment.newInstance(viewModel.entry.startTime)
             dialog.setTargetFragment(this, GET_START_TIME_REQUEST_CODE)
-            dialog.show(fragmentManager, TIME_PICKER_DIALOG_TAG)
+            dialog.show(fragmentManager!!, TIME_PICKER_DIALOG_TAG)
         }
 
         end_time_button.setOnClickListener {
@@ -65,7 +65,7 @@ class DiaryEntryFragment : GeneralFragment<DiaryEntryViewModel>() {
             lastButtonClickTime = SystemClock.elapsedRealtime()
             val dialog = TimePickerFragment.newInstance(viewModel.entry.endTime)
             dialog.setTargetFragment(this, GET_END_TIME_REQUEST_CODE)
-            dialog.show(fragmentManager, TIME_PICKER_DIALOG_TAG)
+            dialog.show(fragmentManager!!, TIME_PICKER_DIALOG_TAG)
         }
 
         save_button.setOnClickListener {

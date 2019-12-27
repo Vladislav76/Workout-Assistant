@@ -47,7 +47,7 @@ class TimePickerFragment : DialogFragment() {
         }
 
         fun extractTime(data: Intent): TimePoint {
-            return data.getParcelableExtra(TIME_EXTRA)
+            return data.getParcelableExtra(TIME_EXTRA)!!
         }
     }
 }

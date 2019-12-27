@@ -32,7 +32,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseListViewModel::class.java)
@@ -99,7 +99,7 @@ class ExerciseListFragment : GeneralFragment<ExerciseListViewModel>() {
     private fun showFilterDialog() {
         val dialog = ExerciseFilterFragment.newInstance(adapter.selectedMuscleGroupsIDs)
         dialog.setTargetFragment(this, FILTER_EXERCISE_LIST_REQUEST_CODE)
-        dialog.show(fragmentManager, EXERCISE_FILTER_DIALOG_TAG)
+        dialog.show(fragmentManager!!, EXERCISE_FILTER_DIALOG_TAG)
     }
 
     companion object {

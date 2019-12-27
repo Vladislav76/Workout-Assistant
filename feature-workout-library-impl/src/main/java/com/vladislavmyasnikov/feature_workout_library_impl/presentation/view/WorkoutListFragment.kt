@@ -34,7 +34,7 @@ class WorkoutListFragment : GeneralFragment<WorkoutListViewModel>() {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         WorkoutLibraryFeatureComponent.get().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WorkoutListViewModel::class.java)

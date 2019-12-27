@@ -27,11 +27,11 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
 
     private lateinit var muscleGroupNames: Array<String>
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseViewModel::class.java)
-        muscleGroupNames = context!!.resources.getStringArray(R.array.muscle_groups)
+        muscleGroupNames = context.resources.getStringArray(R.array.muscle_groups)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

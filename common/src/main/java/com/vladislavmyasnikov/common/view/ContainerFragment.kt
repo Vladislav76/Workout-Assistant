@@ -26,7 +26,7 @@ abstract class ContainerFragment : Fragment(), OnBackPressedListener {
 
     private lateinit var navigator: Navigator
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d("GENERAL_CONT", "onAttach $this")
         injecting()

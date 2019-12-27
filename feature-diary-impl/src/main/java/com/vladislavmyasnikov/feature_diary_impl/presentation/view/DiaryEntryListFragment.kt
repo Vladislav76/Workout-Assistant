@@ -37,7 +37,7 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>() {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         DiaryFeatureComponent.get().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(DiaryEntryListViewModel::class.java)

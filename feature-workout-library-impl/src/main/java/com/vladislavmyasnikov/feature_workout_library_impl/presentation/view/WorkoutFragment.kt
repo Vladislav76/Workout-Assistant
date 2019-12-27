@@ -29,7 +29,7 @@ class WorkoutFragment : GeneralFragment<WorkoutViewModel>() {
 
     private lateinit var muscleGroupNames: Array<String>
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         WorkoutLibraryFeatureComponent.get().workoutScreenComponent.getValue().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WorkoutViewModel::class.java)

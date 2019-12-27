@@ -88,7 +88,7 @@ class ExerciseFilterFragment : DialogFragment() {
         }
 
         fun extractData(intent: Intent): IntArray {
-            return intent.getIntArrayExtra(SELECTED_ITEMS_IDS_EXTRA)
+            return intent.getIntArrayExtra(SELECTED_ITEMS_IDS_EXTRA)!!
         }
     }
 }

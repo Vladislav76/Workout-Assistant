@@ -18,6 +18,7 @@ object Controller : ScreenTitleController, ContextHolder {
 
     override fun setTitle(title: CharSequence) {
         activity?.supportActionBar?.title = title
+        println()
     }
 
     override fun setTitle(@StringRes resId: Int) {

@@ -27,7 +27,7 @@ abstract class GeneralFragment<T : GeneralViewModel<out Any>> : Fragment(), OnBa
 
     private val disposables = CompositeDisposable()
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d("GENERAL_FRAG", "onAttach $this")
     }

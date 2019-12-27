@@ -57,7 +57,7 @@ class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : Genera
             isLoading = true
             Logger.debug(TAG, "Entry saving: PROCESSING IS STARTED")
 
-            disposables.add(repository.saveFullEntry(entry!!)
+            disposables.add(repository.saveFullEntry(entry)
                     .doFinally {
                         progressEmitter.onNext(false)
                         isLoading = false
