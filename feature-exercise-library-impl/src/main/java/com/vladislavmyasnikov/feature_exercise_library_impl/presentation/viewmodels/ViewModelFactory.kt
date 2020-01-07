@@ -12,6 +12,7 @@ class ViewModelFactory @Inject constructor(private val repository: ExerciseRepos
         return when {
             modelClass.isAssignableFrom(ExerciseListViewModel::class.java) -> ExerciseListViewModel(repository) as T
             modelClass.isAssignableFrom(ExerciseViewModel::class.java) -> ExerciseViewModel(repository) as T
+            modelClass.isAssignableFrom(com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.ExerciseListViewModel::class.java) -> com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.ExerciseListViewModel(repository) as T
             else -> throw IllegalArgumentException("ViewModel not found")
         }
     }

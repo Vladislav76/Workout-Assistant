@@ -17,11 +17,11 @@ abstract class BaseViewModel<T, E> : ViewModel() {
         const val TAG = "base_view_model"
     }
 
-    private val disposables = CompositeDisposable()
     private val _verdicts: BehaviorSubject<RequestState> = BehaviorSubject.create()
     private val _items: BehaviorSubject<T> = BehaviorSubject.create()
     private val _errors: PublishSubject<E> = PublishSubject.create()
     private var isLoading = false
+    protected val disposables = CompositeDisposable()
 
     val verdicts: Observable<RequestState> = _verdicts
     val items: Observable<T> = _items

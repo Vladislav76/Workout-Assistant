@@ -1,6 +1,7 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.common.di.LocalNavigationModule
 import com.vladislavmyasnikov.common.di.PerFeature
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl.ExerciseRepositoryImpl

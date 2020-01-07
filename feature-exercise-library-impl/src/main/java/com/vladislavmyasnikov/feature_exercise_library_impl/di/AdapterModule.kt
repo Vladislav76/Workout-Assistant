@@ -16,5 +16,9 @@ class AdapterModule {
 
     @Provides
     @PerScreen
+    fun provideAdapter() = com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.ExerciseAdapter()
+
+    @Provides
+    @PerScreen
     fun provideExerciseImagePagerAdapter(context: Context) = ExerciseImagePagerAdapter(context)
 }

@@ -5,27 +5,28 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.R
 import com.vladislavmyasnikov.common.experimental.BaseAdapter
-import com.vladislavmyasnikov.common.experimental.view.LeafFragment
+import com.vladislavmyasnikov.common.experimental.view.ContentFragment
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import javax.inject.Inject
 
-class ListFragment<T : Identifiable<T>> : LeafFragment<T>(R.layout.linear_recycler_view) {
+abstract class ListFragment<T : Identifiable<T>> : ContentFragment<List<T>>(R.layout.linear_recycler_view) {
 
-    companion object {
-        const val TAG = "list_fragment"
-    }
+    override val label = "list_fragment"
 
     @Inject
     lateinit var itemClickCallback: OnItemClickCallback
 
-    @Inject
-    lateinit var adapter: BaseAdapter<T>
+    abstract val adapter: BaseAdapter<T>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<RecyclerView>(R.id.recycler_view).adapter = adapter
         adapter.callback = itemClickCallback
+    }
+
+    override fun onReceiveItem(item: List<T>) {
+        adapter.setList(item)
     }
 /*
 

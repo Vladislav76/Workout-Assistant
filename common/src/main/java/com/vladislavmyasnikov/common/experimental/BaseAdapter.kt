@@ -19,8 +19,7 @@ abstract class BaseAdapter<T : Identifiable<T>> : RecyclerView.Adapter<BaseAdapt
     override fun getItemCount() = currentItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
-        val inflater = LayoutInflater.from(parent.context)
-        val holder = createViewHolder(inflater, viewType)
+        val holder = constructViewHolder(parent, viewType)
 
         holder.itemView.setOnClickListener {
             val item = currentItems[holder.adapterPosition]
@@ -38,7 +37,7 @@ abstract class BaseAdapter<T : Identifiable<T>> : RecyclerView.Adapter<BaseAdapt
         updateList(items)
     }
 
-    protected abstract fun createViewHolder(inflater: LayoutInflater, viewType: Int): ViewHolder<T>
+    protected abstract fun constructViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T>
 
     private fun updateList(items: List<T>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(currentItems, items))
