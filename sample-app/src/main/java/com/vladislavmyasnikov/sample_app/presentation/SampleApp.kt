@@ -1,24 +1,26 @@
 package com.vladislavmyasnikov.sample_app.presentation
 
 import android.app.Application
-import android.content.Context
-import com.vladislavmyasnikov.sample_app.di.AppComponent
 import com.vladislavmyasnikov.sample_app.di.DaggerAppComponent
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.Router
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class SampleApp : Application() {
+class SampleApp : Application(), HasAndroidInjector {
 
-    lateinit var appComponent: AppComponent
-        private set
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
-        appComponent = DaggerAppComponent.builder().build()
-    }
 
-    companion object {
-        lateinit var INSTANCE: SampleApp
+        val appComponent = DaggerAppComponent.builder()
+                .bindSampleApp(this)
+                .build()
+
+        appComponent.inject(this)
     }
 }

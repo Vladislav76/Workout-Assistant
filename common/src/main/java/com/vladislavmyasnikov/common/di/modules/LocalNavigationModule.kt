@@ -1,5 +1,6 @@
-package com.vladislavmyasnikov.common.di
+package com.vladislavmyasnikov.common.di.modules
 
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone

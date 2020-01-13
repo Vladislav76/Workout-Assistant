@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.di
 
-import com.vladislavmyasnikov.common.di.PerScreen
+import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutFragment
 import dagger.Subcomponent
 

@@ -5,8 +5,9 @@ import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ExerciseViewModel(private val repository: ExerciseRepository) : GeneralViewModel<Int>() {
+class ExerciseViewModel @Inject constructor(private val repository: ExerciseRepository) : GeneralViewModel<Int>() {
 
     var wasFirstFetchRequest = false
         private set

@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.view.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog

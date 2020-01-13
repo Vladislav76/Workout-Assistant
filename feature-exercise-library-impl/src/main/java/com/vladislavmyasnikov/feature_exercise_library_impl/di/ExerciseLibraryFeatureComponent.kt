@@ -1,14 +1,15 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
-import com.vladislavmyasnikov.common.models.SyncObject
-import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
+import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.FlowFragment
+import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import dagger.Component
 
-@Component(modules = [ExerciseLibraryFeatureModule::class], dependencies = [ExerciseLibraryFeatureDependencies::class])
+@Component(modules = [ExerciseLibraryFeatureModule::class, FactoryModule::class, FragmentBindingModule::class, AdapterModule::class, ViewModelBindingModule::class], dependencies = [ExerciseLibraryFeatureDependencies::class])
 @PerFeature
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 

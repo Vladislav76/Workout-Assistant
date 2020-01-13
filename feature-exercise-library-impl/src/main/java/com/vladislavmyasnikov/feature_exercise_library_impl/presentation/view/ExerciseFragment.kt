@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.Chip
 import com.vladislavmyasnikov.common.components.GeneralViewModel
 import com.vladislavmyasnikov.common.view.GeneralFragment
@@ -13,7 +12,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseViewModel
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ViewModelFactory
+import com.vladislavmyasnikov.common.experimental.di.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_exercise.*
 import javax.inject.Inject
 
@@ -29,8 +28,8 @@ class ExerciseFragment : GeneralFragment<ExerciseViewModel>() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.getValue().inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseViewModel::class.java)
+//        ExerciseLibraryFeatureComponent.get().exerciseScreenComponent.getValue().inject(this)
+//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExerciseViewModel::class.java)
         muscleGroupNames = context.resources.getStringArray(R.array.muscle_groups)
     }
 

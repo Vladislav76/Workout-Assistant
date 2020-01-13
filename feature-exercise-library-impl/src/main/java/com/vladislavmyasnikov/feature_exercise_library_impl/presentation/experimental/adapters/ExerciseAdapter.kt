@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -32,31 +32,5 @@ class ExerciseAdapter : BaseAdapter<ShortExerciseInfo>() {
 }
 
 /*
-    private var isFilteringMode: Boolean = false
-
     override fun getItemId(position: Int): Long = currentItems[position].id
-
-    fun setList(items: List<ShortExerciseInfo>) {
-        sourceItems = items
-        if (isFilteringMode) {
-            filterListByMuscleGroups(selectedMuscleGroupsIDs)
-        } else {
-            updateList(items)
-        }
-    }
-
-    fun filterListByMuscleGroups(muscleGroupsIDs: IntArray) {
-        isFilteringMode = true
-        selectedMuscleGroupsIDs = muscleGroupsIDs
-        val filteredItems =
-                if (muscleGroupsIDs.isEmpty() || muscleGroupsIDs.size == muscleGroupNames.size) sourceItems
-                else sourceItems.filter { item -> item.muscleGroupsIDs.any { id -> muscleGroupsIDs.contains(id) } }
-        updateList(filteredItems)
-    }
-
-    fun resetFiltering() {
-        isFilteringMode = false
-        selectedMuscleGroupsIDs = intArrayOf()
-        updateList(sourceItems)
-    }
  */

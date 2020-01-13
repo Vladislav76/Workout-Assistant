@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.R
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.interfaces.RouterHolder

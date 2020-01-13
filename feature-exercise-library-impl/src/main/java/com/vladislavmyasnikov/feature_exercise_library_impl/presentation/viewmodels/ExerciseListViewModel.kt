@@ -7,7 +7,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExercise
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ExerciseListViewModel @Inject constructor(private val repository: ExerciseRepository) : GeneralViewModel<Int>() {
+class ExerciseListViewModel constructor(private val repository: ExerciseRepository) : GeneralViewModel<Int>() {
 
     lateinit var exercisesInfo: List<ShortExerciseInfo>
         private set

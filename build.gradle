@@ -88,7 +88,9 @@ subprojects { subproject ->
 
             // DI --- Dagger
             implementation "com.google.dagger:dagger:$versions.dagger"
+            implementation "com.google.dagger:dagger-android-support:$versions.dagger"
             kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+            kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
             // Navigation --- Cicerone
             implementation "ru.terrakok.cicerone:cicerone:$versions.cicerone"

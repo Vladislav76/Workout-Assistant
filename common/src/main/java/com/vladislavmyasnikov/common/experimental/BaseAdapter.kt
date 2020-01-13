@@ -23,7 +23,7 @@ abstract class BaseAdapter<T : Identifiable<T>> : RecyclerView.Adapter<BaseAdapt
 
         holder.itemView.setOnClickListener {
             val item = currentItems[holder.adapterPosition]
-//            callback?.onClick(item.id, item.title)
+            callback?.onClick(holder.adapterPosition.toLong(), "Fake title")
         }
         return holder
     }

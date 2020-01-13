@@ -1,9 +1,10 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
 import android.content.Context
-import com.vladislavmyasnikov.common.di.PerScreen
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.adapters.ExerciseAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -11,14 +12,10 @@ import dagger.Provides
 class AdapterModule {
 
     @Provides
-    @PerScreen
-    fun provideExerciseAdapter(context: Context) = ExerciseAdapter(context)
+    @PerFeature
+    fun provideExerciseAdapter() = ExerciseAdapter()
 
     @Provides
-    @PerScreen
-    fun provideAdapter() = com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.ExerciseAdapter()
-
-    @Provides
-    @PerScreen
+    @PerFeature
     fun provideExerciseImagePagerAdapter(context: Context) = ExerciseImagePagerAdapter(context)
 }

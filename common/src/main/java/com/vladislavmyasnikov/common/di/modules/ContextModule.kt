@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.di
+package com.vladislavmyasnikov.common.di.modules
 
 import android.content.Context
 import com.vladislavmyasnikov.common.interfaces.ContextHolder

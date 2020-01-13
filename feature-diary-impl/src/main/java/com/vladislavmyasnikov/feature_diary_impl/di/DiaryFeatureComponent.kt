@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.di
 
-import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryEntryFragment

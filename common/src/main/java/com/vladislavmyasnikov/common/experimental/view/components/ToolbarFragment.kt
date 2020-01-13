@@ -6,7 +6,10 @@ import android.view.View
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.R
+import com.vladislavmyasnikov.common.experimental.BaseViewModel
+import com.vladislavmyasnikov.common.experimental.di.ViewModelFactory
 import com.vladislavmyasnikov.common.experimental.view.ContentFragment
 
 abstract class ToolbarFragment<T> : ContentFragment<T>(R.layout.toolbar) {

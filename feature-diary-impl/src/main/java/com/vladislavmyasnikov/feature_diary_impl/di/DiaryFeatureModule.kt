@@ -2,8 +2,8 @@ package com.vladislavmyasnikov.feature_diary_impl.di
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.di.LocalNavigationModule
-import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_diary_impl.data.repo_mapper_impl.DiaryEntryRepositoryImpl
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.ShortDiaryEntryAdapter

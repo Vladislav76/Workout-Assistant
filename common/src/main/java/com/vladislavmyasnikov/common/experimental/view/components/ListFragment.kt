@@ -8,16 +8,14 @@ import com.vladislavmyasnikov.common.experimental.BaseAdapter
 import com.vladislavmyasnikov.common.experimental.view.ContentFragment
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import javax.inject.Inject
 
 abstract class ListFragment<T : Identifiable<T>> : ContentFragment<List<T>>(R.layout.linear_recycler_view) {
 
     override val label = "list_fragment"
 
-    @Inject
-    lateinit var itemClickCallback: OnItemClickCallback
+    protected abstract val itemClickCallback: OnItemClickCallback
 
-    abstract val adapter: BaseAdapter<T>
+    protected abstract val adapter: BaseAdapter<T>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,10 +67,6 @@ abstract class ListFragment<T : Identifiable<T>> : ContentFragment<List<T>>(R.la
         when (item) {
             GeneralViewModel.LOADED_REQUEST_RESULT -> adapter.setList(viewModel.exercisesInfo)
         }
-    }
-
-     companion object {
-        fun newInstance() = DiaryEntryListFragment()
     }
 
  */

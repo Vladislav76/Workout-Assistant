@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.experimental.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,7 +13,9 @@ abstract class ContentFragment<T>(@LayoutRes private val viewResource: Int) : Ba
 
     override val label = "content_fragment"
 
-    abstract val viewModel: BaseViewModel<T,Throwable>
+    protected abstract val viewModelFactory: ViewModelProvider.Factory
+
+    protected abstract val viewModel: BaseViewModel<T, Throwable>
 
     private val disposables = CompositeDisposable()
 

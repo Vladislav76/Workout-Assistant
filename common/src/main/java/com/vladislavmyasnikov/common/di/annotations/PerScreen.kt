@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.di
+package com.vladislavmyasnikov.common.di.annotations
 
 import javax.inject.Scope
 
