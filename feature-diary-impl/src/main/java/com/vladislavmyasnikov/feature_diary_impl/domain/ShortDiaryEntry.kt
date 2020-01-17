@@ -5,7 +5,7 @@ import com.vladislavmyasnikov.common.interfaces.Identifiable
 import java.util.*
 
 open class ShortDiaryEntry(
-        val id: Long,
+        override val id: Long,
         var date: Date,
         var startTime: TimePoint,
         var endTime: TimePoint,

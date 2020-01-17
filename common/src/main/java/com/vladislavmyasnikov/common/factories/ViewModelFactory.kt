@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.experimental.di
+package com.vladislavmyasnikov.common.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

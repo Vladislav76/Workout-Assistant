@@ -1,18 +1,14 @@
 package com.vladislavmyasnikov.common.experimental.view.components
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.experimental.BaseViewModel
-import com.vladislavmyasnikov.common.experimental.di.ViewModelFactory
-import com.vladislavmyasnikov.common.experimental.view.ContentFragment
+import com.vladislavmyasnikov.common.experimental.view.VMFragment
 
-abstract class ToolbarFragment<T> : ContentFragment<T>(R.layout.toolbar) {
+abstract class VMToolbarFragment<T> : VMFragment<T>(R.layout.toolbar) {
 
     private lateinit var toolbar: Toolbar
 

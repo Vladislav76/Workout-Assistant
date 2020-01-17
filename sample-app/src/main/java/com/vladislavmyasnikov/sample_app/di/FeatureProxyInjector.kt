@@ -27,7 +27,6 @@ class FeatureProxyInjector {
         fun getExerciseLibraryFeature(): ExerciseLibraryFeatureApi {
             return ExerciseLibraryFeatureComponent.initAndGet(
                     DaggerExerciseLibraryFeatureDependenciesComponent.builder()
-                            .screenTitleController(Controller)
                             .contextHolder(Controller)
                             .build()
             )

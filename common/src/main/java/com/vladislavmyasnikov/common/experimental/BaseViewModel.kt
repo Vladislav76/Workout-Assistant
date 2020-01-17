@@ -17,15 +17,17 @@ abstract class BaseViewModel<T, E> : ViewModel() {
         const val TAG = "base_view_model"
     }
 
-    private val _verdicts: BehaviorSubject<RequestState> = BehaviorSubject.create()
-    private val _items: BehaviorSubject<T> = BehaviorSubject.create()
-    private val _errors: PublishSubject<E> = PublishSubject.create()
+    private val _verdicts = BehaviorSubject.create<RequestState>()
+    private val _items = BehaviorSubject.create<T>()
+    private val _events = PublishSubject.create<Packet>()
+    private val _errors = PublishSubject.create<E>()
     private var isLoading = false
     protected val disposables = CompositeDisposable()
 
     val verdicts: Observable<RequestState> = _verdicts
     val items: Observable<T> = _items
     val errors: Observable<E> = _errors
+    val events: Observable<Packet> = _events
 
     protected fun pushItem(item: T) {
         _items.onNext(item)
@@ -37,10 +39,15 @@ abstract class BaseViewModel<T, E> : ViewModel() {
         Logger.debug(TAG, "Error is occurred")
     }
 
-    protected fun pushVerdict(verdict: RequestState) {
-        _verdicts.onNext(verdict)
-        Logger.debug(TAG, "Verdict is ${verdict.name}")
+    protected fun pushEvent(event: Packet) {
+        _events.onNext(event)
+        Logger.debug(TAG, "Event is happened")
     }
+
+//    protected fun pushVerdict(verdict: RequestState) {
+//        _verdicts.onNext(verdict)
+//        Logger.debug(TAG, "Verdict is ${verdict.name}")
+//    }
 
     override fun onCleared() {
         super.onCleared()

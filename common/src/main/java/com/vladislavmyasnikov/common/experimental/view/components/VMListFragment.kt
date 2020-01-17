@@ -5,16 +5,15 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.R
 import com.vladislavmyasnikov.common.experimental.BaseAdapter
-import com.vladislavmyasnikov.common.experimental.view.ContentFragment
+import com.vladislavmyasnikov.common.experimental.view.VMFragment
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 
-abstract class ListFragment<T : Identifiable<T>> : ContentFragment<List<T>>(R.layout.linear_recycler_view) {
+abstract class VMListFragment<T : Identifiable<T>> : VMFragment<List<T>>(R.layout.linear_recycler_view) {
 
-    override val label = "list_fragment"
+    override val label = "vm_list_fragment"
 
     protected abstract val itemClickCallback: OnItemClickCallback
-
     protected abstract val adapter: BaseAdapter<T>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

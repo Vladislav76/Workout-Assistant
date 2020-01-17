@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-//    @Inject
-//    lateinit var fragmentFactory: FragmentFactory
-
     private lateinit var navigator: Navigator
     private lateinit var toolbar: Toolbar
 
@@ -45,8 +42,6 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-//        supportFragmentManager.fragmentFactory = fragmentFactory
 
         navigator = SupportAppNavigator(this, supportFragmentManager, R.id.content_frame)
         setContentView(R.layout.activity_main)

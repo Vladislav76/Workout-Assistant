@@ -1,20 +1,23 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.view.content
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.content
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.view.components.ListFragment
+import com.vladislavmyasnikov.common.experimental.Packet
+import com.vladislavmyasnikov.common.experimental.SharedBus
+import com.vladislavmyasnikov.common.experimental.view.components.VMListFragment
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.adapters.ExerciseAdapter
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.viewmodels.ExerciseListViewModel
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListViewModel
 import javax.inject.Inject
 
 class ExerciseListFragment @Inject constructor(
+        override val bus: SharedBus,
         override val adapter: ExerciseAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
-) : ListFragment<ShortExerciseInfo>() {
+) : VMListFragment<ShortExerciseInfo>() {
 
     override val label = "exercise_list_fragment"
 
@@ -22,8 +25,7 @@ class ExerciseListFragment @Inject constructor(
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            debugMessage("Item is clicked: id=$id, title=$title")
-            //router.navigateTo(Screens.ExerciseDetailsScreen(id, title))
+            bus.sendPacket(Packet.ItemClickMessage(id))
         }
     }
 
@@ -38,10 +40,3 @@ class ExerciseListFragment @Inject constructor(
         viewModel.fetch()
     }
 }
-
-/*
-    override fun onBackPressed(): Boolean {
-        ExerciseLibraryFeatureComponent.get().exerciseListScreenComponent.resetValue()
-        return super.onBackPressed()
-    }
- */

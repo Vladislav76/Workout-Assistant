@@ -2,8 +2,8 @@ package com.vladislavmyasnikov.common.di.modules
 
 import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.di.InjectFragmentFactory
-import com.vladislavmyasnikov.common.experimental.di.ViewModelFactory
+import com.vladislavmyasnikov.common.factories.InjectFragmentFactory
+import com.vladislavmyasnikov.common.factories.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 

@@ -2,12 +2,17 @@ package com.vladislavmyasnikov.common.experimental.view
 
 import android.content.Context
 import android.os.Bundle
+import android.os.SharedMemory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.vladislavmyasnikov.common.experimental.Packet
+import com.vladislavmyasnikov.common.experimental.SharedBus
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 
 /*
  * Class for debug logging
@@ -15,6 +20,9 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment() {
 
     open val label = "base_fragment"
+
+    protected abstract val bus: SharedBus
+    protected val disposables = CompositeDisposable()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -33,6 +41,14 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(label, "::onViewCreated")
+
+        disposables.add(
+                bus.packets
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            onReceivePacket(it)
+                        }
+        )
     }
 
     override fun onStart() {
@@ -47,6 +63,7 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
 
     override fun onDestroyView() {
         super.onDestroyView()
+        disposables.clear()
         Log.d(label, "::onDestroyView")
     }
 
@@ -63,4 +80,6 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     protected fun debugMessage(message: String) {
         Log.d(label, message)
     }
+
+    protected open fun onReceivePacket(packet: Packet) {}
 }

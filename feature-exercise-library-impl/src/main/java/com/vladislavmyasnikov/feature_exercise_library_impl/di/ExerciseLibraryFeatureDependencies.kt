@@ -6,5 +6,4 @@ import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
 interface ExerciseLibraryFeatureDependencies {
 
     fun contextHolder(): ContextHolder
-    fun screenTitleController(): ScreenTitleController
 }

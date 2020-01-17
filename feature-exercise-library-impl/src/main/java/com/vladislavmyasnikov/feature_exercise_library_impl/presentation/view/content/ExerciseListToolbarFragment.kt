@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.view.content
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.content
 
 import android.app.Activity
 import android.content.Context
@@ -8,16 +8,18 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.view.components.ToolbarFragment
+import com.vladislavmyasnikov.common.experimental.SharedBus
+import com.vladislavmyasnikov.common.experimental.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.viewmodels.ExerciseListViewModel
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.view.dialogs.ExerciseFilterFragment
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs.ExerciseFilterFragment
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListViewModel
 import javax.inject.Inject
 
 class ExerciseListToolbarFragment @Inject constructor(
+        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : ToolbarFragment<List<ShortExerciseInfo>>() {
+) : VMToolbarFragment<List<ShortExerciseInfo>>() {
 
     companion object {
         private const val FILTER_EXERCISE_LIST_CODE = 1

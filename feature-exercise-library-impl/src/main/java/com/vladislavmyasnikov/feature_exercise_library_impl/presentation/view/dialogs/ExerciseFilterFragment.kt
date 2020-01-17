@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.experimental.view.dialogs
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -14,6 +14,23 @@ import com.google.android.material.chip.ChipGroup
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 
 class ExerciseFilterFragment : DialogFragment() {
+
+    companion object {
+        private const val SELECTED_ITEMS_IDS_ARG = "selected_items_ids_arg"
+        private const val SELECTED_ITEMS_IDS_EXTRA = "selected_items_ids_extra"
+
+        fun newInstance(selectedItemsIDs: IntArray): ExerciseFilterFragment {
+            return ExerciseFilterFragment().apply {
+                arguments = Bundle().apply {
+                    putIntArray(SELECTED_ITEMS_IDS_ARG, selectedItemsIDs)
+                }
+            }
+        }
+
+        fun extractData(intent: Intent): IntArray {
+            return intent.getIntArrayExtra(SELECTED_ITEMS_IDS_EXTRA)!!
+        }
+    }
 
     private lateinit var muscleGroups: Array<String>
     private lateinit var tagContainer: ChipGroup
@@ -72,23 +89,6 @@ class ExerciseFilterFragment : DialogFragment() {
                 else -> return
             }
             it.onActivityResult(targetRequestCode, resultCode, intent)
-        }
-    }
-
-    companion object {
-        private const val SELECTED_ITEMS_IDS_ARG = "selected_items_ids_arg"
-        private const val SELECTED_ITEMS_IDS_EXTRA = "selected_items_ids_extra"
-
-        fun newInstance(selectedItemsIDs: IntArray): ExerciseFilterFragment {
-            return ExerciseFilterFragment().apply {
-                arguments = Bundle().apply {
-                    putIntArray(SELECTED_ITEMS_IDS_ARG, selectedItemsIDs)
-                }
-            }
-        }
-
-        fun extractData(intent: Intent): IntArray {
-            return intent.getIntArrayExtra(SELECTED_ITEMS_IDS_EXTRA)!!
         }
     }
 }

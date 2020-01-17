@@ -1,5 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
+import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
@@ -9,16 +10,16 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.Fl
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import dagger.Component
 
-@Component(modules = [ExerciseLibraryFeatureModule::class, FactoryModule::class, FragmentBindingModule::class, AdapterModule::class, ViewModelBindingModule::class], dependencies = [ExerciseLibraryFeatureDependencies::class])
+@Component(
+        modules = [ExerciseLibraryFeatureModule::class, FactoryModule::class, FragmentBindingModule::class, AdapterModule::class, ViewModelBindingModule::class],
+        dependencies = [ExerciseLibraryFeatureDependencies::class]
+)
 @PerFeature
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
-    val exerciseScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
-    val exerciseListScreenComponent = SyncObject { exerciseLibraryScreenComponent() }
-
-    abstract fun exerciseLibraryScreenComponent(): ExerciseLibraryScreenComponent
-
     abstract fun inject(fragment: FlowFragment)
+
+    abstract val fragmentFactory: FragmentFactory
 
     companion object {
 
@@ -38,6 +39,6 @@ abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ScreenTitleController::class])
+@Component(dependencies = [ContextHolder::class])
 @PerFeature
 interface ExerciseLibraryFeatureDependenciesComponent : ExerciseLibraryFeatureDependencies

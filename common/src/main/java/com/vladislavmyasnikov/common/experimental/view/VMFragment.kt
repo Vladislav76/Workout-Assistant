@@ -6,29 +6,26 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.experimental.BaseViewModel
+import com.vladislavmyasnikov.common.experimental.Packet
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 
-abstract class ContentFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
+abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
 
-    override val label = "content_fragment"
+    override val label = "vm_fragment"
 
     protected abstract val viewModelFactory: ViewModelProvider.Factory
-
     protected abstract val viewModel: BaseViewModel<T, Throwable>
-
-    private val disposables = CompositeDisposable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        disposables.add(
-                viewModel.verdicts
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceiveVerdict(it)
-                        }
-        )
+//        disposables.add(
+//                viewModel.events
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe {
+//                            onReceivePacket(it)
+//                        }
+//        )
         disposables.add(
                 viewModel.errors
                         .observeOn(AndroidSchedulers.mainThread())
@@ -43,15 +40,6 @@ abstract class ContentFragment<T>(@LayoutRes private val viewResource: Int) : Ba
                             onReceiveItem(it)
                         }
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        disposables.clear()
-    }
-
-    protected open fun onReceiveVerdict(verdict: BaseViewModel.RequestState) {
-        // verdict receiving
     }
 
     protected open fun onReceiveError(error: Throwable) {
