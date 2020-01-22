@@ -2,9 +2,9 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
 import android.content.Context
 import androidx.room.RoomDatabase
-import com.vladislavmyasnikov.common.components.RoomDatabaseFactory
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.ContextModule
+import com.vladislavmyasnikov.common.factories.RoomDatabaseFactory
 import com.vladislavmyasnikov.common.interfaces.DataSaver
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.LocalDatabase

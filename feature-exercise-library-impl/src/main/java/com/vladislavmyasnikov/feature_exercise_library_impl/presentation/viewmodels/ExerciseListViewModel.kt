@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels
 
-import com.vladislavmyasnikov.common.experimental.BaseViewModel
+import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import io.reactivex.Single

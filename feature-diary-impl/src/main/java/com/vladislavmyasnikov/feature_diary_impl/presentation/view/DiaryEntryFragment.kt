@@ -11,12 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.vladislavmyasnikov.common.utils.DateFormatter
-import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.legacy.GeneralViewModel
 import com.vladislavmyasnikov.common.utils.TimePointFormatter
 import com.vladislavmyasnikov.common.models.TimePoint
-import com.vladislavmyasnikov.common.view.DatePickerFragment
-import com.vladislavmyasnikov.common.view.GeneralFragment
-import com.vladislavmyasnikov.common.view.TimePickerFragment
+import com.vladislavmyasnikov.common.presentation.view.dialogs.DatePickerFragment
+import com.vladislavmyasnikov.common.legacy.view.GeneralFragment
+import com.vladislavmyasnikov.common.presentation.view.dialogs.TimePickerFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryViewModel

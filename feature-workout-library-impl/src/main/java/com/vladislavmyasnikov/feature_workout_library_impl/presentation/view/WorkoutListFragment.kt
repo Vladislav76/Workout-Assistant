@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.common.components.GeneralViewModel
-import com.vladislavmyasnikov.common.components.ItemDividerDecoration
+import com.vladislavmyasnikov.common.legacy.GeneralViewModel
+import com.vladislavmyasnikov.common.presentation.ItemDividerDecoration
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.utils.convertDpToPixels
-import com.vladislavmyasnikov.common.view.GeneralFragment
+import com.vladislavmyasnikov.common.legacy.view.GeneralFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens

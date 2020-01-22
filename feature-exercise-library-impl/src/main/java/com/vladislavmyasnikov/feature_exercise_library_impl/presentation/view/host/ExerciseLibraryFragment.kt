@@ -1,9 +1,12 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.host
 
-import com.vladislavmyasnikov.common.experimental.Packet
-import com.vladislavmyasnikov.common.experimental.SharedBus
-import com.vladislavmyasnikov.common.experimental.view.HostFragment
+import android.content.Context
+import androidx.fragment.app.FragmentFactory
+import com.vladislavmyasnikov.common.arch_components.Packet
+import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.presentation.view.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.FeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.content.ExerciseListFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.content.ExerciseListToolbarFragment
@@ -22,10 +25,21 @@ class ExerciseLibraryFragment @Inject constructor(
             R.id.bottom_container to ExerciseListFragment::class.java
     )
 
+    override lateinit var fragmentFactory: FragmentFactory
+
+    override fun onAttach(context: Context) {
+        fragmentFactory = FeatureComponent.get().exerciseLibraryComponent.getValue().fragmentFactory
+        super.onAttach(context)
+    }
+
     override fun onReceivePacket(packet: Packet) {
         if (packet is Packet.ItemClickMessage) {
             router.navigateTo(Screens.ExerciseDetailsScreen())
-            bus.sendPacket(packet)
         } else super.onReceivePacket(packet)
+    }
+
+    override fun onBackPressed(): Boolean {
+        FeatureComponent.get().exerciseLibraryComponent.resetValue()
+        return super.onBackPressed()
     }
 }

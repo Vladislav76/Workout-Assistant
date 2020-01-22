@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 
 interface DiaryFeatureDependencies {
 

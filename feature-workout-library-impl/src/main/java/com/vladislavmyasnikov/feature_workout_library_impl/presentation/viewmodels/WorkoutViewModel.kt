@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels
 
-import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.legacy.GeneralViewModel
 import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkoutInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutRepository

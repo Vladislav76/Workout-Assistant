@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.view
+package com.vladislavmyasnikov.common.legacy.view
 
 import android.content.Context
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.legacy.GeneralViewModel
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
-import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.terrakok.cicerone.Router

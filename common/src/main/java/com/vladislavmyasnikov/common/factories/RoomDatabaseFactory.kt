@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.components
+package com.vladislavmyasnikov.common.factories
 
 import android.content.Context
 import androidx.room.Room

@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.Chip
-import com.vladislavmyasnikov.common.experimental.Packet
-import com.vladislavmyasnikov.common.experimental.SharedBus
-import com.vladislavmyasnikov.common.experimental.view.VMFragment
+import com.vladislavmyasnikov.common.arch_components.Packet
+import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.presentation.view.VMFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
@@ -50,11 +50,13 @@ class ExerciseFragment @Inject constructor(
             }
             muscle_groups_tags.addView(tag)
         }
+        debugMessage("::onReceiveItem")
     }
 
     override fun onReceivePacket(packet: Packet) {
         if (packet is Packet.ItemClickMessage) {
             viewModel.fetch(packet.id)
+            bus.sendPacket(Packet.EmptyMessage())
         } else super.onReceivePacket(packet)
     }
 }

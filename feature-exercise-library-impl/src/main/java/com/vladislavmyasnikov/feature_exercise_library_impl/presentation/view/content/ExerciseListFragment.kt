@@ -4,10 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.Packet
-import com.vladislavmyasnikov.common.experimental.SharedBus
-import com.vladislavmyasnikov.common.experimental.view.components.VMListFragment
+import com.vladislavmyasnikov.common.arch_components.Packet
+import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
+import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListViewModel
@@ -32,7 +32,6 @@ class ExerciseListFragment @Inject constructor(
     override fun onAttach(context: Context) {
         super.onAttach(context)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ExerciseListViewModel::class.java)
-        debugMessage(viewModel.toString())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,6 +1,5 @@
-package com.vladislavmyasnikov.common.experimental
+package com.vladislavmyasnikov.common.presentation
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +16,8 @@ abstract class BaseAdapter<T : Identifiable<T>> : RecyclerView.Adapter<BaseAdapt
     private var sourceItems: List<T> = emptyList()
 
     override fun getItemCount() = currentItems.size
+
+    override fun getItemId(position: Int) = currentItems[position].id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
         val holder = constructViewHolder(parent, viewType)
@@ -50,39 +51,3 @@ abstract class BaseAdapter<T : Identifiable<T>> : RecyclerView.Adapter<BaseAdapt
         abstract fun bind(item: T)
     }
 }
-
-/*
-
-    var selectedMuscleGroupsIDs: IntArray = intArrayOf()
-        private set
-
-    private val muscleGroupNames: Array<String> = context.resources.getStringArray(R.array.muscle_groups)
-    private var isFilteringMode: Boolean = false
-
-//    override fun getItemId(position: Int): Long = currentItems[position].id
-
-
-    fun setList(items: List<ShortExerciseInfo>) {
-        sourceItems = items
-        if (isFilteringMode) {
-            filterListByMuscleGroups(selectedMuscleGroupsIDs)
-        } else {
-            updateList(items)
-        }
-    }
-
-    fun filterListByMuscleGroups(muscleGroupsIDs: IntArray) {
-        isFilteringMode = true
-        selectedMuscleGroupsIDs = muscleGroupsIDs
-        val filteredItems =
-                if (muscleGroupsIDs.isEmpty() || muscleGroupsIDs.size == muscleGroupNames.size) sourceItems
-                else sourceItems.filter { item -> item.muscleGroupsIDs.any { id -> muscleGroupsIDs.contains(id) } }
-        updateList(filteredItems)
-    }
-
-    fun resetFiltering() {
-        isFilteringMode = false
-        selectedMuscleGroupsIDs = intArrayOf()
-        updateList(sourceItems)
-    }
- */

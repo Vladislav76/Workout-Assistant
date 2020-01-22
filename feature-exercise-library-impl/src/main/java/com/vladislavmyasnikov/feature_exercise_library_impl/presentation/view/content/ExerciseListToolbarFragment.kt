@@ -8,8 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.SharedBus
-import com.vladislavmyasnikov.common.experimental.view.components.VMToolbarFragment
+import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs.ExerciseFilterFragment
@@ -42,7 +42,6 @@ class ExerciseListToolbarFragment @Inject constructor(
     override fun onAttach(context: Context) {
         super.onAttach(context)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ExerciseListViewModel::class.java)
-        debugMessage(viewModel.toString())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

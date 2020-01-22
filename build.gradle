@@ -95,6 +95,9 @@ subprojects { subproject ->
             // Navigation --- Cicerone
             implementation "ru.terrakok.cicerone:cicerone:$versions.cicerone"
 
+            // Material Design
+            implementation "com.google.android.material:material:$versions.material"
+
             if (subproject.name != "sample-app") {
                 // AndroidX --- Room
                 implementation "androidx.room:room-runtime:$versions.room"
@@ -112,9 +115,6 @@ subprojects { subproject ->
             }
 
             if (subproject.name != "common") {
-                // Material Design
-                implementation "com.google.android.material:material:$versions.material"
-
                 // Project modules --- Common module + Feature APIs
                 implementation project(':common')
                 implementation project(':features-api')

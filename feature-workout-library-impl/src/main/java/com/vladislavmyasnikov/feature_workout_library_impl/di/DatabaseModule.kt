@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.vladislavmyasnikov.common.di.modules.ContextModule
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.interfaces.DataSaver
-import com.vladislavmyasnikov.common.components.RoomDatabaseFactory
+import com.vladislavmyasnikov.common.factories.RoomDatabaseFactory
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateSetsInfo
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutsInfo

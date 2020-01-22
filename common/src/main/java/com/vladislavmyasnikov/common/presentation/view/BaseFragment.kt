@@ -1,16 +1,15 @@
-package com.vladislavmyasnikov.common.experimental.view
+package com.vladislavmyasnikov.common.presentation.view
 
 import android.content.Context
 import android.os.Bundle
-import android.os.SharedMemory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.experimental.Packet
-import com.vladislavmyasnikov.common.experimental.SharedBus
+import com.vladislavmyasnikov.common.arch_components.Packet
+import com.vladislavmyasnikov.common.arch_components.SharedBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -78,7 +77,7 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     }
 
     protected fun debugMessage(message: String) {
-        Log.d(label, message)
+        Log.d(label, "::debugMessage: $message")
     }
 
     protected open fun onReceivePacket(packet: Packet) {}

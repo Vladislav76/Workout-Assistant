@@ -1,9 +1,8 @@
-package com.vladislavmyasnikov.common.experimental
+package com.vladislavmyasnikov.common.arch_components
 
 import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 
 class SharedBus {
 
@@ -11,7 +10,7 @@ class SharedBus {
         private const val TAG = "shared_bus"
     }
 
-    private val _packets = PublishSubject.create<Packet>()
+    private var _packets = BehaviorSubject.create<Packet>()
 
     val packets: Observable<Packet> = _packets
 

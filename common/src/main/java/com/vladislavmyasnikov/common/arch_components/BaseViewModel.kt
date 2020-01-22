@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.experimental
+package com.vladislavmyasnikov.common.arch_components
 
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.utils.Logger

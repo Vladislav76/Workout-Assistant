@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.FlowFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutListFragment

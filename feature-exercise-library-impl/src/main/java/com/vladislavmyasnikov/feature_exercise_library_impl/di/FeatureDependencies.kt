@@ -1,9 +1,8 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
 
-interface ExerciseLibraryFeatureDependencies {
+interface FeatureDependencies {
 
     fun contextHolder(): ContextHolder
 }

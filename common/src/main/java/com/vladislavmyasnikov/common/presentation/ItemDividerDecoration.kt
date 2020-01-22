@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.components
+package com.vladislavmyasnikov.common.presentation
 
 import android.graphics.Rect
 import android.view.View

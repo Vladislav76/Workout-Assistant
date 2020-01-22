@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.common.components.GeneralViewModel
+import com.vladislavmyasnikov.common.legacy.GeneralViewModel
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.view.GeneralFragment
+import com.vladislavmyasnikov.common.legacy.view.GeneralFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.Screens

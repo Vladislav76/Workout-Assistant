@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view
 
-import com.vladislavmyasnikov.common.view.ContainerFragment
+import com.vladislavmyasnikov.common.legacy.view.ContainerFragment
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.Screens
 

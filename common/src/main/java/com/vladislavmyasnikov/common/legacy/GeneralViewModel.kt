@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.components
+package com.vladislavmyasnikov.common.legacy
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.Observable

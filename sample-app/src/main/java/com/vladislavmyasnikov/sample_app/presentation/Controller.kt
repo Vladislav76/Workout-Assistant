@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.interfaces.ScreenTitleController
+import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 
 object Controller : ScreenTitleController, ContextHolder {
 

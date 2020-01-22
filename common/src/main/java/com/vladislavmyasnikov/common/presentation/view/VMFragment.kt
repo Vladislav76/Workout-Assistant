@@ -1,12 +1,11 @@
-package com.vladislavmyasnikov.common.experimental.view
+package com.vladislavmyasnikov.common.presentation.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.experimental.BaseViewModel
-import com.vladislavmyasnikov.common.experimental.Packet
+import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
@@ -19,13 +18,6 @@ abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        disposables.add(
-//                viewModel.events
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe {
-//                            onReceivePacket(it)
-//                        }
-//        )
         disposables.add(
                 viewModel.errors
                         .observeOn(AndroidSchedulers.mainThread())

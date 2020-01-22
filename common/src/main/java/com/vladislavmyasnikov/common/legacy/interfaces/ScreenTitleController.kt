@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.interfaces
+package com.vladislavmyasnikov.common.legacy.interfaces
 
 interface ScreenTitleController {
 
