@@ -6,11 +6,10 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
+import com.vladislavmyasnikov.common.arch_components.Event
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
-
-    override val label = "vm_fragment"
 
     protected abstract val viewModelFactory: ViewModelProvider.Factory
     protected abstract val viewModel: BaseViewModel<T, Throwable>
@@ -32,13 +31,22 @@ abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFra
                             onReceiveItem(it)
                         }
         )
+        disposables.add(
+                viewModel.events
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            onReceiveEvent(it)
+                        }
+        )
     }
 
     protected open fun onReceiveError(error: Throwable) {
         Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show()
     }
 
-    protected open fun onReceiveItem(item: T) {
-        // item receiving
+    protected open fun onReceiveItem(item: T) {}
+
+    protected open fun onReceiveEvent(event: Event) {
+        debugMessage("::onReceiveEvent")
     }
 }

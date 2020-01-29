@@ -17,10 +17,10 @@ import javax.inject.Named
 class DatabaseModule {
 
     @Provides @PerFeature @Named("database_name")
-    fun provideDatabaseName() = "database_for_exercise_library_feature"
+    fun provide1() = "database_for_exercise_library_feature"
 
     @Provides @PerFeature
-    fun provideDatabase(@Named("application_context") context: Context, @Named("database_name") name: String): LocalDatabase =
+    fun provide2(@Named("application_context") context: Context, @Named("database_name") name: String): LocalDatabase =
             RoomDatabaseFactory.getInstance(context, LocalDatabase::class.java, name, object : DataSaver {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase

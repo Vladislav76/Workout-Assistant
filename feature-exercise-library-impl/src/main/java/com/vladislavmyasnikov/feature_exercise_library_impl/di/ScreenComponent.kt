@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import dagger.Subcomponent
 
-@Subcomponent(modules = [AdapterModule::class, ContentFragmentBindingModule::class, ViewModelBindingModule::class])
+@Subcomponent(modules = [AdapterModule::class, ContentFragmentBindingModule::class, VMBindingModule::class])
 @PerScreen
 abstract class ScreenComponent {
 

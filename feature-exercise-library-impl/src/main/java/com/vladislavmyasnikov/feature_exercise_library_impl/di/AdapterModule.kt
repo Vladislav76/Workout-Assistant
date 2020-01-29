@@ -11,8 +11,8 @@ import dagger.Provides
 class AdapterModule {
 
     @Provides @PerScreen
-    fun bindExerciseAdapter() = ExerciseAdapter()
+    fun provide1() = ExerciseAdapter()
 
     @Provides @PerScreen
-    fun bindExerciseImagePagerAdapter(context: Context) = ExerciseImagePagerAdapter(context)
+    fun provide2(context: Context) = ExerciseImagePagerAdapter(context)
 }

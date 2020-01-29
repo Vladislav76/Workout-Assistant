@@ -29,6 +29,11 @@ abstract class VMToolbarFragment<T> : VMFragment<T>(R.layout.toolbar) {
         toolbar.inflateMenu(menuRes)
     }
 
+    protected fun replaceMenu(@MenuRes menuRes: Int) {
+        toolbar.menu.clear()
+        toolbar.inflateMenu(menuRes)
+    }
+
     protected fun addMenuListener(listener: Toolbar.OnMenuItemClickListener) {
         toolbar.setOnMenuItemClickListener(listener)
     }

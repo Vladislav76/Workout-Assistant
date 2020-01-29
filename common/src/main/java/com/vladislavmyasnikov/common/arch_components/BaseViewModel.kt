@@ -1,5 +1,6 @@
 package com.vladislavmyasnikov.common.arch_components
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.Observable
@@ -19,7 +20,7 @@ abstract class BaseViewModel<T, E> : ViewModel() {
 
     private val _verdicts = BehaviorSubject.create<RequestState>()
     private val _items = BehaviorSubject.create<T>()
-    private val _events = PublishSubject.create<Packet>()
+    private val _events = PublishSubject.create<Event>()
     private val _errors = PublishSubject.create<E>()
     private var isLoading = false
     protected val disposables = CompositeDisposable()
@@ -27,7 +28,7 @@ abstract class BaseViewModel<T, E> : ViewModel() {
     val verdicts: Observable<RequestState> = _verdicts
     val items: Observable<T> = _items
     val errors: Observable<E> = _errors
-    val events: Observable<Packet> = _events
+    val events: Observable<Event> = _events
 
     protected fun pushItem(item: T) {
         _items.onNext(item)
@@ -39,7 +40,7 @@ abstract class BaseViewModel<T, E> : ViewModel() {
         Logger.debug(TAG, "Error is occurred")
     }
 
-    protected fun pushEvent(event: Packet) {
+    protected fun pushEvent(event: Event) {
         _events.onNext(event)
         Logger.debug(TAG, "Event is happened")
     }
@@ -48,6 +49,10 @@ abstract class BaseViewModel<T, E> : ViewModel() {
 //        _verdicts.onNext(verdict)
 //        Logger.debug(TAG, "Verdict is ${verdict.name}")
 //    }
+
+    protected fun debugMessage(message: String) {
+        Log.d(TAG, message)
+    }
 
     override fun onCleared() {
         super.onCleared()

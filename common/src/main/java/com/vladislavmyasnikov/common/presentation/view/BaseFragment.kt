@@ -77,7 +77,7 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     }
 
     protected fun debugMessage(message: String) {
-        Log.d(label, "::debugMessage: $message")
+        Log.d(label, message)
     }
 
     protected open fun onReceivePacket(packet: Packet) {}

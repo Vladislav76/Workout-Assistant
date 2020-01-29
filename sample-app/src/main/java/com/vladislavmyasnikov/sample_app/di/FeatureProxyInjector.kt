@@ -2,9 +2,9 @@ package com.vladislavmyasnikov.sample_app.di
 
 import com.vladislavmyasnikov.feature_diary_impl.di.DaggerDiaryFeatureDependenciesComponent
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.DaggerExerciseFeatureDependenciesComponent
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.DaggerFeatureDependenciesComponent
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.FeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.di.DaggerWorkoutLibraryFeatureDependenciesComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.features_api.diary.DiaryFeatureApi
@@ -25,8 +25,8 @@ class FeatureProxyInjector {
         }
 
         fun getExerciseLibraryFeature(): ExerciseLibraryFeatureApi {
-            return FeatureComponent.initAndGet(
-                    DaggerFeatureDependenciesComponent.builder()
+            return ExerciseFeatureComponent.initAndGet(
+                    DaggerExerciseFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .build()
             )

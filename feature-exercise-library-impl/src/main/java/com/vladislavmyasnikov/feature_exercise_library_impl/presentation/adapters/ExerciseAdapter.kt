@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.vladislavmyasnikov.common.presentation.BaseAdapter
+import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import kotlinx.android.synthetic.main.item_exercise.view.*
 import javax.inject.Inject
 
-class ExerciseAdapter @Inject constructor() : BaseAdapter<ShortExerciseInfo>() {
+class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExerciseInfo>() {
 
     override fun constructViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,7 +18,7 @@ class ExerciseAdapter @Inject constructor() : BaseAdapter<ShortExerciseInfo>() {
         return ViewHolder(view)
     }
 
-    class ViewHolder(view: View) : BaseAdapter.ViewHolder<ShortExerciseInfo>(view) {
+    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortExerciseInfo>(view) {
 
         override fun bind(item: ShortExerciseInfo) {
             itemView.title_field.text = item.title

@@ -12,8 +12,6 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 abstract class FlowFragment : BaseFragment(R.layout.fragment_container), OnBackPressedListener {
 
-    override val label = "flow_fragment"
-
     protected abstract val router: Router
     protected abstract val navigatorHolder: NavigatorHolder
     private lateinit var navigator: Navigator

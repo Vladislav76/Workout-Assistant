@@ -5,7 +5,7 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.FeatureFlowFragment
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.ExerciseLibraryFeatureFlow
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import dagger.Component
 
@@ -14,11 +14,11 @@ import dagger.Component
         dependencies = [FeatureDependencies::class]
 )
 @PerFeature
-abstract class FeatureComponent : ExerciseLibraryFeatureApi {
+abstract class ExerciseFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
 
-    abstract fun inject(fragment: FeatureFlowFragment)
+    abstract fun inject(fragment: ExerciseLibraryFeatureFlow)
 
     abstract fun screenComponent(): ScreenComponent
 
@@ -28,21 +28,21 @@ abstract class FeatureComponent : ExerciseLibraryFeatureApi {
     companion object {
 
         @Volatile
-        private var featureComponent: FeatureComponent? = null
+        private var featureComponent: ExerciseFeatureComponent? = null
 
         fun initAndGet(dependencies: FeatureDependencies): ExerciseLibraryFeatureApi {
-            return featureComponent ?: synchronized(FeatureComponent::class.java) {
-                featureComponent ?: DaggerFeatureComponent.builder()
+            return featureComponent ?: synchronized(ExerciseFeatureComponent::class.java) {
+                featureComponent ?: DaggerExerciseFeatureComponent.builder()
                         .featureDependencies(dependencies)
                         .build()
                         .also { featureComponent = it }
             }
         }
 
-        fun get(): FeatureComponent = featureComponent ?: throw RuntimeException("You must call 'initAndGet' method")
+        fun get(): ExerciseFeatureComponent = featureComponent ?: throw RuntimeException("You must call 'initAndGet' method")
     }
 }
 
 @Component(dependencies = [ContextHolder::class])
 @PerFeature
-interface FeatureDependenciesComponent : FeatureDependencies
+interface ExerciseFeatureDependenciesComponent : FeatureDependencies

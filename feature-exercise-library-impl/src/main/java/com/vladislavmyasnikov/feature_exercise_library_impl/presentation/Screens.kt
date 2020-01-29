@@ -1,9 +1,9 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.FeatureComponent
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.host.ExerciseDetailsFragment
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.host.ExerciseLibraryFragment
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseFeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.host.ExerciseHost
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.host.ExerciseListHost
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
@@ -11,8 +11,8 @@ class Screens {
     class ExerciseListScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            val clazz = ExerciseLibraryFragment::class.java
-            val factory = FeatureComponent.get().fragmentFactory
+            val clazz = ExerciseListHost::class.java
+            val factory = ExerciseFeatureComponent.get().fragmentFactory
             return factory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
@@ -20,8 +20,8 @@ class Screens {
     class ExerciseDetailsScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            val clazz = ExerciseDetailsFragment::class.java
-            val factory = FeatureComponent.get().fragmentFactory
+            val clazz = ExerciseHost::class.java
+            val factory = ExerciseFeatureComponent.get().fragmentFactory
             return factory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
