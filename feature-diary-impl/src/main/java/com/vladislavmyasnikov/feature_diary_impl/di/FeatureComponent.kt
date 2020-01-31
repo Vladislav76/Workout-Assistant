@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryFeatureFlow
 import com.vladislavmyasnikov.features_api.diary.DiaryFeatureApi
@@ -44,6 +43,6 @@ abstract class DiaryFeatureComponent : DiaryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ScreenTitleController::class])
+@Component(dependencies = [ContextHolder::class])
 @PerFeature
 interface DiaryFeatureDependenciesComponent : FeatureDependencies

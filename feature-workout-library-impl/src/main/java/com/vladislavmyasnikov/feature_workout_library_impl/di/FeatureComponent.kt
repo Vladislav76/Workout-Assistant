@@ -1,35 +1,40 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.di
 
+import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
-import com.vladislavmyasnikov.common.legacy.interfaces.ScreenTitleController
 import com.vladislavmyasnikov.common.models.SyncObject
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.FlowFragment
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutListFragment
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutLibraryFeatureFlow
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.features_api.workout_library.WorkoutLibraryFeatureApi
 import dagger.Component
 
-@Component(modules = [WorkoutLibraryFeatureModule::class], dependencies = [WorkoutLibraryFeatureDependencies::class])
+@Component(
+        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class],
+        dependencies = [FeatureDependencies::class]
+)
 @PerFeature
 abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
 
-    val workoutScreenComponent = SyncObject { workoutLibraryScreenComponent() }
+    abstract val fragmentFactory: FragmentFactory
 
-    abstract fun inject(fragment: FlowFragment)
-    abstract fun inject(fragment: WorkoutListFragment)
+    abstract fun inject(fragment: WorkoutLibraryFeatureFlow)
 
-    abstract fun workoutLibraryScreenComponent(): WorkoutLibraryScreenComponent
+    abstract fun screenComponent(): ScreenComponent
+
+    val workoutListComponent = SyncObject { screenComponent() }
+    val workoutDetailsComponent = SyncObject { screenComponent() }
 
     companion object {
 
         @Volatile
         private var featureComponent: WorkoutLibraryFeatureComponent? = null
 
-        fun initAndGet(dependencies: WorkoutLibraryFeatureDependencies): WorkoutLibraryFeatureApi {
+        fun initAndGet(dependencies: FeatureDependencies): WorkoutLibraryFeatureApi {
             return featureComponent ?: synchronized(WorkoutLibraryFeatureComponent::class.java) {
                 featureComponent ?: DaggerWorkoutLibraryFeatureComponent.builder()
-                        .workoutLibraryFeatureDependencies(dependencies)
+                        .featureDependencies(dependencies)
                         .build()
                         .also { featureComponent = it }
             }
@@ -39,6 +44,6 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ScreenTitleController::class, ExerciseLibraryFeatureApi::class])
+@Component(dependencies = [ContextHolder::class, ExerciseLibraryFeatureApi::class])
 @PerFeature
-interface WorkoutLibraryFeatureDependenciesComponent : WorkoutLibraryFeatureDependencies
+interface WorkoutLibraryFeatureDependenciesComponent : FeatureDependencies

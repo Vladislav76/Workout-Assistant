@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseFeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListToolbarContent
@@ -28,7 +28,7 @@ class ExerciseListHost @Inject constructor(
     override lateinit var fragmentFactory: FragmentFactory
 
     override fun onAttach(context: Context) {
-        fragmentFactory = ExerciseFeatureComponent.get().exerciseLibraryComponent.getValue().fragmentFactory
+        fragmentFactory = ExerciseLibraryFeatureComponent.get().exerciseListComponent.getValue().fragmentFactory
         super.onAttach(context)
     }
 
@@ -39,7 +39,7 @@ class ExerciseListHost @Inject constructor(
     }
 
     override fun onBackPressed(): Boolean {
-        ExerciseFeatureComponent.get().exerciseLibraryComponent.resetValue()
+        ExerciseLibraryFeatureComponent.get().exerciseListComponent.resetValue()
         return super.onBackPressed()
     }
 }

@@ -1,19 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.view
 
-import android.content.Context
-import android.os.Bundle
-import android.view.*
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.common.legacy.GeneralViewModel
-import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.legacy.view.GeneralFragment
-import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.adapters.DiaryEntryAdapter
-import com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.viewmodels.DiaryEntryListViewModel
-import com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.viewmodels.ViewModelFactory
-import javax.inject.Inject
 
+/*
 class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>() {
 
     @Inject
@@ -126,4 +114,4 @@ class DiaryEntryListFragment : GeneralFragment<DiaryEntryListViewModel>() {
     companion object {
         fun newInstance() = DiaryEntryListFragment()
     }
-}
+}*/

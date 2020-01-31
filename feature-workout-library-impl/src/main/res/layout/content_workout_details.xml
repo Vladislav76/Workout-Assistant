@@ -18,17 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/description_field"
+        android:id="@+id/workout_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/description_hint"
         app:layout_constraintTop_toBottomOf="@id/description_label"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/workout_set_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/description_field"/>
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/workout_set_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/workout_description"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

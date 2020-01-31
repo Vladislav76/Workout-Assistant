@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view
+package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog

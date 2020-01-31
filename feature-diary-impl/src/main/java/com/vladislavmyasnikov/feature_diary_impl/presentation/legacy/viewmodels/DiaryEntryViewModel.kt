@@ -1,13 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.viewmodels
 
-import com.vladislavmyasnikov.common.legacy.GeneralViewModel
-import com.vladislavmyasnikov.common.models.TimePoint
-import com.vladislavmyasnikov.common.utils.Logger
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
-import io.reactivex.schedulers.Schedulers
-import java.util.*
-
+/*
 class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : GeneralViewModel<Int>() {
 
     var wasFirstFetchRequest = false
@@ -78,4 +71,4 @@ class DiaryEntryViewModel(private val repository: DiaryEntryRepository) : Genera
     companion object {
         private const val TAG = "DIARY_ENTRY_VM"
     }
-}
+}*/

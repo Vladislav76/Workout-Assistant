@@ -1,22 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.adapters
 
-import android.content.Context
-import android.graphics.PorterDuff
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.common.utils.DateFormatter
-import com.vladislavmyasnikov.common.utils.TimePointFormatter
-import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.utils.DiffUtilCallback
-import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
-import kotlinx.android.synthetic.main.item_non_selectable_diary_entry.view.*
-import javax.inject.Inject
-
+/*
 class DiaryEntryAdapter @Inject constructor(private val context: Context) : RecyclerView.Adapter<DiaryEntryAdapter.ViewHolder>() {
 
     var callback: OnItemClickCallback? = null
@@ -102,4 +86,4 @@ class DiaryEntryAdapter @Inject constructor(private val context: Context) : Recy
 //            }
         }
     }
-}
+}*/

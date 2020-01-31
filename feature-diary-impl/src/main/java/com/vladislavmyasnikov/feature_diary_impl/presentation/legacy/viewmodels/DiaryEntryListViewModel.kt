@@ -1,11 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.legacy.viewmodels
 
-import com.vladislavmyasnikov.common.legacy.GeneralViewModel
-import com.vladislavmyasnikov.common.utils.Logger
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
-import io.reactivex.schedulers.Schedulers
-
+/*
 class DiaryEntryListViewModel(private val repository: DiaryEntryRepository) : GeneralViewModel<Int>() {
 
     var mode: Int = NORMAL_MODE
@@ -62,4 +57,4 @@ class DiaryEntryListViewModel(private val repository: DiaryEntryRepository) : Ge
         const val DELETE_MODE = 2
         private const val TAG = "DIARY_ENTRY_LIST_VM"
     }
-}
+}*/

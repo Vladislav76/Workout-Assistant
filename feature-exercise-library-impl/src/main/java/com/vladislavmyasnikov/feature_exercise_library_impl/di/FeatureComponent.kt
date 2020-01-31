@@ -14,7 +14,7 @@ import dagger.Component
         dependencies = [FeatureDependencies::class]
 )
 @PerFeature
-abstract class ExerciseFeatureComponent : ExerciseLibraryFeatureApi {
+abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
 
@@ -22,27 +22,27 @@ abstract class ExerciseFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract fun screenComponent(): ScreenComponent
 
-    val exerciseLibraryComponent = SyncObject { screenComponent() }
+    val exerciseListComponent = SyncObject { screenComponent() }
     val exerciseDetailsComponent = SyncObject { screenComponent() }
 
     companion object {
 
         @Volatile
-        private var featureComponent: ExerciseFeatureComponent? = null
+        private var featureComponent: ExerciseLibraryFeatureComponent? = null
 
         fun initAndGet(dependencies: FeatureDependencies): ExerciseLibraryFeatureApi {
-            return featureComponent ?: synchronized(ExerciseFeatureComponent::class.java) {
-                featureComponent ?: DaggerExerciseFeatureComponent.builder()
+            return featureComponent ?: synchronized(ExerciseLibraryFeatureComponent::class.java) {
+                featureComponent ?: DaggerExerciseLibraryFeatureComponent.builder()
                         .featureDependencies(dependencies)
                         .build()
                         .also { featureComponent = it }
             }
         }
 
-        fun get(): ExerciseFeatureComponent = featureComponent ?: throw RuntimeException("You must call 'initAndGet' method")
+        fun get(): ExerciseLibraryFeatureComponent = featureComponent ?: throw RuntimeException("You must call 'initAndGet' method")
     }
 }
 
 @Component(dependencies = [ContextHolder::class])
 @PerFeature
-interface ExerciseFeatureDependenciesComponent : FeatureDependencies
+interface ExerciseLibraryFeatureDependenciesComponent : FeatureDependencies

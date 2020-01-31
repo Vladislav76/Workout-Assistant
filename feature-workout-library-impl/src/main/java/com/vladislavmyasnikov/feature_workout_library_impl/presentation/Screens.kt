@@ -1,8 +1,9 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutFragment
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.WorkoutListFragment
+import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.host.WorkoutListHost
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
@@ -10,14 +11,18 @@ class Screens {
     class WorkoutListScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            return WorkoutListFragment.newInstance()
+            val clazz = WorkoutListHost::class.java
+            val factory = WorkoutLibraryFeatureComponent.get().fragmentFactory
+            return factory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
 
-    class WorkoutDetailsScreen(private val workoutID: Long, private val title: String) : SupportAppScreen() {
+    class WorkoutDetailsScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            return WorkoutFragment.newInstance(workoutID, title)
+            val clazz = WorkoutHost::class.java
+            val factory = WorkoutLibraryFeatureComponent.get().fragmentFactory
+            return factory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
 }
