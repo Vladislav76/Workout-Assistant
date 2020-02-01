@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content
 
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -23,7 +22,9 @@ class DiaryEntryListToolbarContent @Inject constructor(
 
     override val label = "DIARY_ENTRY_LIST_TOOLBAR_CF"
 
-    override lateinit var viewModel: DiaryEntryListVM
+    override val viewModel: DiaryEntryListVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)
+    }
 
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {
@@ -41,11 +42,6 @@ class DiaryEntryListToolbarContent @Inject constructor(
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,7 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -27,7 +26,9 @@ class ExerciseListToolbarContent @Inject constructor(
 
     override val label = "EXERCISE_LIST_TOOLBAR_CF"
 
-    override lateinit var viewModel: ExerciseListVM
+    override val viewModel: ExerciseListVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)
+    }
 
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {
@@ -37,11 +38,6 @@ class ExerciseListToolbarContent @Inject constructor(
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

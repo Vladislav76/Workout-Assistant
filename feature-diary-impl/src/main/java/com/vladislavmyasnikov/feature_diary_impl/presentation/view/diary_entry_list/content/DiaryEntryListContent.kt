@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +21,9 @@ class DiaryEntryListContent @Inject constructor(
 
     override val label = "DIARY_ENTRY_LIST_CF"
 
-    override lateinit var viewModel: DiaryEntryListVM
+    override val viewModel: DiaryEntryListVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)
+    }
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
@@ -34,11 +35,6 @@ class DiaryEntryListContent @Inject constructor(
         override fun onClick(id: Long, title: String) {
             viewModel.select(id)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

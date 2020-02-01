@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
@@ -18,11 +17,8 @@ class WorkoutContent @Inject constructor(
 
     override val label = "WORKOUT_CF"
 
-    override lateinit var viewModel: WorkoutVM
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
+    override val viewModel: WorkoutVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
     }
 
     override fun onReceiveItem(item: FullWorkoutInfo) {

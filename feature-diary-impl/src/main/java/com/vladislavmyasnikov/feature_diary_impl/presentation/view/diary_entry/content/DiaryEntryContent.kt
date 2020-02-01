@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
@@ -19,11 +18,8 @@ class DiaryEntryContent @Inject constructor(
 
     override val label = "DIARY_ENTRY_CF"
 
-    override lateinit var viewModel: DiaryEntryVM
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(DiaryEntryVM::class.java)
+    override val viewModel: DiaryEntryVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(DiaryEntryVM::class.java)
     }
 
     override fun onReceiveItem(item: FullDiaryEntry) {

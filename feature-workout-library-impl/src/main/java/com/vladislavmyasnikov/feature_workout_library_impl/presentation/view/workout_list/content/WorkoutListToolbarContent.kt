@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -21,17 +20,14 @@ class WorkoutListToolbarContent @Inject constructor(
 
     override val label = "WORKOUT_LIST_TOOLBAR_CF"
 
-    override lateinit var viewModel: WorkoutListVM
+    override val viewModel: WorkoutListVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
+    }
 
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +20,9 @@ class ExerciseListContent @Inject constructor(
 
     override val label = "EXERCISE_LIST_CF"
 
-    override lateinit var viewModel: ExerciseListVM
+    override val viewModel: ExerciseListVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)
+    }
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
@@ -30,11 +31,6 @@ class ExerciseListContent @Inject constructor(
     }
 
     override val itemClickCallbackInSelectMode: OnItemClickCallback? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

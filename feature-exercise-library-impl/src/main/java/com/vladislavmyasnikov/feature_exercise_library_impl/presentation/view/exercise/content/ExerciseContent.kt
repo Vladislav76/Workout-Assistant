@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.content
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -23,14 +22,12 @@ class ExerciseContent @Inject constructor(
 
     override val label = "EXERCISE_CF"
 
-    override lateinit var viewModel: ExerciseVM
+    override val viewModel: ExerciseVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(ExerciseVM::class.java)
+    }
 
-    private lateinit var muscleGroupNames: Array<String>
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ExerciseVM::class.java)
-        muscleGroupNames = context.resources.getStringArray(R.array.muscle_groups)
+    private val muscleGroupNames: Array<String> by lazy {
+        context!!.resources.getStringArray(R.array.muscle_groups)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
