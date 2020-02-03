@@ -3,7 +3,6 @@ package com.vladislavmyasnikov.common.presentation.view
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import ru.terrakok.cicerone.Router

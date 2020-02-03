@@ -9,14 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutListVM
 import javax.inject.Inject
 
 class WorkoutListToolbarContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMToolbarFragment<List<ShortWorkoutInfo>>() {
+) : VMToolbarFragment<List<ShortWorkout>>() {
 
     override val label = "WORKOUT_LIST_TOOLBAR_CF"
 

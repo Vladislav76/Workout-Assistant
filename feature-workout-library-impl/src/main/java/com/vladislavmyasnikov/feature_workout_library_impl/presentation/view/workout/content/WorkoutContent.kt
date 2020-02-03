@@ -5,7 +5,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutVM
 import kotlinx.android.synthetic.main.content_workout_details.*
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class WorkoutContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMFragment<FullWorkoutInfo>(R.layout.content_workout_details) {
+) : VMFragment<FullWorkout>(R.layout.content_workout_details) {
 
     override val label = "WORKOUT_CF"
 
@@ -21,7 +21,7 @@ class WorkoutContent @Inject constructor(
         ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
     }
 
-    override fun onReceiveItem(item: FullWorkoutInfo) {
+    override fun onReceiveItem(item: FullWorkout) {
         workout_description.text = item.description
     }
 

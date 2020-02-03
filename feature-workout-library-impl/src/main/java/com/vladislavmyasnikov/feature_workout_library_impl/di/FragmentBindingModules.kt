@@ -5,6 +5,7 @@ import com.vladislavmyasnikov.common.di.annotations.FragmentKey
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutSetListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListToolbarContent
@@ -24,6 +25,9 @@ abstract class ContentFragmentBindingModule {
 
     @Binds @IntoMap @PerScreen @FragmentKey(WorkoutContent::class)
     abstract fun bind3(impl: WorkoutContent): Fragment
+
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutSetListContent::class)
+    abstract fun bind4(impl: WorkoutSetListContent): Fragment
 }
 
 @Module

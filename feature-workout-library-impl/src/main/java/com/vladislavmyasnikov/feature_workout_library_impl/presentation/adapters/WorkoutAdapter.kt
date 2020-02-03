@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import kotlinx.android.synthetic.main.item_workout.view.*
 import javax.inject.Inject
 
-class WorkoutAdapter @Inject constructor() : SelectableBaseAdapter<ShortWorkoutInfo>() {
+class WorkoutAdapter @Inject constructor() : SelectableBaseAdapter<ShortWorkout>() {
 
     override fun constructViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,9 +18,9 @@ class WorkoutAdapter @Inject constructor() : SelectableBaseAdapter<ShortWorkoutI
         return ViewHolder(view)
     }
 
-    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortWorkoutInfo>(view) {
+    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortWorkout>(view) {
 
-        override fun bind(item: ShortWorkoutInfo) {
+        override fun bind(item: ShortWorkout) {
             val resID = itemView.context.resources.getIdentifier(item.avatarID, "drawable", itemView.context.packageName)
             itemView.workout_avatar.setImageDrawable(ContextCompat.getDrawable(itemView.context, resID))
             itemView.workout_title.text = item.title

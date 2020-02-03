@@ -7,8 +7,9 @@ import com.vladislavmyasnikov.common.di.modules.ContextModule
 import com.vladislavmyasnikov.common.factories.RoomDatabaseFactory
 import com.vladislavmyasnikov.common.interfaces.DataSaver
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateSetsInfo
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutsInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutExerciseList
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutSetList
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutList
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -24,15 +25,26 @@ class DatabaseModule {
             RoomDatabaseFactory.getInstance(context, LocalDatabase::class.java, name, object : DataSaver {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase
-                    val setsIDs: MutableList<List<Long>> = mutableListOf()
-                    for (i in 1..10) {
-                        val ids = locDb.workoutLibraryDao().insertSetsInfo(generateSetsInfo(
-                                setsPerWorkout = 1..4, exercisesPerSet = 3..7,
-                                repsPerSet = 2..4, repsPerExercise = 5..150, maxExerciseID = 20
-                        ))
-                        setsIDs.add(ids)
+                    val workoutAmountRange = 10..20
+                    val setAmountRange = 1..7
+                    val workoutSetIDs = mutableListOf<List<Long>>()
+
+                    for (workoutNumber in 1..workoutAmountRange.random()) {
+                        val workoutExerciseIDs = mutableListOf<List<Long>>()
+
+                        for (setNumber in 1..setAmountRange.random()) {
+                            val ids = locDb.workoutLibraryDao().insertWorkoutExerciseList(
+                                    generateWorkoutExerciseList(exerciseAmountRange = 1..10, approachAmountRange = 1..10, exerciseIDRange = 1L..20L, repsAmountRange = 5..150, weightsRange = 5..100)
+                            )
+                            workoutExerciseIDs.add(ids)
+                        }
+
+                        val ids = locDb.workoutLibraryDao().insertWorkoutSetList(
+                                generateWorkoutSetList(workoutExerciseIDs)
+                        )
+                        workoutSetIDs.add(ids)
                     }
-                    locDb.workoutLibraryDao().insertWorkoutsInfo(generateWorkoutsInfo(setsIDs))
+                    locDb.workoutLibraryDao().insertWorkoutList(generateWorkoutList(workoutSetIDs))
                 }
             }) as LocalDatabase
 }

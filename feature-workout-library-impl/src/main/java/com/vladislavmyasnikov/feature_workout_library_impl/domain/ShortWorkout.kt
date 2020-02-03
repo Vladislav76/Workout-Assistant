@@ -2,11 +2,11 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain
 
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 
-open class ShortWorkoutInfo(
+open class ShortWorkout(
         override val id: Long,
         val title: String,
         val avatarID: String
-) : Identifiable<ShortWorkoutInfo> {
+) : Identifiable<ShortWorkout> {
 
-    override fun isIdentical(another: ShortWorkoutInfo): Boolean = id == another.id
+    override fun isIdentical(another: ShortWorkout): Boolean = id == another.id
 }

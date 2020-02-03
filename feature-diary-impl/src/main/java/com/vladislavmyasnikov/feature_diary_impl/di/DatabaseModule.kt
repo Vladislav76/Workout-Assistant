@@ -1,7 +1,6 @@
 package com.vladislavmyasnikov.feature_diary_impl.di
 
 import android.content.Context
-import android.util.Log
 import androidx.room.RoomDatabase
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.ContextModule

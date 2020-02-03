@@ -24,7 +24,7 @@ abstract class SelectableBaseAdapter<T : Identifiable<T>> : BaseAdapter<T, Selec
         set(value) {
             if (field != value) {
                 if (value) selectionStatus = BooleanArray(currentItems.size) { false }
-                notifyItemRangeChanged(0, currentItems.size)  // or notifyDataSetChanged()
+                notifyItemRangeChanged(0, currentItems.size)
                 field = value
             }
         }

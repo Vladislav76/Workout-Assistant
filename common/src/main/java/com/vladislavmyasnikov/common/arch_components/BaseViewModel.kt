@@ -10,22 +10,16 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class BaseViewModel<T, E> : ViewModel() {
 
-    enum class RequestState {
-        Loaded, Saved, Deleted
-    }
-
     companion object {
         const val TAG = "base_view_model"
     }
 
-    private val _verdicts = BehaviorSubject.create<RequestState>()
     private val _items = BehaviorSubject.create<T>()
     private val _events = PublishSubject.create<Event>()
     private val _errors = PublishSubject.create<E>()
     private var isLoading = false
     protected val disposables = CompositeDisposable()
 
-    val verdicts: Observable<RequestState> = _verdicts
     val items: Observable<T> = _items
     val errors: Observable<E> = _errors
     val events: Observable<Event> = _events
@@ -44,11 +38,6 @@ abstract class BaseViewModel<T, E> : ViewModel() {
         _events.onNext(event)
         Logger.debug(TAG, "Event is happened")
     }
-
-//    protected fun pushVerdict(verdict: RequestState) {
-//        _verdicts.onNext(verdict)
-//        Logger.debug(TAG, "Verdict is ${verdict.name}")
-//    }
 
     protected fun debugMessage(message: String) {
         Log.d(TAG, message)

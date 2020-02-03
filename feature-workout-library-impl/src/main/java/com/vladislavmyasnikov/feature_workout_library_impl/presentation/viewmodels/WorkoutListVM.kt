@@ -1,18 +1,18 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutRepository
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class WorkoutListVM @Inject constructor(private val repository: WorkoutRepository) : BaseViewModel<List<ShortWorkoutInfo>, Throwable>() {
+class WorkoutListVM @Inject constructor(private val repository: WorkoutRepository) : BaseViewModel<List<ShortWorkout>, Throwable>() {
 
-    private var sourceItems: List<ShortWorkoutInfo> = emptyList()
+    private var sourceItems: List<ShortWorkout> = emptyList()
 
     fun fetch() {
         disposables.add(
-                repository.fetchShortWorkoutsInfo()
+                repository.fetchShortWorkoutList()
                         .subscribeOn(Schedulers.io())
                         .subscribe({ item ->
                             pushItem(item)

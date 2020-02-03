@@ -7,7 +7,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.WorkoutAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutListVM
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class WorkoutListContent @Inject constructor(
         override val bus: SharedBus,
         override val adapter: WorkoutAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMListFragment<ShortWorkoutInfo>() {
+) : VMListFragment<ShortWorkout>() {
 
     override val label = "WORKOUT_LIST_CF"
 

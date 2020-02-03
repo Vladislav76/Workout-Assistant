@@ -1,32 +1,34 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl
 
 import com.vladislavmyasnikov.common.utils.Mapper
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ExerciseInfo
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkoutInfo
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.SetInfo
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutExerciseEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutSetEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutExercise
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutSet
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import com.vladislavmyasnikov.features_api.exercise_library.WorkoutExerciseInfo
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.ShortWorkoutInfo as ShortWorkoutInfoEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.SetInfo as SetInfoEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.ShortWorkoutEntity
 
 // Short Entity -> Model
-object EntityToModelShortWorkoutInfoMapper : Mapper<ShortWorkoutInfoEntity, ShortWorkoutInfo>() {
+object Entity2ModelShortWorkoutMapper : Mapper<ShortWorkoutEntity, ShortWorkout>() {
 
-    override fun map(value: ShortWorkoutInfoEntity): ShortWorkoutInfo {
-        return ShortWorkoutInfo(value.id, value.title, value.avatarID)
+    override fun map(value: ShortWorkoutEntity): ShortWorkout {
+        return ShortWorkout(value.id, value.title, value.avatarID)
     }
 }
 
 // Entity -> Model
-object EntityToModelSetInfoMapper : Mapper<SetInfoEntity, SetInfo>() {
+object Entity2ModelWorkoutSetMapper : Mapper<WorkoutSetEntity, WorkoutSet>() {
 
-    var exercises: List<WorkoutExerciseInfo> = emptyList()
+    var exercises = listOf<WorkoutExerciseInfo>()
+    var workoutExercises = listOf<WorkoutExerciseEntity>()
 
-    override fun map(value: SetInfoEntity): SetInfo {
-        val exercisesInfo = value.exercisesReps.mapIndexed { index, list ->
-            val exercise = exercises.find { it.id == value.exercisesIDs[index] }
-            ExerciseInfo(value.exercisesIDs[index], exercise?.title ?: "", list, exercise?.avatar_id ?: "")
+    override fun map(value: WorkoutSetEntity): WorkoutSet {
+        val workoutExerciseList = value.workoutExerciseIDs.map { id ->
+            val workoutExercise = workoutExercises.find { entity -> entity.id == id }!!
+            val exercise = exercises.find { entity -> entity.id == workoutExercise.exerciseId }!!
+            WorkoutExercise(workoutExercise.id, exercise.title, workoutExercise.reps, workoutExercise.weights, exercise.avatar_id)
         }
-        return SetInfo(value.id, exercisesInfo)
+        return WorkoutSet(value.id, workoutExerciseList)
     }
 }
