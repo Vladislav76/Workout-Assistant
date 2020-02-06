@@ -3,6 +3,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.common.di.annotations.ViewModelKey
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutExerciseListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutVM
 import dagger.Binds
@@ -17,4 +18,7 @@ abstract class VMBindingModule {
 
     @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutVM::class)
     abstract fun bind2(impl: WorkoutVM): ViewModel
+
+    @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutExerciseListVM::class)
+    abstract fun bind3(impl: WorkoutExerciseListVM): ViewModel
 }

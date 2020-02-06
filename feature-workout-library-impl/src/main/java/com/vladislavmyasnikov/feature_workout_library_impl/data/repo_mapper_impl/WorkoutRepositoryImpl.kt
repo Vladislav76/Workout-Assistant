@@ -2,9 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_imp
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.FullWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutRepository
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.*
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -22,6 +20,14 @@ class WorkoutRepositoryImpl @Inject constructor(
 
     override fun fetchFullWorkout(id: Long): Single<FullWorkout> {
         localDataSource.workoutLibraryDao().apply {
+            return loadWorkout(id).map { workout ->
+                FullWorkout(workout.id, workout.title, workout.avatarID, workout.description)
+            }
+        }
+    }
+
+    override fun fetchWorkoutSetList(id: Long): Single<List<WorkoutSet>> {
+        localDataSource.workoutLibraryDao().apply {
             return loadWorkout(id).flatMap { workout ->
                 loadWorkoutSetList(workout.workoutSetIDs).flatMap { workoutSets ->
                     val workoutExerciseIDs = workoutSets.map { workoutSet -> workoutSet.workoutExerciseIDs }.flatten()
@@ -32,7 +38,7 @@ class WorkoutRepositoryImpl @Inject constructor(
                         exerciseLibraryInteractor.fetchWorkoutExercisesInfo(exerciseIDs).map { exercises ->
                             Entity2ModelWorkoutSetMapper.exercises = exercises
                             Entity2ModelWorkoutSetMapper.workoutExercises = workoutExercises
-                            FullWorkout(workout.id, workout.title, workout.avatarID, workout.description, Entity2ModelWorkoutSetMapper.map(workoutSets))
+                            Entity2ModelWorkoutSetMapper.map(workoutSets)
                         }
                     }
                 }

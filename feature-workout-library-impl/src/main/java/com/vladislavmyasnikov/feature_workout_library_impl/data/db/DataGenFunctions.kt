@@ -6,32 +6,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.Work
 
 private val imagesNames = listOf("work_dummy_1", "work_dummy_2", "work_dummy_3")
 
-
-//fun generateWorkoutSetList(setsPerWorkout: IntRange, exercisesPerSet: IntRange, repsPerSet: IntRange, repsPerExercise: IntRange, maxExerciseID: Long): List<SetInfo> {
-//    val result = mutableListOf<SetInfo>()
-//    val exercisesIDsRange = 1L..maxExerciseID
-//
-//    for (i in 1..setsPerWorkout.random()) {
-//        val exercisesIDs = mutableListOf<Long>()
-//        val exercisesReps = mutableListOf<List<Int>>()
-//        val setReps = repsPerSet.random()
-//
-//        for (k in 1..exercisesPerSet.random()) {
-//            val reps = mutableListOf<Int>()
-//            for (n in 1..setReps) {
-//                reps.add(repsPerExercise.random())
-//            }
-//            exercisesReps.add(reps)
-//            exercisesIDs.add(exercisesIDsRange.random())
-//        }
-//
-//        val setInfo = SetInfo(exercisesIDs = exercisesIDs, exercisesReps = exercisesReps)
-//        result.add(setInfo)
-//    }
-//    return result
-//}
-
-fun generateWorkoutExerciseList(exerciseAmountRange: IntRange, approachAmountRange: IntRange, exerciseIDRange: LongRange, repsAmountRange: IntRange, weightsRange: IntRange): List<WorkoutExerciseEntity> {
+fun generateWorkoutExerciseList(exerciseAmountRange: IntRange, approachAmount: Int, exerciseIDRange: LongRange, repsAmountRange: IntRange, weightsRange: IntRange): List<WorkoutExerciseEntity> {
     val list = mutableListOf<WorkoutExerciseEntity>()
     val offsetRange = IntRange(1, 10)
 
@@ -39,7 +14,7 @@ fun generateWorkoutExerciseList(exerciseAmountRange: IntRange, approachAmountRan
         val reps = mutableListOf<Int>()
         val weights = mutableListOf<Float>()
 
-        for (k in 1..approachAmountRange.random()) {
+        for (k in 1..approachAmount) {
             reps.add(repsAmountRange.random())
             weights.add(weightsRange.random() + 0.1F * offsetRange.random())
         }
@@ -53,8 +28,6 @@ fun generateWorkoutSetList(workoutExerciseIDs: List<List<Long>>): List<WorkoutSe
     val list = mutableListOf<WorkoutSetEntity>()
 
     for (ids in workoutExerciseIDs) {
-//        val workoutExerciseList = generateWorkoutExerciseList(exerciseAmountRange.random(), approachAmountRange.random(), exerciseIDRange, repsAmountRange, weightsRange)
-//        list.add(WorkoutSet(workoutExerciseIDs = workoutExerciseList.map { exercise -> exercise.id }))
         list.add(WorkoutSetEntity(workoutExerciseIDs = ids))
     }
     return list

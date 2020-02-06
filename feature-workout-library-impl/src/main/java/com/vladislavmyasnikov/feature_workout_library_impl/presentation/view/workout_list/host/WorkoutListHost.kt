@@ -7,7 +7,7 @@ import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.HostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.Screens
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListToolbarContent
 import ru.terrakok.cicerone.Router

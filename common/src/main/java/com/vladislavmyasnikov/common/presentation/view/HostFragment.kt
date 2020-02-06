@@ -32,10 +32,16 @@ abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFrag
 
     override fun onBackPressed(): Boolean {
         for (child in childFragmentManager.fragments) {
-            debugMessage(child.toString())
             if (child is OnBackPressedListener && child.onBackPressed()) return false
         }
-        router.exit()
-        return true
+
+        parentFragment.apply {
+            return if (this is HostFragment) {
+                false
+            } else {
+                router.exit()
+                true
+            }
+        }
     }
 }

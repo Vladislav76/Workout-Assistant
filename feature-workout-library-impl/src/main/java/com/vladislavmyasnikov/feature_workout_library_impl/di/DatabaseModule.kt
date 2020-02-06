@@ -26,15 +26,16 @@ class DatabaseModule {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase
                     val workoutAmountRange = 10..20
-                    val setAmountRange = 1..7
+                    val workoutSetAmountRange = 1..7
+                    val workoutSetApproachAmountRange = 1..10
                     val workoutSetIDs = mutableListOf<List<Long>>()
 
                     for (workoutNumber in 1..workoutAmountRange.random()) {
                         val workoutExerciseIDs = mutableListOf<List<Long>>()
 
-                        for (setNumber in 1..setAmountRange.random()) {
+                        for (setNumber in 1..workoutSetAmountRange.random()) {
                             val ids = locDb.workoutLibraryDao().insertWorkoutExerciseList(
-                                    generateWorkoutExerciseList(exerciseAmountRange = 1..10, approachAmountRange = 1..10, exerciseIDRange = 1L..20L, repsAmountRange = 5..150, weightsRange = 5..100)
+                                    generateWorkoutExerciseList(exerciseAmountRange = 1..10, approachAmount = workoutSetApproachAmountRange.random(), exerciseIDRange = 1L..20L, repsAmountRange = 5..150, weightsRange = 5..100)
                             )
                             workoutExerciseIDs.add(ids)
                         }

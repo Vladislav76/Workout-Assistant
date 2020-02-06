@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.presentation
+package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
