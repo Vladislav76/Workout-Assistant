@@ -9,6 +9,8 @@ import javax.inject.Inject
 
 class ExerciseListVM @Inject constructor(private val repository: ExerciseRepository) : BaseViewModel<List<ShortExerciseInfo>, Throwable>() {
 
+    override val label = "EXERCISE_LIST_VM"
+
     private var sourceItems: List<ShortExerciseInfo> = emptyList()
 
     var filteredMuscleGroupIDs: List<Int> = emptyList()

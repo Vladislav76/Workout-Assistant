@@ -10,14 +10,11 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class BaseViewModel<T, E> : ViewModel() {
 
-    companion object {
-        const val TAG = "base_view_model"
-    }
+    abstract val label: String
 
     private val _items = BehaviorSubject.create<T>()
     private val _events = PublishSubject.create<Event>()
     private val _errors = PublishSubject.create<E>()
-    private var isLoading = false
     protected val disposables = CompositeDisposable()
 
     val items: Observable<T> = _items
@@ -26,21 +23,21 @@ abstract class BaseViewModel<T, E> : ViewModel() {
 
     protected fun pushItem(item: T) {
         _items.onNext(item)
-        Logger.debug(TAG, "Item is pushed")
+        Logger.debug(label, "New item: $item")
     }
 
     protected fun pushError(error: E) {
         _errors.onNext(error)
-        Logger.debug(TAG, "Error is occurred")
+        Logger.debug(label, "New error: $error")
     }
 
     protected fun pushEvent(event: Event) {
         _events.onNext(event)
-        Logger.debug(TAG, "Event is happened")
+        Logger.debug(label, "New event: $event")
     }
 
     protected fun debugMessage(message: String) {
-        Log.d(TAG, message)
+        Log.d(label, message)
     }
 
     override fun onCleared() {

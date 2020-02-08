@@ -21,8 +21,8 @@ class ExerciseListHost @Inject constructor(
     override val label = "EXERCISE_LIST_HF"
 
     override val children = listOf(
-            R.id.top_container to ExerciseListToolbarContent::class.java,
-            R.id.bottom_container to ExerciseListContent::class.java
+            R.id.header_container to ExerciseListToolbarContent::class.java,
+            R.id.body_container to ExerciseListContent::class.java
     )
 
     override lateinit var fragmentFactory: FragmentFactory
@@ -32,14 +32,15 @@ class ExerciseListHost @Inject constructor(
         super.onAttach(context)
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemClickMessage) {
-            router.navigateTo(Screens.ExerciseDetailsScreen())
-        } else super.onReceivePacket(packet)
-    }
-
     override fun onBackPressed(): Boolean {
         ExerciseLibraryFeatureComponent.get().exerciseListComponent.resetValue()
         return super.onBackPressed()
+    }
+
+    override fun onReceivePacket(packet: Packet) {
+        if (packet is Packet.ItemClickMessage) {
+            router.navigateTo(Screens.ExerciseDetailsScreen())
+            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
+        }
     }
 }

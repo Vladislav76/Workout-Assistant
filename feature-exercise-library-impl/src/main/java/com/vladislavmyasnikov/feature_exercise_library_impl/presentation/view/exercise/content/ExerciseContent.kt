@@ -51,9 +51,8 @@ class ExerciseContent @Inject constructor(
     }
 
     override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemClickMessage) {
+        if (packet is Packet.ItemFetchRequest) {
             viewModel.fetch(packet.id)
-            bus.sendPacket(Packet.EmptyMessage())
-        } else super.onReceivePacket(packet)
+        }
     }
 }

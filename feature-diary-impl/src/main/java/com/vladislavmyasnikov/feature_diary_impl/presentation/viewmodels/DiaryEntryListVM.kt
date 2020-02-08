@@ -10,6 +10,8 @@ import kotlin.reflect.KClass
 
 class DiaryEntryListVM @Inject constructor(private val repository: DiaryEntryRepository) : BaseViewModel<List<ShortDiaryEntry>, Throwable>() {
 
+    override val label = "DIARY_ENTRY_LIST_VM"
+
     private var sourceItems = emptyList<ShortDiaryEntry>()
     private val selectedItemIDs = mutableListOf<Long>()
 

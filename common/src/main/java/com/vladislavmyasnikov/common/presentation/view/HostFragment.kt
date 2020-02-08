@@ -2,6 +2,7 @@ package com.vladislavmyasnikov.common.presentation.view
 
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
@@ -21,13 +22,7 @@ abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFrag
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        for ((containerID, fragmentClass) in children) {
-            if (childFragmentManager.fragments.size < children.size && childFragmentManager.findFragmentByTag(fragmentClass.name) == null) {
-                childFragmentManager.beginTransaction()
-                        .add(containerID, fragmentManager!!.fragmentFactory.instantiate(fragmentClass.classLoader!!, fragmentClass.name))
-                        .commitNow()
-            }
-        }
+        for ((containerID, childClass) in children) addChild(containerID, childClass)
     }
 
     override fun onBackPressed(): Boolean {
@@ -42,6 +37,14 @@ abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFrag
                 router.exit()
                 true
             }
+        }
+    }
+
+    private fun addChild(@IdRes containerID: Int, childClass: Class<out BaseFragment>) {
+        if (childFragmentManager.findFragmentByTag(childClass.name) == null) {
+            childFragmentManager.beginTransaction()
+                    .add(containerID, fragmentFactory.instantiate(childClass.classLoader!!, childClass.name), childClass.name)
+                    .commitNow()
         }
     }
 }

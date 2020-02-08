@@ -8,6 +8,8 @@ import javax.inject.Inject
 
 class DiaryEntryVM @Inject constructor(private val repository: DiaryEntryRepository) : BaseViewModel<FullDiaryEntry, Throwable>() {
 
+    override val label = "DIARY_ENTRY_VM"
+
     fun fetch(id: Long) {
         disposables.add(
                 repository.fetchFullEntry(id)

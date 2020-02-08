@@ -2,25 +2,25 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.wo
 
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
+import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.HostFragment
+import com.vladislavmyasnikov.common.presentation.view.components.CollapsingHeaderHostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutContent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutExerciseListContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutHeaderContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class WorkoutHost @Inject constructor(
+class WorkoutScreenHost @Inject constructor(
         override val bus: SharedBus,
         override val router: Router
-) : HostFragment(R.layout.two_fragment_container) {
+) : CollapsingHeaderHostFragment() {
 
-    override val label = "WORKOUT_HF"
+    override val label: String = "WORKOUT_DETAILS_SCREEN_HF"
 
     override val children = listOf(
-            R.id.top_container to WorkoutContent::class.java,
-            R.id.bottom_container to WorkoutSetHost::class.java
+            R.id.header_container to WorkoutHeaderContent::class.java,
+            R.id.body_container to WorkoutSetHost::class.java
     )
 
     override lateinit var fragmentFactory: FragmentFactory
@@ -33,5 +33,11 @@ class WorkoutHost @Inject constructor(
     override fun onBackPressed(): Boolean {
         WorkoutLibraryFeatureComponent.get().workoutDetailsComponent.resetValue()
         return super.onBackPressed()
+    }
+
+    override fun onReceivePacket(packet: Packet) {
+        if (packet is Packet.ItemFetchRequest) {
+            bus.sendNoise()
+        }
     }
 }

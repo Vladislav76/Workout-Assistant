@@ -2,6 +2,7 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.e
 
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
+import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
@@ -31,5 +32,11 @@ class ExerciseHost @Inject constructor(
     override fun onBackPressed(): Boolean {
         ExerciseLibraryFeatureComponent.get().exerciseDetailsComponent.resetValue()
         return super.onBackPressed()
+    }
+
+    override fun onReceivePacket(packet: Packet) {
+        if (packet is Packet.ItemFetchRequest) {
+            bus.sendNoise()
+        }
     }
 }

@@ -10,6 +10,8 @@ import javax.inject.Inject
 
 class WorkoutExerciseListVM @Inject constructor(private val repository: WorkoutRepository) : BaseViewModel<List<WorkoutExercise>, Throwable>() {
 
+    override val label = "WORKOUT_EXERCISE_LIST_VM"
+
     var workoutSetNumber = -1
         set(value) {
             if (value != field) {

@@ -18,8 +18,8 @@ class WorkoutSetHost @Inject constructor(
     override val label = "WORKOUT_SET_HF"
 
     override val children = listOf(
-            R.id.top_container to WorkoutSetContent::class.java,
-            R.id.bottom_container to WorkoutExerciseListContent::class.java
+            R.id.header_container to WorkoutSetContent::class.java,
+            R.id.body_container to WorkoutExerciseListContent::class.java
     )
 
     override lateinit var fragmentFactory: FragmentFactory

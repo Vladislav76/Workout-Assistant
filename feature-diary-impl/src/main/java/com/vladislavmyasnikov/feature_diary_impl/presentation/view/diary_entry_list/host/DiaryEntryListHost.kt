@@ -21,8 +21,8 @@ class DiaryEntryListHost @Inject constructor(
     override val label = "DIARY_ENTRY_LIST_HF"
 
     override val children = listOf(
-            R.id.top_container to DiaryEntryListToolbarContent::class.java,
-            R.id.bottom_container to DiaryEntryListContent::class.java
+            R.id.header_container to DiaryEntryListToolbarContent::class.java,
+            R.id.body_container to DiaryEntryListContent::class.java
     )
 
     override lateinit var fragmentFactory: FragmentFactory
@@ -32,14 +32,15 @@ class DiaryEntryListHost @Inject constructor(
         super.onAttach(context)
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemClickMessage) {
-            router.navigateTo(Screens.DiaryEntryDetailsScreen())
-        } else super.onReceivePacket(packet)
-    }
-
     override fun onBackPressed(): Boolean {
         if (super.onBackPressed()) DiaryFeatureComponent.get().diaryEntryListComponent.resetValue()
         return true
+    }
+
+    override fun onReceivePacket(packet: Packet) {
+        if (packet is Packet.ItemClickMessage) {
+            router.navigateTo(Screens.DiaryEntryDetailsScreen())
+            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
+        }
     }
 }

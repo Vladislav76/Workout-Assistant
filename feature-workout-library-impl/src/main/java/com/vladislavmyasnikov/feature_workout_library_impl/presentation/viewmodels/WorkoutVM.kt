@@ -8,6 +8,8 @@ import javax.inject.Inject
 
 class WorkoutVM @Inject constructor(private val repository: WorkoutRepository) : BaseViewModel<FullWorkout, Throwable>() {
 
+    override val label = "WORKOUT_VM"
+
     fun fetch(id: Long) {
         disposables.add(
                 repository.fetchFullWorkout(id)

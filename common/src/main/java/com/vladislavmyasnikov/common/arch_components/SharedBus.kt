@@ -18,4 +18,8 @@ class SharedBus {
         _packets.onNext(packet)
         Logger.debug(TAG, "Packet is sent $packet")
     }
+
+    fun sendNoise() {
+        _packets.onNext(Packet.Noise())
+    }
 }

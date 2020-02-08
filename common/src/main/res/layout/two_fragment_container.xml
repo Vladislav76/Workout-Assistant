@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/top_container"
+        android:id="@+id/header_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/bottom_container"
+        android:id="@+id/body_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

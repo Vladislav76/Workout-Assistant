@@ -4,14 +4,14 @@ import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutHeaderContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutExerciseListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutSetContent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutSetHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListToolbarContent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.host.WorkoutListHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.host.WorkoutListScreenHost
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -25,8 +25,8 @@ abstract class ContentFragmentBindingModule {
     @Binds @IntoMap @PerScreen  @FragmentKey(WorkoutListToolbarContent::class)
     abstract fun bind2(impl: WorkoutListToolbarContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutContent::class)
-    abstract fun bind3(impl: WorkoutContent): Fragment
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutHeaderContent::class)
+    abstract fun bind3(impl: WorkoutHeaderContent): Fragment
 
     @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseListContent::class)
     abstract fun bind4(impl: WorkoutExerciseListContent): Fragment
@@ -38,12 +38,12 @@ abstract class ContentFragmentBindingModule {
 @Module
 abstract class HostFragmentBindingModule {
 
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutListHost::class)
-    abstract fun bind1(impl: WorkoutListHost): Fragment
-
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutHost::class)
-    abstract fun bind2(impl: WorkoutHost): Fragment
+    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutListScreenHost::class)
+    abstract fun bind1(impl: WorkoutListScreenHost): Fragment
 
     @Binds @IntoMap @PerFeature @FragmentKey(WorkoutSetHost::class)
-    abstract fun bind3(impl: WorkoutSetHost): Fragment
+    abstract fun bind2(impl: WorkoutSetHost): Fragment
+
+    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutScreenHost::class)
+    abstract fun bind3(impl: WorkoutScreenHost): Fragment
 }
