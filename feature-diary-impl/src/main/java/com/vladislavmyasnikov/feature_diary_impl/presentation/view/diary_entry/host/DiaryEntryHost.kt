@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.HostFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content.DiaryEntryContent

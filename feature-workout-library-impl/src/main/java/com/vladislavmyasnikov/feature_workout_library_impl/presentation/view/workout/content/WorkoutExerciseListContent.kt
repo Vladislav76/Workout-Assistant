@@ -28,7 +28,7 @@ class WorkoutExerciseListContent @Inject constructor(
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            // open exercise details
+            bus.sendPacket(Packet.ItemClickMessage(id))
         }
     }
 

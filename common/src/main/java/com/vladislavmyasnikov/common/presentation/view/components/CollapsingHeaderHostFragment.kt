@@ -5,7 +5,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.presentation.view.HostFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 
 abstract class CollapsingHeaderHostFragment : HostFragment(R.layout.template_collapsing_header_and_body) {
 

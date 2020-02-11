@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.presentation.view
+package com.vladislavmyasnikov.common.arch_components.fundamental
 
 import android.os.Bundle
 import android.view.View

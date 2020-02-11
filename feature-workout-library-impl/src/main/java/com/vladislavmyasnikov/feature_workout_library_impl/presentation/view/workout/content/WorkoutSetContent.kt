@@ -3,11 +3,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.wo
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.VMFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters.NaturalNumberAdapter

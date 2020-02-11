@@ -52,4 +52,8 @@ class WorkoutExerciseListVM @Inject constructor(private val repository: WorkoutR
                         })
         )
     }
+
+    fun fetchWorkoutExercise(id: Long): WorkoutExercise {
+        return workoutSets[workoutSetNumber].workoutExercises.find { workoutExercise -> workoutExercise.id == id }!!
+    }
 }

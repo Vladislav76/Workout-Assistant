@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.wo
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.HostFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutExerciseListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutSetContent

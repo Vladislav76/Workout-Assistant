@@ -6,7 +6,7 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.presentation.view.VMFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 
 abstract class VMToolbarFragment<T> : VMFragment<T>(R.layout.toolbar) {
 

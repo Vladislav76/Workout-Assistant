@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch_components.fundamental.BaseDialog
 import com.vladislavmyasnikov.common.presentation.view.components.CollapsingHeaderHostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.dialogs.WorkoutExerciseDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutHeaderContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -36,8 +38,16 @@ class WorkoutScreenHost @Inject constructor(
     }
 
     override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            bus.sendNoise()
+        when (packet) {
+            is Packet.ItemFetchRequest -> bus.sendNoise()
+            is Packet.ItemClickMessage -> {
+                val dialogClass = WorkoutExerciseDialog::class.java
+                val dialog = (fragmentFactory.instantiate(dialogClass.classLoader!!, dialogClass.name) as WorkoutExerciseDialog).also {
+                    it.putArguments(packet.id)
+                }
+                dialog.show(childFragmentManager, null)
+                bus.sendNoise()
+            }
         }
     }
 }

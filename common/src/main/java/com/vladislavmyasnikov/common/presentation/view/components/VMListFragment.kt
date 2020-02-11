@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.common.interfaces.HasList
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
-import com.vladislavmyasnikov.common.presentation.view.VMFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 
 abstract class VMListFragment<T : Identifiable<T>> : VMFragment<List<T>>(R.layout.linear_recycler_view) {
 

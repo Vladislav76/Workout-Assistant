@@ -4,8 +4,9 @@ import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutHeaderContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.dialogs.WorkoutExerciseDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutExerciseListContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutHeaderContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.content.WorkoutSetContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutSetHost
@@ -33,6 +34,9 @@ abstract class ContentFragmentBindingModule {
 
     @Binds @IntoMap @PerScreen @FragmentKey(WorkoutSetContent::class)
     abstract fun bind5(impl: WorkoutSetContent): Fragment
+
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseDialog::class)
+    abstract fun bind6(impl: WorkoutExerciseDialog): Fragment
 }
 
 @Module

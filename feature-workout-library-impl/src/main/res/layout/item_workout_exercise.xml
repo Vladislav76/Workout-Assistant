@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="?selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/main_workout_exercise_panel"
@@ -29,6 +30,7 @@
             android:layout_marginStart="8dp"
             android:layout_gravity="center"
             android:lines="2"
+            android:textAppearance="@style/ItemTitle"
             tools:text="Exercise for beginners exercise title. Exercise for beginners exercise title. Exercise for beginners exercise title."/>
     </LinearLayout>
 

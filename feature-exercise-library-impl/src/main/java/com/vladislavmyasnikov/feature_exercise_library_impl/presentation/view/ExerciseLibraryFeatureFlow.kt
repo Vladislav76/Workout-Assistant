@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.FlowFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.FlowFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryLauncher

@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.presentation.view.VMFragment
+import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 import com.vladislavmyasnikov.common.utils.TimePointFormatter
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
