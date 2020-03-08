@@ -1,63 +1,29 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.utils.DiffUtilCallback
+import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkoutInfo
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.ShortWorkout
 import kotlinx.android.synthetic.main.item_workout.view.*
 import javax.inject.Inject
 
-class WorkoutAdapter @Inject constructor(private val context: Context) : RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
+class WorkoutAdapter @Inject constructor() : SelectableBaseAdapter<ShortWorkout>() {
 
-    var callback: OnItemClickCallback? = null
-
-    private var currentItems: List<ShortWorkoutInfo> = emptyList()
-    private var sourceItems: List<ShortWorkoutInfo> = emptyList()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun constructViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_workout, parent, false)
-        val holder = ViewHolder(view, context)
-
-        holder.itemView.setOnClickListener {
-            val item = currentItems[holder.adapterPosition]
-            callback?.onClick(item.id, item.title)
-        }
-        return holder
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentItems[position])
-    }
+    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortWorkout>(view) {
 
-    override fun getItemId(position: Int): Long = currentItems[position].id
-
-    override fun getItemCount(): Int = currentItems.size
-
-    fun setList(items: List<ShortWorkoutInfo>) {
-        sourceItems = items
-        updateList(items)
-    }
-
-    private fun updateList(items: List<ShortWorkoutInfo>) {
-        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(currentItems, items))
-        currentItems = items
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
-
-        fun bind(item: ShortWorkoutInfo) {
-            val resID = context.resources.getIdentifier(item.avatarID, "drawable", context.packageName)
-            itemView.workout_icon.setImageDrawable(ContextCompat.getDrawable(context, resID))
-            itemView.title_field.text = item.title
+        override fun bind(item: ShortWorkout) {
+            val resID = itemView.context.resources.getIdentifier(item.avatarID, "drawable", itemView.context.packageName)
+            itemView.workout_avatar.setImageDrawable(ContextCompat.getDrawable(itemView.context, resID))
+            itemView.workout_title.text = item.title
         }
     }
 }

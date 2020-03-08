@@ -5,6 +5,7 @@ import io.reactivex.Single
 
 interface WorkoutRepository {
 
-    fun fetchShortWorkoutsInfo(): Observable<List<ShortWorkoutInfo>>
-    fun fetchFullWorkoutInfo(id: Long): Single<FullWorkoutInfo>
+    fun fetchShortWorkoutList(): Observable<List<ShortWorkout>>
+    fun fetchFullWorkout(id: Long): Single<FullWorkout>
+    fun fetchWorkoutSetList(id: Long): Single<List<WorkoutSet>>
 }

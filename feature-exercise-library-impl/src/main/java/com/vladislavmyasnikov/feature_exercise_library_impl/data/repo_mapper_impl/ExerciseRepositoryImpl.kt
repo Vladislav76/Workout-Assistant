@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl
 
-import com.vladislavmyasnikov.common.di.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo

@@ -3,15 +3,14 @@ package com.vladislavmyasnikov.sample_app.presentation.view
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.interfaces.RouterHolder
 import com.vladislavmyasnikov.sample_app.R
 import com.vladislavmyasnikov.sample_app.presentation.Controller
-import com.vladislavmyasnikov.sample_app.presentation.SampleApp
 import com.vladislavmyasnikov.sample_app.presentation.Screens
+import dagger.android.AndroidInjection
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     lateinit var navigatorHolder: NavigatorHolder
 
     private lateinit var navigator: Navigator
-    private lateinit var toolbar: Toolbar
 
     private val bottomPanelListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem: MenuItem ->
         when (menuItem.itemId) {
@@ -39,13 +37,12 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        SampleApp.INSTANCE.appComponent.inject(this)
+
         navigator = SupportAppNavigator(this, supportFragmentManager, R.id.content_frame)
         setContentView(R.layout.activity_main)
 
-        toolbar = findViewById<Toolbar>(R.id.toolbar).apply { title = "" }
-        setSupportActionBar(toolbar)
         Controller.activity = this
 
         val bottomPanel = findViewById<BottomNavigationView>(R.id.bottom_panel)
@@ -114,9 +111,5 @@ class MainActivity : AppCompatActivity(), RouterHolder {
         newFragment?.let { transaction.attach(newFragment) }
         currentFragment?.let { transaction.detach(currentFragment) }
         transaction.commitNow()
-    }
-
-    companion object {
-        private const val TAG = "MAIN_ACTIVITY"
     }
 }

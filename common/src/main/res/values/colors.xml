@@ -10,6 +10,8 @@
     <color name="gray">#ACA7A7</color>
     <color name="black">#000000</color>
 
+    <color name="light_black">#1D1C1C</color>
+
     <color name="dividerEdgeColor">#6CB4DD</color>
     <color name="dividerCenterColor">#964DAB</color>
 </resources>
