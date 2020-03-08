@@ -30,7 +30,7 @@
             android:layout_marginStart="8dp"
             android:layout_gravity="center"
             android:lines="2"
-            android:textAppearance="@style/ItemTitle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             tools:text="Exercise for beginners exercise title. Exercise for beginners exercise title. Exercise for beginners exercise title."/>
     </LinearLayout>
 
@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             tools:text="x500"/>
 
         <TextView
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             tools:text="100 kg"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
