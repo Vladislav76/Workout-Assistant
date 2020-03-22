@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+apply from: '../gradle/scripts/plugins.gradle'
+
+apply from: '../gradle/scripts/android.gradle'
+
+apply from: '../gradle/scripts/shared_deps.gradle'
+apply from: '../gradle/scripts/not_api_deps.gradle'

@@ -1,1 +1,20 @@
+apply plugin: 'com.android.application'
+apply from: '../gradle/scripts/plugins.gradle'
+
+apply from: '../gradle/scripts/android.gradle'
 android.defaultConfig.applicationId = "com.vladislavmyasnikov.sample_app"
+
+apply from: '../gradle/scripts/shared_deps.gradle'
+apply from: '../gradle/scripts/not_api_deps.gradle'
+dependencies {
+    // Project modules > Feature implementations
+    implementation project(':feature-diary-impl')
+    implementation project(':feature-exercise-library-impl')
+    implementation project(':feature-workout-library-impl')
+
+    // Common module
+    implementation project(':common')
+
+    // Feature APIs module
+    implementation project(':features-api')
+}
