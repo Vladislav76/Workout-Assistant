@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepos
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
-import com.vladislavmyasnikov.features_api.exercise_library.WorkoutExerciseInfo
+import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class ExerciseRepositoryImpl @Inject constructor(private val localDataSource: Lo
         return localDataSource.exerciseLibraryDao().loadExerciseInfoById(id).map(EntityToModelFullExerciseInfoMapper::map)
     }
 
-    override fun fetchWorkoutExercisesInfo(ids: List<Long>): Single<List<WorkoutExerciseInfo>> {
+    override fun fetchExercises(ids: List<Long>): Single<List<ExerciseInfo>> {
         return localDataSource.exerciseLibraryDao().loadExercisesInfo(ids)
     }
 }

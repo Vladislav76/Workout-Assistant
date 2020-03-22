@@ -2,7 +2,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_imp
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.*
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.FullWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSet
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -35,7 +38,7 @@ class WorkoutRepositoryImpl @Inject constructor(
                     loadWorkoutExerciseList(workoutExerciseIDs).flatMap { workoutExercises ->
                         val exerciseIDs = workoutExercises.map { workoutExercise -> workoutExercise.exerciseId }
 
-                        exerciseLibraryInteractor.fetchWorkoutExercisesInfo(exerciseIDs).map { exercises ->
+                        exerciseLibraryInteractor.fetchExercises(exerciseIDs).map { exercises ->
                             Entity2ModelWorkoutSetMapper.exercises = exercises
                             Entity2ModelWorkoutSetMapper.workoutExercises = workoutExercises
                             Entity2ModelWorkoutSetMapper.map(workoutSets)

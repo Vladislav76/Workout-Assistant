@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface ExerciseLibraryInteractor {
 
-    fun fetchWorkoutExercisesInfo(ids: List<Long>): Single<List<WorkoutExerciseInfo>>
+    fun fetchExercises(ids: List<Long>): Single<List<ExerciseInfo>>
 }

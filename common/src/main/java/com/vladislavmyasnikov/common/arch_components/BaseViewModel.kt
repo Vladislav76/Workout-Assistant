@@ -12,27 +12,27 @@ abstract class BaseViewModel<T, E> : ViewModel() {
 
     abstract val label: String
 
-    private val _items = BehaviorSubject.create<T>()
-    private val _events = PublishSubject.create<Event>()
-    private val _errors = PublishSubject.create<E>()
+    private val itemSubject = BehaviorSubject.create<T>()
+    private val eventSubject = PublishSubject.create<Event>()
+    private val errorSubject = PublishSubject.create<E>()
     protected val disposables = CompositeDisposable()
 
-    val items: Observable<T> = _items
-    val errors: Observable<E> = _errors
-    val events: Observable<Event> = _events
+    val items: Observable<T> = itemSubject
+    val errors: Observable<E> = errorSubject
+    val events: Observable<Event> = eventSubject
 
     protected fun pushItem(item: T) {
-        _items.onNext(item)
+        itemSubject.onNext(item)
         Logger.debug(label, "New item: $item")
     }
 
     protected fun pushError(error: E) {
-        _errors.onNext(error)
+        errorSubject.onNext(error)
         Logger.debug(label, "New error: $error")
     }
 
     protected fun pushEvent(event: Event) {
-        _events.onNext(event)
+        eventSubject.onNext(event)
         Logger.debug(label, "New event: $event")
     }
 

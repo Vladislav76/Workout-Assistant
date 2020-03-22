@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.Screens
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListToolbarContent
@@ -22,6 +22,7 @@ class WorkoutListScreenHost @Inject constructor(
 
     override val children = listOf(
             R.id.header_container to WorkoutListToolbarContent::class.java,
+//            R.id.body_container to SampleContent::class.java,
             R.id.body_container to WorkoutListContent::class.java
     )
 

@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.ShortExerciseInfo
-import com.vladislavmyasnikov.features_api.exercise_library.WorkoutExerciseInfo
+import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -20,7 +20,7 @@ interface ExerciseLibraryDao {
     fun loadExerciseInfoById(id: Long): Single<FullExerciseInfo>
 
     @Query("SELECT id, title, avatar_id FROM exercise_library WHERE id IN (:ids)")
-    fun loadExercisesInfo(ids: List<Long>): Single<List<WorkoutExerciseInfo>>
+    fun loadExercisesInfo(ids: List<Long>): Single<List<ExerciseInfo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertExercisesInfo(info: List<FullExerciseInfo>)

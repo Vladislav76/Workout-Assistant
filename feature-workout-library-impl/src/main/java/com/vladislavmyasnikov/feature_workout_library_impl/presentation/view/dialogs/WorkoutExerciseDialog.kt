@@ -7,15 +7,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.VMDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.WorkoutExercise
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodels.WorkoutExerciseListVM
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmodel.WorkoutExerciseVM
 import kotlinx.android.synthetic.main.content_workout_exercise_details.*
 import javax.inject.Inject
 
 class WorkoutExerciseDialog @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMDialog<List<WorkoutExercise>>(R.layout.content_workout_exercise_details) {
+) : VMDialog<WorkoutExercise>(R.layout.content_workout_exercise_details) {
 
     companion object {
         private const val ARG_WORKOUT_EXERCISE_ID = "workout_exercise_id"
@@ -23,20 +23,23 @@ class WorkoutExerciseDialog @Inject constructor(
 
     override val label = "WORKOUT_EXERCISE_DF"
 
-    override val viewModel: WorkoutExerciseListVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseListVM::class.java)
+    override val viewModel: WorkoutExerciseVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseVM::class.java)
     }
 
-    override fun onReceiveItem(_item: List<WorkoutExercise>) {
-        val workoutExerciseID = arguments!!.getLong(ARG_WORKOUT_EXERCISE_ID)
-        val item = viewModel.fetchWorkoutExercise(workoutExerciseID)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState == null) {
+            viewModel.fetch(arguments!!.getLong(ARG_WORKOUT_EXERCISE_ID))
+        }
+    }
 
-        val resID = requireContext().resources.getIdentifier(item.avatarID, "drawable", requireContext().packageName)
+    override fun onReceiveItem(item: WorkoutExercise) {
+        val resID = requireContext().resources.getIdentifier(item.info.avatarID, "drawable", requireContext().packageName)
         workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), resID))
-
-        workout_exercise_title.text = item.title
-        workout_exercise_reps.text = item.reps[viewModel.workoutSetApproach].toString()
-        workout_exercise_weight.text = item.weights[viewModel.workoutSetApproach].toString()
+        workout_exercise_title.text = item.info.title
+        workout_exercise_reps.text = item.approachInfo.reps.toString()
+        workout_exercise_weight.text = item.approachInfo.weight.toString()
     }
 
     fun putArguments(id: Long) {

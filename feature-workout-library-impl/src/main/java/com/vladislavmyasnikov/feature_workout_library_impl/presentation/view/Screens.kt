@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.view
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.feature_workout_library_impl.di.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout.host.WorkoutScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_details.host.WorkoutScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.host.WorkoutListScreenHost
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
