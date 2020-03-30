@@ -1,25 +1,24 @@
 dependencies {
-    // AndroidX   : Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
 
-    // DI > Dagger
-    implementation "com.google.dagger:dagger:$versions.dagger"
-    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
-    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    // Database
+    implementation deps.db.room
+    implementation deps.db.rxBindings
+    kapt deps.kapt.db.roomCompiler
 
-    // Navigation > Cicerone
-    implementation "ru.terrakok.cicerone:cicerone:$versions.cicerone"
+    // Navigation
+    implementation deps.navigation.cicerone
 
-    // Material Design
-    implementation "com.google.android.material:material:$versions.material"
+    // UI
+    implementation deps.ui.constraintLayout
+    implementation deps.ui.materialDesign
 
-    // AndroidX > Room
-    implementation "androidx.room:room-runtime:$versions.room"
-    implementation "androidx.room:room-rxjava2:$versions.room"
-    kapt "androidx.room:room-compiler:$versions.room"
+    // DI
+    implementation deps.di.dagger
+    implementation deps.di.daggerSupport
+    kapt deps.kapt.di.daggerCompiler
+    kapt deps.kapt.di.daggerProcessor
 
-    // AndroidX > Lifecycle
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+    // Architecture
+    implementation deps.arch.lifecycleVM
+    kapt deps.kapt.arch.lifecycleCompiler
 }

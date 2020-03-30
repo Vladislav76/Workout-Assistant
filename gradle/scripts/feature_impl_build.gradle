@@ -7,6 +7,7 @@ apply from: '../gradle/scripts/shared_deps.gradle'
 apply from: '../gradle/scripts/not_api_deps.gradle'
 
 dependencies {
+
     // Common module
     implementation project(':common')
 
