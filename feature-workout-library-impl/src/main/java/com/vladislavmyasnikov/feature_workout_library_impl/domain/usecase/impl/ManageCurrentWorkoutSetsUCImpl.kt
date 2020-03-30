@@ -4,7 +4,6 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.api.*
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -12,31 +11,36 @@ import javax.inject.Inject
 @PerFeature
 class ManageCurrentWorkoutSetsUCImpl @Inject constructor(
         private val getWorkoutPlanSetsUC: GetWorkoutPlanSetsUC
-) : GetCurrentWorkoutExercisesUC, ChangeWorkoutSetConfigUC, GetWorkoutSetConfigUC, GetWorkoutExerciseUC {
+) : RequestWorkoutPlanInfoUC, GetCurrentWorkoutExercisesUC, GetWorkoutSetConfigUC, GetWorkoutExerciseUC, ChangeWorkoutSetConfigUC {
 
     private var currentSetNumber = -1
     private var currentApproach = -1
     private var currentWorkoutPlanID = -1L
-    private var currentWorkoutSets = listOf<WorkoutSet>()
-    private lateinit var currentExercisesSubject: PublishSubject<List<WorkoutExercise>>
+    private var currentSets = listOf<WorkoutSet>()
+    private var currentExercisesSubject = PublishSubject.create<List<WorkoutExercise>>()
     private val workoutSetConfigSubject = PublishSubject.create<WorkoutSetConfig>()
 
-    override fun invoke(workoutPlanID: Long, spike: Int): Observable<List<WorkoutExercise>> {
-        if (workoutPlanID != currentWorkoutPlanID) {
-            currentExercisesSubject = PublishSubject.create<List<WorkoutExercise>>()
-            currentWorkoutPlanID = workoutPlanID
+    override fun invoke(workoutPlanID: Long) {
+        // TODO: what to do with disposable ???
+        // TODO: what if workoutPlanID == currentWorkoutPlanID
+        val disposable = getWorkoutPlanSetsUC(workoutPlanID)
+                .subscribeOn(Schedulers.io())
+                .subscribe({ sets ->
+                    currentSets = sets
+                    currentWorkoutPlanID = workoutPlanID
+                    initialSetup()
+                }, { error ->
+                    // TODO: send error
+                })
+    }
 
-            // TODO: what to do with disposable ???
-            val disposable = getWorkoutPlanSetsUC(workoutPlanID)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ sets ->
-                        currentWorkoutSets = sets
-                        setInitialNumberAndApproach()
-                    }, { error ->
-                        // TODO: send error
-                    })
-        }
-        return currentExercisesSubject
+    override fun invoke(spike: Int): Observable<List<WorkoutExercise>> = currentExercisesSubject
+
+    override fun invoke(): Observable<WorkoutSetConfig> = workoutSetConfigSubject
+
+    override fun invoke(exerciseID: Long, spike: Int): WorkoutExercise {
+        val exercise = currentSets[currentSetNumber].elements.find { exercise -> exercise.first.id == exerciseID }!!
+        return WorkoutExercise(exercise.first, exercise.second[currentApproach])
     }
 
     override fun setNumber(number: Int) {
@@ -56,14 +60,7 @@ class ManageCurrentWorkoutSetsUCImpl @Inject constructor(
         }
     }
 
-    override fun invoke(): Observable<WorkoutSetConfig> = workoutSetConfigSubject
-
-    override fun invoke(exerciseID: Long): WorkoutExercise {
-        val exercise = currentWorkoutSets[currentSetNumber].elements.find { exercise -> exercise.first.id == exerciseID }!!
-        return WorkoutExercise(exercise.first, exercise.second[currentApproach])
-    }
-
-    private fun setInitialNumberAndApproach() {
+    private fun initialSetup() {
         currentSetNumber = 0
         currentApproach = 0
         pushWorkoutExercises()
@@ -71,15 +68,12 @@ class ManageCurrentWorkoutSetsUCImpl @Inject constructor(
     }
 
     private fun pushWorkoutExercises() {
-        val result = currentWorkoutSets[currentSetNumber].elements.map { exercise ->
-            WorkoutExercise(exercise.first, exercise.second[currentApproach])
-        }
-        currentExercisesSubject.onNext(result)
+        val exercises = currentSets[currentSetNumber].elements.map { exercise -> WorkoutExercise(exercise.first, exercise.second[currentApproach]) }
+        currentExercisesSubject.onNext(exercises)
     }
 
     private fun pushWorkoutSetConfig() {
-        workoutSetConfigSubject.onNext(WorkoutSetConfig(currentSetNumber, currentApproach, currentWorkoutSets.size, getCurrentApproachAmount()))
+        val approachAmount = currentSets[currentSetNumber].elements[0].second.size
+        workoutSetConfigSubject.onNext(WorkoutSetConfig(currentSetNumber, currentApproach, currentSets.size, approachAmount))
     }
-
-    private fun getCurrentApproachAmount() = currentWorkoutSets[currentSetNumber].elements[0].second.size
 }

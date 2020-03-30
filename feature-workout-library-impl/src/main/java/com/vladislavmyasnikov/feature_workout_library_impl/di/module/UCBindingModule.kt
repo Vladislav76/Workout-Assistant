@@ -2,10 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.api.*
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl.GetWorkoutPlanSetsUCImpl
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl.GetWorkoutPlanUCImpl
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl.GetWorkoutPlansUCImpl
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl.ManageCurrentWorkoutSetsUCImpl
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl.*
 import dagger.Binds
 import dagger.Module
 
@@ -32,4 +29,16 @@ abstract class UCBindingModule {
 
     @Binds @PerFeature
     abstract fun bind7(impl: ManageCurrentWorkoutSetsUCImpl): GetWorkoutExerciseUC
+
+    @Binds @PerFeature
+    abstract fun bind8(impl: ManageCurrentWorkoutSetsUCImpl): RequestWorkoutPlanInfoUC
+
+    @Binds @PerFeature
+    abstract fun bind9(impl: ManageWorkoutPlayerUCImpl): GetWorkoutExerciseConfigUC
+
+    @Binds @PerFeature
+    abstract fun bind10(impl: ManageWorkoutPlayerUCImpl): GetCurrentWorkoutExerciseUC
+
+    @Binds @PerFeature
+    abstract fun bind11(impl: ManageWorkoutPlayerUCImpl): ManageExecutingWorkoutUC
 }

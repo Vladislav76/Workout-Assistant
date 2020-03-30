@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface GetCurrentWorkoutExercisesUC {
 
-    operator fun invoke(workoutPlanID: Long, spike: Int = 0): Observable<List<WorkoutExercise>>
+    operator fun invoke(spike: Int = 0): Observable<List<WorkoutExercise>>
 }

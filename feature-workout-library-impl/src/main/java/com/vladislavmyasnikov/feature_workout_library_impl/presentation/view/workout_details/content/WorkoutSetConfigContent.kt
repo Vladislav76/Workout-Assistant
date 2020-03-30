@@ -63,7 +63,7 @@ class WorkoutSetConfigContent @Inject constructor(
     override fun onReceiveItem(item: WorkoutSetConfig) {
         workoutSetNumberAdapter.lastNumber = item.setAmount
         workoutSetApproachAdapter.lastNumber = item.approachAmount
-        workout_set_number.setSelection(item.number)
+        workout_set_number.setSelection(item.setIndex)
         workout_set_approach.setSelection(item.approach)
     }
 
