@@ -49,12 +49,12 @@ class WorkoutSetConfigContent @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        workoutSetNumberAdapter = NaturalNumberAdapter(requireContext(), android.R.layout.simple_spinner_item, R.string.workout_set_number_label)
+        workoutSetNumberAdapter = NaturalNumberAdapter(requireContext(), android.R.layout.simple_spinner_item, R.string.set_label)
         workoutSetNumberAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         workout_set_number.adapter = workoutSetNumberAdapter
         workout_set_number.onItemSelectedListener = workoutSetNumberClickCallback
 
-        workoutSetApproachAdapter = NaturalNumberAdapter(requireContext(), android.R.layout.simple_spinner_item, R.string.workout_set_approach_label)
+        workoutSetApproachAdapter = NaturalNumberAdapter(requireContext(), android.R.layout.simple_spinner_item, R.string.approach_label)
         workoutSetApproachAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         workout_set_approach.adapter = workoutSetApproachAdapter
         workout_set_approach.onItemSelectedListener = workoutSetApproachClickCallback

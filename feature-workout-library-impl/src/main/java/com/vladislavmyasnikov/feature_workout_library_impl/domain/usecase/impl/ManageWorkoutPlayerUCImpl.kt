@@ -64,6 +64,7 @@ class ManageWorkoutPlayerUCImpl @Inject constructor(
     override fun next() {
         if (++currentExerciseIndex < currentExercises.size) {
             pushCurrentWorkoutExercise()
+            pushWorkoutExerciseConfig()
         } else if (currentSetConfig.approach + 1 < currentSetConfig.approachAmount) {
             changeWorkoutSetConfigUC.setApproach(currentSetConfig.approach + 1)
         } else if (currentSetConfig.setIndex + 1 < currentSetConfig.setAmount) {
@@ -80,7 +81,7 @@ class ManageWorkoutPlayerUCImpl @Inject constructor(
 
     private fun pushWorkoutExerciseConfig() {
         val config = WorkoutExerciseConfig(
-                currentSetConfig.setIndex, currentExerciseIndex, currentSetConfig.approach,
+                currentSetConfig.setIndex + 1, currentExerciseIndex + 1, currentSetConfig.approach + 1,
                 currentSetConfig.setAmount, currentExercises.size, currentSetConfig.approachAmount
         )
         workoutExerciseConfigSubject.onNext(config)

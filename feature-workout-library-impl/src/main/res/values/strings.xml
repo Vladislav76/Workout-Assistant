@@ -4,8 +4,9 @@
     <string name="workout_list_screen_title">Workouts</string>
 
     <string name="description_label">Description</string>
-    <string name="workout_set_number_label">Set</string>
-    <string name="workout_set_approach_label">Approach</string>
+    <string name="set_label">Set</string>
+    <string name="exercise_label">Exercise</string>
+    <string name="approach_label">Approach</string>
     <string name="num_label">Num</string>
 
     <string name="description_hint">No description</string>

@@ -13,6 +13,10 @@ import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.wor
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.content.WorkoutListToolbarContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_list.host.WorkoutListScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_player.content.ControlPanelContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_player.content.WorkoutExerciseConfigContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_player.content.WorkoutExerciseContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.view.workout_player.host.WorkoutPlayerScreenHost
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -37,6 +41,15 @@ abstract class ContentFragmentBindingModule {
 
     @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseDialog::class)
     abstract fun bind6(impl: WorkoutExerciseDialog): Fragment
+
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseConfigContent::class)
+    abstract fun bind7(impl: WorkoutExerciseConfigContent): Fragment
+
+    @Binds @IntoMap @PerScreen @FragmentKey(ControlPanelContent::class)
+    abstract fun bind8(impl: ControlPanelContent): Fragment
+
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseContent::class)
+    abstract fun bind9(impl: WorkoutExerciseContent): Fragment
 }
 
 @Module
@@ -50,4 +63,7 @@ abstract class HostFragmentBindingModule {
 
     @Binds @IntoMap @PerFeature @FragmentKey(WorkoutScreenHost::class)
     abstract fun bind3(impl: WorkoutScreenHost): Fragment
+
+    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutPlayerScreenHost::class)
+    abstract fun bind4(impl: WorkoutPlayerScreenHost): Fragment
 }
