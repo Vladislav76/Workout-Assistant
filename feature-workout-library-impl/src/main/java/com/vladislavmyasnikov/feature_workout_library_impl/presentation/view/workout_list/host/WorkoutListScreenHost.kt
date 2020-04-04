@@ -22,7 +22,6 @@ class WorkoutListScreenHost @Inject constructor(
 
     override val children = listOf(
             R.id.header_container to WorkoutListToolbarContent::class.java,
-//            R.id.body_container to SampleContent::class.java,
             R.id.body_container to WorkoutListContent::class.java
     )
 

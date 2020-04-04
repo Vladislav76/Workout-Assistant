@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.features_api.workout_library.WorkoutLibraryLaunche
 import dagger.Binds
 import dagger.Module
 
-@Module(includes = [DatabaseModule::class, LocalNavigationModule::class, DependencyModule::class, UCBindingModule::class])
+@Module(includes = [DatabaseModule::class, LocalNavigationModule::class, DependencyModule::class])
 abstract class FeatureModule {
 
     @Binds @PerFeature

@@ -27,10 +27,10 @@ class WorkoutSetConfigVM @Inject constructor(
     }
 
     fun updateWorkoutSetNumber(number: Int) {
-        changeWorkoutSetConfigUC.setNumber(number)
+        changeWorkoutSetConfigUC.putSetIndex(number)
     }
 
     fun updateWorkoutSetApproach(approach: Int) {
-        changeWorkoutSetConfigUC.setApproach(approach)
+        changeWorkoutSetConfigUC.putApproachIndex(approach)
     }
 }
