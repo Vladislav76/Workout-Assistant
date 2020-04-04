@@ -48,7 +48,7 @@ abstract class FlowFragment : BaseFragment(R.layout.fragment_container), OnBackP
     }
 
     protected open fun inject() {
-        navigator = SupportAppNavigator(activity, childFragmentManager, R.id.container)
+        navigator = SupportAppNavigator(requireActivity(), childFragmentManager, R.id.container)
     }
 
     protected open fun onStartUp() {}

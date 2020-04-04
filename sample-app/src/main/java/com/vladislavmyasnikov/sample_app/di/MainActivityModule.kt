@@ -14,8 +14,8 @@ class MainActivityModule {
     fun provideController() = Controller
 
     @Provides
-    fun provideMainRouter() = mainCicerone.router!!
+    fun provideMainRouter() = mainCicerone.router
 
     @Provides
-    fun provideMainNavigatorHolder() = mainCicerone.navigatorHolder!!
+    fun provideMainNavigatorHolder() = mainCicerone.navigatorHolder
 }

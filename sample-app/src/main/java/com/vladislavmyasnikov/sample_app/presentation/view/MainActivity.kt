@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), RouterHolder {
                 "diary" -> Screens.DiaryScreen()
                 else -> return
             }
-            transaction.add(R.id.content_frame, screen.fragment, tag)
+            transaction.add(R.id.content_frame, screen.fragment!!, tag)
         }
         newFragment?.let { transaction.attach(newFragment) }
         currentFragment?.let { transaction.detach(currentFragment) }
