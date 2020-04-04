@@ -30,8 +30,8 @@ class WorkoutExerciseAdapter @Inject constructor() : SelectableBaseAdapter<Worko
             val resID = itemView.context.resources.getIdentifier(item.info.avatarID, "drawable", itemView.context.packageName)
             itemView.workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(itemView.context, resID))
             itemView.workout_exercise_title.text = item.info.title
-            itemView.workout_exercise_reps.text = item.approachInfo.reps.toString()
-            itemView.workout_exercise_weight.text = item.approachInfo.weight.toString()
+            itemView.workout_exercise_reps.text = item.exerciseApproachData.reps.toString()
+            itemView.workout_exercise_weight.text = item.exerciseApproachData.weight.toString()
         }
     }
 }

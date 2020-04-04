@@ -26,8 +26,8 @@ class WorkoutExerciseContent @Inject constructor(
         val resID = requireContext().resources.getIdentifier(item.info.avatarID, "drawable", requireContext().packageName)
         workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), resID))
         workout_exercise_title.text = item.info.title
-        workout_exercise_reps.text = item.approachInfo.reps.toString()
-        workout_exercise_weight.text = item.approachInfo.weight.toString()
+        workout_exercise_reps.text = item.exerciseApproachData.reps.toString()
+        workout_exercise_weight.text = item.exerciseApproachData.weight.toString()
     }
 
     override fun onReceivePacket(packet: Packet) {

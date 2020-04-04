@@ -1,9 +1,7 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.impl
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseConfig
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSetConfig
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.api.*
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -16,21 +14,40 @@ class ManageWorkoutPlayerUCImpl @Inject constructor(
         private val getCurrentWorkoutExercisesUC: GetCurrentWorkoutExercisesUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getWorkoutSetConfigUC: GetWorkoutSetConfigUC
-) : GetWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, ManageExecutingWorkoutUC {
+) : GetWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, GetCurrentExerciseApproachDataUC, SetCurrentExerciseApproachDataUC, ManageExecutingWorkoutUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
     private var currentExercises = listOf<WorkoutExercise>()
+    private lateinit var workoutData: MutableList<WorkoutSetData>
+
+    private val workoutExerciseSubject = PublishSubject.create<WorkoutExercise>()
     private val workoutExerciseConfigSubject = PublishSubject.create<WorkoutExerciseConfig>()
-    private val currentWorkoutExerciseSubject = PublishSubject.create<WorkoutExercise>()
+    private val exerciseApproachDataSubject = PublishSubject.create<ExerciseApproachData>()
 
     override fun invoke(): Observable<WorkoutExerciseConfig> = workoutExerciseConfigSubject
 
-    override fun invoke(spike: Int): Observable<WorkoutExercise> = currentWorkoutExerciseSubject
+    override fun invoke(spike: Int): Observable<WorkoutExercise> = workoutExerciseSubject
+
+    override fun invoke(spike: Int, spike2: Int): Observable<ExerciseApproachData> = exerciseApproachDataSubject
+
+    override fun setRepetitions(reps: Int) {
+        val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
+        data.reps = reps
+        pushCurrentExerciseApproachData()
+    }
+
+    override fun setWeight(weight: Float) {
+        val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
+        data.weight = weight
+        pushCurrentExerciseApproachData()
+    }
 
     // TODO: may be remove RX-stream from here ???
     override fun start(workoutPlanID: Long) {
         requestWorkoutPlanInfoUC(workoutPlanID)
+        workoutData = mutableListOf()
+        currentSetConfig = WorkoutSetConfig(-1, -1, -1, -1, -1)
 
         val disposable = getCurrentWorkoutExercisesUC()
                 .subscribeOn(Schedulers.io())
@@ -45,8 +62,12 @@ class ManageWorkoutPlayerUCImpl @Inject constructor(
         val disposable2 = getWorkoutSetConfigUC()
                 .subscribeOn(Schedulers.io())
                 .subscribe({ config ->
+                    if (config.setIndex > currentSetConfig.setIndex) {
+                        workoutData.add(WorkoutSetData(config.exerciseAmount, config.approachAmount))
+                    }
                     currentSetConfig = config
                     pushWorkoutExerciseConfig()
+                    pushCurrentExerciseApproachData()
                 }, { error ->
                     // TODO: send error
                 })
@@ -62,26 +83,38 @@ class ManageWorkoutPlayerUCImpl @Inject constructor(
     }
 
     override fun next() {
-        if (++currentExerciseIndex < currentExercises.size) {
-            pushCurrentWorkoutExercise()
-            pushWorkoutExerciseConfig()
-        } else if (currentSetConfig.approach + 1 < currentSetConfig.approachAmount) {
-            changeWorkoutSetConfigUC.setApproach(currentSetConfig.approach + 1)
-        } else if (currentSetConfig.setIndex + 1 < currentSetConfig.setAmount) {
-            changeWorkoutSetConfigUC.setNumber(currentSetConfig.setIndex + 1)
-        } else {
-            stop()
+        currentExerciseIndex++
+        when {
+            currentExerciseIndex < currentExercises.size -> {
+                pushCurrentWorkoutExercise()
+                pushWorkoutExerciseConfig()
+                pushCurrentExerciseApproachData()
+            }
+            currentSetConfig.approachIndex + 1 < currentSetConfig.approachAmount -> {
+                changeWorkoutSetConfigUC.setApproach(currentSetConfig.approachIndex + 1)
+            }
+            currentSetConfig.setIndex + 1 < currentSetConfig.setAmount -> {
+                changeWorkoutSetConfigUC.setNumber(currentSetConfig.setIndex + 1)
+            }
+            else -> {
+                stop()
+            }
         }
+    }
+
+    private fun pushCurrentExerciseApproachData() {
+        val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
+        exerciseApproachDataSubject.onNext(data)
     }
 
     private fun pushCurrentWorkoutExercise() {
         val exercise = currentExercises[currentExerciseIndex]
-        currentWorkoutExerciseSubject.onNext(exercise)
+        workoutExerciseSubject.onNext(exercise)
     }
 
     private fun pushWorkoutExerciseConfig() {
         val config = WorkoutExerciseConfig(
-                currentSetConfig.setIndex + 1, currentExerciseIndex + 1, currentSetConfig.approach + 1,
+                currentSetConfig.setIndex + 1, currentExerciseIndex + 1, currentSetConfig.approachIndex + 1,
                 currentSetConfig.setAmount, currentExercises.size, currentSetConfig.approachAmount
         )
         workoutExerciseConfigSubject.onNext(config)

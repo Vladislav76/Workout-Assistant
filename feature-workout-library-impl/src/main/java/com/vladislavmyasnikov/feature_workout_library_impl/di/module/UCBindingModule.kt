@@ -41,4 +41,10 @@ abstract class UCBindingModule {
 
     @Binds @PerFeature
     abstract fun bind11(impl: ManageWorkoutPlayerUCImpl): ManageExecutingWorkoutUC
+
+    @Binds @PerFeature
+    abstract fun bind12(impl: ManageWorkoutPlayerUCImpl): SetCurrentExerciseApproachDataUC
+
+    @Binds @PerFeature
+    abstract fun bind13(impl: ManageWorkoutPlayerUCImpl): GetCurrentExerciseApproachDataUC
 }

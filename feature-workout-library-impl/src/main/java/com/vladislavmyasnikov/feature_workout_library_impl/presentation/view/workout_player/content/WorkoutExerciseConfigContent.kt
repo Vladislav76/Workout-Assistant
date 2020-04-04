@@ -26,7 +26,7 @@ class WorkoutExerciseConfigContent @Inject constructor(
         set_progress.text = setText
         val exerciseText = "${resources.getString(R.string.exercise_label)} ${item.exerciseIndex}/${item.exerciseAmount}"
         exercise_progress.text = exerciseText
-        val approachText = "${resources.getString(R.string.approach_label)} ${item.approach}/${item.approachAmount}"
+        val approachText = "${resources.getString(R.string.approach_label)} ${item.approachIndex}/${item.approachAmount}"
         approach_progress.text = approachText
     }
 

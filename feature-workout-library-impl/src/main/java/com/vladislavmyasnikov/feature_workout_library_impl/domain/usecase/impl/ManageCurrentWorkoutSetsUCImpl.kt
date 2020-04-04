@@ -73,7 +73,8 @@ class ManageCurrentWorkoutSetsUCImpl @Inject constructor(
     }
 
     private fun pushWorkoutSetConfig() {
+        val exerciseAmount = currentSets[currentSetNumber].elements.size
         val approachAmount = currentSets[currentSetNumber].elements[0].second.size
-        workoutSetConfigSubject.onNext(WorkoutSetConfig(currentSetNumber, currentApproach, currentSets.size, approachAmount))
+        workoutSetConfigSubject.onNext(WorkoutSetConfig(currentSetNumber, currentApproach, currentSets.size, exerciseAmount, approachAmount))
     }
 }

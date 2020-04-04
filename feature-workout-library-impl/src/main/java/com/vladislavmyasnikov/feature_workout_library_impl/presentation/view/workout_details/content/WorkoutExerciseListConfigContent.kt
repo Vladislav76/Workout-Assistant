@@ -14,7 +14,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.presentation.viewmode
 import kotlinx.android.synthetic.main.content_workout_set_details.*
 import javax.inject.Inject
 
-class WorkoutSetConfigContent @Inject constructor(
+class WorkoutExerciseListConfigContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutSetConfig>(R.layout.content_workout_set_details) {
@@ -64,7 +64,7 @@ class WorkoutSetConfigContent @Inject constructor(
         workoutSetNumberAdapter.lastNumber = item.setAmount
         workoutSetApproachAdapter.lastNumber = item.approachAmount
         workout_set_number.setSelection(item.setIndex)
-        workout_set_approach.setSelection(item.approach)
+        workout_set_approach.setSelection(item.approachIndex)
     }
 
     override fun onReceivePacket(packet: Packet) {

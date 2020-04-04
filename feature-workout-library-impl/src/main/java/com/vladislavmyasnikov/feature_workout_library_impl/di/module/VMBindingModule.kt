@@ -31,4 +31,7 @@ abstract class VMBindingModule {
 
     @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutExerciseConfigVM::class)
     abstract fun bind7(impl: WorkoutExerciseConfigVM): ViewModel
+
+    @Binds @IntoMap @PerScreen @ViewModelKey(ExerciseApproachDataVM::class)
+    abstract fun bind8(impl: ExerciseApproachDataVM): ViewModel
 }

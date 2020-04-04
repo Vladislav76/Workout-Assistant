@@ -11,14 +11,14 @@ data class WorkoutExerciseInfo(
     override fun isIdentical(another: WorkoutExerciseInfo): Boolean = id == another.id
 }
 
-data class ApproachInfo(
-        val reps: Int,
-        val weight: Float
+data class ExerciseApproachData(
+        var reps: Int,
+        var weight: Float
 )
 
 data class WorkoutExercise(
         val info: WorkoutExerciseInfo,
-        val approachInfo: ApproachInfo
+        val exerciseApproachData: ExerciseApproachData
 ) : Identifiable<WorkoutExercise> {
 
     override val id = info.id
@@ -26,4 +26,4 @@ data class WorkoutExercise(
     override fun isIdentical(another: WorkoutExercise): Boolean = id == another.id
 }
 
-typealias WorkoutSetElement = Pair<WorkoutExerciseInfo, List<ApproachInfo>>
+typealias WorkoutSetElement = Pair<WorkoutExerciseInfo, List<ExerciseApproachData>>
