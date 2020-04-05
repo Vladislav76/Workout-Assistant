@@ -17,8 +17,6 @@ class ControlPanelContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<Nothing>(R.layout.content_control_panel) {
 
-    override val label = "CONTROL_PANEL_CF"
-
     override val viewModel: WorkoutPlayerVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutPlayerVM::class.java)
     }

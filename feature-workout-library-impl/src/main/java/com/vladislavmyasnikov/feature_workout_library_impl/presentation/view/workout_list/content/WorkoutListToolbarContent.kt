@@ -18,8 +18,6 @@ class WorkoutListToolbarContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMToolbarFragment<List<ShortWorkout>>() {
 
-    override val label = "WORKOUT_LIST_TOOLBAR_CF"
-
     override val viewModel: WorkoutListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
     }

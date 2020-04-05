@@ -17,8 +17,6 @@ class WorkoutScreenHost @Inject constructor(
         override val router: Router
 ) : CollapsingHeaderHostFragment() {
 
-    override val label: String = "WORKOUT_DETAILS_SCREEN_HF"
-
     override val children = listOf(
             R.id.header_container to WorkoutHeaderContent::class.java,
             R.id.body_container to WorkoutSetHost::class.java

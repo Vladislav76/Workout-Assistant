@@ -18,8 +18,6 @@ class WorkoutListContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMListFragment<ShortWorkout>() {
 
-    override val label = "WORKOUT_LIST_CF"
-
     override val viewModel: WorkoutListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
     }

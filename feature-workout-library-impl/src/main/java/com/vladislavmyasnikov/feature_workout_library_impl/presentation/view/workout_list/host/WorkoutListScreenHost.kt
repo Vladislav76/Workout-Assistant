@@ -18,8 +18,6 @@ class WorkoutListScreenHost @Inject constructor(
         override val router: Router
 ) : HostFragment(R.layout.two_fragment_container) {
 
-    override val label = "WORKOUT_LIST_HF"
-
     override val children = listOf(
             R.id.header_container to WorkoutListToolbarContent::class.java,
             R.id.body_container to WorkoutListContent::class.java

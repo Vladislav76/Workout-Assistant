@@ -1,6 +1,5 @@
 package com.vladislavmyasnikov.common.arch_components
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.Observable
@@ -10,7 +9,7 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class BaseViewModel<T, E> : ViewModel() {
 
-    abstract val label: String
+    abstract val label: String //= "BASE_VIEW_MODEL_LEGACY_LABEL"
 
     private val itemSubject = BehaviorSubject.create<T>()
     private val eventSubject = PublishSubject.create<Event>()
@@ -23,21 +22,21 @@ abstract class BaseViewModel<T, E> : ViewModel() {
 
     protected fun pushItem(item: T) {
         itemSubject.onNext(item)
-        Logger.debug(label, "New item: $item")
+        Logger.debug(this::class, "New item: $item")
     }
 
     protected fun pushError(error: E) {
         errorSubject.onNext(error)
-        Logger.debug(label, "New error: $error")
+        Logger.debug(this::class, "New error: $error")
     }
 
     protected fun pushEvent(event: Event) {
         eventSubject.onNext(event)
-        Logger.debug(label, "New event: $event")
+        Logger.debug(this::class, "New event: $event")
     }
 
     protected fun debugMessage(message: String) {
-        Log.d(label, message)
+        Logger.debug(this::class, message)
     }
 
     override fun onCleared() {

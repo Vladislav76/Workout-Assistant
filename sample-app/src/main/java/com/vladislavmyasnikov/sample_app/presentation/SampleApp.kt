@@ -2,6 +2,7 @@ package com.vladislavmyasnikov.sample_app.presentation
 
 import android.app.Application
 import com.vladislavmyasnikov.sample_app.di.DaggerAppComponent
+import com.vladislavmyasnikov.sample_app.di.FeatureProxyInjector
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -22,5 +23,6 @@ class SampleApp : Application(), HasAndroidInjector {
                 .build()
 
         appComponent.inject(this)
+        FeatureProxyInjector.prepareFeatures()
     }
 }

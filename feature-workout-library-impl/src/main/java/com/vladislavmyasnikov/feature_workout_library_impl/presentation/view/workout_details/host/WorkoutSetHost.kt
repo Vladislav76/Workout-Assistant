@@ -15,8 +15,6 @@ class WorkoutSetHost @Inject constructor(
         override val router: Router
 ) : HostFragment(R.layout.two_fragment_container) {
 
-    override val label = "WORKOUT_SET_HF"
-
     override val children = listOf(
             R.id.header_container to WorkoutExerciseListConfigContent::class.java,
             R.id.body_container to WorkoutExerciseListContent::class.java

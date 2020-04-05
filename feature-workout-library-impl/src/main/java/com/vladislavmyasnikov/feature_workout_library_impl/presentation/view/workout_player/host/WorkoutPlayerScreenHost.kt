@@ -19,8 +19,6 @@ class WorkoutPlayerScreenHost @Inject constructor(
         override val router: Router
 ) : HostFragment(R.layout.four_fragment_container) {
 
-    override val label = "WORKOUT_PLAYER_HF"
-
     override val children = listOf(
             R.id.container_1 to WorkoutExerciseContent::class.java,
             R.id.container_2 to WorkoutExerciseConfigContent::class.java,

@@ -16,8 +16,6 @@ class WorkoutHeaderContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMHeaderFragment<FullWorkout>(R.layout.content_workout_banner) {
 
-    override val label = "WORKOUT_HEADER_CF"
-
     override val viewModel: WorkoutVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
     }

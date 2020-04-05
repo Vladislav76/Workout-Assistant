@@ -10,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -18,19 +19,19 @@ import io.reactivex.disposables.CompositeDisposable
  */
 abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment() {
 
-    abstract val label: String
+    abstract val label: String //= "BASE_FRAGMENT_LEGACY_LABEL"
 
     protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(label, "::onAttach")
+        Logger.debug(this::class, "::onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(label, "::onCreate")
+        Logger.debug(this::class, "::onCreate")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -39,7 +40,7 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(label, "::onViewCreated")
+        Logger.debug(this::class, "::onViewCreated")
 
         disposables.add(
                 bus.packets
@@ -52,32 +53,32 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
 
     override fun onStart() {
         super.onStart()
-        Log.d(label, "::onStart")
+        Logger.debug(this::class, "::onStart")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d(label, "::onStop")
+        Logger.debug(this::class, "::onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
-        Log.d(label, "::onDestroyView")
+        Logger.debug(this::class, "::onDestroyView")
     }
 
     override fun onDetach() {
         super.onDetach()
-        Log.d(label, "::onDetach")
+        Logger.debug(this::class, "::onDetach")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(label, "::onDestroy")
+        Logger.debug(this::class, "::onDestroy")
     }
 
     protected fun debugMessage(message: String) {
-        Log.d(label, message)
+        Logger.debug(this::class, message)
     }
 
     protected open fun onReceivePacket(packet: Packet) {}

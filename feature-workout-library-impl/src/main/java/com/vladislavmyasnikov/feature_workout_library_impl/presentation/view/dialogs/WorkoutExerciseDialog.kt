@@ -21,7 +21,7 @@ class WorkoutExerciseDialog @Inject constructor(
         private const val ARG_WORKOUT_EXERCISE_ID = "workout_exercise_id"
     }
 
-    override val label = "WORKOUT_EXERCISE_DF"
+    override val label = ""
 
     override val viewModel: WorkoutExerciseVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseVM::class.java)
@@ -30,7 +30,7 @@ class WorkoutExerciseDialog @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.fetch(arguments!!.getLong(ARG_WORKOUT_EXERCISE_ID))
+            viewModel.fetch(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
         }
     }
 

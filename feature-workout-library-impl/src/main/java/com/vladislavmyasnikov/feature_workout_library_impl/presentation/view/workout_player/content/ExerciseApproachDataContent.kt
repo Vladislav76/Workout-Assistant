@@ -20,8 +20,6 @@ class ExerciseApproachDataContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<ExerciseApproachData>(R.layout.content_exercise_approach_data) {
 
-    override val label = "WORKOUT_APPROACH_DATA_CF"
-
     override val viewModel: ExerciseApproachDataVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(ExerciseApproachDataVM::class.java)
     }

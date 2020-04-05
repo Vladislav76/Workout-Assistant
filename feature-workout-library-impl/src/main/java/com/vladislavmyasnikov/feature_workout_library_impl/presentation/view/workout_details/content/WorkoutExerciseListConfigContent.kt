@@ -19,8 +19,6 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutSetConfig>(R.layout.content_workout_set_details) {
 
-    override val label = "WORKOUT_SET_CONFIG_CF"
-
     override val viewModel: WorkoutSetConfigVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutSetConfigVM::class.java)
     }

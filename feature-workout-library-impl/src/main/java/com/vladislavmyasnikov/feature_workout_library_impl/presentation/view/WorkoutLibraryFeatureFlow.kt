@@ -11,8 +11,6 @@ import javax.inject.Inject
 
 class WorkoutLibraryFeatureFlow @Inject constructor() : FlowFragment(), WorkoutLibraryLauncher {
 
-    override val label = "WORKOUT_LIBRARY_FEATURE_FF"
-
     @Inject
     override lateinit var navigatorHolder: NavigatorHolder
 

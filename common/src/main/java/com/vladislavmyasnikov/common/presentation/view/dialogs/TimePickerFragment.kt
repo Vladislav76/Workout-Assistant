@@ -12,7 +12,7 @@ import com.vladislavmyasnikov.common.models.TimePoint
 class TimePickerFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val initialTime = arguments!!.getParcelable<TimePoint>(TIME_ARG)!!
+        val initialTime = requireArguments().getParcelable<TimePoint>(TIME_ARG)!!
 
         return TimePickerDialog(
                 activity,

@@ -1,5 +1,6 @@
 package com.vladislavmyasnikov.sample_app.di
 
+import com.vladislavmyasnikov.common.utils.ClassLabelLibrary
 import com.vladislavmyasnikov.feature_diary_impl.di.DaggerDiaryFeatureDependenciesComponent
 import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.DaggerExerciseLibraryFeatureDependenciesComponent
@@ -15,29 +16,39 @@ class FeatureProxyInjector {
 
     companion object {
 
-        fun getDiaryFeature(): DiaryFeatureApi {
-            return DiaryFeatureComponent.initAndGet(
+        fun prepareFeatures() {
+            // supply dependencies
+            DiaryFeatureComponent.initAndGet(
                     DaggerDiaryFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .build()
             )
-        }
-
-        fun getExerciseLibraryFeature(): ExerciseLibraryFeatureApi {
-            return ExerciseLibraryFeatureComponent.initAndGet(
+            ExerciseLibraryFeatureComponent.initAndGet(
                     DaggerExerciseLibraryFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .build()
             )
-        }
-
-        fun getWorkoutLibraryFeature(): WorkoutLibraryFeatureApi {
-            return WorkoutLibraryFeatureComponent.initAndGet(
+            val workoutLibraryApi = WorkoutLibraryFeatureComponent.initAndGet(
                     DaggerWorkoutLibraryFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .exerciseLibraryFeatureApi(getExerciseLibraryFeature())
                             .build()
             )
+
+            // get features' labels for debug
+            ClassLabelLibrary.addLabels(workoutLibraryApi.labelLibraryHolder().labels)
+        }
+
+        fun getDiaryFeature(): DiaryFeatureApi {
+            return DiaryFeatureComponent.get()
+        }
+
+        fun getExerciseLibraryFeature(): ExerciseLibraryFeatureApi {
+            return ExerciseLibraryFeatureComponent.get()
+        }
+
+        fun getWorkoutLibraryFeature(): WorkoutLibraryFeatureApi {
+            return WorkoutLibraryFeatureComponent.get()
         }
     }
 }

@@ -11,6 +11,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
 
+    override val label: String = "VM_FRAGMENT_LEGACY_LABEL"
+
     protected abstract val viewModelFactory: ViewModelProvider.Factory
     protected abstract val viewModel: BaseViewModel<T, Throwable>
 

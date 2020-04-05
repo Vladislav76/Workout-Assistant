@@ -10,6 +10,8 @@ import ru.terrakok.cicerone.Router
 
 abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource), OnBackPressedListener {
 
+    override val label: String = "HOST_FRAGMENT_LEGACY_LABEL"
+
     protected abstract val router: Router
     protected abstract val fragmentFactory: FragmentFactory
     protected abstract val children: List<Pair<Int, Class<out BaseFragment>>>

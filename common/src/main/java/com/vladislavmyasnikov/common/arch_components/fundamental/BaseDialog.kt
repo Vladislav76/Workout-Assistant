@@ -3,12 +3,12 @@ package com.vladislavmyasnikov.common.arch_components.fundamental
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -25,17 +25,17 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(label, "::onAttach")
+        Logger.debug(this::class, "::onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(label, "::onCreate")
+        Logger.debug(this::class, "::onCreate")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d(label, "::onActivityCreated")
+        Logger.debug(this::class, "::onActivityCreated")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -44,7 +44,7 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(label, "::onViewCreated")
+        Logger.debug(this::class, "::onViewCreated")
 
         disposables.add(
                 bus.packets
@@ -57,7 +57,7 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
 
     override fun onStart() {
         super.onStart()
-        Log.d(label, "::onStart")
+        Logger.debug(this::class, "::onStart")
     }
 
     override fun onResume() {
@@ -71,7 +71,7 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
 
     override fun onStop() {
         super.onStop()
-        Log.d(label, "::onStop")
+        Logger.debug(this::class, "::onStop")
     }
 
     override fun onDestroyView() {
@@ -81,12 +81,12 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
 
     override fun onDetach() {
         super.onDetach()
-        Log.d(label, "::onDetach")
+        Logger.debug(this::class, "::onDetach")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(label, "::onDestroy")
+        Logger.debug(this::class, "::onDestroy")
     }
 
     protected open fun onReceivePacket(packet: Packet) {}

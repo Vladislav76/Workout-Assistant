@@ -11,11 +11,11 @@ import java.util.*
 class DatePickerFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val date = arguments!!.getSerializable(DATE_ARG) as Date
+        val date = requireArguments().getSerializable(DATE_ARG) as Date
         val calendar = Calendar.getInstance().apply { time = date }
 
         return DatePickerDialog(
-                activity!!,
+                requireActivity(),
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     val newDate = GregorianCalendar(year, month, dayOfMonth).time
                     sendResult(Activity.RESULT_OK, newDate)
