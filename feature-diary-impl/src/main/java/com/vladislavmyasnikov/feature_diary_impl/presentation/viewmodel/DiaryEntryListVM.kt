@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels
+package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.common.arch_components.Event
@@ -9,8 +9,6 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 
 class DiaryEntryListVM @Inject constructor(private val repository: DiaryEntryRepository) : BaseViewModel<List<ShortDiaryEntry>, Throwable>() {
-
-    override val label = "DIARY_ENTRY_LIST_VM"
 
     private var sourceItems = emptyList<ShortDiaryEntry>()
     private val selectedItemIDs = mutableListOf<Long>()

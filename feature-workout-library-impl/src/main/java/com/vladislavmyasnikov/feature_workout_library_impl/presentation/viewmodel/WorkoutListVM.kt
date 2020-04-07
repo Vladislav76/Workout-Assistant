@@ -10,8 +10,6 @@ class WorkoutListVM @Inject constructor(
         private val getWorkoutPlansUC: GetWorkoutPlansUC
 ) : BaseViewModel<List<ShortWorkout>, Throwable>() {
 
-    override val label = "WORKOUT_LIST_VM"
-
     private var sourceItems: List<ShortWorkout> = emptyList()
 
     fun fetch() {

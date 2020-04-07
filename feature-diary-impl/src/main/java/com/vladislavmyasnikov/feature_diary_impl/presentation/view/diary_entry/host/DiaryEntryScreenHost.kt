@@ -12,12 +12,10 @@ import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.c
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class DiaryEntryHost @Inject constructor(
+class DiaryEntryScreenHost @Inject constructor(
         override val bus: SharedBus,
         override val router: Router
 ) : HostFragment(R.layout.two_fragment_container) {
-
-    override val label = "DIARY_ENTRY_HF"
 
     override val children = listOf(
             R.id.header_container to DiaryEntryToolbarContent::class.java,

@@ -18,8 +18,6 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
         private const val DIALOG_WIDTH_TO_DISPLAY_WIDTH_RATIO = 0.8
     }
 
-    abstract val label: String
-
     protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
 

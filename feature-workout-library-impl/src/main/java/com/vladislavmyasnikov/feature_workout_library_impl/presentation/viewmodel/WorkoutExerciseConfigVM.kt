@@ -10,8 +10,6 @@ class WorkoutExerciseConfigVM @Inject constructor(
         private val getWorkoutExerciseConfigUC: GetWorkoutExerciseConfigUC
 ) : BaseViewModel<WorkoutExerciseConfig, Throwable>() {
 
-    override val label = "WORKOUT_EXERCISE_CONFIG_VM"
-
     fun fetch() {
         disposables.add(
                 getWorkoutExerciseConfigUC()

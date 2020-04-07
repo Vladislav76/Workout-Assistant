@@ -12,7 +12,7 @@ import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragm
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs.ExerciseFilterFragment
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseListVM
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseListVM
 import javax.inject.Inject
 
 class ExerciseListToolbarContent @Inject constructor(
@@ -23,8 +23,6 @@ class ExerciseListToolbarContent @Inject constructor(
     companion object {
         private const val FILTER_EXERCISE_LIST_CODE = 1
     }
-
-    override val label = "EXERCISE_LIST_TOOLBAR_CF"
 
     override val viewModel: ExerciseListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)

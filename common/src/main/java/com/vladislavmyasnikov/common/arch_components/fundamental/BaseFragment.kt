@@ -19,8 +19,6 @@ import io.reactivex.disposables.CompositeDisposable
  */
 abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment() {
 
-    abstract val label: String //= "BASE_FRAGMENT_LEGACY_LABEL"
-
     protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
 

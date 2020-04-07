@@ -21,8 +21,6 @@ class WorkoutExerciseDialog @Inject constructor(
         private const val ARG_WORKOUT_EXERCISE_ID = "workout_exercise_id"
     }
 
-    override val label = ""
-
     override val viewModel: WorkoutExerciseVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseVM::class.java)
     }

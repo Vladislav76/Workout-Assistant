@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
@@ -6,9 +6,9 @@ import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseI
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ExerciseVM @Inject constructor(private val repository: ExerciseRepository) : BaseViewModel<FullExerciseInfo, Throwable>() {
-
-    override val label = "EXERCISE_VM"
+class ExerciseVM @Inject constructor(
+        private val repository: ExerciseRepository
+) : BaseViewModel<FullExerciseInfo, Throwable>() {
 
     fun fetch(id: Long) {
         disposables.add(

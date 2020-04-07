@@ -8,8 +8,6 @@ class WorkoutPlayerVM @Inject constructor(
         private val manageExecutingWorkoutUC: ManageExecutingWorkoutUC
 ) : BaseViewModel<Nothing, Throwable>() {
 
-    override val label = "WORKOUT_PLAYER_VM"
-
     fun start(workoutPlanID: Long) {
         manageExecutingWorkoutUC.start(workoutPlanID)
     }

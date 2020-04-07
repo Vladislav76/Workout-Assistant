@@ -7,8 +7,8 @@ import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.content.ExerciseContent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListToolbarContent
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.host.ExerciseHost
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.host.ExerciseListHost
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.host.ExerciseScreenHost
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.host.ExerciseListScreenHost
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -29,9 +29,9 @@ abstract class ContentFragmentBindingModule {
 @Module
 abstract class HostFragmentBindingModule {
 
-    @Binds @IntoMap @PerFeature @FragmentKey(ExerciseListHost::class)
-    abstract fun bind1(impl: ExerciseListHost): Fragment
+    @Binds @IntoMap @PerFeature @FragmentKey(ExerciseListScreenHost::class)
+    abstract fun bind1(impl: ExerciseListScreenHost): Fragment
 
-    @Binds @IntoMap @PerFeature @FragmentKey(ExerciseHost::class)
-    abstract fun bind2(impl: ExerciseHost): Fragment
+    @Binds @IntoMap @PerFeature @FragmentKey(ExerciseScreenHost::class)
+    abstract fun bind2(impl: ExerciseScreenHost): Fragment
 }

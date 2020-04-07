@@ -12,8 +12,6 @@ class WorkoutExerciseListVM @Inject constructor(
         private val getCurrentWorkoutExercisesUC: GetCurrentWorkoutExercisesUC
 ) : BaseViewModel<List<WorkoutExercise>, Throwable>() {
 
-    override val label = "WORKOUT_EXERCISE_LIST_VM"
-
     fun fetch(workoutPlanID: Long) {
         requestWorkoutPlanInfoUC(workoutPlanID)
         disposables.add(

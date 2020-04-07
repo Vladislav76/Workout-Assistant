@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels.ExerciseVM
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseVM
 import kotlinx.android.synthetic.main.content_exercise_details.*
 import javax.inject.Inject
 
@@ -19,8 +19,6 @@ class ExerciseContent @Inject constructor(
         private val adapter: ExerciseImagePagerAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<FullExerciseInfo>(R.layout.content_exercise_details) {
-
-    override val label = "EXERCISE_CF"
 
     override val viewModel: ExerciseVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(ExerciseVM::class.java)

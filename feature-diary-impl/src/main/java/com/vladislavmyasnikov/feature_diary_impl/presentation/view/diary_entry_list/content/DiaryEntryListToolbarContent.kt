@@ -12,15 +12,13 @@ import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListVM
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryListVM
 import javax.inject.Inject
 
 class DiaryEntryListToolbarContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMToolbarFragment<List<ShortDiaryEntry>>(), OnBackPressedListener {
-
-    override val label = "DIARY_ENTRY_LIST_TOOLBAR_CF"
 
     override val viewModel: DiaryEntryListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)

@@ -9,8 +9,6 @@ import io.reactivex.subjects.PublishSubject
 
 abstract class BaseViewModel<T, E> : ViewModel() {
 
-    abstract val label: String //= "BASE_VIEW_MODEL_LEGACY_LABEL"
-
     private val itemSubject = BehaviorSubject.create<T>()
     private val eventSubject = PublishSubject.create<Event>()
     private val errorSubject = PublishSubject.create<E>()

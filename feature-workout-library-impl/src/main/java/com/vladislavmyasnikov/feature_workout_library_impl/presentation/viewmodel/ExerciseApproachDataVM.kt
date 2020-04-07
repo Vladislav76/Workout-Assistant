@@ -12,8 +12,6 @@ class ExerciseApproachDataVM @Inject constructor(
         private val setCurrentExerciseApproachDataUC: SetCurrentExerciseApproachDataUC
 ) : BaseViewModel<ExerciseApproachData, Throwable>() {
 
-    override val label = "WORKOUT_EXERCISE_APPROACH_DATA_VM"
-
     private lateinit var currentData: ExerciseApproachData
 
     fun fetch() {

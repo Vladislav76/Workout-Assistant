@@ -7,18 +7,16 @@ import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.Screens
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.Screens
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise_list.content.ExerciseListToolbarContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class ExerciseListHost @Inject constructor(
+class ExerciseListScreenHost @Inject constructor(
         override val bus: SharedBus,
         override val router: Router
 ) : HostFragment(R.layout.two_fragment_container) {
-
-    override val label = "EXERCISE_LIST_HF"
 
     override val children = listOf(
             R.id.header_container to ExerciseListToolbarContent::class.java,

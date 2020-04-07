@@ -10,8 +10,6 @@ class WorkoutVM @Inject constructor(
         private val getWorkoutPlanUC: GetWorkoutPlanUC
 ) : BaseViewModel<FullWorkout, Throwable>() {
 
-    override val label = "WORKOUT_VM"
-
     fun fetch(id: Long) {
         disposables.add(
                 getWorkoutPlanUC(id)

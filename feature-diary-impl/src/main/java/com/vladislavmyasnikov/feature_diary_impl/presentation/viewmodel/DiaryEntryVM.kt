@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels
+package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
@@ -7,8 +7,6 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DiaryEntryVM @Inject constructor(private val repository: DiaryEntryRepository) : BaseViewModel<FullDiaryEntry, Throwable>() {
-
-    override val label = "DIARY_ENTRY_VM"
 
     fun fetch(id: Long) {
         disposables.add(

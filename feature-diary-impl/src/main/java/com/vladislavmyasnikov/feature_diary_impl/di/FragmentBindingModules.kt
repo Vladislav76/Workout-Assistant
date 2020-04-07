@@ -6,10 +6,10 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content.DiaryEntryContent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content.DiaryEntryToolbarContent
-import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.host.DiaryEntryHost
+import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.host.DiaryEntryScreenHost
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content.DiaryEntryListContent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content.DiaryEntryListToolbarContent
-import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.host.DiaryEntryListHost
+import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.host.DiaryEntryListScreenHost
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -33,9 +33,9 @@ abstract class ContentFragmentBindingModule {
 @Module
 abstract class HostFragmentBindingModule {
 
-    @Binds @IntoMap @PerFeature @FragmentKey(DiaryEntryListHost::class)
-    abstract fun bind1(impl: DiaryEntryListHost): Fragment
+    @Binds @IntoMap @PerFeature @FragmentKey(DiaryEntryListScreenHost::class)
+    abstract fun bind1(impl: DiaryEntryListScreenHost): Fragment
 
-    @Binds @IntoMap @PerFeature @FragmentKey(DiaryEntryHost::class)
-    abstract fun bind2(impl: DiaryEntryHost): Fragment
+    @Binds @IntoMap @PerFeature @FragmentKey(DiaryEntryScreenHost::class)
+    abstract fun bind2(impl: DiaryEntryScreenHost): Fragment
 }

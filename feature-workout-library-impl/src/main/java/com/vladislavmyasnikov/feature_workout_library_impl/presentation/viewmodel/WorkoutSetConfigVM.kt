@@ -12,8 +12,6 @@ class WorkoutSetConfigVM @Inject constructor(
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC
 ) : BaseViewModel<WorkoutSetConfig, Throwable>() {
 
-    override val label = "WORKOUT_SET_CONFIG_VM"
-
     fun fetch() {
         disposables.add(
                 getWorkoutSetConfigUC()

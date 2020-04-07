@@ -12,8 +12,6 @@ class WorkoutExerciseVM @Inject constructor(
         private val getCurrentWorkoutExerciseUC: GetCurrentWorkoutExerciseUC
 ) : BaseViewModel<WorkoutExercise, Throwable>() {
 
-    override val label = "WORKOUT_EXERCISE_VM"
-
     fun fetch(exerciseID: Long) {
         pushItem(getWorkoutExerciseUC(exerciseID))
     }

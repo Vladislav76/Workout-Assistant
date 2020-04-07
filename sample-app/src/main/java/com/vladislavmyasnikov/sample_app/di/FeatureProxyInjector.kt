@@ -23,7 +23,7 @@ class FeatureProxyInjector {
                             .contextHolder(Controller)
                             .build()
             )
-            ExerciseLibraryFeatureComponent.initAndGet(
+            val exerciseLibraryApi = ExerciseLibraryFeatureComponent.initAndGet(
                     DaggerExerciseLibraryFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .build()
@@ -36,6 +36,7 @@ class FeatureProxyInjector {
             )
 
             // get features' labels for debug
+            ClassLabelLibrary.addLabels(exerciseLibraryApi.labelLibraryHolder().labels)
             ClassLabelLibrary.addLabels(workoutLibraryApi.labelLibraryHolder().labels)
         }
 

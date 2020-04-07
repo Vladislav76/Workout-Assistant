@@ -34,10 +34,10 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutExerciseContent::class to "WORKOUT_EXERCISE_CONTENT",
 
             // host fragments
-            WorkoutListScreenHost::class to "WORKOUT_LIST_HOST",
+            WorkoutListScreenHost::class to "WORKOUT_LIST_SCREEN_HOST",
             WorkoutScreenHost::class to "WORKOUT_DETAILS_SCREEN_HOST",
+            WorkoutPlayerScreenHost::class to "WORKOUT_PLAYER_SCREEN_HOST",
             WorkoutSetHost::class to "WORKOUT_SET_HOST",
-            WorkoutPlayerScreenHost::class to "WORKOUT_PLAYER_HOST",
 
             // flow fragments
             WorkoutLibraryFeatureFlow::class to "WORKOUT_LIBRARY_FEATURE_FLOW",

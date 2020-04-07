@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
 import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.DiaryEntryAdapter
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListVM
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryListVM
 import javax.inject.Inject
 
 class DiaryEntryListContent @Inject constructor(
@@ -18,8 +18,6 @@ class DiaryEntryListContent @Inject constructor(
         override val adapter: DiaryEntryAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
 ): VMListFragment<ShortDiaryEntry>() {
-
-    override val label = "DIARY_ENTRY_LIST_CF"
 
     override val viewModel: DiaryEntryListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(DiaryEntryListVM::class.java)

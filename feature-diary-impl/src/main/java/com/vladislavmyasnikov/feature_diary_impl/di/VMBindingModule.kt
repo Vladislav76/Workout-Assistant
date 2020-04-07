@@ -3,8 +3,8 @@ package com.vladislavmyasnikov.feature_diary_impl.di
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.common.di.annotations.ViewModelKey
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryListVM
-import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodels.DiaryEntryVM
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryListVM
+import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

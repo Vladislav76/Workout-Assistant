@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodels
+package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
@@ -7,9 +7,9 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ExerciseListVM @Inject constructor(private val repository: ExerciseRepository) : BaseViewModel<List<ShortExerciseInfo>, Throwable>() {
-
-    override val label = "EXERCISE_LIST_VM"
+class ExerciseListVM @Inject constructor(
+        private val repository: ExerciseRepository
+) : BaseViewModel<List<ShortExerciseInfo>, Throwable>() {
 
     private var sourceItems: List<ShortExerciseInfo> = emptyList()
 
