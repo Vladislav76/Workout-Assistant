@@ -2,9 +2,9 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_im
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ExerciseRepository
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.FullExerciseInfo
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.FullExercise
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
 import io.reactivex.Observable
@@ -14,11 +14,11 @@ import javax.inject.Inject
 @PerFeature
 class ExerciseRepositoryImpl @Inject constructor(private val localDataSource: LocalDatabase) : ExerciseRepository, ExerciseLibraryInteractor {
 
-    override fun fetchShortExercisesInfo(): Observable<List<ShortExerciseInfo>> {
+    override fun fetchShortExercisesInfo(): Observable<List<ShortExercise>> {
         return localDataSource.exerciseLibraryDao().loadShortExercisesInfo().map(EntityToModelShortExerciseInfoMapper::map)
     }
 
-    override fun fetchFullExerciseInfo(id: Long): Single<FullExerciseInfo> {
+    override fun fetchFullExerciseInfo(id: Long): Single<FullExercise> {
         return localDataSource.exerciseLibraryDao().loadExerciseInfoById(id).map(EntityToModelFullExerciseInfoMapper::map)
     }
 

@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.common.utils.DateFormatter
 import com.vladislavmyasnikov.common.utils.TimePointFormatter
 import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
 import kotlinx.android.synthetic.main.item_non_selectable_diary_entry.view.*
 import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.*
 import javax.inject.Inject

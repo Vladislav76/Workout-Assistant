@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.repository.DiaryEntryRepository
+import com.vladislavmyasnikov.feature_diary_impl.domain.model.FullDiaryEntry
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 

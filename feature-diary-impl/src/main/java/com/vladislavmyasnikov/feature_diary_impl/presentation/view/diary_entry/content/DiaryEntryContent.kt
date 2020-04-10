@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
 import com.vladislavmyasnikov.common.utils.TimePointFormatter
 import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.domain.FullDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.model.FullDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryVM
 import kotlinx.android.synthetic.main.content_diary_entry_details.*
 import javax.inject.Inject

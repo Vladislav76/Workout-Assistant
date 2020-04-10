@@ -2,8 +2,8 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel
 
 import com.vladislavmyasnikov.common.arch_components.BaseViewModel
 import com.vladislavmyasnikov.common.arch_components.Event
-import com.vladislavmyasnikov.feature_diary_impl.domain.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.repository.DiaryEntryRepository
+import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import kotlin.reflect.KClass

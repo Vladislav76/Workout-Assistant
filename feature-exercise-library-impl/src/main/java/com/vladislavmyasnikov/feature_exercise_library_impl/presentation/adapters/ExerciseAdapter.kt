@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
 import kotlinx.android.synthetic.main.item_exercise.view.*
 import javax.inject.Inject
 
-class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExerciseInfo>() {
+class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExercise>() {
 
     override fun constructViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,9 +18,9 @@ class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExercis
         return ViewHolder(view)
     }
 
-    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortExerciseInfo>(view) {
+    class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortExercise>(view) {
 
-        override fun bind(item: ShortExerciseInfo) {
+        override fun bind(item: ShortExercise) {
             itemView.title_field.text = item.title
 
             val muscleGroupNames = itemView.context.resources.getStringArray(R.array.muscle_groups)

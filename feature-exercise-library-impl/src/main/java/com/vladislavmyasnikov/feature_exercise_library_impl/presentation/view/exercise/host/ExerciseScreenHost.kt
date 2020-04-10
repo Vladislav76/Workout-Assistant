@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.di.ExerciseLibraryFeatureComponent
+import com.vladislavmyasnikov.feature_exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.exercise.content.ExerciseContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject

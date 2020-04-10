@@ -6,7 +6,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
+import com.vladislavmyasnikov.feature_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.Screens
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content.DiaryEntryListContent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.content.DiaryEntryListToolbarContent

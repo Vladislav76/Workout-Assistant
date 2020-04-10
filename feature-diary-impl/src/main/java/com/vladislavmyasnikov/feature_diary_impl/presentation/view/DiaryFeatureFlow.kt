@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.view
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.arch_components.fundamental.FlowFragment
-import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
+import com.vladislavmyasnikov.feature_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.features_api.diary.DiaryLauncher
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router

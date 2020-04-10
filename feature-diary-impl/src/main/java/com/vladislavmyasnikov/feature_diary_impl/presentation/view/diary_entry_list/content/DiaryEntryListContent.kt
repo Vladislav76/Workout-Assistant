@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
-import com.vladislavmyasnikov.feature_diary_impl.domain.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.presentation.adapters.DiaryEntryAdapter
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryListVM
 import javax.inject.Inject

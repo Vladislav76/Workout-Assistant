@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_diary_impl.di
+package com.vladislavmyasnikov.feature_diary_impl.di.module
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey

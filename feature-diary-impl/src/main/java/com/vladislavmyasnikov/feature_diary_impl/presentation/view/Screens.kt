@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.feature_diary_impl.di.DiaryFeatureComponent
+import com.vladislavmyasnikov.feature_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.host.DiaryEntryScreenHost
 import com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry_list.host.DiaryEntryListScreenHost
 import ru.terrakok.cicerone.android.support.SupportAppScreen

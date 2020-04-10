@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs.ExerciseFilterFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseListVM
 import javax.inject.Inject
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ExerciseListToolbarContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMToolbarFragment<List<ShortExerciseInfo>>() {
+) : VMToolbarFragment<List<ShortExercise>>() {
 
     companion object {
         private const val FILTER_EXERCISE_LIST_CODE = 1

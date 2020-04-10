@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_exercise_library_impl.di
+package com.vladislavmyasnikov.feature_exercise_library_impl.di.module
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey

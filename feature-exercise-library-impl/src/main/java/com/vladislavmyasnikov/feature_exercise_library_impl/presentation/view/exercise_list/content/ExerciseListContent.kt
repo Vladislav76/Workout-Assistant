@@ -7,7 +7,7 @@ import com.vladislavmyasnikov.common.arch_components.Packet
 import com.vladislavmyasnikov.common.arch_components.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.ShortExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseListVM
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class ExerciseListContent @Inject constructor(
         override val bus: SharedBus,
         override val adapter: ExerciseAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMListFragment<ShortExerciseInfo>() {
+) : VMListFragment<ShortExercise>() {
 
     override val viewModel: ExerciseListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(ExerciseListVM::class.java)

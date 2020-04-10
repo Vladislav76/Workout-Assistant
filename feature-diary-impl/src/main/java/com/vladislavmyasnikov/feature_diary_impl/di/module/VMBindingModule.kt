@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_diary_impl.di
+package com.vladislavmyasnikov.feature_diary_impl.di.module
 
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
