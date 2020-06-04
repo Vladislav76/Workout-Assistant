@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.data.db
 
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutExerciseEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutSetEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutExerciseEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutSetEntity
 
 private val imagesNames = listOf("work_dummy_1", "work_dummy_2", "work_dummy_3")
 

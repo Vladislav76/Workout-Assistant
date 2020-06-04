@@ -11,17 +11,17 @@ import com.vladislavmyasnikov.common.extensions.exported_decrease_button
 import com.vladislavmyasnikov.common.extensions.exported_increase_button
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseIndicators
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseIndicatorsVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseMetricsVM
 import kotlinx.android.synthetic.main.content_exercise_approach_data.*
 import javax.inject.Inject
 
-class WorkoutExerciseIndicatorsContent @Inject constructor(
+class WorkoutExerciseMetricsContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutExerciseIndicators>(R.layout.content_exercise_approach_data) {
 
-    override val viewModel: WorkoutExerciseIndicatorsVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseIndicatorsVM::class.java)
+    override val viewModel: WorkoutExerciseMetricsVM by lazy {
+        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseMetricsVM::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

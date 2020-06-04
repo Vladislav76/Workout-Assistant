@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities
+package com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

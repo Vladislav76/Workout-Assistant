@@ -1,7 +1,9 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl
+package com.vladislavmyasnikov.feature_workout_library_impl.data.repository
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelShortWorkoutMapper
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelWorkoutSetMapper
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.FullWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSet

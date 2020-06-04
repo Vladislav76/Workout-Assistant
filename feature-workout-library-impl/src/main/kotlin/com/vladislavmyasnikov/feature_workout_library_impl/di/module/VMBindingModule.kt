@@ -3,14 +3,11 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.common.di.annotations.ViewModelKey
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutPlayerVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutExerciseListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutSetConfigVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.viewmodel.WorkoutListVM
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseIndicatorsVM
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseConfigVM
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -39,6 +36,9 @@ abstract class VMBindingModule {
     @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutExerciseConfigVM::class)
     abstract fun bind7(impl: WorkoutExerciseConfigVM): ViewModel
 
-    @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutExerciseIndicatorsVM::class)
-    abstract fun bind8(impl: WorkoutExerciseIndicatorsVM): ViewModel
+    @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutExerciseMetricsVM::class)
+    abstract fun bind8(impl: WorkoutExerciseMetricsVM): ViewModel
+
+    @Binds @IntoMap @PerScreen @ViewModelKey(WorkoutTimerVM::class)
+    abstract fun bind9(impl: WorkoutTimerVM): ViewModel
 }

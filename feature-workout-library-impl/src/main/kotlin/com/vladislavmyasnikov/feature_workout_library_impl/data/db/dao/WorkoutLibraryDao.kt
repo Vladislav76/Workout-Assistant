@@ -3,10 +3,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.db.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutExerciseEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutSetEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.ShortWorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutExerciseEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutSetEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.model.ShortWorkoutEntity
 import io.reactivex.Observable
 import io.reactivex.Single
 

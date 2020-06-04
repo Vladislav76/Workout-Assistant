@@ -1,9 +1,9 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.data.repo_mapper_impl
+package com.vladislavmyasnikov.feature_workout_library_impl.data.db
 
 import com.vladislavmyasnikov.common.utils.Mapper
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutExerciseEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entities.WorkoutSetEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.models.ShortWorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutExerciseEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutSetEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.model.ShortWorkoutEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
 import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
 

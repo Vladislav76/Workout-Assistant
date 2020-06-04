@@ -19,7 +19,7 @@ class WorkoutPlayerScreenHost @Inject constructor(
     override val children = listOf(
             R.id.container_1 to WorkoutExerciseContent::class.java,
             R.id.container_2 to WorkoutExerciseConfigContent::class.java,
-            R.id.container_3 to WorkoutExerciseIndicatorsContent::class.java,
+            R.id.container_3 to WorkoutExerciseMetricsContent::class.java,
             R.id.container_4 to TimerContent::class.java,
             R.id.container_5 to ControlPanelContent::class.java
     )

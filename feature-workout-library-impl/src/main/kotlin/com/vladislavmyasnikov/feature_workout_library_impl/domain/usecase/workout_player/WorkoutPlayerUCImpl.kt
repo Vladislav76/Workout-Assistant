@@ -19,44 +19,45 @@ class WorkoutPlayerUCImpl @Inject constructor(
         private val getWorkoutExerciseListUC: GetWorkoutExerciseListUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getWorkoutSetConfigUC: GetWorkoutSetConfigUC
-) : GetWorkoutExerciseConfigUC, GetWorkoutExerciseUC, GetWorkoutExerciseIndicatorsUC, SetWorkoutExerciseIndicatorsUC, ChangeWorkoutProcessStateUC, GetWorkoutProcessStateUC {
+) : GetWorkoutExerciseConfigUC, GetWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, AccessWorkoutProcessStateUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
     private var currentExercises = listOf<WorkoutExercise>()
     private lateinit var workoutData: MutableList<WorkoutSetData>
+    private lateinit var currentWorkoutProcessState: WorkoutProcessState
 
     private val workoutExerciseSubject = PublishSubject.create<WorkoutExercise>()
     private val workoutExerciseConfigSubject = PublishSubject.create<WorkoutExerciseConfig>()
     private val exerciseApproachDataSubject = PublishSubject.create<WorkoutExerciseIndicators>()
-    private val workoutExecutionStatusSubject = BehaviorSubject.create<WorkoutExecutionStatus>()
+    private val workoutProcessStateSubject = BehaviorSubject.create<WorkoutProcessState>()
     private val disposables = CompositeDisposable()
 
     override fun invoke(): Observable<WorkoutExerciseConfig> = workoutExerciseConfigSubject
 
     override fun invoke(spike: Int): Observable<WorkoutExercise> = workoutExerciseSubject
 
-    override fun invoke(spike: Long): Observable<WorkoutExecutionStatus> = workoutExecutionStatusSubject
+    override fun getMetrics(): Observable<WorkoutExerciseIndicators> = exerciseApproachDataSubject
 
-    override fun invoke(spike: Int, spike2: Int): Observable<WorkoutExerciseIndicators> = exerciseApproachDataSubject
-
-    override fun setRepetitions(reps: Int) {
+    override fun setRepetitionMetrics(value: Int) {
         val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
-        data.reps = reps
+        data.reps = value
         pushCurrentExerciseApproachData()
     }
 
-    override fun setWeight(weight: Float) {
+    override fun setWeightMetrics(value: Float) {
         val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
-        data.weight = weight
+        data.weight = value
         pushCurrentExerciseApproachData()
     }
 
-    override fun start(workoutPlanID: Long) {
+    override fun getWorkoutProcessState(): Observable<WorkoutProcessState> = workoutProcessStateSubject
+
+    override fun startWorkout(workoutPlanID: Long) {
         requestWorkoutUC(workoutPlanID)
         workoutData = mutableListOf()
         currentSetConfig = WorkoutSetConfig(-1, -1, -1, -1, -1)
-        workoutExecutionStatusSubject.onNext(WorkoutExecutionStatus.STARTED)
+        workoutProcessStateSubject.onNext(WorkoutProcessState.STARTED)
 
         disposables.add(
                 getWorkoutExerciseListUC()
@@ -84,22 +85,23 @@ class WorkoutPlayerUCImpl @Inject constructor(
                             // TODO: send error
                         })
         )
+        pushWorkoutProcessState(WorkoutProcessState.STARTED)
     }
 
-    override fun stop() {
+    override fun stopWorkout() {
         // TODO: add current status check
-        workoutExecutionStatusSubject.onNext(WorkoutExecutionStatus.FINISHED)
+        pushWorkoutProcessState(WorkoutProcessState.FINISHED)
     }
 
-    override fun pause() {
-        workoutExecutionStatusSubject.onNext(WorkoutExecutionStatus.PAUSED)
+    override fun pauseWorkout() {
+        pushWorkoutProcessState(WorkoutProcessState.PAUSED)
     }
 
-    override fun resume() {
-        workoutExecutionStatusSubject.onNext(WorkoutExecutionStatus.STARTED)
+    override fun resumeWorkout() {
+        pushWorkoutProcessState(WorkoutProcessState.STARTED)
     }
 
-    override fun next() {
+    override fun nextExercise() {
         currentExerciseIndex++
         when {
             currentExerciseIndex < currentExercises.size -> {
@@ -114,7 +116,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
                 changeWorkoutSetConfigUC.putSetIndex(currentSetConfig.setIndex + 1)
             }
             else -> {
-                stop()
+                stopWorkout()
             }
         }
     }
@@ -135,5 +137,10 @@ class WorkoutPlayerUCImpl @Inject constructor(
                 currentSetConfig.setAmount, currentExercises.size, currentSetConfig.approachAmount
         )
         workoutExerciseConfigSubject.onNext(config)
+    }
+
+    private fun pushWorkoutProcessState(state: WorkoutProcessState) {
+        currentWorkoutProcessState = state
+        workoutProcessStateSubject.onNext(state)
     }
 }

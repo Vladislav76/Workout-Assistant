@@ -49,8 +49,8 @@ abstract class ContentFragmentBindingModule {
     @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseContent::class)
     abstract fun bind9(impl: WorkoutExerciseContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseIndicatorsContent::class)
-    abstract fun bind10(impl: WorkoutExerciseIndicatorsContent): Fragment
+    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseMetricsContent::class)
+    abstract fun bind10(impl: WorkoutExerciseMetricsContent): Fragment
 
     @Binds @IntoMap @PerScreen @FragmentKey(TimerContent::class)
     abstract fun bind11(impl: TimerContent): Fragment

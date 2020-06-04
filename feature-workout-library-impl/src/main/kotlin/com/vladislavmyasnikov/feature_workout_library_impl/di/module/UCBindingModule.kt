@@ -47,11 +47,8 @@ abstract class UCBindingModule {
     abstract fun bind10(impl: WorkoutPlayerUCImpl): GetWorkoutExerciseUC
 
     @Binds @PerScreen
-    abstract fun bind11(impl: WorkoutPlayerUCImpl): ChangeWorkoutProcessStateUC
+    abstract fun bind11(impl: WorkoutPlayerUCImpl): AccessWorkoutProcessStateUC
 
     @Binds @PerScreen
-    abstract fun bind12(impl: WorkoutPlayerUCImpl): SetWorkoutExerciseIndicatorsUC
-
-    @Binds @PerScreen
-    abstract fun bind13(impl: WorkoutPlayerUCImpl): GetWorkoutExerciseIndicatorsUC
+    abstract fun bind12(impl: WorkoutPlayerUCImpl): AccessWorkoutExerciseMetricsUC
 }

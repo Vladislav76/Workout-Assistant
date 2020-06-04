@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.data.db.converters
+package com.vladislavmyasnikov.feature_workout_library_impl.data.db.converter
 
 import androidx.room.TypeConverter
 

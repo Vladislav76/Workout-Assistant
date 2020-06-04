@@ -3,7 +3,9 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseIndicators
 import io.reactivex.Observable
 
-interface GetWorkoutExerciseIndicatorsUC {
+interface AccessWorkoutExerciseMetricsUC {
 
-    operator fun invoke(spike: Int = 0, spike2: Int = 0): Observable<WorkoutExerciseIndicators>
+    fun getMetrics(): Observable<WorkoutExerciseIndicators>
+    fun setRepetitionMetrics(value: Int)
+    fun setWeightMetrics(value: Float)
 }

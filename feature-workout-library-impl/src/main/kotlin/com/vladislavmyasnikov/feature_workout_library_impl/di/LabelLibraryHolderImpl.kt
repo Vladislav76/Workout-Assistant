@@ -12,7 +12,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.content.WorkoutListToolbarContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.host.WorkoutListScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.ControlPanelContent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.WorkoutExerciseIndicatorsContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.WorkoutExerciseMetricsContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.WorkoutExerciseConfigContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.WorkoutExerciseContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.host.WorkoutPlayerScreenHost
@@ -21,7 +21,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutSetConfigVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.viewmodel.WorkoutListVM
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseIndicatorsVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseMetricsVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseConfigVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
 import kotlin.reflect.KClass
@@ -36,7 +36,7 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutExerciseListContent::class to "WORKOUT_EXERCISE_LIST_CONTENT",
             WorkoutHeaderContent::class to "WORKOUT_HEADER_CONTENT",
             ControlPanelContent::class to "CONTROL_PANEL_CONTENT",
-            WorkoutExerciseIndicatorsContent::class to "WORKOUT_APPROACH_DATA_CONTENT",
+            WorkoutExerciseMetricsContent::class to "WORKOUT_APPROACH_DATA_CONTENT",
             WorkoutExerciseConfigContent::class to "WORKOUT_EXERCISE_CONFIG_CONTENT",
             WorkoutExerciseContent::class to "WORKOUT_EXERCISE_CONTENT",
 
@@ -58,7 +58,7 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutVM::class to "WORKOUT_VM",
             WorkoutExerciseVM::class to "WORKOUT_EXERCISE_VM",
             WorkoutPlayerVM::class to "WORKOUT_PLAYER_VM",
-            WorkoutExerciseIndicatorsVM::class to "WORKOUT_EXERCISE_APPROACH_DATA_VM",
+            WorkoutExerciseMetricsVM::class to "WORKOUT_EXERCISE_APPROACH_DATA_VM",
             WorkoutExerciseConfigVM::class to "WORKOUT_EXERCISE_CONFIG_VM",
             WorkoutSetConfigVM::class to "WORKOUT_SET_CONFIG_VM"
     )
