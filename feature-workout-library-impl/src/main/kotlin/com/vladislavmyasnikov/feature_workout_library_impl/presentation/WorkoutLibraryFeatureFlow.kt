@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.FlowFragment
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.fundamental.FlowFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.features_api.workout_library.WorkoutLibraryLauncher
 import ru.terrakok.cicerone.NavigatorHolder

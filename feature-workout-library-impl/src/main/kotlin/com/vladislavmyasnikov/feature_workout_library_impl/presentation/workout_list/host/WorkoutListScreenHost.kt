@@ -2,9 +2,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
@@ -35,11 +36,16 @@ class WorkoutListScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemClickMessage) {
-//            router.navigateTo(Screens.WorkoutDetailsScreen())
-            router.navigateTo(Screens.WorkoutPlayerScreen())
-            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.ItemClickMessage) {
+            router.navigateTo(Screens.WorkoutDetailsScreen(message.id))
         }
     }
+
+//    override fun onReceivePacket(packet: Packet) {
+//        if (packet is Packet.ItemClickMessage) {
+//            router.navigateTo(Screens.WorkoutDetailsScreen())
+//            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
+//        }
+//    }
 }

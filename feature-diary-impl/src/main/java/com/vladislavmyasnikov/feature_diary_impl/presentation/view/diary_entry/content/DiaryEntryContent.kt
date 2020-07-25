@@ -1,9 +1,9 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content
 
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.utils.TimePointFormatter
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.domain.model.FullDiaryEntry
@@ -26,9 +26,9 @@ class DiaryEntryContent @Inject constructor(
         time_duration.text = TimePointFormatter.format(item.duration, TimePointFormatter.HOUR_MINUTE_FORMAT)
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch(packet.id)
+    override fun onReceivePacket(message: Message) {
+        if (message is Message.KeyDataResponseMessage) {
+            viewModel.fetch(message.id)
         }
     }
 }

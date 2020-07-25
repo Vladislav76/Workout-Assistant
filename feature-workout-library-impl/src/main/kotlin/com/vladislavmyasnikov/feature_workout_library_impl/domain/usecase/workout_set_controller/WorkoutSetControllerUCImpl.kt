@@ -24,17 +24,17 @@ class WorkoutSetControllerUCImpl @Inject constructor(
     private val disposables = CompositeDisposable()
 
     override fun invoke(workoutPlanID: Long) {
-        disposables.add(
-                getWorkoutSetListUC(workoutPlanID)
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({ sets ->
+        getWorkoutSetListUC(workoutPlanID)
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        { sets ->
                             currentSets = sets
                             currentWorkoutPlanID = workoutPlanID
                             initialSetup()
-                        }, { error ->
-                            // TODO: send error
-                        })
-        )
+                        },
+                        { error -> /* TODO: send error */ }
+                )
+                .also { disposable -> disposables.add(disposable) }
     }
 
     override fun invoke(spike: Int): Observable<List<WorkoutExercise>> = workoutExerciseListSubject

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.Chip
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.FullExercise
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
@@ -48,9 +48,9 @@ class ExerciseContent @Inject constructor(
         debugMessage("::onReceiveItem")
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch(packet.id)
+    override fun onReceivePacket(message: Message) {
+        if (message is Message.KeyDataResponseMessage) {
+            viewModel.fetch(message.id)
         }
     }
 }

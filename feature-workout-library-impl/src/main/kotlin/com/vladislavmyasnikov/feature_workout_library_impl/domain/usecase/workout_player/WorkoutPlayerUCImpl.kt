@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 @PerScreen
 class WorkoutPlayerUCImpl @Inject constructor(
@@ -19,7 +20,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
         private val getWorkoutExerciseListUC: GetWorkoutExerciseListUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getWorkoutSetConfigUC: GetWorkoutSetConfigUC
-) : GetWorkoutExerciseConfigUC, GetWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, AccessWorkoutProcessStateUC {
+) : GetWorkoutExerciseConfigUC, GetWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, AccessWorkoutProcessStateUC, GetWorkoutTimerValueUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
@@ -31,7 +32,22 @@ class WorkoutPlayerUCImpl @Inject constructor(
     private val workoutExerciseConfigSubject = PublishSubject.create<WorkoutExerciseConfig>()
     private val exerciseApproachDataSubject = PublishSubject.create<WorkoutExerciseIndicators>()
     private val workoutProcessStateSubject = BehaviorSubject.create<WorkoutProcessState>()
+    private val timerValueSubject = BehaviorSubject.create<TimerValue>()
     private val disposables = CompositeDisposable()
+
+    private var timer: Int = -1
+    private var isResumed = false
+    private var isStopped = false
+
+    private val incrementTimer = Runnable {
+            if (isResumed) {
+                timer++
+                val hours = timer / 3600
+                val minutes = timer % 3600 / 60
+                val seconds = timer % 60
+                timerValueSubject.onNext(TimerValue(hours, minutes, seconds))
+            }
+    }
 
     override fun invoke(): Observable<WorkoutExerciseConfig> = workoutExerciseConfigSubject
 
@@ -59,33 +75,35 @@ class WorkoutPlayerUCImpl @Inject constructor(
         currentSetConfig = WorkoutSetConfig(-1, -1, -1, -1, -1)
         workoutProcessStateSubject.onNext(WorkoutProcessState.STARTED)
 
-        disposables.add(
-                getWorkoutExerciseListUC()
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({ exercises ->
+        getWorkoutExerciseListUC()
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        { exercises ->
                             currentExercises = exercises
                             currentExerciseIndex = 0
                             pushCurrentWorkoutExercise()
-                        }, { error ->
-                            // TODO: send error
-                        })
-        )
+                        },
+                        { error -> /* TODO: send error */ }
+                )
+                .also { disposable -> disposables.add(disposable) }
 
-        disposables.add(
-                getWorkoutSetConfigUC()
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({ config ->
+        getWorkoutSetConfigUC()
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        { config ->
                             if (config.setIndex > currentSetConfig.setIndex) {
                                 workoutData.add(WorkoutSetData(config.exerciseAmount, config.approachAmount))
                             }
                             currentSetConfig = config
                             pushWorkoutExerciseConfig()
                             pushCurrentExerciseApproachData()
-                        }, { error ->
-                            // TODO: send error
-                        })
-        )
+                        },
+                        { error -> /* TODO: send error */ }
+                )
+                .also { disposable -> disposables.add(disposable) }
+
         pushWorkoutProcessState(WorkoutProcessState.STARTED)
+        timer(daemon = true, initialDelay = 0, period = 1000, action = { incrementTimer.run(); if (isStopped) cancel() })
     }
 
     override fun stopWorkout() {
@@ -115,11 +133,11 @@ class WorkoutPlayerUCImpl @Inject constructor(
             currentSetConfig.setIndex + 1 < currentSetConfig.setAmount -> {
                 changeWorkoutSetConfigUC.putSetIndex(currentSetConfig.setIndex + 1)
             }
-            else -> {
-                stopWorkout()
-            }
+            else -> { stopWorkout() }
         }
     }
+
+    override fun currentTimer(): Observable<TimerValue> = timerValueSubject
 
     private fun pushCurrentExerciseApproachData() {
         val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
@@ -140,6 +158,11 @@ class WorkoutPlayerUCImpl @Inject constructor(
     }
 
     private fun pushWorkoutProcessState(state: WorkoutProcessState) {
+        when (state) {
+            WorkoutProcessState.STARTED -> { isResumed = true }
+            WorkoutProcessState.PAUSED -> { isResumed = false }
+            WorkoutProcessState.FINISHED -> { isResumed = false; isStopped = true }
+        }
         currentWorkoutProcessState = state
         workoutProcessStateSubject.onNext(state)
     }

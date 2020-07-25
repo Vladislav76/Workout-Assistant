@@ -5,9 +5,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Event
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.Event
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
@@ -27,7 +27,7 @@ class DiaryEntryListToolbarContent @Inject constructor(
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {
             R.id.add_diary_entry_action -> {
-                bus.sendPacket(Packet.NewItemMessage())
+                bus.sendPacket(Message.NewItemMessage())
                 true
             }
             R.id.delete_diary_entries_action -> {

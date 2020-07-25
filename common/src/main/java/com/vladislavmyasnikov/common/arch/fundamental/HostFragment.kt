@@ -1,14 +1,18 @@
-package com.vladislavmyasnikov.common.arch_components.fundamental
+package com.vladislavmyasnikov.common.arch.fundamental
 
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import ru.terrakok.cicerone.Router
 
-abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource), OnBackPressedListener {
+abstract class HostFragment(
+        @LayoutRes private val viewResource: Int
+) : BaseFragment(viewResource), OnBackPressedListener {
 
     protected abstract val router: Router
     protected abstract val fragmentFactory: FragmentFactory
@@ -17,6 +21,13 @@ abstract class HostFragment(@LayoutRes private val viewResource: Int) : BaseFrag
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentManager?.fragmentFactory = fragmentFactory
+    }
+
+    override fun onAttachFragment(childFragment: Fragment) {
+        super.onAttachFragment(childFragment)
+        if (childFragment is MessageSender) {
+            childFragment.defaultReceiver = this
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

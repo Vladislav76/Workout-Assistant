@@ -3,8 +3,11 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageReceiver
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
@@ -18,13 +21,15 @@ class WorkoutListContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMListFragment<ShortWorkout>() {
 
+    override var defaultReceiver: MessageReceiver? = null
+
     override val viewModel: WorkoutListVM by lazy {
         ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
     }
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            bus.sendPacket(Packet.ItemClickMessage(id))
+            sendMessage(Message.ItemClickMessage(id))
         }
     }
 
@@ -32,7 +37,15 @@ class WorkoutListContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetch()
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
+        }
+    }
+
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
+            viewModel.request()
+        }
     }
 }
 

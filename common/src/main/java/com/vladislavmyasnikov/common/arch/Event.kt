@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.arch_components
+package com.vladislavmyasnikov.common.arch
 
 sealed class Event {
 

@@ -1,10 +1,14 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
@@ -20,6 +24,14 @@ class WorkoutExerciseContent @Inject constructor(
         ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseVM::class.java)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
+        }
+    }
+
     override fun onReceiveItem(item: WorkoutExercise) {
         val resID = requireContext().resources.getIdentifier(item.info.avatarID, "drawable", requireContext().packageName)
         workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), resID))
@@ -28,9 +40,9 @@ class WorkoutExerciseContent @Inject constructor(
         workout_exercise_weight.text = item.workoutExerciseIndicators.weight.toString()
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch()
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
+            viewModel.request()
         }
     }
 }

@@ -1,23 +1,22 @@
-package com.vladislavmyasnikov.common.arch_components.fundamental
+package com.vladislavmyasnikov.common.arch.fundamental
 
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import androidx.fragment.app.DialogFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-/*
- * Class for debug logging
- */
-abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment() {
+abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFragment() {
+
+    companion object {
+        private const val DIALOG_WIDTH_TO_DISPLAY_WIDTH_RATIO = 0.8
+    }
 
     protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
@@ -30,6 +29,11 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Logger.debug(this::class, "::onCreate")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Logger.debug(this::class, "::onActivityCreated")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -54,6 +58,15 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
         Logger.debug(this::class, "::onStart")
     }
 
+    override fun onResume() {
+        super.onResume()
+        val window = dialog!!.window!!
+        val display = window.windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        window.setLayout((size.x * DIALOG_WIDTH_TO_DISPLAY_WIDTH_RATIO).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
+    }
+
     override fun onStop() {
         super.onStop()
         Logger.debug(this::class, "::onStop")
@@ -62,7 +75,6 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
     override fun onDestroyView() {
         super.onDestroyView()
         disposables.clear()
-        Logger.debug(this::class, "::onDestroyView")
     }
 
     override fun onDetach() {
@@ -75,9 +87,5 @@ abstract class BaseFragment(@LayoutRes private val viewResource: Int) : Fragment
         Logger.debug(this::class, "::onDestroy")
     }
 
-    protected fun debugMessage(message: String) {
-        Logger.debug(this::class, message)
-    }
-
-    protected open fun onReceivePacket(packet: Packet) {}
+    protected open fun onReceivePacket(message: Message) {}
 }

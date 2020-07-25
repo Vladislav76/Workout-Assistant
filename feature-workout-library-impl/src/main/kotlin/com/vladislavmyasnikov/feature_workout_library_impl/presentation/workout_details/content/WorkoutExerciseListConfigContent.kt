@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSetConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.adapter.NaturalNumberAdapter
@@ -56,6 +58,10 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         workoutSetApproachAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         workout_set_approach.adapter = workoutSetApproachAdapter
         workout_set_approach.onItemSelectedListener = workoutSetApproachClickCallback
+
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
+        }
     }
 
     override fun onReceiveItem(item: WorkoutSetConfig) {
@@ -65,9 +71,9 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         workout_set_approach.setSelection(item.approachIndex)
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch()
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
+            viewModel.request()
         }
     }
 }

@@ -2,9 +2,9 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.e
 
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.HostFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.Screens
@@ -35,10 +35,10 @@ class ExerciseListScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemClickMessage) {
+    override fun onReceivePacket(message: Message) {
+        if (message is Message.ItemClickMessage) {
             router.navigateTo(Screens.ExerciseDetailsScreen())
-            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
+            bus.sendPacket(Message.KeyDataResponseMessage(message.id))
         }
     }
 }

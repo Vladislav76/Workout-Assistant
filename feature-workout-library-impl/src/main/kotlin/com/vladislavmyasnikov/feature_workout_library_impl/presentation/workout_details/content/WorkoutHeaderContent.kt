@@ -1,9 +1,14 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageReceiver
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.presentation.view.components.VMHeaderFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.FullWorkout
@@ -20,6 +25,18 @@ class WorkoutHeaderContent @Inject constructor(
         ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
     }
 
+    override var defaultReceiver: MessageReceiver? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
+        }
+        start_workout_button.setOnClickListener {
+            sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
+        }
+    }
+
     override fun onReceiveItem(item: FullWorkout) {
         val context = requireContext()
 
@@ -29,9 +46,9 @@ class WorkoutHeaderContent @Inject constructor(
         workout_avatar.setImageDrawable(ContextCompat.getDrawable(context, resID))
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch(packet.id)
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.KeyDataResponseMessage) {
+            viewModel.request(message.id)
         }
     }
 }

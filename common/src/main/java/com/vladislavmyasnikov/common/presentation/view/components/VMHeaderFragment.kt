@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.common.presentation.view.components
 import android.content.Context
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 
 abstract class VMHeaderFragment<T>(@LayoutRes private val viewResource: Int) : VMFragment<T>(viewResource) {
 

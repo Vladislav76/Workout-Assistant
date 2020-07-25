@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.presentation.view.diary_entry.content
 
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.common.utils.DateFormatter
 import com.vladislavmyasnikov.feature_diary_impl.domain.model.FullDiaryEntry

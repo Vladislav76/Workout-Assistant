@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMDialog
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.fundamental.VMDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
@@ -28,7 +28,7 @@ class WorkoutExerciseDialog @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            viewModel.fetch(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
+            viewModel.request(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
         }
     }
 

@@ -3,9 +3,11 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutProcessState
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutPlayerVM
@@ -23,10 +25,15 @@ class ControlPanelContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         next_button.setOnClickListener { viewModel.next() }
         stop_button.setOnClickListener { viewModel.stop() }
         pause_button.setOnClickListener { viewModel.pause() }
         resume_button.setOnClickListener { viewModel.resume() }
+
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
+        }
     }
 
     override fun onReceiveItem(item: WorkoutProcessState) {
@@ -50,9 +57,9 @@ class ControlPanelContent @Inject constructor(
         }
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.start(packet.id)
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.KeyDataResponseMessage) {
+            viewModel.request(message.id)
         }
     }
 }

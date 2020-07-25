@@ -9,30 +9,35 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
 
+    companion object {
+        private val sharedFragmentFactory = WorkoutLibraryFeatureComponent.get().fragmentFactory
+    }
+
     class WorkoutListScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
             val clazz = WorkoutListScreenHost::class.java
-            val factory = WorkoutLibraryFeatureComponent.get().fragmentFactory
-            return factory.instantiate(clazz.classLoader!!, clazz.name)
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
 
-    class WorkoutDetailsScreen : SupportAppScreen() {
+    class WorkoutDetailsScreen(private val workoutID: Long) : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
             val clazz = WorkoutScreenHost::class.java
-            val factory = WorkoutLibraryFeatureComponent.get().fragmentFactory
-            return factory.instantiate(clazz.classLoader!!, clazz.name)
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name).also { createdFragment ->
+                (createdFragment as WorkoutScreenHost).putArguments(workoutID)
+            }
         }
     }
 
-    class WorkoutPlayerScreen : SupportAppScreen() {
+    class WorkoutPlayerScreen(private val workoutID: Long) : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
             val clazz = WorkoutPlayerScreenHost::class.java
-            val factory = WorkoutLibraryFeatureComponent.get().fragmentFactory
-            return factory.instantiate(clazz.classLoader!!, clazz.name)
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name).also { createdFragment ->
+                (createdFragment as WorkoutPlayerScreenHost).putArguments(workoutID)
+            }
         }
     }
 }

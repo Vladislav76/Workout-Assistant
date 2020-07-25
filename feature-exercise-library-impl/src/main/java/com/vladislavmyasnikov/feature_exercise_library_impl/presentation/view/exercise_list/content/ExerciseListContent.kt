@@ -3,8 +3,8 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.e
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
@@ -24,7 +24,7 @@ class ExerciseListContent @Inject constructor(
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            bus.sendPacket(Packet.ItemClickMessage(id))
+            bus.sendPacket(Message.ItemClickMessage(id))
         }
     }
 

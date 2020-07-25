@@ -1,8 +1,12 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content
 
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
@@ -22,15 +26,22 @@ class WorkoutExerciseListContent @Inject constructor(
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            bus.sendPacket(Packet.ItemClickMessage(id))
+            bus.sendPacket(Message.ItemClickMessage(id))
         }
     }
 
     override val itemClickCallbackInSelectMode: OnItemClickCallback? = null
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch(packet.id)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
+        }
+    }
+
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.KeyDataResponseMessage) {
+            viewModel.request(message.id)
         }
     }
 }

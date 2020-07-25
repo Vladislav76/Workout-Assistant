@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel
 
-import com.vladislavmyasnikov.common.arch_components.BaseViewModel
+import com.vladislavmyasnikov.common.arch.viewmodel.BaseVM
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
 import io.reactivex.Single
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ExerciseListVM @Inject constructor(
         private val repository: ExerciseRepository
-) : BaseViewModel<List<ShortExercise>, Throwable>() {
+) : BaseVM<List<ShortExercise>, Throwable>() {
 
     private var sourceItems: List<ShortExercise> = emptyList()
 

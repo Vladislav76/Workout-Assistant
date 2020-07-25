@@ -1,24 +1,17 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel
 
-import com.vladislavmyasnikov.common.arch_components.BaseViewModel
+import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
+import com.vladislavmyasnikov.common.models.Either
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.GetWorkoutExerciseConfigUC
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class WorkoutExerciseConfigVM @Inject constructor(
         private val getWorkoutExerciseConfigUC: GetWorkoutExerciseConfigUC
-) : BaseViewModel<WorkoutExerciseConfig, Throwable>() {
+) : SimpleVM<WorkoutExerciseConfig>() {
 
-    fun fetch() {
-        disposables.add(
-                getWorkoutExerciseConfigUC()
-                        .subscribeOn(Schedulers.io())
-                        .subscribe({ config ->
-                            pushItem(config)
-                        }, { error ->
-                            pushError(error)
-                        })
-        )
+    override fun processRequest(id: Long): Either<Boolean, Completable> {
+        return Either.Right(initAsynchronousRequest(getWorkoutExerciseConfigUC()))
     }
 }

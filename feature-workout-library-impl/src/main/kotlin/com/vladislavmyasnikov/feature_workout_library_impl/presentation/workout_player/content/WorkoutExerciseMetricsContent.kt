@@ -3,9 +3,11 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch_components.Packet
-import com.vladislavmyasnikov.common.arch_components.SharedBus
-import com.vladislavmyasnikov.common.arch_components.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
+import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.exported_data_button
 import com.vladislavmyasnikov.common.extensions.exported_decrease_button
 import com.vladislavmyasnikov.common.extensions.exported_increase_button
@@ -26,6 +28,7 @@ class WorkoutExerciseMetricsContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         reps_panel.exported_decrease_button.setOnClickListener {
             viewModel.decreaseReps()
         }
@@ -38,6 +41,10 @@ class WorkoutExerciseMetricsContent @Inject constructor(
         weight_panel.exported_increase_button.setOnClickListener {
             viewModel.increaseWeight()
         }
+
+        if (savedInstanceState == null) {
+            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
+        }
     }
 
     override fun onReceiveItem(item: WorkoutExerciseIndicators) {
@@ -45,9 +52,9 @@ class WorkoutExerciseMetricsContent @Inject constructor(
         weight_panel.exported_data_button.text = item.weight.toString()
     }
 
-    override fun onReceivePacket(packet: Packet) {
-        if (packet is Packet.ItemFetchRequest) {
-            viewModel.fetch()
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
+            viewModel.request()
         }
     }
 }

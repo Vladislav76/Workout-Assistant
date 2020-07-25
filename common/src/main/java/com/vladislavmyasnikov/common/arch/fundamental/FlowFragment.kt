@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.arch_components.fundamental
+package com.vladislavmyasnikov.common.arch.fundamental
 
 import android.content.Context
 import android.os.Bundle
