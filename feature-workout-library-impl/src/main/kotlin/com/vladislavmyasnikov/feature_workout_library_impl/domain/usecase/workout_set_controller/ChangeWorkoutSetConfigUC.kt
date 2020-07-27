@@ -2,6 +2,6 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 
 interface ChangeWorkoutSetConfigUC {
 
-    fun putSetIndex(setIndex: Int)
-    fun putApproachIndex(approachIndex: Int)
+    fun putSetIndex(index: Int)
+    fun putApproachIndex(index: Int)
 }

@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface GetWorkoutSetListUC {
 
-    operator fun invoke(workoutPlanID: Long): Single<List<WorkoutSet>>
+    fun getAllSetsByWorkoutId(id: Long): Single<List<WorkoutSet>>
 }

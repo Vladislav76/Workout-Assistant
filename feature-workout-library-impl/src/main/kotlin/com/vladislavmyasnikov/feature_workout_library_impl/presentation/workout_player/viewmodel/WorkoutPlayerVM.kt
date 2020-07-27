@@ -3,32 +3,32 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
 import com.vladislavmyasnikov.common.models.Either
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutProcessState
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.AccessWorkoutProcessStateUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.ManageWorkoutProcessUC
 import io.reactivex.Completable
 import javax.inject.Inject
 
 class WorkoutPlayerVM @Inject constructor(
-        private val accessWorkoutProcessStateUC: AccessWorkoutProcessStateUC
+        private val manageWorkoutProcessUC: ManageWorkoutProcessUC
 ) : SimpleVM<WorkoutProcessState>() {
 
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        accessWorkoutProcessStateUC.startWorkout(id)
-        return Either.Right(initAsynchronousRequest(accessWorkoutProcessStateUC.getWorkoutProcessState()))
+        manageWorkoutProcessUC.startWorkoutById(id)
+        return Either.Right(initAsynchronousRequest(manageWorkoutProcessUC.getCurrentWorkoutProcessState()))
     }
 
     fun stop() {
-        accessWorkoutProcessStateUC.stopWorkout()
+        manageWorkoutProcessUC.stopWorkout()
     }
 
     fun pause() {
-        accessWorkoutProcessStateUC.pauseWorkout()
+        manageWorkoutProcessUC.pauseWorkout()
     }
 
     fun resume() {
-        accessWorkoutProcessStateUC.resumeWorkout()
+        manageWorkoutProcessUC.resumeWorkout()
     }
 
     fun next() {
-        accessWorkoutProcessStateUC.nextExercise()
+        manageWorkoutProcessUC.nextExercise()
     }
 }

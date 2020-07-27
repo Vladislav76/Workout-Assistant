@@ -13,6 +13,7 @@ import com.vladislavmyasnikov.common.presentation.view.components.CollapsingHead
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.dialogs.WorkoutExerciseDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutHeaderContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -57,26 +58,16 @@ class WorkoutScreenHost @Inject constructor(
                     }
                 }
             }
+            is Message.ItemClickMessage -> {
+                val dialogClass = WorkoutExerciseDialog::class.java
+                (fragmentFactory.instantiate(dialogClass.classLoader!!, dialogClass.name) as WorkoutExerciseDialog)
+                        .also {
+                            it.putArguments(message.id)
+                            it.show(childFragmentManager, null)
+                        }
+            }
         }
     }
-
-//    override fun onReceivePacket(packet: Packet) {
-//        when (packet) {
-//            is Packet.ItemFetchRequest -> bus.sendNoise()
-//            is Packet.ItemClickMessage -> {
-//                val dialogClass = WorkoutExerciseDialog::class.java
-//                val dialog = (fragmentFactory.instantiate(dialogClass.classLoader!!, dialogClass.name) as WorkoutExerciseDialog).also {
-//                    it.putArguments(packet.id)
-//                }
-//                dialog.show(childFragmentManager, null)
-//                bus.sendNoise()
-//            }
-//            is Packet.StartWorkoutMessage -> {
-//                router.navigateTo(Screens.WorkoutPlayerScreen())
-//                bus.sendPacket(Packet.ItemFetchRequest(packet.id))
-//            }
-//        }
-//    }
 
     fun putArguments(workoutID: Long) {
         arguments = Bundle().apply {

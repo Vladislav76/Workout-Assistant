@@ -3,10 +3,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutProcessState
 import io.reactivex.Observable
 
-interface AccessWorkoutProcessStateUC {
+interface ManageWorkoutProcessUC {
 
-    fun getWorkoutProcessState(): Observable<WorkoutProcessState>
-    fun startWorkout(workoutPlanID: Long)
+    fun getCurrentWorkoutProcessState(): Observable<WorkoutProcessState>
+    fun startWorkoutById(id: Long)
     fun stopWorkout()
     fun pauseWorkout()
     fun resumeWorkout()

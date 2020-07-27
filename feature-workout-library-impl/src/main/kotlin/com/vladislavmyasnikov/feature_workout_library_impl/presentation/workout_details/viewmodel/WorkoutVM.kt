@@ -12,6 +12,6 @@ class WorkoutVM @Inject constructor(
 ) : SimpleVM<FullWorkout>() {
 
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        return Either.Right(initAsynchronousRequest(getWorkoutUC(id)))
+        return Either.Right(initAsynchronousRequest(getWorkoutUC.getWorkoutById(id)))
     }
 }

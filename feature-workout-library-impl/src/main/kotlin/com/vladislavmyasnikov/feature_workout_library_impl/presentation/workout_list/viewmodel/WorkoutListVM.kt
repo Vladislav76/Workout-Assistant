@@ -14,7 +14,7 @@ class WorkoutListVM @Inject constructor(
     private var currentItem: List<ShortWorkout> = emptyList()
 
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        return Either.Right(initAsynchronousRequest(getWorkoutListUC()))
+        return Either.Right(initAsynchronousRequest(getWorkoutListUC.getAllWorkouts()))
     }
 
     override fun onSuccessfulResponse(item: List<ShortWorkout>) {

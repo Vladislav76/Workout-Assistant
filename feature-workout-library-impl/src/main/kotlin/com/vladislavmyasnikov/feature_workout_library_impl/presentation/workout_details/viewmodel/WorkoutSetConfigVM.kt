@@ -4,17 +4,17 @@ import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
 import com.vladislavmyasnikov.common.models.Either
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSetConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.ChangeWorkoutSetConfigUC
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetWorkoutSetConfigUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutSetConfigUC
 import io.reactivex.Completable
 import javax.inject.Inject
 
 class WorkoutSetConfigVM @Inject constructor(
-        private val getWorkoutSetConfigUC: GetWorkoutSetConfigUC,
+        private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC
 ) : SimpleVM<WorkoutSetConfig>() {
 
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        return Either.Right(initAsynchronousRequest(getWorkoutSetConfigUC()))
+        return Either.Right(initAsynchronousRequest(getCurrentWorkoutSetConfigUC.getCurrentWorkoutSetConfig()))
     }
 
     fun updateWorkoutSetNumber(number: Int) {

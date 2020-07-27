@@ -9,5 +9,5 @@ class GetWorkoutListUCImpl @Inject constructor(
         private val workoutRepository: WorkoutRepository
 ) : GetWorkoutListUC {
 
-    override fun invoke(): Observable<List<ShortWorkout>> = workoutRepository.fetchShortWorkoutList()
+    override fun getAllWorkouts(): Observable<List<ShortWorkout>> = workoutRepository.fetchShortWorkoutList()
 }

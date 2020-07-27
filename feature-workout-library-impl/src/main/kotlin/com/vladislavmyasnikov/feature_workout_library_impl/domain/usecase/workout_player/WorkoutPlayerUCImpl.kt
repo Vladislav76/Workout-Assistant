@@ -2,10 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.ChangeWorkoutSetConfigUC
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetWorkoutExerciseListUC
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetWorkoutSetConfigUC
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.RequestWorkoutUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.*
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,10 +14,10 @@ import kotlin.concurrent.timer
 @PerScreen
 class WorkoutPlayerUCImpl @Inject constructor(
         private val requestWorkoutUC: RequestWorkoutUC,
-        private val getWorkoutExerciseListUC: GetWorkoutExerciseListUC,
+        private val getCurrentWorkoutExerciseListUC: GetCurrentWorkoutExerciseListUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
-        private val getWorkoutSetConfigUC: GetWorkoutSetConfigUC
-) : GetWorkoutExerciseConfigUC, GetWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, AccessWorkoutProcessStateUC, GetWorkoutTimerValueUC {
+        private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC
+) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC, GetCurrentWorkoutTimerValueUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
@@ -49,9 +46,12 @@ class WorkoutPlayerUCImpl @Inject constructor(
             }
     }
 
-    override fun invoke(): Observable<WorkoutExerciseConfig> = workoutExerciseConfigSubject
+    /* * * PUBLIC API * * */
+    override fun getCurrentWorkoutExerciseConfig(): Observable<WorkoutExerciseConfig> = workoutExerciseConfigSubject
 
-    override fun invoke(spike: Int): Observable<WorkoutExercise> = workoutExerciseSubject
+    override fun getCurrentWorkoutExercise(): Observable<WorkoutExercise> = workoutExerciseSubject
+
+    override fun getCurrentWorkoutTimerValue(): Observable<TimerValue> = timerValueSubject
 
     override fun getMetrics(): Observable<WorkoutExerciseIndicators> = exerciseApproachDataSubject
 
@@ -67,15 +67,15 @@ class WorkoutPlayerUCImpl @Inject constructor(
         pushCurrentExerciseApproachData()
     }
 
-    override fun getWorkoutProcessState(): Observable<WorkoutProcessState> = workoutProcessStateSubject
+    override fun getCurrentWorkoutProcessState(): Observable<WorkoutProcessState> = workoutProcessStateSubject
 
-    override fun startWorkout(workoutPlanID: Long) {
-        requestWorkoutUC(workoutPlanID)
+    override fun startWorkoutById(id: Long) {
+        requestWorkoutUC.requestWorkoutById(id)
         workoutData = mutableListOf()
         currentSetConfig = WorkoutSetConfig(-1, -1, -1, -1, -1)
         workoutProcessStateSubject.onNext(WorkoutProcessState.STARTED)
 
-        getWorkoutExerciseListUC()
+        getCurrentWorkoutExerciseListUC.getCurrentWorkoutExercises()
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         { exercises ->
@@ -87,7 +87,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
                 )
                 .also { disposable -> disposables.add(disposable) }
 
-        getWorkoutSetConfigUC()
+        getCurrentWorkoutSetConfigUC.getCurrentWorkoutSetConfig()
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         { config ->
@@ -137,8 +137,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
         }
     }
 
-    override fun currentTimer(): Observable<TimerValue> = timerValueSubject
-
+    /* * * PRIVATE API * * */
     private fun pushCurrentExerciseApproachData() {
         val data = workoutData[currentSetConfig.setIndex].getExerciseApproachData(currentExerciseIndex, currentSetConfig.approachIndex)
         exerciseApproachDataSubject.onNext(data)

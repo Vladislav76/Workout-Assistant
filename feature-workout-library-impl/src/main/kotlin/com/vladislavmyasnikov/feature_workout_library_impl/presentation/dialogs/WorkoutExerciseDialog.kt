@@ -27,6 +27,7 @@ class WorkoutExerciseDialog @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if (savedInstanceState == null) {
             viewModel.request(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
         }

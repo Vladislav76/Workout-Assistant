@@ -26,7 +26,7 @@ class WorkoutExerciseListContent @Inject constructor(
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {
-            bus.sendPacket(Message.ItemClickMessage(id))
+            sendMessage(Message.ItemClickMessage(id))
         }
     }
 
@@ -34,6 +34,7 @@ class WorkoutExerciseListContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if (savedInstanceState == null) {
             sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
         }

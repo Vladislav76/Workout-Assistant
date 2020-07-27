@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface GetWorkoutListUC {
 
-    operator fun invoke(): Observable<List<ShortWorkout>>
+    fun getAllWorkouts(): Observable<List<ShortWorkout>>
 }

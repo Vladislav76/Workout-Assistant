@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
 import io.reactivex.Observable
 
-interface GetWorkoutExerciseUC {
+interface GetCurrentWorkoutExerciseUC {
 
-    operator fun invoke(spike: Int = 0): Observable<WorkoutExercise>
+    fun getCurrentWorkoutExercise(): Observable<WorkoutExercise>
 }

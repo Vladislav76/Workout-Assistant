@@ -2,5 +2,5 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 
 interface RequestWorkoutUC {
 
-    operator fun invoke(workoutPlanID: Long)
+    fun requestWorkoutById(id: Long)
 }

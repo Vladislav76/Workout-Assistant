@@ -12,7 +12,7 @@ import javax.inject.Inject
 @PerScreen
 class WorkoutSetControllerUCImpl @Inject constructor(
         private val getWorkoutSetListUC: GetWorkoutSetListUC
-) : RequestWorkoutUC, GetWorkoutExerciseListUC, GetWorkoutSetConfigUC, GetSelectedWorkoutExerciseUC, ChangeWorkoutSetConfigUC {
+) : RequestWorkoutUC, GetCurrentWorkoutExerciseListUC, GetCurrentWorkoutSetConfigUC, GetWorkoutExerciseUC, ChangeWorkoutSetConfigUC {
 
     private var currentSetIndex = -1
     private var currentApproachIndex = -1
@@ -23,13 +23,13 @@ class WorkoutSetControllerUCImpl @Inject constructor(
     private val workoutSetConfigSubject = PublishSubject.create<WorkoutSetConfig>()
     private val disposables = CompositeDisposable()
 
-    override fun invoke(workoutPlanID: Long) {
-        getWorkoutSetListUC(workoutPlanID)
+    override fun requestWorkoutById(id: Long) {
+        getWorkoutSetListUC.getAllSetsByWorkoutId(id)
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         { sets ->
                             currentSets = sets
-                            currentWorkoutPlanID = workoutPlanID
+                            currentWorkoutPlanID = id
                             initialSetup()
                         },
                         { error -> /* TODO: send error */ }
@@ -37,27 +37,27 @@ class WorkoutSetControllerUCImpl @Inject constructor(
                 .also { disposable -> disposables.add(disposable) }
     }
 
-    override fun invoke(spike: Int): Observable<List<WorkoutExercise>> = workoutExerciseListSubject
+    override fun getCurrentWorkoutExercises(): Observable<List<WorkoutExercise>> = workoutExerciseListSubject
 
-    override fun invoke(): Observable<WorkoutSetConfig> = workoutSetConfigSubject
+    override fun getCurrentWorkoutSetConfig(): Observable<WorkoutSetConfig> = workoutSetConfigSubject
 
-    override fun invoke(exerciseID: Long, spike: Int): WorkoutExercise {
+    override fun getWorkoutExerciseById(exerciseID: Long): WorkoutExercise {
         val exercise = currentSets[currentSetIndex].elements.find { exercise -> exercise.first.id == exerciseID }!!
         return WorkoutExercise(exercise.first, exercise.second[currentApproachIndex])
     }
 
-    override fun putSetIndex(setIndex: Int) {
-        if (setIndex != currentSetIndex) {
-            currentSetIndex = setIndex
+    override fun putSetIndex(index: Int) {
+        if (currentSetIndex != index) {
+            currentSetIndex = index
             currentApproachIndex = 0
             pushCurrentWorkoutExerciseList()
             pushCurrentWorkoutSetConfig()
         }
     }
 
-    override fun putApproachIndex(approachIndex: Int) {
-        if (approachIndex != currentApproachIndex) {
-            currentApproachIndex = approachIndex
+    override fun putApproachIndex(index: Int) {
+        if (currentApproachIndex != index) {
+            currentApproachIndex = index
             pushCurrentWorkoutExerciseList()
             pushCurrentWorkoutSetConfig()
         }

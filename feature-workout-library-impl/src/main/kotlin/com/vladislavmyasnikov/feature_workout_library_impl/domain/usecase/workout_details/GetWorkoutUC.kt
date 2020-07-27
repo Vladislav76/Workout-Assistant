@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface GetWorkoutUC {
 
-    operator fun invoke(workoutPlanID: Long): Single<FullWorkout>
+    fun getWorkoutById(id: Long): Single<FullWorkout>
 }

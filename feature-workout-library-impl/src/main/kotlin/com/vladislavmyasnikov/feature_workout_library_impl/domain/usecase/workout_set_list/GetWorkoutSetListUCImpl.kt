@@ -9,5 +9,5 @@ class GetWorkoutSetListUCImpl @Inject constructor (
         private val workoutRepository: WorkoutRepository
 ) : GetWorkoutSetListUC {
 
-    override fun invoke(workoutPlanID: Long): Single<List<WorkoutSet>> = workoutRepository.fetchWorkoutSetList(workoutPlanID)
+    override fun getAllSetsByWorkoutId(id: Long): Single<List<WorkoutSet>> = workoutRepository.fetchWorkoutSetList(id)
 }
