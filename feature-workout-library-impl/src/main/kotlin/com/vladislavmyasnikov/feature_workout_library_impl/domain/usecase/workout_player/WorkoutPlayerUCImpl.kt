@@ -1,23 +1,32 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player
 
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.*
+import com.vladislavmyasnikov.common.models.TimePoint
+import com.vladislavmyasnikov.feature_diary_api.domain.entity.FullDiaryEntry
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.*
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.ChangeWorkoutSetConfigUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutExerciseListUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutSetConfigUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.RequestWorkoutUC
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.timer
 
 @PerScreen
 class WorkoutPlayerUCImpl @Inject constructor(
+        private val workoutRepository: WorkoutRepository,
         private val requestWorkoutUC: RequestWorkoutUC,
         private val getCurrentWorkoutExerciseListUC: GetCurrentWorkoutExerciseListUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC
-) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC, GetCurrentWorkoutTimerValueUC {
+) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC, GetCurrentWorkoutTimerValueUC, SaveWorkoutResultUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
@@ -135,6 +144,11 @@ class WorkoutPlayerUCImpl @Inject constructor(
             }
             else -> { stopWorkout() }
         }
+    }
+
+    override fun saveCurrentWorkoutResult(): Completable {
+        val entry = FullDiaryEntry(0, Date(), TimePoint(0), TimePoint(2000000), TimePoint(timer.toLong() * 1000),"executed workout")
+        return workoutRepository.saveWorkoutResult(entry)
     }
 
     /* * * PRIVATE API * * */

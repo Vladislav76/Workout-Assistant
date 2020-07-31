@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.FullExercise
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.entity.FullExercise
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseVM
 import kotlinx.android.synthetic.main.content_exercise_details.*

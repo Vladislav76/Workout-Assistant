@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.viewmodel.WorkoutListVM
 import javax.inject.Inject
 

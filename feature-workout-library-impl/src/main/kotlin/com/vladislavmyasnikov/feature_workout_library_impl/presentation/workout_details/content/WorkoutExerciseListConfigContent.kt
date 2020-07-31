@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSetConfig
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSetConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.adapter.NaturalNumberAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutSetConfigVM
 import kotlinx.android.synthetic.main.content_workout_set_details.*

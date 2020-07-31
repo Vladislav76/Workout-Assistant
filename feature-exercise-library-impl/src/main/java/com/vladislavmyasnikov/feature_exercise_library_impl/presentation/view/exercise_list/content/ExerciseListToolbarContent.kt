@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.R
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.entity.ShortExercise
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.dialogs.ExerciseFilterFragment
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmodel.ExerciseListVM
 import javax.inject.Inject

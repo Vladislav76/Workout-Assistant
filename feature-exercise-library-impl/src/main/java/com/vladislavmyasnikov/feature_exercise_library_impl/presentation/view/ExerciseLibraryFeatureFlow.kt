@@ -3,8 +3,8 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.FlowFragment
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryLauncher
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryLauncher
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject

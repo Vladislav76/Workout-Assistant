@@ -1,12 +1,12 @@
 package com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.FullExercise
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.ShortExercise
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.entity.FullExercise
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.entity.ShortExercise
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject

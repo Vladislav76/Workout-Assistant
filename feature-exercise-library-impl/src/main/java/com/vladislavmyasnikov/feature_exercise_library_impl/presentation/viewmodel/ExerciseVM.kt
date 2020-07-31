@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.presentation.viewmo
 
 import com.vladislavmyasnikov.common.arch.viewmodel.BaseVM
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
-import com.vladislavmyasnikov.feature_exercise_library_impl.domain.model.FullExercise
+import com.vladislavmyasnikov.feature_exercise_library_impl.domain.entity.FullExercise
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller
 
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.*
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list.GetWorkoutSetListUC
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

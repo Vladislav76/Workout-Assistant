@@ -1,8 +1,8 @@
 package com.vladislavmyasnikov.feature_diary_impl.data.db.dao
 
 import androidx.room.*
-import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.FullDiaryEntry
-import com.vladislavmyasnikov.feature_diary_impl.data.db.entities.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.data.db.entity.FullDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.data.db.entity.ShortDiaryEntry
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -17,7 +17,7 @@ interface DiaryDao {
     fun loadEntryById(id: Long): Maybe<FullDiaryEntry>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEntry(entry: FullDiaryEntry)
+    fun insertEntry(entry: FullDiaryEntry): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEntries(entries: List<FullDiaryEntry>)

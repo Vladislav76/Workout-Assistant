@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.FullExerciseInfo
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.db.entities.ShortExerciseInfo
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseInfo
 import io.reactivex.Observable
 import io.reactivex.Single
 

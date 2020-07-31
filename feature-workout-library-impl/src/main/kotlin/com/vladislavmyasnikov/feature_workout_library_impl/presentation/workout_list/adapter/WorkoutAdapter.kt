@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWorkout
 import kotlinx.android.synthetic.main.item_workout.view.*
 import javax.inject.Inject
 

@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.TimerValue
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.TimerValue
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutTimerVM
 import kotlinx.android.synthetic.main.content_timer.*
 import javax.inject.Inject

@@ -11,7 +11,7 @@ import com.vladislavmyasnikov.common.interfaces.MessageReceiver
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.presentation.view.components.VMHeaderFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.FullWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.FullWorkout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutVM
 import kotlinx.android.synthetic.main.content_workout_banner.*
 import javax.inject.Inject

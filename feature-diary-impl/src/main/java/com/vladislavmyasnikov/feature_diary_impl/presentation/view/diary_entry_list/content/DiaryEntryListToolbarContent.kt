@@ -11,7 +11,7 @@ import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 import com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel.DiaryEntryListVM
 import javax.inject.Inject
 

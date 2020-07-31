@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout
 
 import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
 import com.vladislavmyasnikov.common.models.Either
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseIndicators
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExerciseIndicators
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.AccessWorkoutExerciseMetricsUC
 import io.reactivex.Completable
 import javax.inject.Inject

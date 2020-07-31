@@ -1,1 +1,5 @@
-include ':feature-diary-impl', ':sample-app', ':common', ':features-api', ':feature-exercise-library-impl', ':feature-workout-library-impl'
+include ':common',
+        ':feature-diary-api', ':feature-diary-impl',
+        ':feature-exercise-library-api', ':feature-exercise-library-impl',
+        ':feature-workout-library-api', ':feature-workout-library-impl',
+        ':sample-app'

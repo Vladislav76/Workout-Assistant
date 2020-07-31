@@ -1,41 +1,36 @@
 package com.vladislavmyasnikov.common.utils
 
-import android.content.Context
-import android.util.TypedValue
 import com.vladislavmyasnikov.common.models.TimePoint
 import java.text.SimpleDateFormat
 import java.util.*
 
-object TimePointFormatter {
-    const val HOUR_MINUTE_FORMAT = 1
-    const val HOUR_MINUTE_SECOND_FORMAT = 2
+enum class TimePointFormatType {
 
-    fun format(time: TimePoint, type: Int): String {
-        return when(type) {
-            HOUR_MINUTE_FORMAT -> String.format("%02d:%02d", time.hours, time.minutes)
-            HOUR_MINUTE_SECOND_FORMAT -> String.format("%02d:%02d:%02d", time.hours, time.minutes, time.seconds)
-            else -> ""
-        }
-    }
+    HOUR_MINUTE {
+        override fun format(time: TimePoint): String = String.format("%02d:%02d", time.hours, time.minutes)
+    },
 
-    fun formatInterval(startTime: TimePoint, endTime: TimePoint, type: Int): String {
-        return "${format(startTime, type)} ― ${format(endTime, type)}"
-    }
+    HOUR_MINUTE_SECOND {
+        override fun format(time: TimePoint): String = String.format("%02d:%02d:%02d", time.hours, time.minutes, time.seconds)
+    };
+
+    abstract fun format(time: TimePoint): String
+
+    fun formatInterval(startTime: TimePoint, endTime: TimePoint): String = "${format(startTime)} ― ${format(endTime)}"
 }
 
-object DateFormatter {
-    const val DAY_MONTH_YEAR_FORMAT = 1
+enum class DateFormatType {
 
-    private var dayMonthYearFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    DAY_MONTH_YEAR {
+        private val dateFormat = SimpleDateFormat.getDateInstance() // or SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
-    fun format(date: Date, type: Int): String {
-        return when(type) {
-            DAY_MONTH_YEAR_FORMAT -> dayMonthYearFormat.format(date)
-            else -> ""
-        }
-    }
+        override fun format(date: Date): String = dateFormat.format(date)
+    };
+
+    abstract fun format(date: Date): String
 }
 
-fun convertDpToPixels(dp: Float, context: Context): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
-}
+// TODO: unused function
+//fun convertDpToPixels(dp: Float, context: Context): Int {
+//    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics).toInt()
+//}

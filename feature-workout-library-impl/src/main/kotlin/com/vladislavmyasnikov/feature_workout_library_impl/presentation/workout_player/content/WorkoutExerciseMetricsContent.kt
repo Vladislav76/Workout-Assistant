@@ -12,7 +12,7 @@ import com.vladislavmyasnikov.common.extensions.exported_data_button
 import com.vladislavmyasnikov.common.extensions.exported_decrease_button
 import com.vladislavmyasnikov.common.extensions.exported_increase_button
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseIndicators
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExerciseIndicators
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseMetricsVM
 import kotlinx.android.synthetic.main.content_exercise_approach_data.*
 import javax.inject.Inject

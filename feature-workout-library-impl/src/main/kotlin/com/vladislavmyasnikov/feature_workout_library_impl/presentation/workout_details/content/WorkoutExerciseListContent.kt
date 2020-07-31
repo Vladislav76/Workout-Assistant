@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
 import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.adapter.WorkoutExerciseAdapter
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutExerciseListVM
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list
 
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSet
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSet
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import io.reactivex.Single
 import javax.inject.Inject

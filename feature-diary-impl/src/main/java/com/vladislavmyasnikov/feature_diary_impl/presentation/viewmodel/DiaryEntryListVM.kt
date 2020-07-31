@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.viewmodel
 import com.vladislavmyasnikov.common.arch.viewmodel.BaseVM
 import com.vladislavmyasnikov.common.arch.Event
 import com.vladislavmyasnikov.feature_diary_impl.domain.repository.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import kotlin.reflect.KClass

@@ -1,1 +1,8 @@
 apply from: '../gradle/scripts/feature_impl_build.gradle'
+
+dependencies {
+    // Feature APIs module
+    implementation project(':feature-workout-library-api')
+    implementation project(':feature-diary-api')
+    implementation project(':feature-exercise-library-api')
+}

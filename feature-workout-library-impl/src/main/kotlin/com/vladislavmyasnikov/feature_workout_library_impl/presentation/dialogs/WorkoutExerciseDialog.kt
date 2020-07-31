@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.VMDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExercise
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
 import kotlinx.android.synthetic.main.content_workout_exercise_details.*
 import javax.inject.Inject

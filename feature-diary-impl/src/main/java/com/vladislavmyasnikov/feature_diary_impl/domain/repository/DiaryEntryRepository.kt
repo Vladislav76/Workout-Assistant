@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.feature_diary_impl.domain.repository
 
-import com.vladislavmyasnikov.feature_diary_impl.domain.model.FullDiaryEntry
-import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_api.domain.entity.FullDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable

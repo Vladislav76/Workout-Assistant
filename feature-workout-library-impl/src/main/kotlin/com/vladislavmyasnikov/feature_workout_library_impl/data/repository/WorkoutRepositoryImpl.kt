@@ -1,14 +1,17 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.data.repository
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.feature_diary_api.DiaryInteractor
+import com.vladislavmyasnikov.feature_diary_api.domain.entity.FullDiaryEntry
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelShortWorkoutMapper
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelWorkoutSetMapper
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.FullWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.ShortWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutSet
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.FullWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSet
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryInteractor
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,7 +19,8 @@ import javax.inject.Inject
 @PerFeature
 class WorkoutRepositoryImpl @Inject constructor(
         private val localDataSource: LocalDatabase,
-        private val exerciseLibraryInteractor: ExerciseLibraryInteractor
+        private val exerciseLibraryInteractor: ExerciseLibraryInteractor,
+        private val diaryInteractor: DiaryInteractor
 ) : WorkoutRepository {
 
     override fun fetchShortWorkoutList(): Observable<List<ShortWorkout>> {
@@ -49,5 +53,9 @@ class WorkoutRepositoryImpl @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun saveWorkoutResult(result: FullDiaryEntry): Completable {
+        return diaryInteractor.saveEntry(result)
     }
 }

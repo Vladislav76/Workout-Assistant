@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.model.WorkoutExerciseConfig
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExerciseConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseConfigVM
 import kotlinx.android.synthetic.main.content_workout_exercise_config.*
 import javax.inject.Inject

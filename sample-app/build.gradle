@@ -6,6 +6,7 @@ android.defaultConfig.applicationId = "com.vladislavmyasnikov.sample_app"
 
 apply from: '../gradle/scripts/shared_deps.gradle'
 apply from: '../gradle/scripts/not_api_deps.gradle'
+
 dependencies {
     // Project modules > Feature implementations
     implementation project(':feature-diary-impl')
@@ -16,5 +17,7 @@ dependencies {
     implementation project(':common')
 
     // Feature APIs module
-    implementation project(':features-api')
+    implementation project(':feature-diary-api')
+    implementation project(':feature-exercise-library-api')
+    implementation project(':feature-workout-library-api')
 }

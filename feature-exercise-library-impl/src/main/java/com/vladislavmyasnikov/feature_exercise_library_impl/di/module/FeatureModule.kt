@@ -3,12 +3,12 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.di.module
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryInteractor
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryLauncher
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl.ExerciseRepositoryImpl
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
 import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.ExerciseLibraryFeatureFlow
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryInteractor
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryLauncher
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

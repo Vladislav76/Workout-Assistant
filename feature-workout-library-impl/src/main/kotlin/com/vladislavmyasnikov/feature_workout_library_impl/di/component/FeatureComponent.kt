@@ -5,12 +5,13 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
+import com.vladislavmyasnikov.feature_diary_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_workout_library_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.feature_workout_library_impl.di.module.FeatureModule
 import com.vladislavmyasnikov.feature_workout_library_impl.di.module.HostFragmentBindingModule
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFeatureFlow
-import com.vladislavmyasnikov.features_api.exercise_library.ExerciseLibraryFeatureApi
-import com.vladislavmyasnikov.features_api.workout_library.WorkoutLibraryFeatureApi
+import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryFeatureApi
+import com.vladislavmyasnikov.feature_workout_library_api.WorkoutLibraryFeatureApi
 import dagger.Component
 
 @Component(
@@ -50,6 +51,6 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ExerciseLibraryFeatureApi::class])
+@Component(dependencies = [ContextHolder::class, ExerciseLibraryFeatureApi::class, DiaryFeatureApi::class])
 @PerFeature
 interface WorkoutLibraryFeatureDependenciesComponent : FeatureDependencies

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
-import com.vladislavmyasnikov.common.utils.DateFormatter
-import com.vladislavmyasnikov.common.utils.TimePointFormatter
+import com.vladislavmyasnikov.common.utils.DateFormatType
+import com.vladislavmyasnikov.common.utils.TimePointFormatType
 import com.vladislavmyasnikov.feature_diary_impl.R
-import com.vladislavmyasnikov.feature_diary_impl.domain.model.ShortDiaryEntry
+import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 import kotlinx.android.synthetic.main.item_non_selectable_diary_entry.view.*
 import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.*
 import javax.inject.Inject
@@ -34,18 +34,18 @@ class DiaryEntryAdapter @Inject constructor() : SelectableBaseAdapter<ShortDiary
     class NonSelectableViewHolder(view: View) : ViewHolder.NonSelectableViewHolder<ShortDiaryEntry>(view) {
 
         override fun bind(item: ShortDiaryEntry) {
-            itemView.date_field.text = DateFormatter.format(item.date, DateFormatter.DAY_MONTH_YEAR_FORMAT)
-            itemView.time_field.text = TimePointFormatter.formatInterval(item.startTime, item.endTime, TimePointFormatter.HOUR_MINUTE_FORMAT)
-            itemView.duration_field.text = TimePointFormatter.format(item.duration, TimePointFormatter.HOUR_MINUTE_FORMAT)
+            itemView.date_field.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
+            itemView.time_field.text = TimePointFormatType.HOUR_MINUTE.formatInterval(item.startTime, item.endTime)
+            itemView.duration_field.text = TimePointFormatType.HOUR_MINUTE_SECOND.format(item.duration)
         }
     }
 
     class SelectableViewHolder(view: View) : ViewHolder.SelectableViewHolder<ShortDiaryEntry>(view) {
 
         override fun bind(item: ShortDiaryEntry, isSelected: Boolean) {
-            itemView._date_field.text = DateFormatter.format(item.date, DateFormatter.DAY_MONTH_YEAR_FORMAT)
-            itemView._time_field.text = TimePointFormatter.formatInterval(item.startTime, item.endTime, TimePointFormatter.HOUR_MINUTE_FORMAT)
-            itemView._duration_field.text = TimePointFormatter.format(item.duration, TimePointFormatter.HOUR_MINUTE_FORMAT)
+            itemView._date_field.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
+            itemView._time_field.text = TimePointFormatType.HOUR_MINUTE.formatInterval(item.startTime, item.endTime)
+            itemView._duration_field.text = TimePointFormatType.HOUR_MINUTE_SECOND.format(item.duration)
             val colorId = if (isSelected) R.color.red else R.color.gray
             itemView.selection_view.setColorFilter(ContextCompat.getColor(itemView.context, colorId), PorterDuff.Mode.SRC_IN)
         }
