@@ -6,7 +6,7 @@ import androidx.room.Query
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutExerciseEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutSetEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.model.ShortWorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.ShortWorkoutEntity
 import io.reactivex.Observable
 import io.reactivex.Single
 

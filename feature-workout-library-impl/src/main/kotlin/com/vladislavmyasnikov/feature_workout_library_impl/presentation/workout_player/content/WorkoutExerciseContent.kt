@@ -9,6 +9,7 @@ import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExercise
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseVM
@@ -20,9 +21,7 @@ class WorkoutExerciseContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutExercise>(R.layout.content_workout_exercise_details) {
 
-    override val viewModel: WorkoutExerciseVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutExerciseVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -9,6 +9,7 @@ import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSetConfig
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.adapter.NaturalNumberAdapter
@@ -21,9 +22,7 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutSetConfig>(R.layout.content_workout_set_details) {
 
-    override val viewModel: WorkoutSetConfigVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutSetConfigVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutSetConfigVM>(viewModelFactory) }
 
     private lateinit var workoutSetNumberAdapter: NaturalNumberAdapter
     private lateinit var workoutSetApproachAdapter: NaturalNumberAdapter

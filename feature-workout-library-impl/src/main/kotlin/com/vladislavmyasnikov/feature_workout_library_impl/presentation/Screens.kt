@@ -5,6 +5,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutL
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.host.WorkoutScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.host.WorkoutListScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.host.WorkoutPlayerScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.host.WorkoutResultScreenHost
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
@@ -38,6 +39,14 @@ class Screens {
             return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name).also { createdFragment ->
                 (createdFragment as WorkoutPlayerScreenHost).putArguments(workoutID)
             }
+        }
+    }
+
+    class WorkoutResultScreen : SupportAppScreen() {
+
+        override fun getFragment(): Fragment {
+            val clazz = WorkoutResultScreenHost::class.java
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
 }

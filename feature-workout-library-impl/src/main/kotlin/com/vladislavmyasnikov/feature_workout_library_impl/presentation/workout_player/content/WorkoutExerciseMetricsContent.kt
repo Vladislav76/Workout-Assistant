@@ -11,6 +11,7 @@ import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.exported_data_button
 import com.vladislavmyasnikov.common.extensions.exported_decrease_button
 import com.vladislavmyasnikov.common.extensions.exported_increase_button
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutExerciseIndicators
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutExerciseMetricsVM
@@ -22,9 +23,7 @@ class WorkoutExerciseMetricsContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutExerciseIndicators>(R.layout.content_exercise_approach_data) {
 
-    override val viewModel: WorkoutExerciseMetricsVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutExerciseMetricsVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutExerciseMetricsVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

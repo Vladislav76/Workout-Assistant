@@ -6,11 +6,10 @@ import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_diary_api.DiaryFeatureApi
-import com.vladislavmyasnikov.feature_diary_impl.di.component.DaggerDiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.feature_diary_impl.di.module.FeatureModule
 import com.vladislavmyasnikov.feature_diary_impl.di.module.HostFragmentBindingModule
-import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryFeatureFlow
+import com.vladislavmyasnikov.feature_diary_impl.presentation.DiaryFeatureFlow
 import dagger.Component
 
 @Component(

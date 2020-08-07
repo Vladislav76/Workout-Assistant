@@ -1,12 +1,12 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 
-import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_details.GetWorkoutUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_details.GetWorkoutUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_list.GetWorkoutListUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_list.GetWorkoutListUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.*
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.GetCurrentWorkoutExerciseUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_result.GetLastSavedWorkoutResultUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_result.GetLastSavedWorkoutResultUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list.GetWorkoutSetListUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list.GetWorkoutSetListUCImpl
@@ -16,45 +16,48 @@ import dagger.Module
 @Module
 abstract class UCBindingModule {
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind1(impl: GetWorkoutListUCImpl): GetWorkoutListUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind2(impl: GetWorkoutUCImpl): GetWorkoutUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind3(impl: GetWorkoutSetListUCImpl): GetWorkoutSetListUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind4(impl: WorkoutSetControllerUCImpl): GetCurrentWorkoutExerciseListUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind5(impl: WorkoutSetControllerUCImpl): ChangeWorkoutSetConfigUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind6(impl: WorkoutSetControllerUCImpl): GetCurrentWorkoutSetConfigUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind7(impl: WorkoutSetControllerUCImpl): GetWorkoutExerciseUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind8(impl: WorkoutSetControllerUCImpl): RequestWorkoutUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind9(impl: WorkoutPlayerUCImpl): GetCurrentWorkoutExerciseConfigUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind10(impl: WorkoutPlayerUCImpl): GetCurrentWorkoutExerciseUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind11(impl: WorkoutPlayerUCImpl): ManageWorkoutProcessUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind12(impl: WorkoutPlayerUCImpl): AccessWorkoutExerciseMetricsUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind13(impl: WorkoutPlayerUCImpl): GetCurrentWorkoutTimerValueUC
 
-    @Binds @PerScreen
+    @Binds
     abstract fun bind14(impl: WorkoutPlayerUCImpl): SaveWorkoutResultUC
+
+    @Binds
+    abstract fun bind15(impl: GetLastSavedWorkoutResultUCImpl): GetLastSavedWorkoutResultUC
 }

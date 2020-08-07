@@ -8,6 +8,8 @@
     <string name="exercise_label">Exercise</string>
     <string name="approach_label">Approach</string>
     <string name="num_label">Num</string>
+    <string name="duration_label">Duration</string>
+    <string name="ok_label">OK</string>
 
     <string name="description_hint">No description</string>
 </resources>

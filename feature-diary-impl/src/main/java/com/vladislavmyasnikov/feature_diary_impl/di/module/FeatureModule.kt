@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.feature_diary_api.DiaryLauncher
 import com.vladislavmyasnikov.feature_diary_impl.data.repository.DiaryEntryRepositoryImpl
 import com.vladislavmyasnikov.feature_diary_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.feature_diary_impl.domain.repository.DiaryEntryRepository
-import com.vladislavmyasnikov.feature_diary_impl.presentation.view.DiaryFeatureFlow
+import com.vladislavmyasnikov.feature_diary_impl.presentation.DiaryFeatureFlow
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

@@ -2,7 +2,8 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.common.models.TimePoint
-import com.vladislavmyasnikov.feature_diary_api.domain.entity.FullDiaryEntry
+import com.vladislavmyasnikov.common.utils.getCurrentTimePoint
+import com.vladislavmyasnikov.feature_diary_api.domain.entity.DiaryEntry
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.ChangeWorkoutSetConfigUC
@@ -26,7 +27,8 @@ class WorkoutPlayerUCImpl @Inject constructor(
         private val getCurrentWorkoutExerciseListUC: GetCurrentWorkoutExerciseListUC,
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC
-) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC, GetCurrentWorkoutTimerValueUC, SaveWorkoutResultUC {
+) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC,
+        GetCurrentWorkoutTimerValueUC, SaveWorkoutResultUC {
 
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
@@ -42,6 +44,8 @@ class WorkoutPlayerUCImpl @Inject constructor(
     private val disposables = CompositeDisposable()
 
     private var timer: Int = -1
+    private lateinit var startTime: TimePoint
+    private lateinit var endTime: TimePoint
     private var isResumed = false
     private var isStopped = false
 
@@ -112,11 +116,13 @@ class WorkoutPlayerUCImpl @Inject constructor(
                 .also { disposable -> disposables.add(disposable) }
 
         pushWorkoutProcessState(WorkoutProcessState.STARTED)
+        startTime = getCurrentTimePoint()
         timer(daemon = true, initialDelay = 0, period = 1000, action = { incrementTimer.run(); if (isStopped) cancel() })
     }
 
     override fun stopWorkout() {
         // TODO: add current status check
+        endTime = getCurrentTimePoint()
         pushWorkoutProcessState(WorkoutProcessState.FINISHED)
     }
 
@@ -147,7 +153,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
     }
 
     override fun saveCurrentWorkoutResult(): Completable {
-        val entry = FullDiaryEntry(0, Date(), TimePoint(0), TimePoint(2000000), TimePoint(timer.toLong() * 1000),"executed workout")
+        val entry = DiaryEntry(0, Date(), startTime, endTime, TimePoint(timer * 1000L),"executed workout", 50)
         return workoutRepository.saveWorkoutResult(entry)
     }
 

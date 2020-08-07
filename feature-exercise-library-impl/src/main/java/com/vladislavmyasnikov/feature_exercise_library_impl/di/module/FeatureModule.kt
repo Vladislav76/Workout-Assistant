@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryLaunch
 import com.vladislavmyasnikov.feature_exercise_library_impl.data.repo_mapper_impl.ExerciseRepositoryImpl
 import com.vladislavmyasnikov.feature_exercise_library_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.feature_exercise_library_impl.domain.repository.ExerciseRepository
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.view.ExerciseLibraryFeatureFlow
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.ExerciseLibraryFeatureFlow
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

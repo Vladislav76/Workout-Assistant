@@ -12,6 +12,16 @@ enum class TimePointFormatType {
 
     HOUR_MINUTE_SECOND {
         override fun format(time: TimePoint): String = String.format("%02d:%02d:%02d", time.hours, time.minutes, time.seconds)
+    },
+
+    DURATION {
+        override fun format(time: TimePoint): String {
+            val items = mutableListOf<String>()
+            if (time.hours > 0) items.add(String.format("%d h", time.hours))
+            if (time.minutes > 0) items.add(String.format("%d min", time.minutes))
+            if (time.seconds > 0) items.add(String.format("%d sec", time.seconds))
+            return items.joinToString()
+        }
     };
 
     abstract fun format(time: TimePoint): String

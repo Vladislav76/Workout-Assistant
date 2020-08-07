@@ -2,22 +2,25 @@ package com.vladislavmyasnikov.sample_app.presentation.view
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vladislavmyasnikov.common.interfaces.BottomPanelController
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import com.vladislavmyasnikov.common.interfaces.RouterHolder
 import com.vladislavmyasnikov.sample_app.R
 import com.vladislavmyasnikov.sample_app.presentation.Controller
 import com.vladislavmyasnikov.sample_app.presentation.Screens
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), RouterHolder {
+class MainActivity : AppCompatActivity(), RouterHolder, BottomPanelController {
 
     @Inject
     override lateinit var router: Router
@@ -66,6 +69,14 @@ class MainActivity : AppCompatActivity(), RouterHolder {
     override fun onDestroy() {
         super.onDestroy()
         Controller.activity = null
+    }
+
+    override fun hideBottomPanel() {
+        bottom_panel.visibility = View.GONE
+    }
+
+    override fun showBottomPanel() {
+        bottom_panel.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

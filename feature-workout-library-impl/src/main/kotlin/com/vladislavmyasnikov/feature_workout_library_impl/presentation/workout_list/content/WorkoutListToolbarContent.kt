@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWorkout
@@ -18,9 +19,7 @@ class WorkoutListToolbarContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMToolbarFragment<List<ShortWorkout>>() {
 
-    override val viewModel: WorkoutListVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutListVM>(viewModelFactory) }
 
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {

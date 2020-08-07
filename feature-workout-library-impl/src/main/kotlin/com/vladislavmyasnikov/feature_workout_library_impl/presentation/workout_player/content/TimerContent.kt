@@ -8,6 +8,7 @@ import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.TimerValue
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutTimerVM
@@ -19,9 +20,7 @@ class TimerContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<TimerValue>(R.layout.content_timer) {
 
-    override val viewModel: WorkoutTimerVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutTimerVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutTimerVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

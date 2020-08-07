@@ -13,7 +13,7 @@ import com.vladislavmyasnikov.common.presentation.view.components.CollapsingHead
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.dialogs.WorkoutExerciseDialog
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutHeaderContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -44,6 +44,11 @@ class WorkoutScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        bottomPanelController.hideBottomPanel()
+    }
+
     override fun receiveMessage(message: Message, sender: MessageSender) {
         when (message) {
             is Message.RequestMessage -> {
@@ -59,8 +64,8 @@ class WorkoutScreenHost @Inject constructor(
                 }
             }
             is Message.ItemClickMessage -> {
-                val dialogClass = WorkoutExerciseDialog::class.java
-                (fragmentFactory.instantiate(dialogClass.classLoader!!, dialogClass.name) as WorkoutExerciseDialog)
+                val dialogClass = WorkoutExerciseDetailsDialog::class.java
+                (fragmentFactory.instantiate(dialogClass.classLoader!!, dialogClass.name) as WorkoutExerciseDetailsDialog)
                         .also {
                             it.putArguments(message.id)
                             it.show(childFragmentManager, null)

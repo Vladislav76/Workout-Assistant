@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.common.interfaces.MessageReceiver
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
@@ -21,11 +22,7 @@ class WorkoutListContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMListFragment<ShortWorkout>() {
 
-    override var defaultReceiver: MessageReceiver? = null
-
-    override val viewModel: WorkoutListVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutListVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutListVM>(viewModelFactory) }
 
     override val itemClickCallback = object : OnItemClickCallback {
         override fun onClick(id: Long, title: String) {

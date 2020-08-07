@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFeatureFlow
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.dialogs.WorkoutExerciseDialog
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListConfigContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutHeaderContent
@@ -50,7 +50,7 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutLibraryFeatureFlow::class to "WORKOUT_LIBRARY_FEATURE_FLOW",
 
             // dialogs
-            WorkoutExerciseDialog::class to "WORKOUT_EXERCISE_DIALOG",
+            WorkoutExerciseDetailsDialog::class to "WORKOUT_EXERCISE_DIALOG",
 
             // view models
             WorkoutListVM::class to "WORKOUT_LIST_VM",

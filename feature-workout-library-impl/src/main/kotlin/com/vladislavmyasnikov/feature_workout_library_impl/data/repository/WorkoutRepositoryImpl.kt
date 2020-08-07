@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.repository
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.feature_diary_api.DiaryInteractor
-import com.vladislavmyasnikov.feature_diary_api.domain.entity.FullDiaryEntry
+import com.vladislavmyasnikov.feature_diary_api.domain.entity.DiaryEntry
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelShortWorkoutMapper
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelWorkoutSetMapper
@@ -11,6 +11,7 @@ import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWo
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSet
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryInteractor
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutResult
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -22,6 +23,8 @@ class WorkoutRepositoryImpl @Inject constructor(
         private val exerciseLibraryInteractor: ExerciseLibraryInteractor,
         private val diaryInteractor: DiaryInteractor
 ) : WorkoutRepository {
+
+    private var lastSavedWorkoutResult: DiaryEntry? = null
 
     override fun fetchShortWorkoutList(): Observable<List<ShortWorkout>> {
         return localDataSource.workoutLibraryDao().loadShortWorkoutList().map(Entity2ModelShortWorkoutMapper::map)
@@ -55,7 +58,16 @@ class WorkoutRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun saveWorkoutResult(result: FullDiaryEntry): Completable {
+    override fun saveWorkoutResult(result: DiaryEntry): Completable {
+        lastSavedWorkoutResult = result
         return diaryInteractor.saveEntry(result)
+    }
+
+    override fun fetchLastSavedWorkoutResult(): Single<WorkoutResult> {
+        return Single.fromCallable {
+            lastSavedWorkoutResult?.let {
+                WorkoutResult(it.duration, it.workoutProductivity)
+            }
+        }
     }
 }

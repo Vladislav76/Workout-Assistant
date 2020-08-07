@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.common.interfaces.MessageReceiver
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.presentation.view.components.VMHeaderFragment
@@ -21,11 +22,7 @@ class WorkoutHeaderContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMHeaderFragment<FullWorkout>(R.layout.content_workout_banner) {
 
-    override val viewModel: WorkoutVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutVM::class.java)
-    }
-
-    override var defaultReceiver: MessageReceiver? = null
+    override val viewModel by lazy { injectViewModel<WorkoutVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

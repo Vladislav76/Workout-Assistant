@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.data.db
 import com.vladislavmyasnikov.common.utils.Mapper
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutExerciseEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.WorkoutSetEntity
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.model.ShortWorkoutEntity
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.entity.ShortWorkoutEntity
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.*
 import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseInfo
 

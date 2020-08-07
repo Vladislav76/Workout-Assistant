@@ -1,6 +1,8 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.host
 
 import android.content.Context
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.SharedBus
@@ -34,6 +36,11 @@ class WorkoutListScreenHost @Inject constructor(
     override fun onBackPressed(): Boolean {
         WorkoutLibraryFeatureComponent.get().workoutListComponent.resetValue()
         return super.onBackPressed()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        bottomPanelController.showBottomPanel()
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {

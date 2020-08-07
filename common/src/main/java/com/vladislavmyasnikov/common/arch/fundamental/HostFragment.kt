@@ -6,9 +6,11 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.vladislavmyasnikov.common.interfaces.BottomPanelController
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import ru.terrakok.cicerone.Router
+import java.lang.RuntimeException
 
 abstract class HostFragment(
         @LayoutRes private val viewResource: Int
@@ -17,6 +19,7 @@ abstract class HostFragment(
     protected abstract val router: Router
     protected abstract val fragmentFactory: FragmentFactory
     protected abstract val children: List<Pair<Int, Class<out BaseFragment>>>
+    protected lateinit var bottomPanelController: BottomPanelController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,6 +35,11 @@ abstract class HostFragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        with(activity) {
+            if (this !is BottomPanelController) throw RuntimeException("Host activity must be implement 'BottomPanelController' interface")
+            bottomPanelController = this
+        }
 
         for ((containerID, childClass) in children) addChild(containerID, childClass)
     }

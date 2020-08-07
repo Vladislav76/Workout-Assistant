@@ -1,5 +1,6 @@
 package com.vladislavmyasnikov.common.arch.fundamental
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,27 +18,20 @@ abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        disposables.add(
-                viewModel.errors
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceiveError(it)
-                        }
-        )
-        disposables.add(
-                viewModel.items
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceiveItem(it)
-                        }
-        )
-        disposables.add(
-                viewModel.events
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceiveEvent(it)
-                        }
-        )
+        viewModel.errors
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onReceiveError(it) }
+                .also { disposable -> disposables.add(disposable) }
+
+        viewModel.items
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onReceiveItem(it) }
+                .also { disposable -> disposables.add(disposable) }
+
+        viewModel.events
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { onReceiveEvent(it) }
+                .also { disposable -> disposables.add(disposable) }
     }
 
     protected open fun onReceiveError(error: Throwable) {

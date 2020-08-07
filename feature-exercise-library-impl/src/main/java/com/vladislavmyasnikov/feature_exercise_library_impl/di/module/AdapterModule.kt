@@ -2,8 +2,8 @@ package com.vladislavmyasnikov.feature_exercise_library_impl.di.module
 
 import android.content.Context
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseAdapter
-import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.adapters.ExerciseImagePagerAdapter
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.exercise_list.adapter.ExerciseAdapter
+import com.vladislavmyasnikov.feature_exercise_library_impl.presentation.exercise_details.adapter.ExerciseImagePagerAdapter
 import dagger.Module
 import dagger.Provides
 

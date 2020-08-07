@@ -2,12 +2,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
-import com.vladislavmyasnikov.common.di.annotations.PerScreen
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.dialogs.WorkoutExerciseDialog
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListConfigContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutHeaderContent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListConfigContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.host.WorkoutScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.host.WorkoutSetHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.content.WorkoutListContent
@@ -15,6 +13,8 @@ import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.host.WorkoutListScreenHost
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.content.*
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.host.WorkoutPlayerScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.content.WorkoutResultContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.host.WorkoutResultScreenHost
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,52 +22,58 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class ContentFragmentBindingModule {
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutListContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutListContent::class)
     abstract fun bind1(impl: WorkoutListContent): Fragment
 
-    @Binds @IntoMap @PerScreen  @FragmentKey(WorkoutListToolbarContent::class)
+    @Binds @IntoMap  @FragmentKey(WorkoutListToolbarContent::class)
     abstract fun bind2(impl: WorkoutListToolbarContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutHeaderContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutHeaderContent::class)
     abstract fun bind3(impl: WorkoutHeaderContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseListContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseListContent::class)
     abstract fun bind4(impl: WorkoutExerciseListContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseListConfigContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseListConfigContent::class)
     abstract fun bind5(impl: WorkoutExerciseListConfigContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseDialog::class)
-    abstract fun bind6(impl: WorkoutExerciseDialog): Fragment
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseDetailsDialog::class)
+    abstract fun bind6(impl: WorkoutExerciseDetailsDialog): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseConfigContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseConfigContent::class)
     abstract fun bind7(impl: WorkoutExerciseConfigContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(ControlPanelContent::class)
+    @Binds @IntoMap @FragmentKey(ControlPanelContent::class)
     abstract fun bind8(impl: ControlPanelContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseContent::class)
     abstract fun bind9(impl: WorkoutExerciseContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(WorkoutExerciseMetricsContent::class)
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseMetricsContent::class)
     abstract fun bind10(impl: WorkoutExerciseMetricsContent): Fragment
 
-    @Binds @IntoMap @PerScreen @FragmentKey(TimerContent::class)
+    @Binds @IntoMap @FragmentKey(TimerContent::class)
     abstract fun bind11(impl: TimerContent): Fragment
+
+    @Binds @IntoMap @FragmentKey(WorkoutResultContent::class)
+    abstract fun bind12(impl: WorkoutResultContent): Fragment
 }
 
 @Module
 abstract class HostFragmentBindingModule {
 
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutListScreenHost::class)
+    @Binds @IntoMap @FragmentKey(WorkoutListScreenHost::class)
     abstract fun bind1(impl: WorkoutListScreenHost): Fragment
 
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutSetHost::class)
+    @Binds @IntoMap @FragmentKey(WorkoutSetHost::class)
     abstract fun bind2(impl: WorkoutSetHost): Fragment
 
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutScreenHost::class)
+    @Binds @IntoMap @FragmentKey(WorkoutScreenHost::class)
     abstract fun bind3(impl: WorkoutScreenHost): Fragment
 
-    @Binds @IntoMap @PerFeature @FragmentKey(WorkoutPlayerScreenHost::class)
+    @Binds @IntoMap @FragmentKey(WorkoutPlayerScreenHost::class)
     abstract fun bind4(impl: WorkoutPlayerScreenHost): Fragment
+
+    @Binds @IntoMap @FragmentKey(WorkoutResultScreenHost::class)
+    abstract fun bind5(impl: WorkoutResultScreenHost): Fragment
 }

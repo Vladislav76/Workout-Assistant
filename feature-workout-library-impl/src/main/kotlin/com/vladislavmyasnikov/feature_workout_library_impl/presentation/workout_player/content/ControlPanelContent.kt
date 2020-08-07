@@ -8,6 +8,7 @@ import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutProcessState
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.WorkoutPlayerVM
@@ -19,9 +20,7 @@ class ControlPanelContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutProcessState>(R.layout.content_control_panel) {
 
-    override val viewModel: WorkoutPlayerVM by lazy {
-        ViewModelProvider(this, viewModelFactory).get(WorkoutPlayerVM::class.java)
-    }
+    override val viewModel by lazy { injectViewModel<WorkoutPlayerVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,11 +47,11 @@ class ControlPanelContent @Inject constructor(
             }
             WorkoutProcessState.FINISHED -> {
                 // TODO: show warning dialog
-                // TODO: move to 'Workout results' screen
-                resume_button.visibility = View.GONE
-                pause_button.visibility = View.GONE
-                stop_button.visibility = View.GONE
-                next_button.visibility = View.GONE
+                sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
+//                resume_button.visibility = View.GONE
+//                pause_button.visibility = View.GONE
+//                stop_button.visibility = View.GONE
+//                next_button.visibility = View.GONE
             }
         }
     }
