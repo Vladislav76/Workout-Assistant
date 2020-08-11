@@ -3,8 +3,10 @@ package com.vladislavmyasnikov.feature_diary_impl.presentation.diary_entry_list.
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.feature_diary_impl.R
 import com.vladislavmyasnikov.feature_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.feature_diary_impl.presentation.Screens
@@ -35,10 +37,9 @@ class DiaryEntryListScreenHost @Inject constructor(
         return true
     }
 
-    override fun onReceivePacket(message: Message) {
+    override fun receiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.ItemClickMessage) {
-            router.navigateTo(Screens.DiaryEntryDetailsScreen())
-            bus.sendPacket(Message.KeyDataResponseMessage(message.id))
+            router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id))
         }
     }
 }

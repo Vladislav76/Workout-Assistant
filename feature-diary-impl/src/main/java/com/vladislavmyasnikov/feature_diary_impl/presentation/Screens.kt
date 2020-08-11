@@ -8,21 +8,24 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
 
+    private companion object {
+        val sharedFragmentFactory = DiaryFeatureComponent.get().fragmentFactory
+    }
+
     class DiaryEntryListScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
             val clazz = DiaryEntryListScreenHost::class.java
-            val factory = DiaryFeatureComponent.get().fragmentFactory
-            return factory.instantiate(clazz.classLoader!!, clazz.name)
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
         }
     }
 
-    class DiaryEntryDetailsScreen : SupportAppScreen() {
+    class DiaryEntryDetailsScreen(private val diaryEntryId: Long) : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
             val clazz = DiaryEntryScreenHost::class.java
-            val factory = DiaryFeatureComponent.get().fragmentFactory
-            return factory.instantiate(clazz.classLoader!!, clazz.name)
+            return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
+                    .also { fragment -> (fragment as DiaryEntryScreenHost).putArguments(diaryEntryId) }
         }
     }
 }

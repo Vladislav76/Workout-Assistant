@@ -13,7 +13,7 @@ abstract class SimpleVM<T> : BaseVM<T, Throwable>() {
 
     fun request(id: Long = -1) {
         if (!isRequested) {
-            if (id != lastID || id == -1L) {
+            if (id != lastID) {
                 isRequested = true
                 when (val response = processRequest(id)) {
                     is Either.Left -> {

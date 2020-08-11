@@ -7,22 +7,22 @@ import com.vladislavmyasnikov.feature_diary_impl.data.db.*
 import com.vladislavmyasnikov.feature_diary_impl.domain.repository.DiaryEntryRepository
 import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 @PerFeature
 class DiaryEntryRepositoryImpl @Inject constructor(private val localDataSource: LocalDatabase) : DiaryEntryRepository, DiaryInteractor {
 
-    override fun fetchShortEntries(): Observable<List<ShortDiaryEntry>> {
-        return localDataSource.diaryDao().loadShortEntries().map(EntityToModelShortDiaryEntryMapper::map)
+    override fun fetchAllEntries(): Observable<List<ShortDiaryEntry>> {
+        return localDataSource.diaryDao().loadAllEntries().map(EntityToModelShortDiaryEntryMapper::map)
     }
 
-    override fun fetchFullEntry(id: Long): Maybe<DiaryEntry> {
+    override fun fetchEntryById(id: Long): Single<DiaryEntry> {
         return localDataSource.diaryDao().loadEntryById(id).map(EntityToModelFullDiaryEntryMapper::map)
     }
 
-    override fun saveFullEntry(entry: DiaryEntry): Completable {
+    override fun saveEntry(entry: DiaryEntry): Completable {
         return Completable.fromRunnable {
             if (entry.id > 0) {
                 localDataSource.diaryDao().updateEntry(ModelToEntityFullDiaryEntryMapper.map(entry))
@@ -32,11 +32,7 @@ class DiaryEntryRepositoryImpl @Inject constructor(private val localDataSource: 
         }
     }
 
-    override fun deleteEntriesByIDs(ids: List<Long>): Completable {
-        return localDataSource.diaryDao().deleteEntriesByIDs(ids)
-    }
-
-    override fun saveEntry(entry: DiaryEntry): Completable {
-        return localDataSource.diaryDao().insertEntry(ModelToEntityFullDiaryEntryMapper.map(entry))
+    override fun deleteEntriesByIds(ids: List<Long>): Completable {
+        return localDataSource.diaryDao().deleteEntriesByIds(ids)
     }
 }

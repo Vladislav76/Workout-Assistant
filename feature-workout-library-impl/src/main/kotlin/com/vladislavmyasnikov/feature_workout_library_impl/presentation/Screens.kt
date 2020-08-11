@@ -10,8 +10,8 @@ import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
 
-    companion object {
-        private val sharedFragmentFactory = WorkoutLibraryFeatureComponent.get().fragmentFactory
+    private companion object {
+        val sharedFragmentFactory = WorkoutLibraryFeatureComponent.get().fragmentFactory
     }
 
     class WorkoutListScreen : SupportAppScreen() {

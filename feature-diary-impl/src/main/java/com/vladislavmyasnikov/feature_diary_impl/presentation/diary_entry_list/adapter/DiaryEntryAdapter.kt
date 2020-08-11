@@ -34,9 +34,10 @@ class DiaryEntryAdapter @Inject constructor() : SelectableBaseAdapter<ShortDiary
     class NonSelectableViewHolder(view: View) : ViewHolder.NonSelectableViewHolder<ShortDiaryEntry>(view) {
 
         override fun bind(item: ShortDiaryEntry) {
-            itemView.date_field.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
-            itemView.time_field.text = TimePointFormatType.HOUR_MINUTE.formatInterval(item.startTime, item.endTime)
-            itemView.duration_field.text = TimePointFormatType.HOUR_MINUTE_SECOND.format(item.duration)
+            itemView.workout_date.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
+            itemView.workout_duration.text = TimePointFormatType.DURATION.format(item.duration)
+            itemView.workout_productivity.text = "TBD"
+            itemView.workout_name.text = "TBD"
         }
     }
 
