@@ -16,7 +16,7 @@ class Screens {
     class DiaryScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            return FeatureProxyInjector.getDiaryFeature().diaryLauncher().launch()
+            return FeatureProxyInjector.getWorkoutLibraryFeature().workoutDiaryLauncher().launch()
         }
     }
 

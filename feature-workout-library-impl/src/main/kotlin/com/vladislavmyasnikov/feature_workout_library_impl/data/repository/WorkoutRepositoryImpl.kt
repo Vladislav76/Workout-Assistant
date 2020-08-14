@@ -1,17 +1,16 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.data.repository
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
-import com.vladislavmyasnikov.feature_diary_api.DiaryInteractor
-import com.vladislavmyasnikov.feature_diary_api.domain.entity.DiaryEntry
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelShortWorkoutMapper
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.Entity2ModelWorkoutSetMapper
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.FullWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.ShortWorkout
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSet
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryInteractor
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutResult
+import com.vladislavmyasnikov.feature_workout_library_api.WorkoutLibraryInteractor
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.*
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutSet
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.completed_workout.CompletedWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.completed_workout.CompletedWorkoutResult
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.completed_workout.ShortCompletedWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout.ShortWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout.Workout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -20,27 +19,26 @@ import javax.inject.Inject
 @PerFeature
 class WorkoutRepositoryImpl @Inject constructor(
         private val localDataSource: LocalDatabase,
-        private val exerciseLibraryInteractor: ExerciseLibraryInteractor,
-        private val diaryInteractor: DiaryInteractor
-) : WorkoutRepository {
+        private val exerciseLibraryInteractor: ExerciseLibraryInteractor
+) : WorkoutRepository, WorkoutLibraryInteractor {
 
-    private var lastSavedWorkoutResult: DiaryEntry? = null
+    private var lastSavedCompletedWorkoutResult: CompletedWorkoutResult? = null
 
     override fun fetchShortWorkoutList(): Observable<List<ShortWorkout>> {
-        return localDataSource.workoutLibraryDao().loadShortWorkoutList().map(Entity2ModelShortWorkoutMapper::map)
+        return localDataSource.workoutLibraryDao().loadAllWorkouts().map(Entity2ModelShortWorkoutMapper::map)
     }
 
-    override fun fetchFullWorkout(id: Long): Single<FullWorkout> {
+    override fun fetchWorkoutById(id: Long): Single<Workout> {
         localDataSource.workoutLibraryDao().apply {
-            return loadWorkout(id).map { workout ->
-                FullWorkout(workout.id, workout.title, workout.avatarID, workout.description)
+            return loadWorkoutById(id).map { workout ->
+                Workout(workout.id, workout.title, workout.avatarID, workout.description)
             }
         }
     }
 
     override fun fetchWorkoutSetList(id: Long): Single<List<WorkoutSet>> {
         localDataSource.workoutLibraryDao().apply {
-            return loadWorkout(id).flatMap { workout ->
+            return loadWorkoutById(id).flatMap { workout ->
                 loadWorkoutSetList(workout.workoutSetIDs).flatMap { workoutSets ->
                     val workoutExerciseIDs = workoutSets.map { workoutSet -> workoutSet.workoutExerciseIDs }.flatten()
 
@@ -58,16 +56,24 @@ class WorkoutRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun saveWorkoutResult(result: DiaryEntry): Completable {
-        lastSavedWorkoutResult = result
-        return diaryInteractor.saveEntry(result)
+    override fun saveCompletedWorkout(workout: CompletedWorkout): Completable {
+        lastSavedCompletedWorkoutResult = CompletedWorkoutDomainToCompletedWorkoutResultDomainMapper.map(workout)
+        return localDataSource.workoutLibraryDao().insertCompletedWorkout(CompletedWorkoutDomainToDatabaseMapper.map(workout))
     }
 
-    override fun fetchLastSavedWorkoutResult(): Single<WorkoutResult> {
-        return Single.fromCallable {
-            lastSavedWorkoutResult?.let {
-                WorkoutResult(it.duration, it.workoutProductivity)
-            }
-        }
+    override fun fetchLastCompletedWorkoutResult(): Single<CompletedWorkoutResult> {
+        return Single.fromCallable { lastSavedCompletedWorkoutResult }
+    }
+
+    override fun fetchWorkoutNamesByIds(ids: List<Long>): List<String> {
+        return localDataSource.workoutLibraryDao().loadWorkoutNamesByIds(ids)
+    }
+
+    override fun fetchAllCompletedWorkouts(): Observable<List<ShortCompletedWorkout>> {
+        return localDataSource.workoutLibraryDao().loadAllCompletedWorkouts().map(ShortCompletedWorkoutDatabaseToDomainMapper::map)
+    }
+
+    override fun fetchCompletedWorkoutById(id: Long): Single<CompletedWorkout> {
+        return localDataSource.workoutLibraryDao().loadCompletedWorkoutById(id).map(CompletedWorkoutDatabaseToDomainMapper::map)
     }
 }

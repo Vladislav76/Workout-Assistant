@@ -5,13 +5,13 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
-import com.vladislavmyasnikov.feature_diary_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_workout_library_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.feature_workout_library_impl.di.module.FeatureModule
 import com.vladislavmyasnikov.feature_workout_library_impl.di.module.HostFragmentBindingModule
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFeatureFlow
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFlow
 import com.vladislavmyasnikov.feature_exercise_library_api.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.feature_workout_library_api.WorkoutLibraryFeatureApi
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutDiaryFlow
 import dagger.Component
 
 @Component(
@@ -23,7 +23,8 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
 
-    abstract fun inject(fragment: WorkoutLibraryFeatureFlow)
+    abstract fun inject(fragment: WorkoutLibraryFlow)
+    abstract fun inject(fragment: WorkoutDiaryFlow)
 
     abstract fun screenComponent(): ScreenComponent
 
@@ -31,6 +32,8 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     val workoutDetailsComponent = SyncObject { screenComponent() }
     val workoutPlayerComponent = SyncObject { screenComponent() }
     val workoutResultComponent = SyncObject { screenComponent() }
+    val completedWorkoutListComponent = SyncObject { screenComponent() }
+    val completedWorkoutComponent = SyncObject { screenComponent() }
 
     companion object {
 
@@ -52,6 +55,6 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class, ExerciseLibraryFeatureApi::class, DiaryFeatureApi::class])
+@Component(dependencies = [ContextHolder::class, ExerciseLibraryFeatureApi::class])
 @PerFeature
 interface WorkoutLibraryFeatureDependenciesComponent : FeatureDependencies

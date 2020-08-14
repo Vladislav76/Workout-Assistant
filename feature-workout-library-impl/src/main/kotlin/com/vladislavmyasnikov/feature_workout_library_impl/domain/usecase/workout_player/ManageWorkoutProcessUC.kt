@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player
 
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.WorkoutProcessState
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout_execution.WorkoutProcessState
 import io.reactivex.Observable
 
 interface ManageWorkoutProcessUC {

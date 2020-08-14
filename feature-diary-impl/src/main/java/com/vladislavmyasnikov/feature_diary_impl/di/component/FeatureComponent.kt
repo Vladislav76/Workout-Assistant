@@ -7,9 +7,11 @@ import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.feature_diary_api.DiaryFeatureApi
 import com.vladislavmyasnikov.feature_diary_impl.di.FeatureDependencies
+import com.vladislavmyasnikov.feature_diary_impl.di.module.DependencyModule
 import com.vladislavmyasnikov.feature_diary_impl.di.module.FeatureModule
 import com.vladislavmyasnikov.feature_diary_impl.di.module.HostFragmentBindingModule
 import com.vladislavmyasnikov.feature_diary_impl.presentation.DiaryFeatureFlow
+import com.vladislavmyasnikov.feature_workout_library_api.WorkoutLibraryFeatureApi
 import dagger.Component
 
 @Component(
@@ -49,6 +51,6 @@ abstract class DiaryFeatureComponent : DiaryFeatureApi {
     }
 }
 
-@Component(dependencies = [ContextHolder::class])
+@Component(dependencies = [ContextHolder::class, WorkoutLibraryFeatureApi::class])
 @PerFeature
 interface DiaryFeatureDependenciesComponent : FeatureDependencies

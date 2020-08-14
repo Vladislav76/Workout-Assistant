@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.date_field as _date_field
 import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.duration_field as _duration_field
-import kotlinx.android.synthetic.main.item_selectable_diary_entry.view.time_field as _time_field
 
 class DiaryEntryAdapter @Inject constructor() : SelectableBaseAdapter<ShortDiaryEntry>() {
 
@@ -36,16 +35,16 @@ class DiaryEntryAdapter @Inject constructor() : SelectableBaseAdapter<ShortDiary
         override fun bind(item: ShortDiaryEntry) {
             itemView.workout_date.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
             itemView.workout_duration.text = TimePointFormatType.DURATION.format(item.duration)
-            itemView.workout_productivity.text = "TBD"
-            itemView.workout_name.text = "TBD"
+            itemView.workout_productivity.text = "${item.workoutProductivity}%"
+            itemView.workout_name.text = item.workoutName
         }
     }
 
+    // TODO: delete this
     class SelectableViewHolder(view: View) : ViewHolder.SelectableViewHolder<ShortDiaryEntry>(view) {
 
         override fun bind(item: ShortDiaryEntry, isSelected: Boolean) {
             itemView._date_field.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
-            itemView._time_field.text = TimePointFormatType.HOUR_MINUTE.formatInterval(item.startTime, item.endTime)
             itemView._duration_field.text = TimePointFormatType.HOUR_MINUTE_SECOND.format(item.duration)
             val colorId = if (isSelected) R.color.red else R.color.gray
             itemView.selection_view.setColorFilter(ContextCompat.getColor(itemView.context, colorId), PorterDuff.Mode.SRC_IN)

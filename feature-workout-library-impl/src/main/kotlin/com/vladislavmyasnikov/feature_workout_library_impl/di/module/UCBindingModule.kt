@@ -1,12 +1,16 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_list.GetCompletedWorkoutListUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_list.GetCompletedWorkoutListUCImpl
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_details.GetCompletedWorkoutUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_details.GetCompletedWorkoutUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_details.GetWorkoutUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_details.GetWorkoutUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_list.GetWorkoutListUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_list.GetWorkoutListUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_player.*
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_result.GetLastSavedWorkoutResultUC
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_result.GetLastSavedWorkoutResultUCImpl
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_result.GetLastCompletedWorkoutResultUC
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.completed_workout_result.GetLastCompletedWorkoutResultUCImpl
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.*
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list.GetWorkoutSetListUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_list.GetWorkoutSetListUCImpl
@@ -56,8 +60,14 @@ abstract class UCBindingModule {
     abstract fun bind13(impl: WorkoutPlayerUCImpl): GetCurrentWorkoutTimerValueUC
 
     @Binds
-    abstract fun bind14(impl: WorkoutPlayerUCImpl): SaveWorkoutResultUC
+    abstract fun bind14(impl: WorkoutPlayerUCImpl): SaveCompletedWorkoutUC
 
     @Binds
-    abstract fun bind15(impl: GetLastSavedWorkoutResultUCImpl): GetLastSavedWorkoutResultUC
+    abstract fun bind15(impl: GetLastCompletedWorkoutResultUCImpl): GetLastCompletedWorkoutResultUC
+
+    @Binds
+    abstract fun bind16(impl: GetCompletedWorkoutListUCImpl): GetCompletedWorkoutListUC
+
+    @Binds
+    abstract fun bind17(impl: GetCompletedWorkoutUCImpl): GetCompletedWorkoutUC
 }

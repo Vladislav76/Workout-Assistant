@@ -10,7 +10,7 @@ import io.reactivex.Single
 @Dao
 interface DiaryDao {
 
-    @Query("SELECT id, date, start_time, end_time, duration FROM diary")
+    @Query("SELECT id, date, duration, workout_productivity, workout_id FROM diary")
     fun loadAllEntries(): Observable<List<ShortDiaryEntryEntity>>
 
     @Query("SELECT * FROM diary WHERE id = :id")

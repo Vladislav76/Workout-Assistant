@@ -9,7 +9,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class WorkoutLibraryFeatureFlow @Inject constructor() : FlowFragment(), WorkoutLibraryLauncher {
+class WorkoutLibraryFlow @Inject constructor() : FlowFragment(), WorkoutLibraryLauncher {
 
     @Inject
     override lateinit var navigatorHolder: NavigatorHolder

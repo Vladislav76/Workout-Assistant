@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.domain.entity
+package com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout
 
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 

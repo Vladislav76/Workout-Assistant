@@ -3,8 +3,10 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.common.models.TimePoint
 import com.vladislavmyasnikov.common.utils.getCurrentTimePoint
-import com.vladislavmyasnikov.feature_diary_api.domain.entity.DiaryEntry
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.*
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.completed_workout.CompletedWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout_execution.TimerValue
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout_execution.WorkoutProcessState
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.repository.WorkoutRepository
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.ChangeWorkoutSetConfigUC
 import com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutExerciseListUC
@@ -28,8 +30,9 @@ class WorkoutPlayerUCImpl @Inject constructor(
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC
 ) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC,
-        GetCurrentWorkoutTimerValueUC, SaveWorkoutResultUC {
+        GetCurrentWorkoutTimerValueUC, SaveCompletedWorkoutUC {
 
+    private var currentWorkoutId = -1L
     private var currentExerciseIndex = -1
     private lateinit var currentSetConfig: WorkoutSetConfig
     private var currentExercises = listOf<WorkoutExercise>()
@@ -83,6 +86,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
     override fun getCurrentWorkoutProcessState(): Observable<WorkoutProcessState> = workoutProcessStateSubject
 
     override fun startWorkoutById(id: Long) {
+        currentWorkoutId = id
         requestWorkoutUC.requestWorkoutById(id)
         workoutData = mutableListOf()
         currentSetConfig = WorkoutSetConfig(-1, -1, -1, -1, -1)
@@ -152,9 +156,10 @@ class WorkoutPlayerUCImpl @Inject constructor(
         }
     }
 
-    override fun saveCurrentWorkoutResult(): Completable {
-        val entry = DiaryEntry(0, Date(), startTime, endTime, TimePoint(timer * 1000L),"executed workout", 50)
-        return workoutRepository.saveWorkoutResult(entry)
+    override fun saveCompletedWorkout(): Completable {
+        // TODO: calculate workout productivity
+        val workout = CompletedWorkout(0, Date(), startTime, endTime, TimePoint(timer * 1000L),"TBD", 50, currentWorkoutId, "")
+        return workoutRepository.saveCompletedWorkout(workout)
     }
 
     /* * * PRIVATE API * * */

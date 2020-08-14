@@ -8,11 +8,10 @@ import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.interfaces.MessageReceiver
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.presentation.view.components.VMHeaderFragment
 import com.vladislavmyasnikov.feature_workout_library_impl.R
-import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.FullWorkout
+import com.vladislavmyasnikov.feature_workout_library_impl.domain.entity.workout.Workout
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutVM
 import kotlinx.android.synthetic.main.content_workout_banner.*
 import javax.inject.Inject
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class WorkoutHeaderContent @Inject constructor(
         override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMHeaderFragment<FullWorkout>(R.layout.content_workout_banner) {
+) : VMHeaderFragment<Workout>(R.layout.content_workout_banner) {
 
     override val viewModel by lazy { injectViewModel<WorkoutVM>(viewModelFactory) }
 
@@ -34,7 +33,7 @@ class WorkoutHeaderContent @Inject constructor(
         }
     }
 
-    override fun onReceiveItem(item: FullWorkout) {
+    override fun onReceiveItem(item: Workout) {
         val context = requireContext()
 
         setTitle(item.title)

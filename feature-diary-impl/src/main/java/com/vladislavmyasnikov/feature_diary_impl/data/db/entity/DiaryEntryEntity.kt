@@ -14,5 +14,6 @@ class DiaryEntryEntity(
         @ColumnInfo(name = "end_time") val endTime: TimePoint,
         @ColumnInfo(name = "duration") val duration: TimePoint,
         @ColumnInfo(name = "description") val description: String,
-        @ColumnInfo(name = "workout_productivity") val workoutProductivity: Int
+        @ColumnInfo(name = "workout_productivity") val workoutProductivity: Int,
+        @ColumnInfo(name = "workout_id") val workoutId: Long
 )

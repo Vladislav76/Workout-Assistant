@@ -30,7 +30,7 @@ class DiaryEntryContent @Inject constructor(
     }
 
     override fun onReceiveItem(item: DiaryEntry) {
-        workout_duration.text = TimePointFormatType.HOUR_MINUTE_SECOND.format(item.duration)
+        workout_duration.text = TimePointFormatType.DURATION.format(item.duration)
         workout_date.text = DateFormatType.DAY_MONTH_YEAR.format(item.date)
         workout_name.text = "TBD"
         workout_productivity.text = "${item.workoutProductivity} %"

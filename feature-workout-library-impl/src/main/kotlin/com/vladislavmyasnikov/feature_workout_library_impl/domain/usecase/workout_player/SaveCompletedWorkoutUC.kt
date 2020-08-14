@@ -2,7 +2,7 @@ package com.vladislavmyasnikov.feature_workout_library_impl.domain.usecase.worko
 
 import io.reactivex.Completable
 
-interface SaveWorkoutResultUC {
+interface SaveCompletedWorkoutUC {
 
-    fun saveCurrentWorkoutResult(): Completable
+    fun saveCompletedWorkout(): Completable
 }

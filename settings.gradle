@@ -1,5 +1,4 @@
 include ':common',
-        ':feature-diary-api', ':feature-diary-impl',
         ':feature-exercise-library-api', ':feature-exercise-library-impl',
         ':feature-workout-library-api', ':feature-workout-library-impl',
         ':sample-app'

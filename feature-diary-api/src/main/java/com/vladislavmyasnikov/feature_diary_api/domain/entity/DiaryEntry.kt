@@ -10,5 +10,6 @@ data class DiaryEntry(
         val endTime: TimePoint,
         val duration: TimePoint,
         val description: String,
-        val workoutProductivity: Int
+        val workoutProductivity: Int,
+        val workoutId: Long
 )

@@ -13,7 +13,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [DatabaseModule::class, LocalNavigationModule::class])
+@Module(includes = [DatabaseModule::class, LocalNavigationModule::class, DependencyModule::class])
 abstract class FeatureModule {
 
     @Binds @PerFeature

@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.feature_diary_impl.domain.entity.ShortDiaryEntry
 object EntityToModelShortDiaryEntryMapper : Mapper<ShortDiaryEntryEntity, ShortDiaryEntry>() {
 
     override fun map(value: ShortDiaryEntryEntity): ShortDiaryEntry {
-        return ShortDiaryEntry(value.id, value.date, value.startTime, value.endTime, value.duration)
+        return ShortDiaryEntry(value.id, value.date, value.duration, value.workoutProductivity, "workout_name")
     }
 }
 
@@ -18,7 +18,7 @@ object EntityToModelShortDiaryEntryMapper : Mapper<ShortDiaryEntryEntity, ShortD
 object EntityToModelFullDiaryEntryMapper : Mapper<DiaryEntryEntity, DiaryEntry>() {
 
     override fun map(value: DiaryEntryEntity): DiaryEntry {
-        return DiaryEntry(value.id, value.date, value.startTime, value.endTime, value.duration, value.description, value.workoutProductivity)
+        return DiaryEntry(value.id, value.date, value.startTime, value.endTime, value.duration, value.description, value.workoutProductivity, value.workoutId)
     }
 }
 
@@ -26,6 +26,6 @@ object EntityToModelFullDiaryEntryMapper : Mapper<DiaryEntryEntity, DiaryEntry>(
 object ModelToEntityFullDiaryEntryMapper : Mapper<DiaryEntry, DiaryEntryEntity>() {
 
     override fun map(value: DiaryEntry): DiaryEntryEntity {
-        return DiaryEntryEntity(value.id, value.date, value.startTime, value.endTime, value.duration, value.description, value.workoutProductivity)
+        return DiaryEntryEntity(value.id, value.date, value.startTime, value.endTime, value.duration, value.description, value.workoutProductivity, value.workoutId)
     }
 }

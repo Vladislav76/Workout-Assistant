@@ -1,7 +1,16 @@
 package com.vladislavmyasnikov.feature_workout_library_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFeatureFlow
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutDiaryFlow
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.WorkoutLibraryFlow
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_details.content.CompletedWorkoutContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_details.content.CompletedWorkoutToolbarContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_details.host.CompletedWorkoutScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_details.viewmodel.CompletedWorkoutVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_list.content.CompletedWorkoutListContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_list.content.CompletedWorkoutListToolbarContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_list.host.CompletedWorkoutListScreenHost
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_list.viewmodel.CompletedWorkoutListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListConfigContent
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.content.WorkoutExerciseListContent
@@ -39,15 +48,22 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutExerciseMetricsContent::class to "WORKOUT_APPROACH_DATA_CONTENT",
             WorkoutExerciseConfigContent::class to "WORKOUT_EXERCISE_CONFIG_CONTENT",
             WorkoutExerciseContent::class to "WORKOUT_EXERCISE_CONTENT",
+            CompletedWorkoutContent::class to "COMPLETED_WORKOUT_CONTENT",
+            CompletedWorkoutToolbarContent::class to "COMPLETED_WORKOUT_TOOLBAR_CONTENT",
+            CompletedWorkoutListContent::class to "COMPLETED_WORKOUT_LIST_CONTENT",
+            CompletedWorkoutListToolbarContent::class to "COMPLETED_WORKOUT_LIST_TOOLBAR_CONTENT",
 
             // host fragments
             WorkoutListScreenHost::class to "WORKOUT_LIST_SCREEN_HOST",
             WorkoutScreenHost::class to "WORKOUT_DETAILS_SCREEN_HOST",
             WorkoutPlayerScreenHost::class to "WORKOUT_PLAYER_SCREEN_HOST",
+            CompletedWorkoutListScreenHost::class to "COMPLETED_WORKOUT_LIST_SCREEN_HOST",
+            CompletedWorkoutScreenHost::class to "COMPLETED_WORKOUT_DETAILS_SCREEN_HOST",
             WorkoutSetHost::class to "WORKOUT_SET_HOST",
 
             // flow fragments
-            WorkoutLibraryFeatureFlow::class to "WORKOUT_LIBRARY_FEATURE_FLOW",
+            WorkoutLibraryFlow::class to "WORKOUT_LIBRARY_FLOW",
+            WorkoutDiaryFlow::class to "WORKOUT_DIARY_FLOW",
 
             // dialogs
             WorkoutExerciseDetailsDialog::class to "WORKOUT_EXERCISE_DIALOG",
@@ -60,6 +76,8 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutPlayerVM::class to "WORKOUT_PLAYER_VM",
             WorkoutExerciseMetricsVM::class to "WORKOUT_EXERCISE_APPROACH_DATA_VM",
             WorkoutExerciseConfigVM::class to "WORKOUT_EXERCISE_CONFIG_VM",
-            WorkoutSetConfigVM::class to "WORKOUT_SET_CONFIG_VM"
+            WorkoutSetConfigVM::class to "WORKOUT_SET_CONFIG_VM",
+            CompletedWorkoutVM::class to "COMPLETED_WORKOUT_VM",
+            CompletedWorkoutListVM::class to "COMPLETED_WORKOUT_LIST_VM"
     )
 }

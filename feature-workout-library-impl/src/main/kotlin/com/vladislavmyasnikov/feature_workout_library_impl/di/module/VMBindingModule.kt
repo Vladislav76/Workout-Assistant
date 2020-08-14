@@ -2,12 +2,14 @@ package com.vladislavmyasnikov.feature_workout_library_impl.di.module
 
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.ViewModelKey
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_list.viewmodel.CompletedWorkoutListVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_details.viewmodel.CompletedWorkoutVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutExerciseListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutSetConfigVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_details.viewmodel.WorkoutVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_list.viewmodel.WorkoutListVM
 import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_player.viewmodel.*
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.viewmodel.WorkoutResultVM
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_result.viewmodel.CompletedWorkoutResultVM
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -42,6 +44,12 @@ abstract class VMBindingModule {
     @Binds @IntoMap @ViewModelKey(WorkoutTimerVM::class)
     abstract fun bind9(impl: WorkoutTimerVM): ViewModel
 
-    @Binds @IntoMap @ViewModelKey(WorkoutResultVM::class)
-    abstract fun bind10(impl: WorkoutResultVM): ViewModel
+    @Binds @IntoMap @ViewModelKey(CompletedWorkoutResultVM::class)
+    abstract fun bind10(impl: CompletedWorkoutResultVM): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(CompletedWorkoutListVM::class)
+    abstract fun bind11(impl: CompletedWorkoutListVM): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(CompletedWorkoutVM::class)
+    abstract fun bind12(impl: CompletedWorkoutVM): ViewModel
 }

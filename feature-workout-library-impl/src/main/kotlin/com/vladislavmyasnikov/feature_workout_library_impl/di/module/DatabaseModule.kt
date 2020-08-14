@@ -6,10 +6,7 @@ import com.vladislavmyasnikov.common.di.annotations.PerFeature
 import com.vladislavmyasnikov.common.di.modules.ContextModule
 import com.vladislavmyasnikov.common.factories.RoomDatabaseFactory
 import com.vladislavmyasnikov.common.interfaces.DataSaver
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.LocalDatabase
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutExerciseList
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutSetList
-import com.vladislavmyasnikov.feature_workout_library_impl.data.db.generateWorkoutList
+import com.vladislavmyasnikov.feature_workout_library_impl.data.db.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -45,7 +42,8 @@ class DatabaseModule {
                         )
                         workoutSetIDs.add(ids)
                     }
-                    locDb.workoutLibraryDao().insertWorkoutList(generateWorkoutList(workoutSetIDs))
+                    val ids = locDb.workoutLibraryDao().insertWorkoutList(generateWorkoutList(workoutSetIDs))
+                    locDb.workoutLibraryDao().insertCompletedWorkouts(generateCompletedWorkouts(50, ids))
                 }
             }) as LocalDatabase
 }

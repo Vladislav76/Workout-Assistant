@@ -7,9 +7,9 @@ import java.util.*
 data class ShortDiaryEntry(
         override val id: Long,
         val date: Date,
-        val startTime: TimePoint,
-        val endTime: TimePoint,
-        val duration: TimePoint
+        val duration: TimePoint,
+        val workoutProductivity: Int,
+        val workoutName: String
 ) : Identifiable<ShortDiaryEntry> {
 
     override fun isIdentical(another: ShortDiaryEntry): Boolean = id == another.id

@@ -1,8 +1,7 @@
-package com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.host
+package com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_result.host
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.Message
 import com.vladislavmyasnikov.common.arch.RequestMessageType
@@ -11,18 +10,17 @@ import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.feature_workout_library_impl.R
 import com.vladislavmyasnikov.feature_workout_library_impl.di.component.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.Screens
-import com.vladislavmyasnikov.feature_workout_library_impl.presentation.workout_result.content.WorkoutResultContent
+import com.vladislavmyasnikov.feature_workout_library_impl.presentation.completed_workout_result.content.CompletedWorkoutResultContent
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class WorkoutResultScreenHost @Inject constructor(
+class CompletedWorkoutResultScreenHost @Inject constructor(
         override val bus: SharedBus,
         override val router: Router
 ) : HostFragment(R.layout.fragment_container) {
 
     override val children = listOf(
-            R.id.container to WorkoutResultContent::class.java
+            R.id.container to CompletedWorkoutResultContent::class.java
     )
 
     override lateinit var fragmentFactory: FragmentFactory

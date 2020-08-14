@@ -8,7 +8,7 @@ import java.util.*
 class ShortDiaryEntryEntity(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "date") val date: Date,
-        @ColumnInfo(name = "start_time") val startTime: TimePoint,
-        @ColumnInfo(name = "end_time") val endTime: TimePoint,
-        @ColumnInfo(name = "duration") val duration: TimePoint
+        @ColumnInfo(name = "duration") val duration: TimePoint,
+        @ColumnInfo(name = "workout_productivity") val workoutProductivity: Int,
+        @ColumnInfo(name = "workout_id") val workoutId: Long
 )
