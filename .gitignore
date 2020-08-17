@@ -1,7 +1,6 @@
 .idea/
 .gradle/
 build
-app
 Workout-Assistant-Dump
 local.properties
 proguard-rules.pro

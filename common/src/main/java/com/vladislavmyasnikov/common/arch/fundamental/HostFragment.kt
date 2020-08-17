@@ -10,7 +10,6 @@ import com.vladislavmyasnikov.common.interfaces.BottomPanelController
 import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import ru.terrakok.cicerone.Router
-import java.lang.RuntimeException
 
 abstract class HostFragment(
         @LayoutRes private val viewResource: Int
@@ -45,18 +44,11 @@ abstract class HostFragment(
     }
 
     override fun onBackPressed(): Boolean {
+        var wasProcessed = false
         for (child in childFragmentManager.fragments) {
-            if (child is OnBackPressedListener && child.onBackPressed()) return false
+            if (child is OnBackPressedListener && child.onBackPressed()) wasProcessed = true
         }
-
-        parentFragment.apply {
-            return if (this is HostFragment) {
-                false
-            } else {
-                router.exit()
-                true
-            }
-        }
+        return wasProcessed
     }
 
     private fun addChild(@IdRes containerID: Int, childClass: Class<out BaseFragment>) {
