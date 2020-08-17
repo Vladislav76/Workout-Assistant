@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import com.vladislavmyasnikov.common.R
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
-import com.vladislavmyasnikov.common.interfaces.RouterHolder
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -40,11 +39,18 @@ abstract class FlowFragment : BaseFragment(R.layout.fragment_container), OnBackP
     override fun onBackPressed(): Boolean {
         val visibleChildFragment = childFragmentManager.findFragmentById(R.id.container)
         visibleChildFragment?.let {
-            if (visibleChildFragment !is OnBackPressedListener || !visibleChildFragment.onBackPressed()) {
-                (activity as RouterHolder).router.exit()
+            if (it is OnBackPressedListener) {
+                val wasProcessed = it.onBackPressed()
+                if (!wasProcessed) {
+                    if (childFragmentManager.backStackEntryCount > 0) {
+                        router.exit()
+                        return true
+                    }
+                }
+                return wasProcessed
             }
         }
-        return true
+        return false
     }
 
     protected open fun inject() {
