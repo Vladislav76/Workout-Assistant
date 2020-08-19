@@ -37,8 +37,6 @@ class CompletedWorkoutListScreenHost @Inject constructor(
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.ItemClickMessage) {
-            router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id))
-        }
+        if (message is Message.ItemClickMessage) { router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id)) }
     }
 }

@@ -22,22 +22,22 @@ class WorkoutExerciseDetailsDialog @Inject constructor(
         private const val ARG_WORKOUT_EXERCISE_ID = "workout_exercise_id"
     }
 
-    override val viewModel: WorkoutExerciseVM by lazy { injectViewModel<WorkoutExerciseVM>(viewModelFactory) }
+    override val viewModel by lazy { injectViewModel<WorkoutExerciseVM>(viewModelFactory) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (savedInstanceState == null) {
-            viewModel.request(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
-        }
+        viewModel.request(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID))
     }
 
     override fun onReceiveItem(item: WorkoutExercise) {
-        val resID = requireContext().resources.getIdentifier(item.info.avatarID, "drawable", requireContext().packageName)
-        workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), resID))
         workout_exercise_title.text = item.info.title
         workout_exercise_reps.text = item.workoutExerciseIndicators.reps.toString()
         workout_exercise_weight.text = item.workoutExerciseIndicators.weight.toString()
+
+        requireContext().let { context ->
+            val resID = context.resources.getIdentifier(item.info.avatarID, "drawable", context.packageName)
+            workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(context, resID))
+        }
     }
 
     fun putArguments(id: Long) {

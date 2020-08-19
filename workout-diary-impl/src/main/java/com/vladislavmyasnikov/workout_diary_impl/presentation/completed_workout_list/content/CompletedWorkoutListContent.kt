@@ -21,11 +21,7 @@ class CompletedWorkoutListContent @Inject constructor(
 
     override val viewModel by lazy { injectViewModel<CompletedWorkoutListVM>(viewModelFactory) }
 
-    override val itemClickCallback = object : OnItemClickCallback {
-        override fun onClick(id: Long, title: String) {
-            sendMessage(Message.ItemClickMessage(id))
-        }
-    }
+    override val itemClickCallback = OnItemClickCallback { id: Long, _: String -> sendMessage(Message.ItemClickMessage(id)) }
 
     override val itemClickCallbackInSelectMode = null
 

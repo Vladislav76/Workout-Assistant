@@ -3,10 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.exported_data_button
 import com.vladislavmyasnikov.common.extensions.exported_decrease_button
@@ -28,32 +25,16 @@ class WorkoutExerciseMetricsContent @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reps_panel.exported_decrease_button.setOnClickListener {
-            viewModel.decreaseReps()
-        }
-        reps_panel.exported_increase_button.setOnClickListener {
-            viewModel.increaseReps()
-        }
-        weight_panel.exported_decrease_button.setOnClickListener {
-            viewModel.decreaseWeight()
-        }
-        weight_panel.exported_increase_button.setOnClickListener {
-            viewModel.increaseWeight()
-        }
+        reps_panel.exported_decrease_button.setOnClickListener { viewModel.decreaseReps() }
+        reps_panel.exported_increase_button.setOnClickListener { viewModel.increaseReps() }
+        weight_panel.exported_decrease_button.setOnClickListener { viewModel.decreaseWeight() }
+        weight_panel.exported_increase_button.setOnClickListener { viewModel.increaseWeight() }
 
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
-    }
+        viewModel.request()
     }
 
     override fun onReceiveItem(item: WorkoutExerciseIndicators) {
         reps_panel.exported_data_button.text = item.reps.toString()
         weight_panel.exported_data_button.text = item.weight.toString()
-    }
-
-    override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
-            viewModel.request()
-        }
     }
 }

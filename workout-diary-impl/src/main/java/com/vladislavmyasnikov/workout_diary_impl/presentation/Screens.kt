@@ -25,7 +25,7 @@ class Screens {
         override fun getFragment(): Fragment {
             val clazz = CompletedWorkoutScreenHost::class.java
             return sharedFragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
-                    .also { fragment -> (fragment as CompletedWorkoutScreenHost).putArguments(diaryEntryId) }
+                    .also { (it as CompletedWorkoutScreenHost).putArguments(diaryEntryId) }
         }
     }
 }

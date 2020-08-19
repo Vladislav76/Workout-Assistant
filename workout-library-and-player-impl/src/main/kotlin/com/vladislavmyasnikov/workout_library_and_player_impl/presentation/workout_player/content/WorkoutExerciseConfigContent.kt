@@ -3,10 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
@@ -24,10 +21,7 @@ class WorkoutExerciseConfigContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
-        }
+        viewModel.request()
     }
 
     override fun onReceiveItem(item: WorkoutExerciseConfig) {
@@ -37,11 +31,5 @@ class WorkoutExerciseConfigContent @Inject constructor(
         exercise_progress.text = exerciseText
         val approachText = "${resources.getString(R.string.approach_label)} ${item.approachIndex}/${item.approachAmount}"
         approach_progress.text = approachText
-    }
-
-    override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
-            viewModel.request()
-        }
     }
 }

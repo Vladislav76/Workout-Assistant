@@ -24,10 +24,7 @@ class WorkoutResultContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ok_button.setOnClickListener {
-            sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
-        }
+        ok_button.setOnClickListener { sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST)) }
         viewModel.request()
     }
 

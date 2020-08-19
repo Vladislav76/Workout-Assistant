@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
@@ -25,23 +22,17 @@ class WorkoutExerciseContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
-        }
+        viewModel.request()
     }
 
     override fun onReceiveItem(item: WorkoutExercise) {
-        val resID = requireContext().resources.getIdentifier(item.info.avatarID, "drawable", requireContext().packageName)
-        workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(requireContext(), resID))
         workout_exercise_title.text = item.info.title
         workout_exercise_reps.text = item.workoutExerciseIndicators.reps.toString()
         workout_exercise_weight.text = item.workoutExerciseIndicators.weight.toString()
-    }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
-            viewModel.request()
+        requireContext().let { context ->
+            val resID = context.resources.getIdentifier(item.info.avatarID, "drawable", context.packageName)
+            workout_exercise_icon.setImageDrawable(ContextCompat.getDrawable(context, resID))
         }
     }
 }

@@ -47,11 +47,4 @@ class WorkoutListScreenHost @Inject constructor(
             router.navigateTo(Screens.WorkoutDetailsScreen(message.id))
         }
     }
-
-//    override fun onReceivePacket(packet: Packet) {
-//        if (packet is Packet.ItemClickMessage) {
-//            router.navigateTo(Screens.WorkoutDetailsScreen())
-//            bus.sendPacket(Packet.ItemFetchRequest(packet.id))
-//        }
-//    }
 }

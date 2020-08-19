@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
@@ -29,19 +26,13 @@ class WorkoutExerciseListConfigContent @Inject constructor(
 
     private val workoutSetNumberClickCallback = object : AdapterView.OnItemSelectedListener {
 
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            viewModel.updateWorkoutSetNumber(id.toInt())
-        }
-
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) { viewModel.updateWorkoutSetNumber(id.toInt()) }
         override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 
     private val workoutSetApproachClickCallback = object : AdapterView.OnItemSelectedListener {
 
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            viewModel.updateWorkoutSetApproach(id.toInt())
-        }
-
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) { viewModel.updateWorkoutSetApproach(id.toInt()) }
         override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 
@@ -58,9 +49,7 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         workout_set_approach.adapter = workoutSetApproachAdapter
         workout_set_approach.onItemSelectedListener = workoutSetApproachClickCallback
 
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
-        }
+        viewModel.request()
     }
 
     override fun onReceiveItem(item: WorkoutSetConfig) {
@@ -68,11 +57,5 @@ class WorkoutExerciseListConfigContent @Inject constructor(
         workoutSetApproachAdapter.lastNumber = item.approachAmount
         workout_set_number.setSelection(item.setIndex)
         workout_set_approach.setSelection(item.approachIndex)
-    }
-
-    override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
-            viewModel.request()
-        }
     }
 }

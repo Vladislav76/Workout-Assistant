@@ -38,8 +38,6 @@ class CompletedWorkoutContent @Inject constructor(
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.KeyDataResponseMessage) {
-            viewModel.request(message.id)
-        }
+        if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

@@ -30,9 +30,7 @@ class ControlPanelContent @Inject constructor(
         pause_button.setOnClickListener { viewModel.pause() }
         resume_button.setOnClickListener { viewModel.resume() }
 
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
-        }
+        sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
     }
 
     override fun onReceiveItem(item: WorkoutProcessState) {
@@ -57,8 +55,6 @@ class ControlPanelContent @Inject constructor(
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.KeyDataResponseMessage) {
-            viewModel.request(message.id)
-        }
+        if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

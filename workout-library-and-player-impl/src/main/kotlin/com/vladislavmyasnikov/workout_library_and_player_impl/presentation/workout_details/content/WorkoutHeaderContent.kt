@@ -25,26 +25,19 @@ class WorkoutHeaderContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
-        }
-        start_workout_button.setOnClickListener {
-            sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
-        }
+        start_workout_button.setOnClickListener { sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST)) }
+        sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
     }
 
     override fun onReceiveItem(item: Workout) {
-        val context = requireContext()
-
         setTitle(item.title)
-
-        val resID = context.resources.getIdentifier(item.avatarID, "drawable", context.packageName)
-        workout_avatar.setImageDrawable(ContextCompat.getDrawable(context, resID))
+        requireContext().let { context ->
+            val resID = context.resources.getIdentifier(item.avatarID, "drawable", context.packageName)
+            workout_avatar.setImageDrawable(ContextCompat.getDrawable(context, resID))
+        }
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.KeyDataResponseMessage) {
-            viewModel.request(message.id)
-        }
+        if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

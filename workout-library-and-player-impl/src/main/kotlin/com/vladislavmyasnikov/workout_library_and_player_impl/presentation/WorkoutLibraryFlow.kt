@@ -28,7 +28,7 @@ class WorkoutLibraryFlow @Inject constructor() : FlowFragment(), WorkoutLibraryL
 
     override fun onStartUp() {
         super.onStartUp()
-        router.replaceScreen(Screens.WorkoutListScreen())
+        router.newRootScreen(Screens.WorkoutListScreen())
     }
 
     override fun launch(): Fragment {

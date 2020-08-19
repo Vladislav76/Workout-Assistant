@@ -3,10 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
@@ -24,20 +21,11 @@ class TimerContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (savedInstanceState == null) {
-            sendMessage(Message.RequestMessage(RequestMessageType.CONTENT_REQUEST), this)
-        }
+        viewModel.request()
     }
 
     override fun onReceiveItem(item: TimerValue) {
         // TODO: add time formatter
         timer.text = String.format("%02d:%02d:%02d", item.hours, item.minutes, item.seconds)
-    }
-
-    override fun receiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.CONTENT_REQUEST) {
-            viewModel.request()
-        }
     }
 }
