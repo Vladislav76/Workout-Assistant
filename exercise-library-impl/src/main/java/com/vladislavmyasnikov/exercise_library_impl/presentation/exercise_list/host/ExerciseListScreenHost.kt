@@ -3,13 +3,16 @@ package com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.Screens
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListToolbarContent
+import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.dialog.ExerciseFilterDialog
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -35,10 +38,13 @@ class ExerciseListScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun onReceivePacket(message: Message) {
+    override fun receiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.ItemClickMessage) {
-            router.navigateTo(Screens.ExerciseDetailsScreen())
-            bus.sendPacket(Message.KeyDataResponseMessage(message.id))
+            router.navigateTo(Screens.ExerciseDetailsScreen(message.id))
+        } else if (message is Message.RequestMessage && message.type == RequestMessageType.TRANSITION_REQUEST) {
+            val clazz = ExerciseFilterDialog::class.java
+            fragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
+                    .also { (it as ExerciseFilterDialog).show(childFragmentManager, null) }
         }
     }
 }

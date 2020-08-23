@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.exercise_library_impl.domain.entity
 
-data class FullExercise(
+data class Exercise(
         val id: Long,
         val title: String,
         val muscleGroupsIDs: List<Int>,

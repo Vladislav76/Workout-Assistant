@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import javax.inject.Inject
 
-class ExerciseImagePagerAdapter @Inject constructor(private val context: Context) : PagerAdapter() {
+class ExerciseImagePagerAdapter @Inject constructor(
+        private val context: Context
+) : PagerAdapter() {
 
     var imagesIDs: List<String> = emptyList()
     set(value) {

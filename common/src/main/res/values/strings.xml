@@ -2,6 +2,9 @@
     <string name="app_name">common</string>
 
     <string name="discard_action">Discard</string>
+    <string name="apply_action">Apply</string>
+    <string name="cancel_action">Cancel</string>
+    <string name="ok_action">OK</string>
 
     <string name="no_description_hint">No description</string>
 </resources>

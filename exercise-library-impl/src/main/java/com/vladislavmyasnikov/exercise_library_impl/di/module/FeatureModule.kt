@@ -5,10 +5,10 @@ import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryLauncher
-import com.vladislavmyasnikov.exercise_library_impl.data.repo_mapper_impl.ExerciseRepositoryImpl
+import com.vladislavmyasnikov.exercise_library_impl.data.repository.ExerciseRepositoryImpl
 import com.vladislavmyasnikov.exercise_library_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.exercise_library_impl.domain.repository.ExerciseRepository
-import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFeatureFlow
+import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFlow
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ import dagger.Provides
 abstract class FeatureModule {
 
     @Binds @PerFeature
-    abstract fun bind1(impl: ExerciseLibraryFeatureFlow): ExerciseLibraryLauncher
+    abstract fun bind1(impl: ExerciseLibraryFlow): ExerciseLibraryLauncher
 
     @Binds @PerFeature
     abstract fun bind2(impl: ExerciseRepositoryImpl): ExerciseRepository

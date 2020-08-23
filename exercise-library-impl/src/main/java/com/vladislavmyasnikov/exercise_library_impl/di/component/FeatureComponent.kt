@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.exercise_library_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.exercise_library_impl.di.module.FeatureModule
 import com.vladislavmyasnikov.exercise_library_impl.di.module.HostFragmentBindingModule
-import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFeatureFlow
+import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFlow
 import dagger.Component
 
 @Component(
@@ -21,7 +21,7 @@ abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
 
-    abstract fun inject(fragment: ExerciseLibraryFeatureFlow)
+    abstract fun inject(fragment: ExerciseLibraryFlow)
 
     abstract fun screenComponent(): ScreenComponent
 

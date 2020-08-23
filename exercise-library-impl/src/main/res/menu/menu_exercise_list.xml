@@ -5,6 +5,6 @@
     <item
         android:id="@+id/filter_exercise_list_action"
         android:title="@string/filter_exercise_list_action"
-        android:icon="@drawable/ic_tune"
+        android:icon="@drawable/ic_filter_list"
         app:showAsAction="ifRoom|withText"/>
 </menu>

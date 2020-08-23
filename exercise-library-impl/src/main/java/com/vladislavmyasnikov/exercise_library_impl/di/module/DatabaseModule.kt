@@ -25,7 +25,7 @@ class DatabaseModule {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase
                     val muscleGroupsAmount = context.resources.getStringArray(R.array.muscle_groups).size
-                    locDb.exerciseLibraryDao().insertExercisesInfo(generateExercisesInfo(30, muscleGroupsAmount))
+                    locDb.exerciseLibraryDao().insertExercises(generateExercisesInfo(30, muscleGroupsAmount))
                 }
             }) as LocalDatabase
 }

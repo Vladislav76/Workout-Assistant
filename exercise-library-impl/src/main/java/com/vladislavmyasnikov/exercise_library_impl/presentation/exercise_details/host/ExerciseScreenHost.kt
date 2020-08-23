@@ -1,10 +1,14 @@
 package com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.host
 
 import android.content.Context
+import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.Message
+import com.vladislavmyasnikov.common.arch.RequestMessageType
 import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
+import com.vladislavmyasnikov.common.interfaces.MessageReceiver
+import com.vladislavmyasnikov.common.interfaces.MessageSender
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.content.ExerciseContent
@@ -15,6 +19,10 @@ class ExerciseScreenHost @Inject constructor(
         override val bus: SharedBus,
         override val router: Router
 ) : HostFragment(R.layout.fragment_container) {
+
+    private companion object {
+        const val ARG_EXERCISE_ID = "exercise_id"
+    }
 
     override val children = listOf(
             R.id.container to ExerciseContent::class.java
@@ -32,9 +40,21 @@ class ExerciseScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun onReceivePacket(message: Message) {
-        if (message is Message.KeyDataResponseMessage) {
-            bus.sendNoise()
+    override fun receiveMessage(message: Message, sender: MessageSender) {
+        when (message) {
+            is Message.RequestMessage -> {
+                when (message.type) {
+                    RequestMessageType.KEY_DATA_REQUEST -> {
+                        sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(ARG_EXERCISE_ID)), sender as MessageReceiver)
+                    }
+                }
+            }
+        }
+    }
+
+    fun putArguments(exerciseId: Long) {
+        arguments = Bundle().apply {
+            putLong(ARG_EXERCISE_ID, exerciseId)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.exercise_library_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
-import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFeatureFlow
+import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFlow
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.content.ExerciseContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.host.ExerciseScreenHost
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListContent
@@ -24,7 +24,7 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             ExerciseScreenHost::class to "EXERCISE_DETAILS_SCREEN_HOST",
 
             // flow fragments
-            ExerciseLibraryFeatureFlow::class to "EXERCISE_LIBRARY_FEATURE_FLOW",
+            ExerciseLibraryFlow::class to "EXERCISE_LIBRARY_FEATURE_FLOW",
 
             // dialogs
 

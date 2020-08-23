@@ -1,11 +1,11 @@
 package com.vladislavmyasnikov.exercise_library_impl.data.db
 
-import com.vladislavmyasnikov.exercise_library_impl.data.db.entities.FullExerciseInfo
+import com.vladislavmyasnikov.exercise_library_impl.data.db.entity.ExerciseEntity
 
 private val imagesNames = listOf("ex_dummy_1", "ex_dummy_2", "ex_dummy_3", "ex_dummy_4", "ex_dummy_5")
 
-fun generateExercisesInfo(amount: Int, muscleGroupsAmount: Int): List<FullExerciseInfo> {
-    val exercisesInfo = mutableListOf<FullExerciseInfo>()
+fun generateExercisesInfo(amount: Int, muscleGroupsAmount: Int): List<ExerciseEntity> {
+    val exercisesInfo = mutableListOf<ExerciseEntity>()
     val muscleGroupsIDsRange = 0 until muscleGroupsAmount
     val imagesIDsRange = 0 until imagesNames.size
 
@@ -22,7 +22,7 @@ fun generateExercisesInfo(amount: Int, muscleGroupsAmount: Int): List<FullExerci
 
         val avatarID = imagesNames[imagesIDsRange.random()]
 
-        exercisesInfo.add(FullExerciseInfo(title = "Title $i", muscleGroupsIDs = muscleGroupsIDs, avatarID = avatarID, imagesIDs = imagesIDs, description = "Description $i"))
+        exercisesInfo.add(ExerciseEntity(title = "Title $i", muscleGroupsIDs = muscleGroupsIDs, avatarID = avatarID, imagesIDs = imagesIDs, description = "Description $i"))
     }
     return exercisesInfo
 }

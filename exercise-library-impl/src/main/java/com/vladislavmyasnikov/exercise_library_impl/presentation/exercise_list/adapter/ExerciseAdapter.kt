@@ -21,7 +21,7 @@ class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExercis
     class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<ShortExercise>(view) {
 
         override fun bind(item: ShortExercise) {
-            itemView.title_field.text = item.title
+            itemView.exercise_name.text = item.title
 
             val muscleGroupNames = itemView.context.resources.getStringArray(R.array.muscle_groups)
             itemView.muscle_groups_field.text = item.muscleGroupsIDs.joinToString(transform = { id -> muscleGroupNames[id] })
