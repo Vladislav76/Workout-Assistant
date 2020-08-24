@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
+import com.vladislavmyasnikov.common.arch.adapter.SelectableBaseAdapter
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.domain.entity.ShortExercise
 import kotlinx.android.synthetic.main.item_exercise.view.*

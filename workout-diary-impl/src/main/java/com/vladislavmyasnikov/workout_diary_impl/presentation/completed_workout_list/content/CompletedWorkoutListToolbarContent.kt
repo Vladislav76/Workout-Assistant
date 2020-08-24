@@ -5,16 +5,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
+import com.vladislavmyasnikov.common.arch.component.VMToolbarFragment
 import com.vladislavmyasnikov.workout_diary_impl.R
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_list.viewmodel.CompletedWorkoutListVM
 import com.vladislavmyasnikov.workout_library_and_player_api.domain.entity.ShortCompletedWorkout
 import javax.inject.Inject
 
 class CompletedWorkoutListToolbarContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMToolbarFragment<List<ShortCompletedWorkout>>() {
 

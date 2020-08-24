@@ -3,12 +3,11 @@ package com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
-import com.vladislavmyasnikov.common.interfaces.MessageReceiver
-import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
+import com.vladislavmyasnikov.common.arch.component.HostFragment
+import com.vladislavmyasnikov.common.arch.communication.MessageReceiver
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.workout_diary_impl.R
 import com.vladislavmyasnikov.workout_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_details.content.CompletedWorkoutContent
@@ -17,7 +16,6 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class CompletedWorkoutScreenHost @Inject constructor(
-        override val bus: SharedBus,
         override val router: Router
 ) : HostFragment(R.layout.two_fragment_container) {
 

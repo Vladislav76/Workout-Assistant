@@ -3,12 +3,11 @@ package com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
+import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.utils.DateFormatType
 import com.vladislavmyasnikov.common.utils.TimePointFormatType
 import com.vladislavmyasnikov.workout_diary_impl.R
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.content_diary_entry_details.*
 import javax.inject.Inject
 
 class CompletedWorkoutContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<CompletedWorkout>(R.layout.content_diary_entry_details) {
 

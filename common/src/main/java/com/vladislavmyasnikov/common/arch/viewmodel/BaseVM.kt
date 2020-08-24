@@ -1,10 +1,9 @@
 package com.vladislavmyasnikov.common.arch.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.vladislavmyasnikov.common.arch.Event
+import com.vladislavmyasnikov.common.arch.communication.Event
 import com.vladislavmyasnikov.common.utils.Logger
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject

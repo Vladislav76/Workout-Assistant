@@ -1,13 +1,12 @@
-package com.vladislavmyasnikov.common.presentation.view.components
+package com.vladislavmyasnikov.common.arch.component
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 import com.vladislavmyasnikov.common.interfaces.Identifiable
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
+import com.vladislavmyasnikov.common.arch.adapter.SelectableBaseAdapter
 
 abstract class VMListFragment<T : Identifiable<T>> : VMFragment<List<T>>(R.layout.linear_recycler_view) {
 

@@ -1,11 +1,11 @@
-package com.vladislavmyasnikov.common.presentation.view.components
+package com.vladislavmyasnikov.common.arch.component
 
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.arch.fundamental.HostFragment
+import com.vladislavmyasnikov.common.arch.component.HostFragment
 
 abstract class CollapsingHeaderHostFragment : HostFragment(R.layout.template_collapsing_header_and_body) {
 

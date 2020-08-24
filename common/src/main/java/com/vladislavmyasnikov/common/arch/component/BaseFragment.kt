@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.arch.fundamental
+package com.vladislavmyasnikov.common.arch.component
 
 import android.content.Context
 import android.os.Bundle
@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.interfaces.MessageReceiver
-import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.MessageReceiver
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.utils.Logger
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 /*
@@ -22,7 +20,6 @@ abstract class BaseFragment(
         @LayoutRes private val viewResource: Int
 ) : Fragment(), MessageSender, MessageReceiver {
 
-    protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
 
     override var defaultReceiver: MessageReceiver? = null
@@ -44,14 +41,6 @@ abstract class BaseFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.debug(this::class, "::onViewCreated")
-
-        disposables.add(
-                bus.packets
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceivePacket(it)
-                        }
-        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -90,6 +79,4 @@ abstract class BaseFragment(
     protected fun debugMessage(message: String) {
         Logger.debug(this::class, message)
     }
-
-    protected open fun onReceivePacket(message: Message) {}
 }

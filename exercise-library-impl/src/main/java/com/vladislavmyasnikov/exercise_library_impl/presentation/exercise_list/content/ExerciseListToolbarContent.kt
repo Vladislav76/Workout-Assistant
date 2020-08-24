@@ -5,18 +5,16 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
-import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.presentation.view.components.VMToolbarFragment
+import com.vladislavmyasnikov.common.arch.component.VMToolbarFragment
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.domain.entity.ShortExercise
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.viewmodel.ExerciseListVM
 import javax.inject.Inject
 
 class ExerciseListToolbarContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMToolbarFragment<List<ShortExercise>>() {
 

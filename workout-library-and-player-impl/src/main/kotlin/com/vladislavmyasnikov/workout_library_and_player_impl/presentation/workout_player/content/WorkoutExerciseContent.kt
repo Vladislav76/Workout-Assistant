@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.WorkoutExercise
@@ -14,7 +13,6 @@ import kotlinx.android.synthetic.main.content_workout_exercise_details.*
 import javax.inject.Inject
 
 class WorkoutExerciseContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutExercise>(R.layout.content_workout_exercise_details) {
 

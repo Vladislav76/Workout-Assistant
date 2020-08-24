@@ -1,8 +1,7 @@
 package com.vladislavmyasnikov.workout_library_and_player_impl.presentation
 
 import androidx.fragment.app.Fragment
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.FlowFragment
+import com.vladislavmyasnikov.common.arch.component.FlowFragment
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryLauncher
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
 import ru.terrakok.cicerone.NavigatorHolder
@@ -16,9 +15,6 @@ class WorkoutLibraryFlow @Inject constructor() : FlowFragment(), WorkoutLibraryL
 
     @Inject
     override lateinit var router: Router
-
-    @Inject
-    override lateinit var bus: SharedBus
 
     override fun inject() {
         super.inject()

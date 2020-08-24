@@ -3,8 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.exported_data_button
 import com.vladislavmyasnikov.common.extensions.exported_decrease_button
 import com.vladislavmyasnikov.common.extensions.exported_increase_button
@@ -16,7 +15,6 @@ import kotlinx.android.synthetic.main.content_exercise_approach_data.*
 import javax.inject.Inject
 
 class WorkoutExerciseMetricsContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<WorkoutExerciseIndicators>(R.layout.content_exercise_approach_data) {
 

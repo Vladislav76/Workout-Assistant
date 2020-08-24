@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <com.vladislavmyasnikov.common.presentation.view.SelectableChipGroup
+    <com.vladislavmyasnikov.common.arch.view.SelectableChipGroup
         style="@style/Widget.MaterialComponents.Chip.Filter"
         android:id="@+id/muscle_groups"
         android:layout_width="match_parent"

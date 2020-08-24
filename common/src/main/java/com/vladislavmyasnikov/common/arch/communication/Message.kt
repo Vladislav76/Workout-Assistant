@@ -1,7 +1,7 @@
-package com.vladislavmyasnikov.common.arch
+package com.vladislavmyasnikov.common.arch.communication
 
 enum class RequestMessageType {
-    KEY_DATA_REQUEST, CONTENT_REQUEST, TRANSITION_REQUEST
+    KEY_DATA_REQUEST, TRANSITION_REQUEST
 }
 
 sealed class Message {
@@ -9,6 +9,4 @@ sealed class Message {
     class RequestMessage(val type: RequestMessageType) : Message()
     class KeyDataResponseMessage(val id: Long) : Message()
     class ItemClickMessage(val id: Long) : Message()
-    class NewItemMessage : Message()
-    class Noise : Message()
 }

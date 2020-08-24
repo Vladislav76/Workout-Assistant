@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.common.arch.experimental
 
-import com.vladislavmyasnikov.common.arch.fundamental.BaseFragment
+import com.vladislavmyasnikov.common.arch.component.BaseFragment
 import io.reactivex.annotations.Experimental
 
 @Experimental

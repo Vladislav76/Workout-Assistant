@@ -1,6 +1,4 @@
-package com.vladislavmyasnikov.common.interfaces
-
-import com.vladislavmyasnikov.common.arch.Message
+package com.vladislavmyasnikov.common.arch.communication
 
 interface MessageSender {
 

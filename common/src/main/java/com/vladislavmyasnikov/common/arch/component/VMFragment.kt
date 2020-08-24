@@ -1,16 +1,17 @@
-package com.vladislavmyasnikov.common.arch.fundamental
+package com.vladislavmyasnikov.common.arch.component
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.viewmodel.BaseVM
-import com.vladislavmyasnikov.common.arch.Event
+import com.vladislavmyasnikov.common.arch.communication.Event
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFragment(viewResource) {
+abstract class VMFragment<T>(
+        @LayoutRes private val viewResource: Int
+) : BaseFragment(viewResource) {
 
     protected abstract val viewModelFactory: ViewModelProvider.Factory
     protected abstract val viewModel: BaseVM<T, Throwable>
@@ -20,22 +21,22 @@ abstract class VMFragment<T>(@LayoutRes private val viewResource: Int) : BaseFra
 
         viewModel.errors
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onReceiveError(it) }
-                .also { disposable -> disposables.add(disposable) }
+                .subscribe { error -> onReceiveError(error) }
+                .also { disposables.add(it) }
 
         viewModel.items
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onReceiveItem(it) }
-                .also { disposable -> disposables.add(disposable) }
+                .subscribe { item -> onReceiveItem(item) }
+                .also { disposables.add(it) }
 
         viewModel.events
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { onReceiveEvent(it) }
-                .also { disposable -> disposables.add(disposable) }
+                .subscribe { event -> onReceiveEvent(event) }
+                .also { disposables.add(it) }
     }
 
     protected open fun onReceiveError(error: Throwable) {
-        Toast.makeText(activity, error.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
     }
 
     protected open fun onReceiveItem(item: T) {}

@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.common.arch.experimental
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.arch.fundamental.BaseFragment
+import com.vladislavmyasnikov.common.arch.component.BaseFragment
 import io.reactivex.annotations.Experimental
 
 @Experimental

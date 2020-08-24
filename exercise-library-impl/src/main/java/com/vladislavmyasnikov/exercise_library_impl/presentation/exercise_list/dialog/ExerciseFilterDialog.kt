@@ -3,8 +3,7 @@ package com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMDialog
+import com.vladislavmyasnikov.common.arch.component.VMDialog
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.viewmodel.MuscleGroupListVM
@@ -12,9 +11,8 @@ import kotlinx.android.synthetic.main.dialog_exercise_filter.*
 import javax.inject.Inject
 
 class ExerciseFilterDialog @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMDialog<List<Pair<String,Boolean>>>(R.layout.dialog_exercise_filter) {
+) : VMDialog<List<Pair<String, Boolean>>>(R.layout.dialog_exercise_filter) {
 
     override val viewModel by lazy { injectViewModel<MuscleGroupListVM>(viewModelFactory) }
 

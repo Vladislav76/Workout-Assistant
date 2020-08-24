@@ -3,18 +3,16 @@ package com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.SharedBus
+import com.vladislavmyasnikov.common.arch.communication.Message
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.common.interfaces.OnItemClickCallback
-import com.vladislavmyasnikov.common.presentation.view.components.VMListFragment
+import com.vladislavmyasnikov.common.arch.component.VMListFragment
 import com.vladislavmyasnikov.exercise_library_impl.domain.entity.ShortExercise
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.adapter.ExerciseAdapter
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.viewmodel.ExerciseListVM
 import javax.inject.Inject
 
 class ExerciseListContent @Inject constructor(
-        override val bus: SharedBus,
         override val adapter: ExerciseAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMListFragment<ShortExercise>() {

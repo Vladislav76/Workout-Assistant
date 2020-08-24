@@ -1,24 +1,25 @@
-package com.vladislavmyasnikov.common.arch.fundamental
+package com.vladislavmyasnikov.common.arch.component
 
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.SharedBus
 import com.vladislavmyasnikov.common.utils.Logger
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFragment() {
+abstract class BaseDialog(
+        @LayoutRes private val viewResource: Int
+) : DialogFragment() {
 
     companion object {
         private const val DIALOG_WIDTH_TO_DISPLAY_WIDTH_RATIO = 0.8
     }
 
-    protected abstract val bus: SharedBus
     protected val disposables = CompositeDisposable()
 
     override fun onAttach(context: Context) {
@@ -43,14 +44,6 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.debug(this::class, "::onViewCreated")
-
-        disposables.add(
-                bus.packets
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            onReceivePacket(it)
-                        }
-        )
     }
 
     override fun onStart() {
@@ -86,6 +79,4 @@ abstract class BaseDialog(@LayoutRes private val viewResource: Int) : DialogFrag
         super.onDestroy()
         Logger.debug(this::class, "::onDestroy")
     }
-
-    protected open fun onReceivePacket(message: Message) {}
 }

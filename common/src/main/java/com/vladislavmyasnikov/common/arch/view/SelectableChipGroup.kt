@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.presentation.view
+package com.vladislavmyasnikov.common.arch.view
 
 import android.content.Context
 import android.util.AttributeSet

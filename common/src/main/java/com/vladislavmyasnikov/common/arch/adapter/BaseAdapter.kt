@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.presentation.adapters
+package com.vladislavmyasnikov.common.arch.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.presentation.view.components
+package com.vladislavmyasnikov.common.arch.component
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
 
 abstract class VMToolbarFragment<T> : VMFragment<T>(R.layout.toolbar) {
 

@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.arch.fundamental
+package com.vladislavmyasnikov.common.arch.component
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.interfaces.BottomPanelController
-import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
 import ru.terrakok.cicerone.Router
 

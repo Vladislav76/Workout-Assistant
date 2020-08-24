@@ -1,4 +1,4 @@
-package com.vladislavmyasnikov.common.presentation.view.dialogs
+package com.vladislavmyasnikov.common.arch.dialog
 
 import android.app.Activity
 import android.app.DatePickerDialog

@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.Chip
-import com.vladislavmyasnikov.common.arch.Message
-import com.vladislavmyasnikov.common.arch.RequestMessageType
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
+import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.interfaces.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.domain.entity.Exercise
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.adapter.ExerciseImagePagerAdapter
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.content_exercise_details.*
 import javax.inject.Inject
 
 class ExerciseContent @Inject constructor(
-        override val bus: SharedBus,
         private val adapter: ExerciseImagePagerAdapter,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<Exercise>(R.layout.content_exercise_details) {

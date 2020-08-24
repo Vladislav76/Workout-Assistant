@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.vladislavmyasnikov.common.presentation.adapters.SelectableBaseAdapter
+import com.vladislavmyasnikov.common.arch.adapter.SelectableBaseAdapter
 import com.vladislavmyasnikov.common.utils.DateFormatType
 import com.vladislavmyasnikov.common.utils.TimePointFormatType
 import com.vladislavmyasnikov.workout_diary_impl.R

@@ -3,8 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.SharedBus
-import com.vladislavmyasnikov.common.arch.fundamental.VMFragment
+import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_execution.TimerValue
@@ -13,7 +12,6 @@ import kotlinx.android.synthetic.main.content_timer.*
 import javax.inject.Inject
 
 class TimerContent @Inject constructor(
-        override val bus: SharedBus,
         override val viewModelFactory: ViewModelProvider.Factory
 ) : VMFragment<TimerValue>(R.layout.content_timer) {
 
