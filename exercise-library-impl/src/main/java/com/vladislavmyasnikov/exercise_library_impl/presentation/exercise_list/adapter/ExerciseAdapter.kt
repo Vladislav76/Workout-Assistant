@@ -24,7 +24,7 @@ class ExerciseAdapter @Inject constructor() : SelectableBaseAdapter<ShortExercis
             itemView.exercise_name.text = item.title
 
             val muscleGroupNames = itemView.context.resources.getStringArray(R.array.muscle_groups)
-            itemView.muscle_groups_field.text = item.muscleGroupsIDs.joinToString(transform = { id -> muscleGroupNames[id] })
+            itemView.exercise_muscle_groups.text = item.muscleGroupsIDs.joinToString(transform = { id -> muscleGroupNames[id] })
 
             val resID = itemView.context.resources.getIdentifier(item.avatarID, "drawable", itemView.context.packageName)
             itemView.exercise_icon.setImageDrawable(ContextCompat.getDrawable(itemView.context, resID))

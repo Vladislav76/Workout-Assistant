@@ -40,7 +40,7 @@
             </androidx.viewpager.widget.ViewPager>
 
             <TextView
-                style="@style/LabelStyle"
+                style="@style/LabelStyle1"
                 android:id="@+id/muscle_groups_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,15 +48,16 @@
                 android:text="@string/muscle_groups_label"
                 app:layout_constraintTop_toBottomOf="@id/view_pager"/>
 
-            <com.google.android.material.chip.ChipGroup
+            <com.vladislavmyasnikov.common.arch.view.SelectableChipGroup
                 android:id="@+id/muscle_groups_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:isSelectable="false"
                 app:layout_constraintTop_toBottomOf="@id/muscle_groups_label"/>
 
             <TextView
-                style="@style/LabelStyle"
+                style="@style/LabelStyle1"
                 android:id="@+id/description_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

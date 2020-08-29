@@ -36,13 +36,8 @@ class ExerciseContent @Inject constructor(
         description_field.text = item.description
         adapter.imagesIDs = item.imagesIDs
 
-        for ((index, muscleGroupID) in item.muscleGroupsIDs.withIndex()) {
-            val tag = Chip(context).apply {
-                id = index
-                text = muscleGroupNames[muscleGroupID]
-            }
-            muscle_groups_tags.addView(tag)
-        }
+        val muscleGroups = item.muscleGroupsIDs.map { muscleGroupNames[it] }
+        muscle_groups_tags.setItems(muscleGroups)
     }
 
     override fun receiveMessage(message: Message, sender: MessageSender) {

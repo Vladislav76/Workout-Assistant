@@ -12,25 +12,18 @@ import javax.inject.Inject
 
 @PerScreen
 class FilterExerciseListUCImpl @Inject constructor(
-        private val getExerciseListUC: GetExerciseListUC
-) : GetMuscleGroupListUC, CheckMuscleGroupUC, GetFilteredExerciseListUC, ApplyFilterUC {
-
-    // TODO: fetch from repository (database)
-    private val originalItems = mutableListOf(
-            "Chest" to false,
-            "Back" to false,
-            "Biceps" to false,
-            "Triceps" to false,
-            "Shoulders" to false,
-            "Trapezius" to false,
-            "Quadriceps" to false,
-            "Calves" to false,
-            "Abs" to false,
-    )
+        getExerciseListUC: GetExerciseListUC
+) : GetFilteredExerciseListUC, ManageFiltersUC {
 
     private lateinit var sourceItems: List<ShortExercise>
     private val filteredExerciseListSubject = BehaviorSubject.create<List<ShortExercise>>()
     private val disposables = CompositeDisposable()
+
+    // TODO: fetch from repository (database)
+    private val muscleGroupNames = listOf("Chest", "Back", "Biceps", "Triceps", "Shoulders", "Trapezius", "Quadriceps", "Calves", "Abs")
+    private var lastAppliedFilters = mutableListOf(false, false, false, false, false, false, false, false, false)
+    private var currentFilters = mutableListOf(false, false, false, false, false, false, false, false, false)
+    private val currentFiltersSubject = BehaviorSubject.create<Pair<List<String>, List<Boolean>>>()
 
     init {
         getExerciseListUC.invoke()
@@ -40,24 +33,41 @@ class FilterExerciseListUCImpl @Inject constructor(
                         { error -> }
                 )
                 .also { disposables.add(it) }
-    }
 
-    override fun getAllMuscleGroups(): Single<List<Pair<String, Boolean>>> {
-        return Single.just(originalItems)
-    }
-
-    override fun checkMuscleGroup(position: Int, isChecked: Boolean) {
-        originalItems[position] = originalItems[position].first to isChecked
+        currentFiltersSubject.onNext(muscleGroupNames to currentFilters)
     }
 
     override fun getFilteredExercises(): Observable<List<ShortExercise>> = filteredExerciseListSubject
 
-    override fun applyFiltering() {
+    override fun getCurrentFilters(): Observable<Pair<List<String>, List<Boolean>>> = currentFiltersSubject
+
+    override fun selectMuscleGroup(position: Int, isSelected: Boolean) {
+        currentFilters[position] = isSelected
+    }
+
+    override fun applySelectedFilters() {
+        for (i in 0 until lastAppliedFilters.size) {
+            lastAppliedFilters[i] = currentFilters[i]
+        }
+        filterItems()
+    }
+
+    override fun cancelSelectedFilters() {
+        for (i in 0 until lastAppliedFilters.size) {
+            currentFilters[i] = lastAppliedFilters[i]
+        }
+    }
+
+    override fun clearAllFilters() {
+        for (i in 0 until lastAppliedFilters.size) {
+            lastAppliedFilters[i] = false
+            currentFilters[i] = false
+        }
         filterItems()
     }
 
     private fun filterItems() {
-        val positions = originalItems.withIndex().filter { it.value.second }.map { it.index }
+        val positions = lastAppliedFilters.withIndex().filter { it.value }.map { it.index }
         if (positions.isEmpty()) {
             filteredExerciseListSubject.onNext(sourceItems)
         } else {

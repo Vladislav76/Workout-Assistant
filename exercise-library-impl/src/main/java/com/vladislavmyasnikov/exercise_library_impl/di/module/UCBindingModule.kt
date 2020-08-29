@@ -18,14 +18,8 @@ abstract class UCBindingModule {
     abstract fun bind2(impl: GetExerciseUCImpl): GetExerciseUC
 
     @Binds
-    abstract fun bind3(impl: FilterExerciseListUCImpl): GetMuscleGroupListUC
-
-    @Binds
-    abstract fun bind4(impl: FilterExerciseListUCImpl): CheckMuscleGroupUC
-
-    @Binds
     abstract fun bind5(impl: FilterExerciseListUCImpl): GetFilteredExerciseListUC
 
     @Binds
-    abstract fun bind6(impl: FilterExerciseListUCImpl): ApplyFilterUC
+    abstract fun bind6(impl: FilterExerciseListUCImpl): ManageFiltersUC
 }

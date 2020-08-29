@@ -26,17 +26,17 @@
         android:layout_marginStart="8dp"
         tools:text="Exercise for beginners"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/muscle_groups_field"
+        app:layout_constraintBottom_toTopOf="@id/exercise_muscle_groups"
         app:layout_constraintStart_toEndOf="@id/exercise_icon"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/muscle_groups_field"
+        style="@style/SimpleTextStyle"
+        android:id="@+id/exercise_muscle_groups"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Abs, Chest, Biceps"
         app:layout_constraintTop_toBottomOf="@id/exercise_name"
         app:layout_constraintBottom_toBottomOf="parent"

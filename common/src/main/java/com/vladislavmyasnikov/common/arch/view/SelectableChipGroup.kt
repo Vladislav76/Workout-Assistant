@@ -3,8 +3,10 @@ package com.vladislavmyasnikov.common.arch.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.CompoundButton
+import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.vladislavmyasnikov.common.R
 import kotlin.math.min
 
 class SelectableChipGroup : ChipGroup {
@@ -14,6 +16,7 @@ class SelectableChipGroup : ChipGroup {
     }
 
     private var onChipCheckedListener: OnChipCheckedListener? = null
+    private var isSelectable = false
 
     private val onCheckedChangeListener = CompoundButton.OnCheckedChangeListener { view, isChecked ->
         val position = indexOfChild(view)
@@ -21,15 +24,17 @@ class SelectableChipGroup : ChipGroup {
     }
 
     constructor(context: Context) : super(context)
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
-    constructor(context: Context, attributeSet: AttributeSet, defStyle: Int) : super(context, attributeSet, defStyle)
 
-    fun setItems(items: List<Pair<String,Boolean>>) {
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) { applyAttrs(attributeSet) }
+
+    constructor(context: Context, attributeSet: AttributeSet, defStyle: Int) : super(context, attributeSet, defStyle) { applyAttrs(attributeSet) }
+
+    fun setItems(items: List<String>, isSelected: List<Boolean>? = null) {
         val k = min(childCount, items.size)
         for (i in 0 until k) {
             (getChildAt(i) as Chip).apply {
-                text = items[i].first
-                isChecked = items[i].second
+                text = items[i]
+                isChecked = isSelected?.get(i) ?: false
             }
         }
         if (childCount > items.size) {
@@ -39,9 +44,11 @@ class SelectableChipGroup : ChipGroup {
             for (i in k until items.size) {
                 addView(
                         Chip(context).apply {
-                            isCheckable = true
-                            text = items[i].first
-                            isChecked = items[i].second
+                            isCheckable = isSelectable
+                            text = items[i]
+                            isChecked = isSelected?.get(i) ?: false
+                            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.tag_state_list)
+                            checkedIcon = null
                             setOnCheckedChangeListener(onCheckedChangeListener)
                         }
                 )
@@ -51,5 +58,22 @@ class SelectableChipGroup : ChipGroup {
 
     fun setOnChipCheckedListener(listener: OnChipCheckedListener) {
         onChipCheckedListener = listener
+    }
+
+    fun hasItems(): Boolean {
+        return childCount > 0
+    }
+
+    private fun applyAttrs(attrs: AttributeSet) {
+        context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.SelectableChipGroup,
+                0, 0).apply {
+                    try {
+                        isSelectable = getBoolean(R.styleable.SelectableChipGroup_isSelectable, false)
+                    } finally {
+                        recycle()
+                    }
+                }
     }
 }

@@ -28,7 +28,7 @@ class WorkoutListToolbarContent @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTitle(R.string.workout_list_screen_title)
-//        addMenu(R.menu.menu_exercise_list)
+//        addMenu(R.menu.exercise_list_actions)
         addMenuListener(onActionClickCallback)
     }
 
