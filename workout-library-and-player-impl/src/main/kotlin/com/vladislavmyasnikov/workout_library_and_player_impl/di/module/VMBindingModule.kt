@@ -2,6 +2,9 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.di.module
 
 import androidx.lifecycle.ViewModel
 import com.vladislavmyasnikov.common.di.annotations.ViewModelKey
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.viewmodel.WorkoutExerciseCycleListVM
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_list.viewmodel.WorkoutExerciseListVM2
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_set_list.viewmodel.WorkoutSetListVM
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.viewmodel.WorkoutExerciseListVM
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.viewmodel.WorkoutSetConfigVM
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.viewmodel.WorkoutVM
@@ -44,4 +47,13 @@ abstract class VMBindingModule {
 
     @Binds @IntoMap @ViewModelKey(WorkoutResultVM::class)
     abstract fun bind10(impl: WorkoutResultVM): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(WorkoutSetListVM::class)
+    abstract fun bind11(impl: WorkoutSetListVM): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(WorkoutExerciseListVM2::class)
+    abstract fun bind12(impl: WorkoutExerciseListVM2): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(WorkoutExerciseCycleListVM::class)
+    abstract fun bind13(impl: WorkoutExerciseCycleListVM): ViewModel
 }

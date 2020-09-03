@@ -11,8 +11,8 @@ import com.vladislavmyasnikov.app.R
 import com.vladislavmyasnikov.app.presentation.Controller
 import com.vladislavmyasnikov.app.presentation.Screens
 import com.vladislavmyasnikov.common.interfaces.BottomPanelController
-import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
-import com.vladislavmyasnikov.common.interfaces.RouterHolder
+import com.vladislavmyasnikov.common.arch.navigation.OnBackPressedListener
+import com.vladislavmyasnikov.common.arch.navigation.RouterHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.Navigator

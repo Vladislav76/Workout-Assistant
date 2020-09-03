@@ -23,8 +23,8 @@ class DatabaseModule {
                 override fun saveData(db: RoomDatabase) {
                     val locDb = db as LocalDatabase
                     val workoutAmountRange = 10..20
-                    val workoutSetAmountRange = 1..7
-                    val workoutSetApproachAmountRange = 1..10
+                    val workoutSetAmountRange = 1..1
+                    val workoutSetApproachAmountRange = 1..1
                     val workoutSetIDs = mutableListOf<List<Long>>()
 
                     for (workoutNumber in 1..workoutAmountRange.random()) {

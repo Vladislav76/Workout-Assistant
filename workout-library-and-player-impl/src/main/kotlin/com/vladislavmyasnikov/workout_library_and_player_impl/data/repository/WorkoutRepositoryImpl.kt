@@ -1,6 +1,7 @@
 package com.vladislavmyasnikov.workout_library_and_player_impl.data.repository
 
 import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryInteractor
 import com.vladislavmyasnikov.workout_library_and_player_api.domain.entity.CompletedWorkout
@@ -57,11 +58,13 @@ class WorkoutRepositoryImpl @Inject constructor(
     }
 
     override fun saveCompletedWorkout(workout: CompletedWorkout): Completable {
+        Logger.debug(this::class, "Completed workout saving...")
         lastSavedWorkoutResult = CompletedWorkoutDomainToWorkoutResultDomainMapper.map(workout)
         return localDataSource.workoutLibraryDao().insertCompletedWorkout(CompletedWorkoutDomainToDatabaseMapper.map(workout))
     }
 
     override fun fetchLastWorkoutResult(): Single<WorkoutResult> {
+        Logger.debug(this::class, "Completed workout fetching...")
         return Single.fromCallable { lastSavedWorkoutResult }
     }
 

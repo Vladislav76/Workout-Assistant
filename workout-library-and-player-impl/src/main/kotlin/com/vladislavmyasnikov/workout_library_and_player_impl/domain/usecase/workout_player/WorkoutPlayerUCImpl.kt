@@ -12,7 +12,6 @@ import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.wor
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutExerciseListUC
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_set_controller.GetCurrentWorkoutSetConfigUC
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_set_controller.RequestWorkoutUC
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -30,7 +29,7 @@ class WorkoutPlayerUCImpl @Inject constructor(
         private val changeWorkoutSetConfigUC: ChangeWorkoutSetConfigUC,
         private val getCurrentWorkoutSetConfigUC: GetCurrentWorkoutSetConfigUC
 ) : GetCurrentWorkoutExerciseConfigUC, GetCurrentWorkoutExerciseUC, AccessWorkoutExerciseMetricsUC, ManageWorkoutProcessUC,
-        GetCurrentWorkoutTimerValueUC, SaveCompletedWorkoutUC {
+        GetCurrentWorkoutTimerValueUC {
 
     private var currentWorkoutId = -1L
     private var currentExerciseIndex = -1
@@ -124,10 +123,16 @@ class WorkoutPlayerUCImpl @Inject constructor(
         timer(daemon = true, initialDelay = 0, period = 1000, action = { incrementTimer.run(); if (isStopped) cancel() })
     }
 
-    override fun stopWorkout() {
+    override fun finishWorkout() {
         // TODO: add current status check
         endTime = getCurrentTimePoint()
-        pushWorkoutProcessState(WorkoutProcessState.FINISHED)
+        pushWorkoutProcessState(WorkoutProcessState.SAVING_RESULT)
+        val workout = CompletedWorkout(0, Date(), startTime, endTime, TimePoint(timer * 1000L),"TBD", 50, currentWorkoutId, "")
+        workoutRepository
+                .saveCompletedWorkout(workout)
+                .subscribeOn(Schedulers.io())
+                .subscribe { pushWorkoutProcessState(WorkoutProcessState.FINISHED) }
+                .also { disposables.add(it) }
     }
 
     override fun pauseWorkout() {
@@ -152,14 +157,8 @@ class WorkoutPlayerUCImpl @Inject constructor(
             currentSetConfig.setIndex + 1 < currentSetConfig.setAmount -> {
                 changeWorkoutSetConfigUC.putSetIndex(currentSetConfig.setIndex + 1)
             }
-            else -> { stopWorkout() }
+            else -> { finishWorkout() }
         }
-    }
-
-    override fun saveCompletedWorkout(): Completable {
-        // TODO: calculate workout productivity
-        val workout = CompletedWorkout(0, Date(), startTime, endTime, TimePoint(timer * 1000L),"TBD", 50, currentWorkoutId, "")
-        return workoutRepository.saveCompletedWorkout(workout)
     }
 
     /* * * PRIVATE API * * */

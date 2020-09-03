@@ -24,7 +24,7 @@ class ControlPanelContent @Inject constructor(
         super.onViewCreated(view, savedInstanceState)
 
         next_button.setOnClickListener { viewModel.next() }
-        stop_button.setOnClickListener { viewModel.stop() }
+        stop_button.setOnClickListener { viewModel.finish() }
         pause_button.setOnClickListener { viewModel.pause() }
         resume_button.setOnClickListener { viewModel.resume() }
 
@@ -41,13 +41,16 @@ class ControlPanelContent @Inject constructor(
                 resume_button.visibility = View.VISIBLE
                 pause_button.visibility = View.GONE
             }
+            WorkoutProcessState.SAVING_RESULT -> {
+                // TODO: show progress indicator
+                resume_button.visibility = View.GONE
+                pause_button.visibility = View.GONE
+                stop_button.visibility = View.GONE
+                next_button.visibility = View.GONE
+            }
             WorkoutProcessState.FINISHED -> {
                 // TODO: show warning dialog
                 sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
-//                resume_button.visibility = View.GONE
-//                pause_button.visibility = View.GONE
-//                stop_button.visibility = View.GONE
-//                next_button.visibility = View.GONE
             }
         }
     }

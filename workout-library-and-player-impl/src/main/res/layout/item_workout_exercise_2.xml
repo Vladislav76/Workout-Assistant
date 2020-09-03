@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="16dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/workout_exercise_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            tools:src="@drawable/ic_tune"/>
+
+        <TextView
+            style="@style/ListItemTitleStyle"
+            android:id="@+id/workout_exercise_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:lines="2"
+            android:gravity="center_vertical"
+            tools:text="Exercise for beginners exercise title. Exercise for beginners exercise title. Exercise for beginners exercise title."/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SimpleTextStyle"
+                android:id="@+id/workout_exercise_cycles_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="#1. 15kg x100"/>
+
+            <TextView
+                style="@style/SimpleTextStyle"
+                android:id="@+id/workout_exercise_cycles_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="#1. 15kg x100"/>
+
+            <TextView
+                style="@style/SimpleTextStyle"
+                android:id="@+id/workout_exercise_cycles_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="#1. 15kg x100"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

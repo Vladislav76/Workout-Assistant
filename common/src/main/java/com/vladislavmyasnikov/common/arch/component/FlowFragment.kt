@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.common.arch.component
 import android.content.Context
 import android.os.Bundle
 import com.vladislavmyasnikov.common.R
-import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
+import com.vladislavmyasnikov.common.arch.navigation.OnBackPressedListener
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router

@@ -30,6 +30,9 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     val workoutDetailsComponent = SyncObject { screenComponent() }
     val workoutPlayerComponent = SyncObject { screenComponent() }
     val workoutResultComponent = SyncObject { screenComponent() }
+    val workoutSetListComponent = SyncObject { screenComponent() }
+    val workoutExerciseListComponent = SyncObject { screenComponent() }
+    val workoutExerciseCycleListComponent = SyncObject { screenComponent() }
 
     companion object {
 

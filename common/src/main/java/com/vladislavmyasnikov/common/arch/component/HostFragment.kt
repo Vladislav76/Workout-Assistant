@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.interfaces.BottomPanelController
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
-import com.vladislavmyasnikov.common.interfaces.OnBackPressedListener
+import com.vladislavmyasnikov.common.arch.navigation.OnBackPressedListener
 import ru.terrakok.cicerone.Router
 
 abstract class HostFragment(

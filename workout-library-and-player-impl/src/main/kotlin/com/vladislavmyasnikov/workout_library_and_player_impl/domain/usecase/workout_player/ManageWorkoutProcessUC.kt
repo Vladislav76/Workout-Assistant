@@ -7,7 +7,7 @@ interface ManageWorkoutProcessUC {
 
     fun getCurrentWorkoutProcessState(): Observable<WorkoutProcessState>
     fun startWorkoutById(id: Long)
-    fun stopWorkout()
+    fun finishWorkout()
     fun pauseWorkout()
     fun resumeWorkout()
     fun nextExercise()

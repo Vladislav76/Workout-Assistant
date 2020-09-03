@@ -56,8 +56,5 @@ abstract class UCBindingModule {
     abstract fun bind13(impl: WorkoutPlayerUCImpl): GetCurrentWorkoutTimerValueUC
 
     @Binds
-    abstract fun bind14(impl: WorkoutPlayerUCImpl): SaveCompletedWorkoutUC
-
-    @Binds
-    abstract fun bind15(impl: GetLastWorkoutResultUCImpl): GetLastWorkoutResultUC
+    abstract fun bind14(impl: GetLastWorkoutResultUCImpl): GetLastWorkoutResultUC
 }
