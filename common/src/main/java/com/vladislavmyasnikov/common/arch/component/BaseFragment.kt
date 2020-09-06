@@ -74,7 +74,7 @@ abstract class BaseFragment(
         Logger.debug(this::class, "::onDetach")
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {}
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {}
 
     protected fun debugMessage(message: String) {
         Logger.debug(this::class, message)

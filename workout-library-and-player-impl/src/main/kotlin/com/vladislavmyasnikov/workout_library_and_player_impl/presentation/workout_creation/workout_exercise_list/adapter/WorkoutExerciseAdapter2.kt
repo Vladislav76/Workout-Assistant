@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat
 import com.vladislavmyasnikov.common.arch.adapter.SelectableBaseAdapter
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_creation.WorkoutExercise
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_creation.WorkoutExerciseCycle
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.textOfRepsAndWeightInTwoLines
 import kotlinx.android.synthetic.main.item_workout_exercise_2.view.*
 import javax.inject.Inject
 
@@ -47,7 +49,7 @@ class WorkoutExerciseAdapter2 @Inject constructor() : SelectableBaseAdapter<Work
                         else -> itemView.workout_exercise_cycles_3
                     }
                     val subList = item.cycles.subList(currentLineCount, currentLineCount + lineCount)
-                    cycleView.text = subList.joinToString(separator = "\n", transform = { "#${++currentLineCount}.   ${it.weight} kg\nx${it.reps}" })
+                    cycleView.text = subList.joinToString(separator = "\n\n", transform = { it.textOfRepsAndWeightInTwoLines(++currentLineCount) })
                 }
             }
         }

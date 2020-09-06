@@ -11,12 +11,12 @@ import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.WorkoutExerciseIndicators
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.viewmodel.WorkoutExerciseMetricsVM
-import kotlinx.android.synthetic.main.content_exercise_approach_data.*
+import kotlinx.android.synthetic.main.content_workout_exercise_cycle.*
 import javax.inject.Inject
 
 class WorkoutExerciseMetricsContent @Inject constructor(
         override val viewModelFactory: ViewModelProvider.Factory
-) : VMFragment<WorkoutExerciseIndicators>(R.layout.content_exercise_approach_data) {
+) : VMFragment<WorkoutExerciseIndicators>(R.layout.content_workout_exercise_cycle) {
 
     override val viewModel by lazy { injectViewModel<WorkoutExerciseMetricsVM>(viewModelFactory) }
 

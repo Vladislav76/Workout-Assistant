@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.exercise_library_impl.di.component
 
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
@@ -16,7 +16,7 @@ import dagger.Component
         modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class],
         dependencies = [FeatureDependencies::class]
 )
-@PerFeature
+@PerFlow
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
@@ -50,5 +50,5 @@ abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 }
 
 @Component(dependencies = [ContextHolder::class])
-@PerFeature
+@PerFlow
 interface ExerciseLibraryFeatureDependenciesComponent : FeatureDependencies

@@ -1,14 +1,16 @@
-package com.vladislavmyasnikov.workout_library_and_player_impl.presentation
+package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch.component.FlowFragment
-import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryLauncher
+import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutCreationLauncher
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class WorkoutLibraryFlow @Inject constructor() : FlowFragment(), WorkoutLibraryLauncher {
+class WorkoutCreationFlow @Inject constructor() : FlowFragment(), WorkoutCreationLauncher {
 
     @Inject
     override lateinit var navigatorHolder: NavigatorHolder
@@ -24,7 +26,7 @@ class WorkoutLibraryFlow @Inject constructor() : FlowFragment(), WorkoutLibraryL
 
     override fun onStartUp() {
         super.onStartUp()
-        router.newRootScreen(NavigationComponentStore.getScreen(Screens.WorkoutListScreen))
+        router.newRootScreen(NavigationComponentStore.getScreen(Screens.WorkoutSetListScreen))
     }
 
     override fun launch(): Fragment {

@@ -2,6 +2,10 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.di
 
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.WorkoutLibraryFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.viewmodel.WorkoutExerciseCycleListVM
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.viewmodel.WorkoutExerciseCycleVM
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_list.viewmodel.WorkoutExerciseListVM2
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_set_list.viewmodel.WorkoutSetListVM
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.content.WorkoutExerciseListConfigContent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.content.WorkoutExerciseListContent
@@ -66,6 +70,10 @@ object LabelLibraryHolderImpl : LabelLibraryHolder {
             WorkoutExerciseMetricsVM::class to "WORKOUT_EXERCISE_APPROACH_DATA_VM",
             WorkoutExerciseConfigVM::class to "WORKOUT_EXERCISE_CONFIG_VM",
             WorkoutSetConfigVM::class to "WORKOUT_SET_CONFIG_VM",
-            WorkoutResultVM::class to "WORKOUT_RESULT_VM"
+            WorkoutResultVM::class to "WORKOUT_RESULT_VM",
+            WorkoutSetListVM::class to "WORKOUT_SET_LIST_VM",
+            WorkoutExerciseListVM2::class to "NEW_WORKOUT_EXERCISE_LIST_VM",
+            WorkoutExerciseCycleListVM::class to "WORKOUT_EXERCISE_CYCLE_LIST_VM",
+            WorkoutExerciseCycleVM::class to "WORKOUT_EXERCISE_CYCLE_VM"
     )
 }

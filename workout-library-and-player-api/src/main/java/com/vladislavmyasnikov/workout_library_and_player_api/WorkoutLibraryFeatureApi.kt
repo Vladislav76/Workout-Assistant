@@ -5,6 +5,7 @@ import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 interface WorkoutLibraryFeatureApi {
 
     fun workoutLibraryLauncher(): WorkoutLibraryLauncher
+    fun workoutCreationLauncher(): WorkoutCreationLauncher
     fun labelLibraryHolder(): LabelLibraryHolder
     fun workoutLibraryInteractor(): WorkoutLibraryInteractor
 }

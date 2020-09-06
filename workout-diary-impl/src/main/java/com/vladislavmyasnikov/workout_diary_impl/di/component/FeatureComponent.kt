@@ -1,7 +1,7 @@
 package com.vladislavmyasnikov.workout_diary_impl.di.component
 
 import androidx.fragment.app.FragmentFactory
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.FactoryModule
 import com.vladislavmyasnikov.common.interfaces.ContextHolder
 import com.vladislavmyasnikov.common.models.SyncObject
@@ -17,7 +17,7 @@ import dagger.Component
         modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class],
         dependencies = [FeatureDependencies::class]
 )
-@PerFeature
+@PerFlow
 abstract class DiaryFeatureComponent : DiaryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
@@ -51,5 +51,5 @@ abstract class DiaryFeatureComponent : DiaryFeatureApi {
 }
 
 @Component(dependencies = [ContextHolder::class, WorkoutLibraryFeatureApi::class])
-@PerFeature
+@PerFlow
 interface DiaryFeatureDependenciesComponent : FeatureDependencies

@@ -10,7 +10,7 @@ import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.ScreenStore
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.content.*
 import ru.terrakok.cicerone.Router
@@ -49,13 +49,13 @@ class WorkoutPlayerScreenHost @Inject constructor(
         bottomPanelController.hideBottomPanel()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.RequestMessage) {
             when (message.type) {
                 RequestMessageType.KEY_DATA_REQUEST -> sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(WORKOUT_ID_ARG)), sender as MessageReceiver)
                 RequestMessageType.TRANSITION_REQUEST -> {
                     onBackPressed()
-                    router.replaceScreen(ScreenStore.getScreen(Screens.WorkoutResultScreen))
+                    router.replaceScreen(NavigationComponentStore.getScreen(Screens.WorkoutResultScreen))
                 }
                 else -> {}
             }

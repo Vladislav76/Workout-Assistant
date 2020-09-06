@@ -1,5 +1,8 @@
 package com.vladislavmyasnikov.workout_library_and_player_impl.di.module
 
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_creation.AccessToWorkoutDataUC
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_creation.ChangeWorkoutStructureUC
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_creation.WorkoutCreationUCImpl
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_details.GetWorkoutUC
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_details.GetWorkoutUCImpl
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_list.GetWorkoutListUC
@@ -57,4 +60,10 @@ abstract class UCBindingModule {
 
     @Binds
     abstract fun bind14(impl: GetLastWorkoutResultUCImpl): GetLastWorkoutResultUC
+
+    @Binds
+    abstract fun bind15(impl: WorkoutCreationUCImpl): AccessToWorkoutDataUC
+
+    @Binds
+    abstract fun bind16(impl: WorkoutCreationUCImpl): ChangeWorkoutStructureUC
 }

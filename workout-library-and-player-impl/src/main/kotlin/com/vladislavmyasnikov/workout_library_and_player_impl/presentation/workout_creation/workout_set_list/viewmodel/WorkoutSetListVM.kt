@@ -3,19 +3,15 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
 import com.vladislavmyasnikov.common.models.Either
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_creation.WorkoutSet
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_creation.AccessToWorkoutDataUC
 import io.reactivex.Completable
 import javax.inject.Inject
 
 class WorkoutSetListVM @Inject constructor(
-
+        private val accessToWorkoutDataUC: AccessToWorkoutDataUC
 ): SimpleVM<List<WorkoutSet>>() {
 
-    private val dummyItem = listOf(
-            WorkoutSet(0L, listOf("Goblet Squad", "Dumbbell Clean"), 2)
-    )
-
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        pushItem(dummyItem)
-        return Either.Left(true)
+        return Either.Right(initAsynchronousRequest(accessToWorkoutDataUC.getAllSets()))
     }
 }

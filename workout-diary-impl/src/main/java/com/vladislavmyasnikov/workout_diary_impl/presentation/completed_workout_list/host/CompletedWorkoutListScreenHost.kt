@@ -34,7 +34,7 @@ class CompletedWorkoutListScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.ItemClickMessage) { router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id)) }
     }
 }

@@ -4,7 +4,7 @@ import com.vladislavmyasnikov.common.interfaces.Identifiable
 
 data class WorkoutSet(
         override val id: Long,
-        val exerciseNameList: List<String>,
+        val exercises: List<WorkoutExercise>,
         val cycles: Int
 ) : Identifiable<WorkoutSet> {
 

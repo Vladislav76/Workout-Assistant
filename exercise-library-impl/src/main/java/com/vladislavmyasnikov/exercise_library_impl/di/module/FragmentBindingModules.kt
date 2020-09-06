@@ -2,8 +2,6 @@ package com.vladislavmyasnikov.exercise_library_impl.di.module
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
-import com.vladislavmyasnikov.common.di.annotations.PerScreen
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.content.ExerciseContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListToolbarContent

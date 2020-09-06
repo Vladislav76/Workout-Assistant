@@ -27,7 +27,7 @@ class WorkoutSetHost @Inject constructor(
         super.onAttach(context)
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         relayMessage(message, sender)
     }
 }

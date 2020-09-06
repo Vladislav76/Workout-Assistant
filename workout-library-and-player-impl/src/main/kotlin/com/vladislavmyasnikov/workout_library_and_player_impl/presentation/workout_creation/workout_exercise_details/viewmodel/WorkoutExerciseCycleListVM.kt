@@ -3,22 +3,15 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import com.vladislavmyasnikov.common.arch.viewmodel.SimpleVM
 import com.vladislavmyasnikov.common.models.Either
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_creation.WorkoutExerciseCycle
+import com.vladislavmyasnikov.workout_library_and_player_impl.domain.usecase.workout_creation.AccessToWorkoutDataUC
 import io.reactivex.Completable
 import javax.inject.Inject
 
 class WorkoutExerciseCycleListVM @Inject constructor(
-
+        private val accessToWorkoutDataUC: AccessToWorkoutDataUC
 ) : SimpleVM<List<WorkoutExerciseCycle>>() {
 
-    private val dummyItem = listOf(
-                            WorkoutExerciseCycle(0L, 10, 15F),
-                            WorkoutExerciseCycle(0L, 20, 25F),
-                            WorkoutExerciseCycle(0L, 10, 15F),
-                            WorkoutExerciseCycle(0L, 20, 25F),
-    )
-
     override fun processRequest(id: Long): Either<Boolean, Completable> {
-        pushItem(dummyItem)
-        return Either.Left(true)
+        return Either.Right(initAsynchronousRequest(accessToWorkoutDataUC.getCyclesByExerciseId(id)))
     }
 }

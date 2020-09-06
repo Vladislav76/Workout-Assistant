@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.workout_diary_impl.di.module
 
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 import com.vladislavmyasnikov.workout_diary_api.DiaryLauncher
@@ -15,15 +15,15 @@ import dagger.Provides
 @Module(includes = [LocalNavigationModule::class, DependencyModule::class])
 abstract class FeatureModule {
 
-    @Binds @PerFeature
+    @Binds @PerFlow
     abstract fun bind1(impl: DiaryFlow): DiaryLauncher
 
-    @Binds @PerFeature
+    @Binds @PerFlow
     abstract fun bind2(impl: WorkoutDiaryRepositoryImpl): WorkoutDiaryRepository
 
     companion object {
         @Provides
-        @PerFeature
+        @PerFlow
         fun provide1(): LabelLibraryHolder = LabelLibraryHolderImpl
     }
 }

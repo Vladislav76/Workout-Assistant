@@ -3,9 +3,10 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.vladislavmyasnikov.common.arch.communication.Message
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
 import com.vladislavmyasnikov.common.arch.component.VMListFragment
 import com.vladislavmyasnikov.common.arch.view.ItemDividerDecoration
 import com.vladislavmyasnikov.common.extensions.injectViewModel
@@ -30,6 +31,10 @@ class WorkoutExerciseListContent2 @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<RecyclerView>(R.id.recycler_view).addItemDecoration(ItemDividerDecoration(20, 10))
-        viewModel.request()
+        sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
+    }
+
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
+        if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

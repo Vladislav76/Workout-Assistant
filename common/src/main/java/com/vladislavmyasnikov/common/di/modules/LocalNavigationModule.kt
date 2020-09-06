@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.common.di.modules
 
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import dagger.Module
 import dagger.Provides
 import ru.terrakok.cicerone.Cicerone
@@ -12,9 +12,9 @@ class LocalNavigationModule {
 
     private val cicerone = Cicerone.create()
 
-    @Provides @PerFeature
+    @Provides @PerFlow
     fun provideLocalRouter(): Router = cicerone.router
 
-    @Provides @PerFeature
+    @Provides @PerFlow
     fun provideLocalNavigatorHolder(): NavigatorHolder = cicerone.navigatorHolder
 }

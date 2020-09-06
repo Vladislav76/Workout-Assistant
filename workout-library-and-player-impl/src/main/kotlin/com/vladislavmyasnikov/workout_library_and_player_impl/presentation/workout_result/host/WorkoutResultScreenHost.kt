@@ -38,7 +38,7 @@ class WorkoutResultScreenHost @Inject constructor(
         bottomPanelController.hideBottomPanel()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.RequestMessage && message.type == RequestMessageType.TRANSITION_REQUEST) {
             onBackPressed()
             router.exit()

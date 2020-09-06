@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.workout_library_and_player_impl.data.repository
 
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.utils.Logger
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryInteractor
@@ -17,7 +17,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-@PerFeature
+@PerFlow
 class WorkoutRepositoryImpl @Inject constructor(
         private val localDataSource: LocalDatabase,
         private val exerciseLibraryInteractor: ExerciseLibraryInteractor

@@ -36,7 +36,7 @@ class ExerciseListScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.ItemClickMessage) {
             router.navigateTo(Screens.ExerciseDetailsScreen(message.id))
         } else if (message is Message.RequestMessage && message.type == RequestMessageType.TRANSITION_REQUEST) {

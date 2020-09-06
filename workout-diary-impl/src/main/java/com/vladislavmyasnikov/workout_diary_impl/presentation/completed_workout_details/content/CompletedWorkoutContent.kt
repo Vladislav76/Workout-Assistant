@@ -35,7 +35,7 @@ class CompletedWorkoutContent @Inject constructor(
         diary_entry_description.text = item.description
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

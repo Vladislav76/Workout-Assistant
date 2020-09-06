@@ -3,6 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.di.module
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.content.WorkoutExerciseCycleListContent
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.dialog.WorkoutExerciseCycleDialog
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.host.WorkoutExerciseCycleListScreenHost
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_list.content.WorkoutExerciseListContent2
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_list.host.WorkoutExerciseListScreenHost
@@ -72,6 +73,9 @@ abstract class ContentFragmentBindingModule {
 
     @Binds @IntoMap @FragmentKey(WorkoutExerciseCycleListContent::class)
     abstract fun bind15(impl: WorkoutExerciseCycleListContent): Fragment
+
+    @Binds @IntoMap @FragmentKey(WorkoutExerciseCycleDialog::class)
+    abstract fun bind16(impl: WorkoutExerciseCycleDialog): Fragment
 }
 
 @Module

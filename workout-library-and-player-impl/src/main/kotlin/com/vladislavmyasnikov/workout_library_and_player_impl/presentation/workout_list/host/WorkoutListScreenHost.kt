@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.ScreenStore
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_list.content.WorkoutListContent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_list.content.WorkoutListToolbarContent
@@ -41,9 +41,9 @@ class WorkoutListScreenHost @Inject constructor(
         bottomPanelController.showBottomPanel()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.ItemClickMessage) {
-            router.navigateTo(ScreenStore.getScreen(Screens.WorkoutDetailsScreen(message.id)))
+            router.navigateTo(NavigationComponentStore.getScreen(Screens.WorkoutDetailsScreen(message.id)))
         }
     }
 }

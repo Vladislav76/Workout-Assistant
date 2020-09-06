@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.vladislavmyasnikov.common.arch.adapter.SelectableBaseAdapter
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.workout_creation.WorkoutExerciseCycle
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.textOfRepsAndWeight
 import kotlinx.android.synthetic.main.item_workout_exercise_cycle.view.*
 import javax.inject.Inject
 
@@ -17,16 +18,10 @@ class WorkoutExerciseCycleAdapter @Inject constructor() : SelectableBaseAdapter<
         return ViewHolder(view)
     }
 
-//    override fun onBindViewHolder(holder: SelectableBaseAdapter.ViewHolder<WorkoutExercise>, position: Int) {
-//        if (holder is ViewHolder) {
-//            holder.bind(currentItems[position])
-//        }
-//    }
-
     class ViewHolder(view: View) : SelectableBaseAdapter.ViewHolder.NonSelectableViewHolder<WorkoutExerciseCycle>(view) {
 
         override fun bind(item: WorkoutExerciseCycle) {
-            itemView.workout_exercise_cycle.text = "#<index>. ${item.weight}kg   x${item.reps}"
+            itemView.workout_exercise_cycle.text = item.textOfRepsAndWeight(item.id.toInt())
         }
     }
 }

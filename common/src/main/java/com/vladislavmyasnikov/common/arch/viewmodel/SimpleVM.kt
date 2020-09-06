@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 abstract class SimpleVM<T> : BaseVM<T, Throwable>() {
 
     private var isRequested = false
-    private var lastID = 0L
+    private var lastID = Long.MIN_VALUE
 
     fun request(id: Long = -1) {
         if (!isRequested) {

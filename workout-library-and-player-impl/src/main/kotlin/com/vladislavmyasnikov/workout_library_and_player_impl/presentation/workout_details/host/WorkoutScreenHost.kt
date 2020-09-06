@@ -11,7 +11,7 @@ import com.vladislavmyasnikov.common.arch.component.BaseFragment
 import com.vladislavmyasnikov.common.arch.component.CollapsingHeaderHostFragment
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.ScreenStore
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.content.WorkoutHeaderContent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_details.dialog.WorkoutExerciseDetailsDialog
@@ -48,7 +48,7 @@ class WorkoutScreenHost @Inject constructor(
         bottomPanelController.hideBottomPanel()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         when (message) {
             is Message.RequestMessage -> {
                 when (message.type) {
@@ -58,7 +58,7 @@ class WorkoutScreenHost @Inject constructor(
                         }
                     }
                     RequestMessageType.TRANSITION_REQUEST -> {
-                        router.navigateTo(ScreenStore.getScreen(Screens.WorkoutPlayerScreen(requireArguments().getLong(WORKOUT_ID_ARG))))
+                        router.navigateTo(NavigationComponentStore.getScreen(Screens.WorkoutPlayerScreen(requireArguments().getLong(WORKOUT_ID_ARG))))
                     }
                 }
             }

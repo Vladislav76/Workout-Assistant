@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.exercise_library_impl.di.module
 
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryInteractor
@@ -16,18 +16,18 @@ import dagger.Provides
 @Module(includes = [DatabaseModule::class, LocalNavigationModule::class])
 abstract class FeatureModule {
 
-    @Binds @PerFeature
+    @Binds @PerFlow
     abstract fun bind1(impl: ExerciseLibraryFlow): ExerciseLibraryLauncher
 
-    @Binds @PerFeature
+    @Binds @PerFlow
     abstract fun bind2(impl: ExerciseRepositoryImpl): ExerciseRepository
 
-    @Binds @PerFeature
+    @Binds @PerFlow
     abstract fun bind3(impl: ExerciseRepositoryImpl): ExerciseLibraryInteractor
 
     companion object {
         @Provides
-        @PerFeature
+        @PerFlow
         fun provide1(): LabelLibraryHolder = LabelLibraryHolderImpl
     }
 }

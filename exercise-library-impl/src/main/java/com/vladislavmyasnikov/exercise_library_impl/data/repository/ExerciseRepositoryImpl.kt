@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.exercise_library_impl.data.repository
 
-import com.vladislavmyasnikov.common.di.annotations.PerFeature
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.exercise_library_api.ExerciseInfo
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryInteractor
 import com.vladislavmyasnikov.exercise_library_impl.data.db.LocalDatabase
@@ -13,7 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-@PerFeature
+@PerFlow
 class ExerciseRepositoryImpl @Inject constructor(
         private val localDataSource: LocalDatabase
 ) : ExerciseRepository, ExerciseLibraryInteractor {

@@ -35,7 +35,7 @@ class WorkoutHeaderContent @Inject constructor(
         }
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

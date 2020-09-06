@@ -40,7 +40,7 @@ class CompletedWorkoutScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         if (message is Message.RequestMessage && message.type == RequestMessageType.KEY_DATA_REQUEST) {
             sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(ARG_DIARY_ENTRY_ID)), sender as MessageReceiver)
         }

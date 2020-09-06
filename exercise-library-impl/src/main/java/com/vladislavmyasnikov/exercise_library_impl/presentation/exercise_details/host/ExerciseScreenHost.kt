@@ -38,7 +38,7 @@ class ExerciseScreenHost @Inject constructor(
         return super.onBackPressed()
     }
 
-    override fun receiveMessage(message: Message, sender: MessageSender) {
+    override fun onReceiveMessage(message: Message, sender: MessageSender) {
         when (message) {
             is Message.RequestMessage -> {
                 when (message.type) {
