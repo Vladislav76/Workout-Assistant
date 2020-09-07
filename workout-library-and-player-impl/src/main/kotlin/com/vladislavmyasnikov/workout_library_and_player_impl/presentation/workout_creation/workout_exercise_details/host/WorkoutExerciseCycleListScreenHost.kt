@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
 import com.vladislavmyasnikov.common.arch.communication.MessageReceiver
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
+import com.vladislavmyasnikov.common.arch.communication.Messages
 import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
-import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutFeatureComponent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Dialogs
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.content.WorkoutExerciseCycleListContent
@@ -31,21 +31,24 @@ class WorkoutExerciseCycleListScreenHost @Inject constructor(
     override lateinit var fragmentFactory: FragmentFactory
 
     override fun onAttach(context: Context) {
-        fragmentFactory = WorkoutLibraryFeatureComponent.get().workoutExerciseCycleListComponent.getValue().fragmentFactory
+        fragmentFactory = WorkoutFeatureComponent.get().workoutExerciseCycleListComponent.getValue().fragmentFactory
         super.onAttach(context)
     }
 
     override fun onBackPressed(): Boolean {
-        WorkoutLibraryFeatureComponent.get().workoutExerciseCycleListComponent.resetValue()
+        WorkoutFeatureComponent.get().workoutExerciseCycleListComponent.resetValue()
         return super.onBackPressed()
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.ItemClickMessage) {
-            NavigationComponentStore.getDialog(Dialogs.WorkoutExerciseCycleDetailsDialog(message.id), fragmentFactory)
-                    .show(childFragmentManager, null)
-        } else if (message is Message.RequestMessage && message.type == RequestMessageType.KEY_DATA_REQUEST) {
-            sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID)), sender as MessageReceiver)
+        when (message) {
+            is Messages.ItemClickMessage -> {
+                NavigationComponentStore.getDialog(Dialogs.WorkoutExerciseCycleDetailsDialog(message.id), fragmentFactory)
+                        .show(childFragmentManager, null)
+            }
+            is Messages.KeyDataRequestMessage -> {
+                sendMessage(Messages.KeyDataResponseMessage(requireArguments().getLong(ARG_WORKOUT_EXERCISE_ID)), sender as MessageReceiver)
+            }
         }
     }
 

@@ -9,7 +9,7 @@ import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryFeatureApi
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.DaggerWorkoutLibraryFeatureDependenciesComponent
-import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutFeatureComponent
 import com.vladislavmyasnikov.app.presentation.Controller
 
 class FeatureProxyInjector {
@@ -23,7 +23,7 @@ class FeatureProxyInjector {
                             .contextHolder(Controller)
                             .build()
             )
-            val workoutLibraryApi = WorkoutLibraryFeatureComponent.initAndGet(
+            val workoutLibraryApi = WorkoutFeatureComponent.initAndGet(
                     DaggerWorkoutLibraryFeatureDependenciesComponent.builder()
                             .contextHolder(Controller)
                             .exerciseLibraryFeatureApi(getExerciseLibraryFeature())
@@ -47,7 +47,7 @@ class FeatureProxyInjector {
         }
 
         fun getWorkoutLibraryFeature(): WorkoutLibraryFeatureApi {
-            return WorkoutLibraryFeatureComponent.get()
+            return WorkoutFeatureComponent.get()
         }
 
         fun getDiaryFeature(): DiaryFeatureApi {

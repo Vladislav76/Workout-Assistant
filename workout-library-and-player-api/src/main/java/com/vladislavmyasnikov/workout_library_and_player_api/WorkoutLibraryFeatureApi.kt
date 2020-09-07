@@ -6,6 +6,7 @@ interface WorkoutLibraryFeatureApi {
 
     fun workoutLibraryLauncher(): WorkoutLibraryLauncher
     fun workoutCreationLauncher(): WorkoutCreationLauncher
+    fun workoutExecutionLauncher(): WorkoutExecutionLauncher
     fun labelLibraryHolder(): LabelLibraryHolder
     fun workoutLibraryInteractor(): WorkoutLibraryInteractor
 }

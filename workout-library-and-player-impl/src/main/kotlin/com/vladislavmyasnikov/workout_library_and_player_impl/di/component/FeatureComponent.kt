@@ -12,7 +12,8 @@ import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.FeatureM
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.HostFragmentBindingModule
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.UCBindingModule
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.WorkoutCreationFlow
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.WorkoutLibraryFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.WorkoutExecutionFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_library.WorkoutLibraryFlow
 import dagger.Component
 
 @Component(
@@ -20,12 +21,13 @@ import dagger.Component
         dependencies = [FeatureDependencies::class]
 )
 @PerFlow
-abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
+abstract class WorkoutFeatureComponent : WorkoutLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
 
     abstract fun inject(fragment: WorkoutLibraryFlow)
     abstract fun inject(fragment: WorkoutCreationFlow)
+    abstract fun inject(fragment: WorkoutExecutionFlow)
 
     abstract fun screenComponent(): ScreenComponent
 
@@ -33,26 +35,26 @@ abstract class WorkoutLibraryFeatureComponent : WorkoutLibraryFeatureApi {
     val workoutDetailsComponent = SyncObject { screenComponent() }
     val workoutPlayerComponent = SyncObject { screenComponent() }
     val workoutResultComponent = SyncObject { screenComponent() }
-    val workoutSetListComponent = SyncObject { screenComponent() } // delete
-    val workoutExerciseListComponent = SyncObject { screenComponent() } // delete
-    val workoutExerciseCycleListComponent = SyncObject { screenComponent() } // delete
+    val workoutSetListComponent = SyncObject { screenComponent() }
+    val workoutExerciseListComponent = SyncObject { screenComponent() }
+    val workoutExerciseCycleListComponent = SyncObject { screenComponent() }
 
     companion object {
 
         @Volatile
-        private var featureComponent: WorkoutLibraryFeatureComponent? = null
+        private var featureComponent: WorkoutFeatureComponent? = null
 
         fun initAndGet(dependencies: FeatureDependencies): WorkoutLibraryFeatureApi {
             return featureComponent
-                    ?: synchronized(WorkoutLibraryFeatureComponent::class.java) {
-                featureComponent ?: DaggerWorkoutLibraryFeatureComponent.builder()
+                    ?: synchronized(WorkoutFeatureComponent::class.java) {
+                featureComponent ?: DaggerWorkoutFeatureComponent.builder()
                         .featureDependencies(dependencies)
                         .build()
                         .also { featureComponent = it }
             }
         }
 
-        fun get(): WorkoutLibraryFeatureComponent = featureComponent
+        fun get(): WorkoutFeatureComponent = featureComponent
                 ?: throw RuntimeException("You must call 'initAndGet' method")
     }
 }

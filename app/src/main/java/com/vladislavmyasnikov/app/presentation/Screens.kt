@@ -23,7 +23,7 @@ class Screens {
     class WorkoutsScreen : SupportAppScreen() {
 
         override fun getFragment(): Fragment {
-            return FeatureProxyInjector.getWorkoutLibraryFeature().workoutCreationLauncher().launch()
+            return FeatureProxyInjector.getWorkoutLibraryFeature().workoutLibraryLauncher().launch()
         }
     }
 }

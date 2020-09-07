@@ -4,10 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
-import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.common.arch.communication.MessageReceiver
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
+import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_diary_impl.R
 import com.vladislavmyasnikov.workout_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_details.content.CompletedWorkoutContent
@@ -41,8 +41,8 @@ class CompletedWorkoutScreenHost @Inject constructor(
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.RequestMessage && message.type == RequestMessageType.KEY_DATA_REQUEST) {
-            sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(ARG_DIARY_ENTRY_ID)), sender as MessageReceiver)
+        if (message is Messages.KeyDataRequestMessage) {
+            sendMessage(Messages.KeyDataResponseMessage(requireArguments().getLong(ARG_DIARY_ENTRY_ID)), sender as MessageReceiver)
         }
     }
 

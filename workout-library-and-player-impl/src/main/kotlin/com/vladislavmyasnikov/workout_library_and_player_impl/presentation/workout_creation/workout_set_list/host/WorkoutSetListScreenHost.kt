@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
 import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
-import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutFeatureComponent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_set_list.content.WorkoutSetListContent
@@ -24,17 +25,17 @@ class WorkoutSetListScreenHost @Inject constructor(
     override lateinit var fragmentFactory: FragmentFactory
 
     override fun onAttach(context: Context) {
-        fragmentFactory = WorkoutLibraryFeatureComponent.get().workoutSetListComponent.getValue().fragmentFactory
+        fragmentFactory = WorkoutFeatureComponent.get().workoutSetListComponent.getValue().fragmentFactory
         super.onAttach(context)
     }
 
     override fun onBackPressed(): Boolean {
-        WorkoutLibraryFeatureComponent.get().workoutSetListComponent.resetValue()
+        WorkoutFeatureComponent.get().workoutSetListComponent.resetValue()
         return super.onBackPressed()
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.ItemClickMessage) {
+        if (message is Messages.ItemClickMessage) {
             router.navigateTo(NavigationComponentStore.getScreen(Screens.WorkoutExerciseListScreen(message.id)))
         }
     }

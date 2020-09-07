@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
+import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
 import com.vladislavmyasnikov.common.arch.component.VMFragment
 import com.vladislavmyasnikov.common.extensions.injectViewModel
-import com.vladislavmyasnikov.common.arch.communication.MessageSender
 import com.vladislavmyasnikov.common.utils.DateFormatType
 import com.vladislavmyasnikov.common.utils.TimePointFormatType
 import com.vladislavmyasnikov.workout_diary_impl.R
@@ -24,7 +24,7 @@ class CompletedWorkoutContent @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sendMessage(Message.RequestMessage(RequestMessageType.KEY_DATA_REQUEST))
+        sendMessage(Messages.KeyDataRequestMessage)
     }
 
     override fun onReceiveItem(item: CompletedWorkout) {
@@ -36,6 +36,6 @@ class CompletedWorkoutContent @Inject constructor(
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.KeyDataResponseMessage) { viewModel.request(message.id) }
+        if (message is Messages.KeyDataResponseMessage) { viewModel.request(message.id) }
     }
 }

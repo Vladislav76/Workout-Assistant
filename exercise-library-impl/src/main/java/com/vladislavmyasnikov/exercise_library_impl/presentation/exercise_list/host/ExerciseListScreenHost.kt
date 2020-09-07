@@ -3,9 +3,9 @@ package com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
-import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
+import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.Screens
@@ -37,12 +37,15 @@ class ExerciseListScreenHost @Inject constructor(
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.ItemClickMessage) {
-            router.navigateTo(Screens.ExerciseDetailsScreen(message.id))
-        } else if (message is Message.RequestMessage && message.type == RequestMessageType.TRANSITION_REQUEST) {
-            val clazz = ExerciseFilterDialog::class.java
-            fragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
-                    .also { (it as ExerciseFilterDialog).show(childFragmentManager, null) }
+        when (message) {
+            is Messages.ItemClickMessage -> {
+                router.navigateTo(Screens.ExerciseDetailsScreen(message.id))
+            }
+            is Messages.TransitionRequestMessage -> {
+                val clazz = ExerciseFilterDialog::class.java
+                fragmentFactory.instantiate(clazz.classLoader!!, clazz.name)
+                        .also { (it as ExerciseFilterDialog).show(childFragmentManager, null) }
+            }
         }
     }
 }

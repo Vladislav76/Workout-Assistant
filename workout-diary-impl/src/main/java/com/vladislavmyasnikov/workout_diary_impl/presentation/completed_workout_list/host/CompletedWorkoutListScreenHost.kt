@@ -3,8 +3,9 @@ package com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout
 import android.content.Context
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
+import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.workout_diary_impl.R
 import com.vladislavmyasnikov.workout_diary_impl.di.component.DiaryFeatureComponent
 import com.vladislavmyasnikov.workout_diary_impl.presentation.Screens
@@ -35,6 +36,6 @@ class CompletedWorkoutListScreenHost @Inject constructor(
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        if (message is Message.ItemClickMessage) { router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id)) }
+        if (message is Messages.ItemClickMessage) { router.navigateTo(Screens.DiaryEntryDetailsScreen(message.id)) }
     }
 }

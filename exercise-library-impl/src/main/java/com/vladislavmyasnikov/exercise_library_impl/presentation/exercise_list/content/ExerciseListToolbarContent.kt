@@ -5,10 +5,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
-import com.vladislavmyasnikov.common.extensions.injectViewModel
+import com.vladislavmyasnikov.common.arch.communication.Messages
 import com.vladislavmyasnikov.common.arch.component.VMToolbarFragment
+import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.domain.entity.ShortExercise
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.viewmodel.ExerciseListVM
@@ -23,7 +22,7 @@ class ExerciseListToolbarContent @Inject constructor(
     private val onActionClickCallback = Toolbar.OnMenuItemClickListener { item: MenuItem ->
         when (item.itemId) {
             R.id.filter_exercise_list_action -> {
-                sendMessage(Message.RequestMessage(RequestMessageType.TRANSITION_REQUEST))
+                sendMessage(Messages.TransitionRequestMessage)
                 true
             }
             else -> super.onOptionsItemSelected(item)

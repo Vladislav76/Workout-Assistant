@@ -3,7 +3,7 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.presentation.work
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch.component.FlowFragment
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutCreationLauncher
-import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutLibraryFeatureComponent
+import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutFeatureComponent
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.NavigationComponentStore
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.Screens
 import ru.terrakok.cicerone.NavigatorHolder
@@ -20,8 +20,8 @@ class WorkoutCreationFlow @Inject constructor() : FlowFragment(), WorkoutCreatio
 
     override fun inject() {
         super.inject()
-        WorkoutLibraryFeatureComponent.get().inject(this)
-        fragmentManager?.fragmentFactory = WorkoutLibraryFeatureComponent.get().fragmentFactory
+        WorkoutFeatureComponent.get().inject(this)
+        fragmentManager?.fragmentFactory = WorkoutFeatureComponent.get().fragmentFactory
     }
 
     override fun onStartUp() {

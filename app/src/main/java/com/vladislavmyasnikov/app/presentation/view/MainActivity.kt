@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity(), RouterHolder, BottomPanelController {
                 if (wasProcessed) return
             }
             router.exit()
-            Log.d("ACTIVITY", "Back is pressed")
         }
     }
 

@@ -4,10 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import com.vladislavmyasnikov.common.arch.communication.Message
-import com.vladislavmyasnikov.common.arch.communication.RequestMessageType
-import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.common.arch.communication.MessageReceiver
 import com.vladislavmyasnikov.common.arch.communication.MessageSender
+import com.vladislavmyasnikov.common.arch.communication.Messages
+import com.vladislavmyasnikov.common.arch.component.HostFragment
 import com.vladislavmyasnikov.exercise_library_impl.R
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.content.ExerciseContent
@@ -39,14 +39,8 @@ class ExerciseScreenHost @Inject constructor(
     }
 
     override fun onReceiveMessage(message: Message, sender: MessageSender) {
-        when (message) {
-            is Message.RequestMessage -> {
-                when (message.type) {
-                    RequestMessageType.KEY_DATA_REQUEST -> {
-                        sendMessage(Message.KeyDataResponseMessage(requireArguments().getLong(ARG_EXERCISE_ID)), sender as MessageReceiver)
-                    }
-                }
-            }
+        if (message is Messages.KeyDataRequestMessage) {
+            sendMessage(Messages.KeyDataResponseMessage(requireArguments().getLong(ARG_EXERCISE_ID)), sender as MessageReceiver)
         }
     }
 
