@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.UCBindin
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.VMBindingModule
 import dagger.Subcomponent
 
-@Subcomponent(modules = [AdapterModule::class, ContentFragmentBindingModule::class, VMBindingModule::class, UCBindingModule::class])
+@Subcomponent(modules = [AdapterModule::class, VMBindingModule::class, ContentFragmentBindingModule::class, UCBindingModule::class])
 @PerScreen
 abstract class ScreenComponent {
 

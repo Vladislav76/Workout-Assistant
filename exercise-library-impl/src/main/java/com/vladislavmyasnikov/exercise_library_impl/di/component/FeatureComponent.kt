@@ -8,20 +8,18 @@ import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.exercise_library_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.exercise_library_impl.di.module.FeatureModule
+import com.vladislavmyasnikov.exercise_library_impl.di.module.FlowFragmentBindingModule
 import com.vladislavmyasnikov.exercise_library_impl.di.module.HostFragmentBindingModule
-import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFlow
 import dagger.Component
 
 @Component(
-        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class],
+        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class, FlowFragmentBindingModule::class],
         dependencies = [FeatureDependencies::class]
 )
 @PerFlow
 abstract class ExerciseLibraryFeatureComponent : ExerciseLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
-
-    abstract fun inject(fragment: ExerciseLibraryFlow)
 
     abstract fun screenComponent(): ScreenComponent
 

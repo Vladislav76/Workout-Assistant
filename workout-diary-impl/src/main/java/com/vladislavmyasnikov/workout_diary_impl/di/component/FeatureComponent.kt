@@ -8,21 +8,19 @@ import com.vladislavmyasnikov.common.models.SyncObject
 import com.vladislavmyasnikov.workout_diary_api.DiaryFeatureApi
 import com.vladislavmyasnikov.workout_diary_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.workout_diary_impl.di.module.FeatureModule
+import com.vladislavmyasnikov.workout_diary_impl.di.module.FlowFragmentBindingModule
 import com.vladislavmyasnikov.workout_diary_impl.di.module.HostFragmentBindingModule
-import com.vladislavmyasnikov.workout_diary_impl.presentation.DiaryFlow
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryFeatureApi
 import dagger.Component
 
 @Component(
-        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class],
+        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class, FlowFragmentBindingModule::class],
         dependencies = [FeatureDependencies::class]
 )
 @PerFlow
 abstract class DiaryFeatureComponent : DiaryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
-
-    abstract fun inject(fragment: DiaryFlow)
 
     abstract fun screenComponent(): ScreenComponent
 

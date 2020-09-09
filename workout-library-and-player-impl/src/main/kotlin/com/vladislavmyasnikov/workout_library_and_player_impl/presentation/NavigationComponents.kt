@@ -5,16 +5,14 @@ import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch.navigation.NavigationComponent
 import com.vladislavmyasnikov.common.arch.navigation.NavigationComponentHolder
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.component.WorkoutFeatureComponent
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.WorkoutCreationFlow
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.dialog.WorkoutExerciseCycleDialog
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_details.host.WorkoutExerciseCycleListScreenHost
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_exercise_list.host.WorkoutExerciseListScreenHost
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.workout_set_list.host.WorkoutSetListScreenHost
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.WorkoutExecutionFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creator.workout_exercise_details.dialog.WorkoutExerciseCycleDialog
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creator.workout_exercise_details.host.WorkoutExerciseCycleListScreenHost
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creator.workout_exercise_list.host.WorkoutExerciseListScreenHost
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creator.workout_set_list.host.WorkoutSetListScreenHost
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.workout_player.host.WorkoutPlayerScreenHost
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.workout_result.host.WorkoutResultScreenHost
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_library.workout_details.host.WorkoutScreenHost
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_library.workout_list.host.WorkoutListScreenHost
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.workout_player.host.WorkoutPlayerScreenHost
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.workout_result.host.WorkoutResultScreenHost
 import kotlin.reflect.KClass
 
 sealed class Screens : NavigationComponent {
@@ -26,9 +24,6 @@ sealed class Screens : NavigationComponent {
     object WorkoutResultScreen : Screens()
     class WorkoutDetailsScreen(val id: Long) : Screens()
     class WorkoutPlayerScreen(val id: Long) : Screens()
-
-    class WorkoutPlayerFlow(val id: Long) : Screens()
-    object WorkoutCreatorFlow : Screens()
 }
 
 sealed class Dialogs : NavigationComponent {
@@ -49,10 +44,6 @@ object NavigationComponentStore : NavigationComponentHolder() {
             Screens.WorkoutResultScreen::class to WorkoutResultScreenHost::class.java,
             Screens.WorkoutDetailsScreen::class to WorkoutScreenHost::class.java,
             Screens.WorkoutPlayerScreen::class to WorkoutPlayerScreenHost::class.java,
-
-            // flows
-            Screens.WorkoutPlayerFlow::class to WorkoutExecutionFlow::class.java,
-            Screens.WorkoutCreatorFlow::class to WorkoutCreationFlow::class.java,
     )
 
     override val dialogFragments = mapOf<KClass<out NavigationComponent>, Class<out DialogFragment>>(
@@ -64,7 +55,6 @@ object NavigationComponentStore : NavigationComponentHolder() {
             Screens.WorkoutExerciseCycleListScreen::class to { fragment, screen -> (fragment as WorkoutExerciseCycleListScreenHost).putArguments((screen as Screens.WorkoutExerciseCycleListScreen).id) },
             Screens.WorkoutDetailsScreen::class to { fragment, screen -> (fragment as WorkoutScreenHost).putArguments((screen as Screens.WorkoutDetailsScreen).id) },
             Screens.WorkoutPlayerScreen::class to { fragment, screen -> (fragment as WorkoutPlayerScreenHost).putArguments((screen as Screens.WorkoutPlayerScreen).id) },
-            Screens.WorkoutPlayerFlow::class to { fragment, screen -> (fragment as WorkoutExecutionFlow).launch((screen as Screens.WorkoutPlayerFlow).id) },
     )
 
     override val dialogInitLambdas = mapOf<KClass<out NavigationComponent>, (DialogFragment, NavigationComponent) -> Unit>(

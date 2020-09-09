@@ -3,15 +3,12 @@ package com.vladislavmyasnikov.workout_library_and_player_impl.di.module
 import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
-import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutCreationLauncher
-import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutExecutionLauncher
-import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryInteractor
-import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryLauncher
+import com.vladislavmyasnikov.workout_library_and_player_api.*
 import com.vladislavmyasnikov.workout_library_and_player_impl.data.repository.WorkoutRepositoryImpl
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.repository.WorkoutRepository
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.WorkoutCreationFlow
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.WorkoutExecutionFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creator.WorkoutCreatorFlow
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.WorkoutPlayerFlow
 import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_library.WorkoutLibraryFlow
 import dagger.Binds
 import dagger.Module
@@ -21,19 +18,19 @@ import dagger.Provides
 abstract class FeatureModule {
 
     @Binds @PerFlow
-    abstract fun bind1(impl: WorkoutLibraryFlow): WorkoutLibraryLauncher
+    abstract fun bind1(impl: WorkoutRepositoryImpl): WorkoutRepository
 
     @Binds @PerFlow
-    abstract fun bind2(impl: WorkoutRepositoryImpl): WorkoutRepository
+    abstract fun bind2(impl: WorkoutRepositoryImpl): WorkoutLibraryInteractor
 
-    @Binds @PerFlow
-    abstract fun bind3(impl: WorkoutRepositoryImpl): WorkoutLibraryInteractor
+    @Binds
+    abstract fun bind3(impl: WorkoutLibraryFlow.Launcher): WorkoutLibraryFlowLauncher
 
-    @Binds @PerFlow
-    abstract fun bind4(impl: WorkoutCreationFlow): WorkoutCreationLauncher
+    @Binds
+    abstract fun bind4(impl: WorkoutPlayerFlow.Launcher): WorkoutPlayerFlowLauncher
 
-    @Binds @PerFlow
-    abstract fun bind5(impl: WorkoutExecutionFlow): WorkoutExecutionLauncher
+    @Binds
+    abstract fun bind5(impl: WorkoutCreatorFlow.Launcher): WorkoutCreatorFlowLauncher
 
     companion object {
         @Provides @PerFlow

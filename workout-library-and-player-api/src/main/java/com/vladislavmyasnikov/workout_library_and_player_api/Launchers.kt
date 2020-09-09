@@ -1,0 +1,7 @@
+package com.vladislavmyasnikov.workout_library_and_player_api
+
+import com.vladislavmyasnikov.common.arch.component.FlowLauncher
+
+interface WorkoutLibraryFlowLauncher : FlowLauncher
+interface WorkoutPlayerFlowLauncher : FlowLauncher
+interface WorkoutCreatorFlowLauncher : FlowLauncher

@@ -8,7 +8,7 @@ import com.vladislavmyasnikov.common.arch.component.VMDialog
 import com.vladislavmyasnikov.common.extensions.injectViewModel
 import com.vladislavmyasnikov.workout_library_and_player_impl.R
 import com.vladislavmyasnikov.workout_library_and_player_impl.domain.entity.WorkoutExercise
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.workout_player.viewmodel.WorkoutExerciseVM
+import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_player.workout_player.viewmodel.WorkoutExerciseVM
 import kotlinx.android.synthetic.main.content_workout_exercise_details.*
 import javax.inject.Inject
 

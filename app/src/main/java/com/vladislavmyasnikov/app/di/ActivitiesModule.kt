@@ -1,6 +1,6 @@
 package com.vladislavmyasnikov.app.di
 
-import com.vladislavmyasnikov.app.presentation.view.MainActivity
+import com.vladislavmyasnikov.app.presentation.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

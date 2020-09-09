@@ -1,9 +1,9 @@
 package com.vladislavmyasnikov.workout_diary_impl.di.module
 
+import com.vladislavmyasnikov.common.arch.component.FlowLauncher
 import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.modules.LocalNavigationModule
 import com.vladislavmyasnikov.common.interfaces.LabelLibraryHolder
-import com.vladislavmyasnikov.workout_diary_api.DiaryLauncher
 import com.vladislavmyasnikov.workout_diary_impl.data.repository.WorkoutDiaryRepositoryImpl
 import com.vladislavmyasnikov.workout_diary_impl.di.LabelLibraryHolderImpl
 import com.vladislavmyasnikov.workout_diary_impl.domain.repository.WorkoutDiaryRepository
@@ -16,10 +16,10 @@ import dagger.Provides
 abstract class FeatureModule {
 
     @Binds @PerFlow
-    abstract fun bind1(impl: DiaryFlow): DiaryLauncher
-
-    @Binds @PerFlow
     abstract fun bind2(impl: WorkoutDiaryRepositoryImpl): WorkoutDiaryRepository
+
+    @Binds
+    abstract fun bind3(impl: DiaryFlow.Launcher): FlowLauncher
 
     companion object {
         @Provides

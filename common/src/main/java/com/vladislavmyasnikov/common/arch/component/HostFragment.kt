@@ -22,7 +22,7 @@ abstract class HostFragment(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentManager?.fragmentFactory = fragmentFactory
+        childFragmentManager.fragmentFactory = fragmentFactory
     }
 
     override fun onAttachFragment(childFragment: Fragment) {

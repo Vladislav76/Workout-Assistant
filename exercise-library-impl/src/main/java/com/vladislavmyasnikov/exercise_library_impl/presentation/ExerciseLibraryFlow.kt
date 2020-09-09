@@ -1,33 +1,26 @@
 package com.vladislavmyasnikov.exercise_library_impl.presentation
 
-import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.arch.component.FlowFragment
-import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryLauncher
+import com.vladislavmyasnikov.common.arch.component.FlowLauncher
+import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.exercise_library_impl.di.component.ExerciseLibraryFeatureComponent
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class ExerciseLibraryFlow @Inject constructor() : FlowFragment(), ExerciseLibraryLauncher {
+class ExerciseLibraryFlow @Inject constructor(
+        override val navigatorHolder: NavigatorHolder,
+        override val router: Router
+) : FlowFragment() {
 
-    @Inject
-    override lateinit var navigatorHolder: NavigatorHolder
+    @PerFlow
+    class Launcher @Inject constructor() : FlowLauncher {
 
-    @Inject
-    override lateinit var router: Router
-
-    override fun inject() {
-        super.inject()
-        ExerciseLibraryFeatureComponent.get().inject(this)
-        fragmentManager?.fragmentFactory = ExerciseLibraryFeatureComponent.get().fragmentFactory
+        override val flowClass = ExerciseLibraryFlow::class
+        override val fragmentFactory = ExerciseLibraryFeatureComponent.get().fragmentFactory
     }
 
-    override fun onStartUp() {
-        super.onStartUp()
-        router.newRootChain(Screens.ExerciseListScreen())
-    }
+    override val fragmentFactory = ExerciseLibraryFeatureComponent.get().fragmentFactory
 
-    override fun launch(): Fragment {
-        return this
-    }
+    override val initialScreen by lazy { Screens.ExerciseListScreen() }
 }

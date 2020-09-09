@@ -2,6 +2,7 @@ package com.vladislavmyasnikov.exercise_library_impl.di.module
 
 import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
+import com.vladislavmyasnikov.exercise_library_impl.presentation.ExerciseLibraryFlow
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_details.content.ExerciseContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListContent
 import com.vladislavmyasnikov.exercise_library_impl.presentation.exercise_list.content.ExerciseListToolbarContent
@@ -36,4 +37,11 @@ abstract class HostFragmentBindingModule {
 
     @Binds @IntoMap @FragmentKey(ExerciseScreenHost::class)
     abstract fun bind2(impl: ExerciseScreenHost): Fragment
+}
+
+@Module
+abstract class FlowFragmentBindingModule {
+
+    @Binds @IntoMap @FragmentKey(ExerciseLibraryFlow::class)
+    abstract fun bind1(impl: ExerciseLibraryFlow): Fragment
 }

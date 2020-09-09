@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.vladislavmyasnikov.common.di.annotations.FragmentKey
 import com.vladislavmyasnikov.common.di.annotations.PerFlow
 import com.vladislavmyasnikov.common.di.annotations.PerScreen
+import com.vladislavmyasnikov.workout_diary_impl.presentation.DiaryFlow
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_details.content.CompletedWorkoutContent
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_details.content.CompletedWorkoutToolbarContent
 import com.vladislavmyasnikov.workout_diary_impl.presentation.completed_workout_details.host.CompletedWorkoutScreenHost
@@ -38,4 +39,11 @@ abstract class HostFragmentBindingModule {
 
     @Binds @IntoMap @PerFlow @FragmentKey(CompletedWorkoutScreenHost::class)
     abstract fun bind2(impl: CompletedWorkoutScreenHost): Fragment
+}
+
+@Module
+abstract class FlowFragmentBindingModule {
+
+    @Binds @IntoMap @FragmentKey(DiaryFlow::class)
+    abstract fun bind1(impl: DiaryFlow): Fragment
 }

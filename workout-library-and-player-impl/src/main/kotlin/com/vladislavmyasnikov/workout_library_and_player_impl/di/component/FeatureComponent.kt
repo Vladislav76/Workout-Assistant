@@ -9,25 +9,19 @@ import com.vladislavmyasnikov.exercise_library_api.ExerciseLibraryFeatureApi
 import com.vladislavmyasnikov.workout_library_and_player_api.WorkoutLibraryFeatureApi
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.FeatureDependencies
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.FeatureModule
+import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.FlowFragmentBindingModule
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.HostFragmentBindingModule
 import com.vladislavmyasnikov.workout_library_and_player_impl.di.module.UCBindingModule
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_creation.WorkoutCreationFlow
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_execution.WorkoutExecutionFlow
-import com.vladislavmyasnikov.workout_library_and_player_impl.presentation.workout_library.WorkoutLibraryFlow
 import dagger.Component
 
 @Component(
-        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class, UCBindingModule::class],
+        modules = [FeatureModule::class, FactoryModule::class, HostFragmentBindingModule::class, FlowFragmentBindingModule::class, UCBindingModule::class],
         dependencies = [FeatureDependencies::class]
 )
 @PerFlow
 abstract class WorkoutFeatureComponent : WorkoutLibraryFeatureApi {
 
     abstract val fragmentFactory: FragmentFactory
-
-    abstract fun inject(fragment: WorkoutLibraryFlow)
-    abstract fun inject(fragment: WorkoutCreationFlow)
-    abstract fun inject(fragment: WorkoutExecutionFlow)
 
     abstract fun screenComponent(): ScreenComponent
 
